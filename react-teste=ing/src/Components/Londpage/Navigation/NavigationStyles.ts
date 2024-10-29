@@ -3,9 +3,8 @@ import { FaBars } from 'react-icons/fa';
 
 export const Section = styled.section`
   width: 100%;
-  background-color: transparent;
-  padding: 10px 0; /* Removendo o padding lateral */
   position: relative;
+  background-color: transparent;
 `;
 
 export const NavBar = styled.nav`
@@ -31,10 +30,11 @@ export const Logo = styled.div`
   }
 
   span {
-    font-size: 28px;
+    font-size: 32px; /* Aumenta o tamanho da fonte */
     font-weight: bold;
     color: #FF914D;
     cursor: pointer;
+    font-family: 'Lilita One', sans-serif; /* Muda a fonte para Lilita One */
 
     &:hover {
       color: #4834d4;
@@ -49,6 +49,8 @@ export const Menu = styled.ul<{ isOpen: boolean }>`
   padding: 0;
   justify-content: space-between;
   align-items: center;
+  font-family: 'Montserrat Alternates', sans-serif; /* Muda a fonte para Montserrat Alternates */
+  font-weight: bold; /* Deixa a fonte em negrito */
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -66,13 +68,13 @@ export const Menu = styled.ul<{ isOpen: boolean }>`
 export const NavItem = styled.li`
   color: #000;
   margin: 0 1.5rem;
-  font-size: 16px;
+  font-size: 18px; /* Aumenta o tamanho da fonte */
   cursor: pointer;
   transition: color 0.3s;
   text-transform: uppercase;
 
   &:hover {
-    color: #4834d4;
+    color: #FF914D; /* Muda a cor ao passar o mouse */
   }
 
   @media (max-width: 768px) {
@@ -83,12 +85,13 @@ export const NavItem = styled.li`
 export const Button = styled.button`
   color: #fff;
   background-color: #FF914D;
-  font-size: 14px;
-  padding: 12px 35px;
+  font-size: 16px; /* Aumenta o tamanho da fonte */
+  padding: 14px 40px; /* Ajusta o padding */
   border-radius: 20px;
   border: none;
   cursor: pointer;
   font-weight: bold;
+  font-family: 'Montserrat Alternates', sans-serif; /* Muda a fonte para Montserrat Alternates */
   transition: background-color 0.3s;
   margin-right: 20px;
 
@@ -112,5 +115,5 @@ export const Hamburger = styled.div`
 
 export const MenuIcon = styled(FaBars)`
   color: #FF914D;
-  font-size: 28px;
+  font-size: 20px;
 `;

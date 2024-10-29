@@ -22,7 +22,7 @@ const LandingPage: React.FC = () => {
       <Suspense fallback={<Loading />}>
         <Navigation />
         <Hero />
-        <Wave topColor="#F7F5F9" bottomColor="#FFFFFF" />
+        <Wave topColor="#F7F5F9" bottomColor="#FF7300" />
         <About />
         <Wave topColor="#1D1534" bottomColor="#F7F5F9" />
         <Showcase />

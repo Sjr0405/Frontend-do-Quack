@@ -205,9 +205,6 @@ const Navigation = () => {
       </NavBar>
       <Vector>
         <img className="svg1" src="/src/svgs/Landpage-svgs/4.svg" alt="SVG 1" />
-        <img className="svg2" src="/src/svgs/Landpage-svgs/2.svg" alt="SVG 2" />
-        <img className="svg4" src="/src/svgs/Landpage-svgs/1.svg" alt="SVG 4" />
-        <img className="svg3" src="/src/svgs/Landpage-svgs/3.svg" alt="SVG 3" />
       </Vector>
     </Section>
   );

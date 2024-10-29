@@ -1,6 +1,7 @@
 import { Section, Container, Column, Column2, Titulo, Subtitulo, CadButton, Img } from './HeroStyles';
 import imgSrc from '../../../Assets/HOMEMSENTADO.svg';
 
+
 const Hero = () => {
   return (
     <Section id="Hero">
