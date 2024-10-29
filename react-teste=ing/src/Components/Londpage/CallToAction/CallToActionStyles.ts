@@ -1,16 +1,19 @@
 import styled from 'styled-components';
 
 export const Section = styled.section`
-  min-height: 100vh;
   width: 100%;
-  background: linear-gradient(to bottom, #1d1a37 20%, #ff7300 20%);
+  background: #ff7300;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 50px 20px;
   position: relative;
   z-index: 0;
-  overflow: hidden; /* Evita a barra de rolagem horizontal */
+  overflow: visible;
+
+  @media (max-width: 991px) {
+    flex-direction: column; 
+  }
 `;
 
 export const Container = styled.div`
@@ -20,29 +23,36 @@ export const Container = styled.div`
   background-color: transparent;
   position: relative;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  text-align: center;
   z-index: 2;
 `;
 
-export const H1 = styled.h1`
+export const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  z-index: 2;
+`;
+
+export const Title = styled.h1`
   color: #fff;
   font-size: 48px;
   line-height: 1.2;
   font-weight: bold;
   margin-bottom: 20px;
-  z-index: 1;
+  z-index: 2;
   @media (max-width: 991px) {
     font-size: 36px;
   }
 `;
 
-export const P = styled.p`
+export const Description = styled.p`
   font-size: 18px;
   color: #000;
   margin-bottom: 20px;
-  z-index: 1;
+  z-index: 2;
   @media (max-width: 991px) {
     font-size: 16px;
   }
@@ -50,12 +60,14 @@ export const P = styled.p`
 
 export const ImageRight = styled.div`
   position: absolute;
-  bottom: 0;
-  right: 0;
-  z-index: 0;
+  bottom: -50px; /* Ajuste conforme necessário para ultrapassar a seção */
+  right: -50px; /* Ajuste conforme necessário para ultrapassar a seção */
+  z-index: 5; /* Maior que o z-index dos outros elementos */
+  overflow: visible;
+
   img {
     width: 100%;
-    max-width: 400px;
+    max-width: 400px; /* Ajuste conforme necessário */
     height: auto;
   }
 `;

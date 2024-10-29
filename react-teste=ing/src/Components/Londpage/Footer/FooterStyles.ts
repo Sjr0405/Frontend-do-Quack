@@ -11,19 +11,25 @@ export const Section = styled.footer`
   bottom: 0;
   width: 100%;
   overflow-x: hidden; /* Evita a barra de rolagem horizontal */
-  font-family: 'Arial', sans-serif; /* Fonte agradável */
+
+  @media (max-width: 768px) {
+    padding: 10px 20px;
+  }
 `;
 
 export const Container = styled.div`
-  width: 75%;
-  margin: 2rem auto;
+  width: 90%;
+  max-width: 1200px; /* Define uma largura máxima para o contêiner */
+  margin: 0 auto; /* Centraliza o contêiner horizontalmente */
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #333;
 
-  @media (max-width: 48em) {
+  @media (max-width: 768px) {
     width: 90%;
+    flex-direction: column;
+    margin: 1rem auto;
   }
 `;
 
@@ -33,7 +39,7 @@ export const Left = styled.div`
   justify-content: center;
   align-items: center;
 
-  @media (max-width: 48em) {
+  @media (max-width: 768px) {
     width: 100%;
   }
 `;
@@ -45,6 +51,10 @@ export const Logo = styled.div`
   img {
     max-width: 50px;
     margin-right: 10px;
+
+    @media (max-width: 768px) {
+      max-width: 40px;
+    }
   }
 
   span {
@@ -56,6 +66,10 @@ export const Logo = styled.div`
 
     &:hover {
       color: #4834d4;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 20px;
     }
   }
 `;
@@ -76,6 +90,11 @@ export const SocialIcons = styled.div`
     img {
       width: 30px;
       height: 30px;
+
+      @media (max-width: 768px) {
+        width: 25px;
+        height: 25px;
+      }
     }
   }
 `;
@@ -95,14 +114,15 @@ export const NavMenu = styled.nav`
     }
   }
 
-  @media (max-width: 48em) {
+  @media (max-width: 768px) {
     display: none;
   }
 `;
 
 export const Bottom = styled.div`
-  width: 75%;
-  margin: 0 auto;
+  width: 90%;
+  max-width: 1200px; /* Define uma largura máxima para o contêiner */
+  margin: 0 auto; /* Centraliza o contêiner horizontalmente */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -111,7 +131,7 @@ export const Bottom = styled.div`
     text-decoration: underline;
   }
 
-  @media (max-width: 48em) {
+  @media (max-width: 768px) {
     flex-direction: column;
     width: 100%;
 

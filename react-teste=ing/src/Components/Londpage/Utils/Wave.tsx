@@ -1,46 +1,28 @@
+// Wave.tsx
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
-
-const waveAnimation = keyframes`
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-`;
-
-const WaveWrapper = styled.div<{ rotate?: number }>`
-  position: relative;
-  width: 100%;
-  height: 150px;
-  overflow: hidden;
-  line-height: 0;
-  transform: ${({ rotate }) => (rotate ? `rotate(${rotate}deg)` : 'none')};
-  background: transparent; /* Fundo transparente */
-`;
-
-const WaveSvg = styled.svg`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 200%;
-  height: 100%;
-  animation: ${waveAnimation} 10s linear infinite;
-`;
 
 interface WaveProps {
-  color: string;
-  rotate?: number;
+  topColor: string;
+  bottomColor: string;
 }
 
-const Wave: React.FC<WaveProps> = ({ color, rotate }) => (
-  <WaveWrapper rotate={rotate}>
-    <WaveSvg viewBox="0 0 1200 120" preserveAspectRatio="none">
-      <path d="M0,0 C150,100 350,0 500,50 C650,100 850,0 1000,50 C1150,100 1350,0 1500,50 L1500,00 L0,0 Z" fill={color} />
-      <path d="M0,0 C150,100 350,0 500,50 C650,100 850,0 1000,50 C1150,100 1350,0 1500,50 L1500,00 L0,0 Z" fill={color} transform="translate(1500, 0)" />
-    </WaveSvg>
-  </WaveWrapper>
-);
 
+const Wave: React.FC<WaveProps> = ({ topColor, bottomColor }) => {
+    return (
+      <div style={{ backgroundColor: bottomColor, overflow: 'hidden', margin: 0, padding: 0 }}>
+        <svg
+          viewBox="0 0 1440 320"
+          preserveAspectRatio="none"
+          style={{ display: 'block', width: '100%', height: 'auto', margin: 0, padding: 0 }}
+        >
+          <path
+            fill={topColor}
+            d="M0,64L48,85.3C96,107,192,149,288,176C384,203,480,213,576,192C672,171,768,117,864,117.3C960,117,1056,171,1152,186.7C1248,203,1344,181,1392,170.7L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+          ></path>
+        </svg>
+      </div>
+    );
+  };
+  
+  
 export default Wave;

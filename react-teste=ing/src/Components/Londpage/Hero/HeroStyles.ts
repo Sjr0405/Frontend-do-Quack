@@ -1,14 +1,13 @@
+// HeroStyles.ts
 import styled from 'styled-components';
+import svgImage from '../../../svgs/Landpage-svgs/Vector 2.svg';
 
 export const Section = styled.section`
-  min-height: 80vh;
   width: 100%;
   position: relative;
-  
-  
-  overflow-x: hidden; /* Evita a barra de rolagem horizontal */
-  padding: 20px 0; /* Adiciona um pouco de espaço vertical */
-  z-index: 1; /* Define um z-index menor que o Navigation */
+  overflow-x: hidden; 
+  padding: 20px 0; 
+  z-index: 1;
 `;
 
 export const Container = styled.div`
@@ -19,20 +18,31 @@ export const Container = styled.div`
   position: relative;
   display: flex;
   gap: 20px;
+  padding-left: 150px; /* Adiciona padding à esquerda para garantir que o texto não toque na imagem */
+  background-image: url(${svgImage});
+  background-repeat: no-repeat;
+  background-size: contain; /* Ajusta o tamanho da imagem para que ela seja exibida completamente */
+  background-position: left top; /* Posiciona a imagem no canto superior esquerdo */
+
   @media (max-width: 991px) {
     flex-direction: column;
-    align-items: stretch;
+    align-items: center;
     gap: 20px;
+    padding-left: 0; /* Remove o padding em dispositivos móveis */
+    background-position: center top; /* Ajusta a posição da imagem em dispositivos móveis */
   }
 `;
 
 export const Column = styled.div`
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
   line-height: normal;
   width: 60%;
+  z-index: 2; /* Garante que o texto fique acima da imagem de fundo */
   @media (max-width: 991px) {
     width: 100%;
+    align-items: center; /* Centraliza o conteúdo dentro da coluna */
   }
 `;
 
@@ -41,8 +51,10 @@ export const Column2 = styled.div`
   flex-direction: column;
   line-height: normal;
   width: 40%;
+  z-index: 2; /* Garante que o texto fique acima da imagem de fundo */
   @media (max-width: 991px) {
     width: 100%;
+    align-items: center; /* Centraliza o conteúdo dentro da coluna */
   }
 `;
 
@@ -88,6 +100,7 @@ export const CadButton = styled.button`
   transition: background-color 0.3s, color 0.3s;
   z-index: 2;
   align-self: flex-start;
+  
   @media (max-width: 991px) {
     align-self: center;
   }
@@ -101,11 +114,13 @@ export const CadButton = styled.button`
 export const Img = styled.img`
   aspect-ratio: 0.84;
   object-fit: contain;
-  object-position: center;
+  object-position: left; /* Alinha a imagem mais à esquerda */
   width: 100%;
   flex-grow: 1;
+
+  
   @media (max-width: 991px) {
-    max-width: 100%;
+    max-width: 80%; /* Ajusta a largura da imagem para 80% da tela em dispositivos móveis */
     margin-top: 20px;
   }
-`
+`;

@@ -17,6 +17,16 @@ export const Section = styled.section`
   }
 `;
 
+export const Container = styled.div`
+  width: 90%;
+  max-width: 1200px; /* Define uma largura máxima para o contêiner */
+  margin: 0 auto; /* Centraliza o contêiner horizontalmente */
+  display: flex;
+  justify-content: space-between; /* Espaça os itens */
+  align-items: center;
+  position: relative;
+`;
+
 export const ImgContainer = styled.div`
   width: 100%;
   position: absolute;
@@ -118,4 +128,4 @@ export const JoinNow = styled.a`
     transform: translate(-50%, -50%) scale(1);
     padding: 0.3rem;
   }
-`;''
+`;

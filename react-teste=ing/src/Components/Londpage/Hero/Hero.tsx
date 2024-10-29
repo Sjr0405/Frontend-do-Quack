@@ -1,7 +1,7 @@
 import { Section, Container, Column, Column2, Titulo, Subtitulo, CadButton, Img } from './HeroStyles';
 import imgSrc from '../../../Assets/HOMEMSENTADO.svg';
 
-const Banner = () => {
+const Hero = () => {
   return (
     <Section id="Hero">
       <Container>
@@ -43,4 +43,4 @@ const Banner = () => {
   );
 };
 
-export default Banner;
+export default Hero;

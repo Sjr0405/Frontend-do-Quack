@@ -1,11 +1,15 @@
 import styled from 'styled-components';
 
 export const Section = styled.section`
-  min-height: 100vh;
   width: 100vw;
   background-color: ${props => props.theme.body};
   position: relative;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 50px 20px;
 `;
 
 export const Title = styled.h1`
@@ -25,21 +29,31 @@ export const Title = styled.h1`
 `;
 
 export const Container = styled.div`
-  width: 75%;
+  width: 90%;
+  max-width: 1200px; /* Define uma largura máxima para o contêiner */
+  margin: 0 auto; /* Centraliza o contêiner horizontalmente */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const MembersContainer = styled.div`
+  width: 100%;
   margin: 2rem auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
 
   @media (max-width: 64em) {
-    width: 80%;
+    justify-content: center;
   }
   @media (max-width: 48em) {
-    width: 90%;
     justify-content: center;
   }
 `;
+
 export const Item = styled.div`
   width: calc(20rem - 4vw);
   padding: 1rem 0;
@@ -51,8 +65,10 @@ export const Item = styled.div`
   border: 2px solid lightgrey;
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
 
   &:hover {
+    transform: translateY(-1rem);
     img {
       transform: translateY(-2rem) scale(1.2);
     }
@@ -70,7 +86,6 @@ export const ImageContainer = styled.div`
   border: 2px solid lightgrey;
   border-radius: 20px;
   padding: 1rem;
-  border-radius: 20px;
   cursor: pointer;
 
   img {

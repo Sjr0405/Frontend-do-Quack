@@ -1,17 +1,16 @@
 import styled from 'styled-components';
 
 export const Section = styled.section`
-  min-height: 100vh;
   height: auto;
   width: 100vw;
-  background-color: ${props => props.theme.text};
+  background-color: #292929;
   position: relative;
-  color: ${(props) => props.theme.body};
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  padding: 50px 20px;
 `;
 
 export const Title = styled.h1`
@@ -28,11 +27,14 @@ export const Title = styled.h1`
 `;
 
 export const Container = styled.div`
-  width: 75%;
-  margin: 2rem auto;
+  width: 90%;
+  max-width: 1200px; /* Define uma largura máxima para o contêiner */
+  margin: 0 auto; /* Centraliza o contêiner horizontalmente */
   display: flex;
-  justify-content: space-between;
-  align-content: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
 
   @media (max-width: 64em) {
     width: 80%;
@@ -46,6 +48,17 @@ export const Container = styled.div`
         margin-top: 0;
       }
     }
+  }
+`;
+
+export const BoxContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+
+  @media (max-width: 48em) {
+    flex-direction: column;
   }
 `;
 

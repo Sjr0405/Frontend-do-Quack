@@ -1,42 +1,35 @@
 import styled from 'styled-components';
 
 export const Section = styled.section`
-  min-height: 100vh;
-  height: auto;
   width: 100vw;
-  background-color: #1D1534; /* Dark purple background color */
-  position: relative;
-  color: #fff; /* White text color */
-  overflow: hidden;
+  background-color: #1D1534;
+  color: #fff;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
   padding: 50px 20px;
 `;
 
 export const Container = styled.div`
   width: 75%;
+  max-width: 1200px;
   margin: 2rem auto;
   display: flex;
-  justify-content: space-between;
-  align-content: center;
-  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 
-  @media (max-width: 64em) {
-    width: 80%;
-  }
   @media (max-width: 48em) {
     width: 90%;
-    flex-direction: column;
   }
 `;
 
 export const Title = styled.h2`
   font-size: ${(props) => props.theme.fontxxl};
   text-transform: uppercase;
-  color: #fff; /* White text color */
-  margin: 1rem auto;
+  color: #fff;
+  margin-bottom: 2rem;
   border-bottom: 2px solid ${(props) => props.theme.carouselColor};
   width: fit-content;
 
@@ -45,15 +38,27 @@ export const Title = styled.h2`
   }
 `;
 
+export const CardRow = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+
+  @media (max-width: 48em) {
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+
 export const Card = styled.div`
   background-color: white;
   border-radius: 15px;
-  padding: 20px;
+  padding: 15px;
   text-align: left;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
-  z-index: 2;
-  width: calc(33.333% - 20px); /* Adjusting width for 3 cards per row */
+  width: calc(30% - 20px);
   margin: 10px;
 
   &:hover {
@@ -63,47 +68,34 @@ export const Card = styled.div`
   img {
     width: 100%;
     border-radius: 8px;
-    margin-bottom: 15px;
-
-    &:hover {
-      cursor: pointer;
-    }
+    margin-bottom: 10px;
+    cursor: pointer;
   }
 
   h3 {
-    text-align: left; 
-    font-size: 20px;
+    font-size: 18px;
     color: #333;
-    margin-bottom: 10px;  
+    margin-bottom: 8px;
     transition: color 0.3s ease;
-    
+
     &:hover {
-      cursor: pointer;
       color: #eb832e;
     }
   }
 
   p {
     color: #666;
-    line-height: 1.6;
-    font-size: 16px;
+    line-height: 1.5;
+    font-size: 14px;
+  }
+
+  @media (max-width: 64em) {
+    width: calc(45% - 20px);
   }
 
   @media (max-width: 48em) {
-    width: 100%; /* Full width on small screens */
-  }
-`;
-
-export const Vector = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1; /* SVGs are behind everything */
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width: 90%; /* Ajusta a largura do card para 90% da tela em dispositivos móveis */
+    margin: 10px auto; /* Centraliza o card horizontalmente */
+    text-align: center; /* Centraliza o texto no card */
   }
 `;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Section, Title, Container, Item, ImageContainer, Name, Position } from './TeamStyles';
+import { Section, Title, Container, MembersContainer, Item, ImageContainer, Name, Position } from './TeamStyles';
 import team1 from '../../../Assets/team1.png';
 import team2 from '../../../Assets/team2.png';
 import team3 from '../../../Assets/team3.png';
@@ -27,13 +27,15 @@ const MemberComponent: React.FC<MemberProps> = ({ img, name, position }) => {
 const Team = () => {
   return (
     <Section id="team">
-      <Title>Equipe</Title>
       <Container>
-        <MemberComponent img={team1} name="Adriel Nunes" position="Backend" />
-        <MemberComponent img={team2} name="Elisson Nadson" position="Frontend" />
-        <MemberComponent img={team3} name="José Henrique" position="Backend" />
-        <MemberComponent img={team4} name="Samuel Jr." position="Frontend" />
-        <MemberComponent img={team5} name="Thiago de Andrade" position="Backend" />
+        <Title>Equipe</Title>
+        <MembersContainer>
+          <MemberComponent img={team1} name="Adriel Nunes" position="Backend" />
+          <MemberComponent img={team2} name="Elisson Nadson" position="Frontend" />
+          <MemberComponent img={team3} name="José Henrique" position="Backend" />
+          <MemberComponent img={team4} name="Samuel Jr." position="Frontend" />
+          <MemberComponent img={team5} name="Thiago de Andrade" position="Backend" />
+        </MembersContainer>
       </Container>
     </Section>
   );

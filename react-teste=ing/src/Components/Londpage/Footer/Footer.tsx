@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import { Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { Section, Container, Left, Logo, SocialIcons, NavMenu, Bottom } from './FooterStyles';
 

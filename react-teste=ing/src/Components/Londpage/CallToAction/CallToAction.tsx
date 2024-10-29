@@ -1,23 +1,25 @@
-import { Section, Container, H1, P, ImageRight, Button } from './CallToActionStyles';
+import { Section, Container, Title, Description, Button, ImageRight, Content } from './CallToActionStyles';
 import fulbodyLogo from '../../../Assets/Fulbody-logo.svg';
 
-const Faq = () => {
+const CallToAction = () => {
   return (
-    <Section id="faq">
+    <Section id="call-to-action">
       <Container>
-        <H1>
-          Junte-se à Revolução do<br/> Aprendizado em Programação!
-        </H1>
-        <P>
-          O Quack() oferece mais de 150 trilhas de aprendizado bem<br/> estruturadas, projetadas para guiá-lo da melhor forma possível<br/> em sua jornada de programação.
-        </P>
-        <Button onClick={() => (window.location.href = "/Cadastro")}>Cadastre-se</Button>
+        <Content>
+          <Title>
+            Junte-se à Revolução do<br/> Aprendizado em Programação!
+          </Title>
+          <Description>
+            O Quack() oferece mais de 150 trilhas de aprendizado bem<br/> estruturadas, projetadas para guiá-lo da melhor forma possível<br/> em sua jornada de programação.
+          </Description>
+          <Button onClick={() => (window.location.href = "/Cadastro")}>Cadastre-se</Button>
+        </Content>
+        <ImageRight>
+          <img src={fulbodyLogo} alt="Patinho" />
+        </ImageRight>
       </Container>
-      <ImageRight>
-        <img src={fulbodyLogo} alt="Patinho" />
-      </ImageRight>
     </Section>
   );
 }
 
-export default Faq;
+export default CallToAction;
