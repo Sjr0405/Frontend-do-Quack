@@ -1,11 +1,9 @@
 import styled from 'styled-components';
 
 export const Section = styled.section`
-  width: 100vw;
   height: 25rem;
   position: relative;
-  border-top: 2px solid #1D1534;
-  background-color: rgba(29, 21, 52, 0.9);
+  background-color: #1D1534; /* Define a cor de fundo */
   display: flex;
   justify-content: center;
   align-items: center;

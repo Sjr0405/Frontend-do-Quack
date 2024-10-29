@@ -5,27 +5,28 @@ export const Section = styled.section`
   position: relative;
   overflow: hidden;
   padding: 20px 0;
-  z-index: 0;
-  background-color: #FF7300;
 `;
 
-export const BackgroundWrapper = styled.div`
+export const BackgroundWrapper = styled.div<{ position: 'left' | 'right' }>`
   position: absolute;
-  bottom: -50px; /* Ajuste conforme necessário para ultrapassar a seção */
-  right: -50px; /* Ajuste conforme necessário para ultrapassar a seção */
-  z-index: -1; /* Garante que fique atrás de todos os outros elementos */
+  top: 0;
+  ${({ position }) => position}: 0;
+  z-index: -1;
   overflow: visible;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  pointer-events: none; /* Evita interferência na interação do usuário */
+  pointer-events: none;
 `;
 
-export const BackgroundLayer = styled.img`
+export const BackgroundLayerRight = styled.img`
   width: 100%;
-  max-width: 400px; /* Ajuste conforme necessário */
+  max-width: 700px; /* Ajuste o tamanho máximo conforme necessário */
   height: auto;
-  margin-bottom: -50px; /* Ajuste conforme necessário para sobrepor as imagens */
+`;
+
+export const BackgroundLayerLeft = styled.img`
+  margin-top: 110px;
+  width: 100%;
+  max-width: 250px; /* Ajuste o tamanho máximo conforme necessário */
+  height: auto;
 `;
 
 export const Container = styled.div`
@@ -69,7 +70,7 @@ export const Column2 = styled.div`
 `;
 
 export const Titulo = styled.h1`
-  color: #fff; /* Muda a cor para branco */
+  color: #000; /* Muda a cor para branco */
   font-size: 52px; /* Aumenta o tamanho da fonte */
   font-weight: 500;
   font-family: 'lilita one', sans-serif;
@@ -82,7 +83,7 @@ export const Titulo = styled.h1`
 `;
 
 export const Subtitulo = styled.h3`
-  color: #fff; /* Muda a cor para branco */
+  color: #000; /* Muda a cor para branco */
   font-size: 24px; /* Aumenta o tamanho da fonte */
   font-weight: 400;
   font-family: 'montserrat', sans-serif;

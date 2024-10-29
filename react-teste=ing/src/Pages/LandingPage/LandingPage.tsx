@@ -8,7 +8,6 @@ import Wave from '../../Components/Londpage/Utils/Wave';
 const About = lazy(() => import('../../Components/Londpage/About/About'));
 const CallToAction = lazy(() => import('../../Components/Londpage/CallToAction/CallToAction'));
 const Footer = lazy(() => import('../../Components/Londpage/Footer/Footer'));
-const Navigation = lazy(() => import('../../Components/Londpage/Navigation/Navigation'));
 const Showcase = lazy(() => import('../../Components/Londpage/Showcase/Showcase'));
 const Hero = lazy(() => import('../../Components/Londpage/Hero/Hero'));
 const Join = lazy(() => import('../../Components/Londpage/Join/Join'));
@@ -20,11 +19,10 @@ const LandingPage: React.FC = () => {
     <PageContainer>
       <ScrollToTop />
       <Suspense fallback={<Loading />}>
-        <Navigation />
         <Hero />
-        <Wave topColor="#F7F5F9" bottomColor="#FF7300" />
+        <Wave topColor="#dbd5e0" bottomColor="#FFf" />
         <About />
-        <Wave topColor="#1D1534" bottomColor="#F7F5F9" />
+        <Wave topColor="#1D1534" bottomColor="#dbd5e0" />
         <Showcase />
         <Wave topColor="#FF7300" bottomColor="#1D1534" />
         <CallToAction />
@@ -40,4 +38,5 @@ const LandingPage: React.FC = () => {
   );
 };
 
-export default LandingPage;
+export default LandingPage
+//       

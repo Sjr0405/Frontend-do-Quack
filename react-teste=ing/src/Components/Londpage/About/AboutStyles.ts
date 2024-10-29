@@ -3,7 +3,7 @@ import { Section as LandingSection } from '../../../Pages/LandingPage/LandingPag
 
 export const Section = styled(LandingSection)`
   position: relative;
-  background-color: #F7F5F9;
+  background-color: #dbd5e0;
   z-index: 2;
   padding: 40px 0; /* Adiciona mais espaço vertical */
   font-family: 'Arial', sans-serif; /* Fonte agradável */
