@@ -20,9 +20,7 @@ const LandingPage: React.FC = () => {
       <ScrollToTop />
       <Suspense fallback={<Loading />}>
         <Hero />
-        <Wave topColor="#FF7300" bottomColor="#FFf" />
-        <Roadmap />
-        <Wave topColor="#dbd5e0" bottomColor="#FF7300" />
+        <Wave topColor="#dbd5e0" bottomColor="#FFf" />
         <About />
         <Wave topColor="#1D1534" bottomColor="#dbd5e0" />
         <Showcase />
