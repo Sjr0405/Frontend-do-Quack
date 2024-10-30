@@ -27,7 +27,8 @@ function MainRoutes() {
           <div> 
           <GlobalStyles /> 
           <ThemeProvider theme={light|| dark}/> 
-        
+          <LandingPage /> 
+
           </div>} />
         <Route path="/Cadastro" element={<Cadastro />} />
         <Route path="/Login" element={<Login />} />
