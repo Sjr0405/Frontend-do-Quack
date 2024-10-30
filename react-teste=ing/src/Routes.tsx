@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom'; 
-import Login from './Pages/Login/Login.tsx'; 
+import Login from './Pages/Login/Login'; 
 import EsqueciSenha from './Pages/EsqueciSenha/EsqueciSenha'; 
 import Cadastro from './Pages/Cadastro/Cadastro';
 import Home from './Pages/Home/Home.tsx';
@@ -13,19 +13,11 @@ import PrivateRoute from './Components/PrivateRoute.tsx';
 import { AuthProvider } from './AuthContext.tsx';
 import GlobalStyles from './Styles/GlobalStyles.tsx';
 import { ThemeProvider } from 'styled-components';
-import { light, dark } from './Styles/Themes.tsx';
+import { light, dark } from './Styles/Themes';
+import LandingPage from './Pages/LandingPage/LandingPage'; // Importando o componente LandingPage
+import Trilhas from './Pages/Trilhas/Trilhas';
+
 export { MainRoutes }
-
-//Landpage Imports//
-import Navigation from "./Pages/Landpage/Navigation.tsx"
-import Landpage from "./Pages/Landpage/landpage/Landpage.tsx"
-import About from "./Pages/Landpage/landpage/About.tsx"
-import Showcase from "./Pages/Landpage/landpage/Showcase.tsx"
-import Faq from "./Pages/Landpage/landpage/Faq.tsx"
-import Footer from "./Pages/Landpage/Footer.tsx"
-import Trilha from  "./Pages/Trilhas/Trilhas.tsx" 
-//Landpage imports// 
-
 
 function MainRoutes() {
   return (
@@ -97,10 +89,5 @@ function MainRoutes() {
 
       </Routes>
     </AuthProvider>
-
-
-    
   );
 }
-
-
