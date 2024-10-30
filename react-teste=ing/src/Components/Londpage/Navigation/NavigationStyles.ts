@@ -7,7 +7,7 @@ export const Section = styled.section`
   background-color: transparent;
 `;
 
-export const NavBar = styled.nav`
+export const NavBar = styled.nav<{ isOpen: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -18,6 +18,9 @@ export const NavBar = styled.nav`
   width: 90%;
   max-width: 1200px;
   margin: 0 auto; /* Centralizando o NavBar */
+  background-color: ${({ isOpen }) => (isOpen ? '#fff' : 'transparent')};
+  transition: background-color 0.3s ease-in-out;
+  border-radius: 20px; /* Adiciona arredondamento das bordas */
 `;
 
 export const Logo = styled.div`
@@ -33,11 +36,12 @@ export const Logo = styled.div`
     font-size: 32px; /* Aumenta o tamanho da fonte */
     font-weight: bold;
     color: #FF914D;
+    transition: color 0.3s;
     cursor: pointer;
     font-family: 'Lilita One', sans-serif; /* Muda a fonte para Lilita One */
 
     &:hover {
-      color: #4834d4;
+      color: #6a0dad; /* Muda a cor para roxo ao passar o mouse */
     }
   }
 `;
@@ -51,17 +55,35 @@ export const Menu = styled.ul<{ isOpen: boolean }>`
   align-items: center;
   font-family: 'Montserrat Alternates', sans-serif; /* Muda a fonte para Montserrat Alternates */
   font-weight: bold; /* Deixa a fonte em negrito */
+  border-radius: 20px;
+  
+
+  @media (max-width: 1920px) {
+    font-size: 20px;
+  }
+
+  @media (max-width: 1200px) {
+    font-size: 18px;
+  }
+
+  @media (max-width: 991px) {
+    font-size: 16px;
+  }
 
   @media (max-width: 768px) {
     flex-direction: column;
-    background-color: #fff;
+    background-color: ${({ isOpen }) => (isOpen ? 'rgba(255, 255, 255, 0.9)' : 'transparent')};
     position: absolute;
     top: 80px;
     left: 0;
     width: 100%;
     height: ${({ isOpen }) => (isOpen ? 'auto' : '0')};
     overflow: hidden;
-    transition: height 0.3s ease-in-out;
+    transition: height 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  }
+
+  @media (max-width: 576px) {
+    font-size: 14px;
   }
 `;
 
@@ -72,19 +94,48 @@ export const NavItem = styled.li`
   cursor: pointer;
   transition: color 0.3s;
   text-transform: uppercase;
+  
 
   &:hover {
     color: #FF914D; /* Muda a cor ao passar o mouse */
   }
 
+  @media (max-width: 1920px) {
+    margin: 0 1.5rem;
+  }
+
+  @media (max-width: 1200px) {
+    margin: 0 1rem;
+  }
+
+  @media (max-width: 991px) {
+    margin: 0 0.5rem;
+  }
+
   @media (max-width: 768px) {
     margin: 1rem 0;
+  }
+
+  @media (max-width: 576px) {
+    font-size: 16px;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-weight: bold;
+    transition: color 0.3s; /* Adiciona transição ao link */
+
+    &:hover {
+      color: #FF914D; /* Muda a cor ao passar o mouse */
+    }
   }
 `;
 
 export const Button = styled.button`
   color: #fff;
-  background-color: #FF914D;
+  background-color: #6a0dad; /* Muda a cor de fundo para roxo */
   font-size: 16px; /* Aumenta o tamanho da fonte */
   padding: 14px 40px; /* Ajusta o padding */
   border-radius: 20px;
@@ -99,8 +150,28 @@ export const Button = styled.button`
     background-color: #D3D3D3;
   }
 
+  @media (max-width: 1920px) {
+    font-size: 18px;
+    padding: 16px 45px;
+  }
+
+  @media (max-width: 1200px) {
+    font-size: 14px;
+    padding: 12px 35px;
+  }
+
+  @media (max-width: 991px) {
+    font-size: 12px;
+    padding: 10px 30px;
+  }
+
   @media (max-width: 768px) {
     margin: 1rem 0;
+  }
+
+  @media (max-width: 576px) {
+    font-size: 10px;
+    padding: 8px 25px;
   }
 `;
 

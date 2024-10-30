@@ -5,8 +5,16 @@ export const Section = styled(LandingSection)`
   position: relative;
   background-color: #dbd5e0;
   z-index: 2;
-  padding: 40px 0; /* Adiciona mais espaço vertical */
-  font-family: 'Arial', sans-serif; /* Fonte agradável */
+  padding: 30px 0; /* Ajuste no padding vertical */
+  font-family: 'Arial', sans-serif;
+
+  @media (max-width: 991px) {
+    padding: 20px 0;
+  }
+
+  @media (max-width: 768px) {
+    padding: 15px 0;
+  }
 `;
 
 export const Container = styled.div`
@@ -17,20 +25,37 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 40px;
+  padding: 30px; /* Ajuste no padding */
   z-index: 2;
+
+  @media (max-width: 991px) {
+    padding: 20px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 15px;
+  }
 `;
 
 export const Titulo = styled.h1`
   color: #333;
-  font-size: 42px;
+  font-size: 36px; /* Diminuir o tamanho da fonte */
   text-align: center;
   font-weight: bold;
   margin-top: 0;
-  padding: 20px 0;
+  padding: 15px 0; /* Ajuste no padding */
   z-index: 2;
+
   @media (max-width: 991px) {
-    font-size: 32px;
+    font-size: 28px; /* Diminuir o tamanho da fonte para telas menores */
+  }
+
+  @media (max-width: 768px) {
+    font-size: 24px;
+  }
+
+  @media (max-width: 576px) {
+    font-size: 20px;
   }
 `;
 
@@ -39,7 +64,7 @@ export const CardRow = styled.div`
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  margin-top: 2rem;
+  margin-top: 1.5rem; /* Ajuste na margem superior */
 
   @media (max-width: 48em) {
     flex-direction: column;
@@ -69,7 +94,7 @@ export const Card = styled.div`
   }
 
   h3 {
-    font-size: 18px;
+    font-size: 16px; /* Diminuir o tamanho da fonte */
     color: #333;
     margin-bottom: 8px;
     transition: color 0.3s ease;
@@ -77,12 +102,28 @@ export const Card = styled.div`
     &:hover {
       color: #eb832e;
     }
+
+    @media (max-width: 768px) {
+      font-size: 14px;
+    }
+
+    @media (max-width: 576px) {
+      font-size: 12px;
+    }
   }
 
   p {
     color: #666;
     line-height: 1.5;
-    font-size: 14px;
+    font-size: 13px; /* Diminuir o tamanho da fonte */
+
+    @media (max-width: 768px) {
+      font-size: 12px;
+    }
+
+    @media (max-width: 576px) {
+      font-size: 11px;
+    }
   }
 
   @media (max-width: 64em) {
@@ -90,8 +131,8 @@ export const Card = styled.div`
   }
 
   @media (max-width: 48em) {
-    width: 90%; /* Ajusta a largura do card para 90% da tela em dispositivos móveis */
-    margin: 10px auto; /* Centraliza o card horizontalmente */
-    text-align: center; /* Centraliza o texto no card */
+    width: 90%;
+    margin: 10px auto;
+    text-align: center;
   }
 `;

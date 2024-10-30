@@ -10,9 +10,9 @@ const CallToAction = lazy(() => import('../../Components/Londpage/CallToAction/C
 const Footer = lazy(() => import('../../Components/Londpage/Footer/Footer'));
 const Showcase = lazy(() => import('../../Components/Londpage/Showcase/Showcase'));
 const Hero = lazy(() => import('../../Components/Londpage/Hero/Hero'));
-const Join = lazy(() => import('../../Components/Londpage/Join/Join'));
 const Team = lazy(() => import('../../Components/Londpage/Team/Team'));
 const Faq = lazy(() => import('../../Components/Londpage/Faq/Faq'));
+const Roadmap = lazy(() => import('../../Components/Londpage/Roadmap/Roadmap'));
 
 const LandingPage: React.FC = () => {
   return (
@@ -20,23 +20,22 @@ const LandingPage: React.FC = () => {
       <ScrollToTop />
       <Suspense fallback={<Loading />}>
         <Hero />
-        <Wave topColor="#dbd5e0" bottomColor="#FFf" />
+        <Wave topColor="#FF7300" bottomColor="#FFf" />
+        <Roadmap />
+        <Wave topColor="#dbd5e0" bottomColor="#FF7300" />
         <About />
         <Wave topColor="#1D1534" bottomColor="#dbd5e0" />
         <Showcase />
-        <Wave topColor="#FF7300" bottomColor="#1D1534" />
-        <CallToAction />
-        <Wave topColor="#FFFFFF" bottomColor="#FF7300" />
+        <Wave topColor="#FFFFFF" bottomColor="#1D1534" />
         <Team />
-        <Wave topColor="#292929" bottomColor="#FFFFFF" />
-        <Faq />
-        <Wave topColor="#1D1534" bottomColor="#292929" />
-        <Join />
+        <Wave topColor="#FF7300" bottomColor="#FFFFFF" />
+        <CallToAction />
+        <Wave topColor="#292929" bottomColor="#FF7300" />
+        <Faq />  
         <Footer />
       </Suspense>
     </PageContainer>
   );
 };
 
-export default LandingPage
-//       
+export default LandingPage;

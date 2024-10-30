@@ -10,7 +10,6 @@ export const Section = styled.section`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 50px 20px;
 `;
 
 export const Title = styled.h1`

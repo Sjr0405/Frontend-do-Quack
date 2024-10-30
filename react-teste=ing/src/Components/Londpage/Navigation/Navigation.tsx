@@ -19,7 +19,7 @@ const Navigation = () => {
 
   return (
     <Section>
-      <NavBar>
+      <NavBar isOpen={isOpen}>
         <Logo>
           <img src="/src/assets/Logo.svg" alt="Logo Quack()" />
           <span>Quack()</span>
@@ -41,7 +41,9 @@ const Navigation = () => {
             Contato
           </NavItem>
           <NavItem>
-            <Link to="/Cadastro" style={{ color: '#000', textDecoration: 'none', fontFamily: 'Montserrat Alternates, sans-serif', fontWeight: 'bold' }}>Criar Conta</Link>
+            <Link to="/Cadastro">
+              Criar Conta
+            </Link>
           </NavItem>
           <Link to="/Login">
             <Button>Entrar</Button>

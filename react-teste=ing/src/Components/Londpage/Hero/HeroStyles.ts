@@ -71,7 +71,7 @@ export const Column2 = styled.div`
 
 export const Titulo = styled.h1`
   color: #000; /* Muda a cor para branco */
-  font-size: 52px; /* Aumenta o tamanho da fonte */
+  font-size: 36px; /* Aumenta o tamanho da fonte */
   font-weight: 500;
   font-family: 'lilita one', sans-serif;
   text-align: left;
@@ -80,18 +80,32 @@ export const Titulo = styled.h1`
     font-size: 42px; /* Ajusta o tamanho da fonte para dispositivos móveis */
     text-align: center;
   }
+  @media (max-width: 768px) {
+    font-size: 36px;
+  }
+  @media (max-width: 576px) {
+    font-size: 30px;
+  }
 `;
 
 export const Subtitulo = styled.h3`
   color: #000; /* Muda a cor para branco */
   font-size: 24px; /* Aumenta o tamanho da fonte */
-  font-weight: 400;
+  font-weight: 500;
   font-family: 'montserrat', sans-serif;
+  //bold
+  
   text-align: left;
   margin-bottom: 20px;
   @media (max-width: 991px) {
     font-size: 20px; /* Ajusta o tamanho da fonte para dispositivos móveis */
     text-align: center;
+  }
+  @media (max-width: 768px) {
+    font-size: 18px;
+  }
+  @media (max-width: 576px) {
+    font-size: 16px;
   }
 `;
 
@@ -121,5 +135,11 @@ export const Img = styled.img`
   @media (max-width: 991px) {
     max-width: 80%;
     margin-top: 20px;
+  }
+  @media (max-width: 768px) {
+    max-width: 70%;
+  }
+  @media (max-width: 576px) {
+    max-width: 60%;
   }
 `;

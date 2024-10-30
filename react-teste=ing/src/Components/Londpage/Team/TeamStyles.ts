@@ -9,7 +9,6 @@ export const Section = styled.section`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 50px 20px;
 `;
 
 export const Title = styled.h1`
@@ -103,6 +102,10 @@ export const Name = styled.h2`
   text-transform: uppercase;
   color: ${props => props.theme.text};
   margin-top: 1rem;
+
+  @media (max-width: 40em) {
+    font-size: ${props => props.theme.fontmd};
+  }
 `;
 
 export const Position = styled.h2`
@@ -113,4 +116,8 @@ export const Position = styled.h2`
   text-transform: capitalize;
   color: ${props => `rgba(${props.theme.textRgba},0.9)`};
   font-weight: 400;
+
+  @media (max-width: 40em) {
+    font-size: ${props => props.theme.fontsm};
+  }
 `;
