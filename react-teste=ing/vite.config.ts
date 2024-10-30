@@ -6,28 +6,33 @@ export default defineConfig({
   server: {
     proxy: {
       '/auth': {
-        target: 'http://145.223.27.98:5030',
+        target: 'https://145.223.27.98:5030',
         changeOrigin: true,
+        secure: false, 
         rewrite: (path) => path.replace(/^\/auth/, '/auth')
       },
       '/users': {
-        target: 'http://145.223.27.98:5030',
+        target: 'https://145.223.27.98:5030',
         changeOrigin: true,
+        secure: false, // Adicionado para aceitar certificados autoassinados
         rewrite: (path) => path.replace(/^\/users/, '/users')
       },
       '/tasks': {
-        target: 'http://145.223.27.98:5030',
+        target: 'https://145.223.27.98:5030',
         changeOrigin: true,
+        secure: false, // Adicionado para aceitar certificados autoassinados
         rewrite: (path) => path.replace(/^\/tasks/, '/tasks')
       },
       '/roadmaps': {
-        target: 'http://145.223.27.98:5030',
+        target: 'https://145.223.27.98:5030',
         changeOrigin: true,
+        secure: false, // Adicionado para aceitar certificados autoassinados
         rewrite: (path) => path.replace(/^\/roadmaps/, '/roadmaps')
       },
       '/achievements': {
-        target: 'http://145.223.27.98:5030',
+        target: 'https://145.223.27.98:5030',
         changeOrigin: true,
+        secure: false, // Adicionado para aceitar certificados autoassinados
         rewrite: (path) => path.replace(/^\/achievements/, '/achievements')
       }
     }
