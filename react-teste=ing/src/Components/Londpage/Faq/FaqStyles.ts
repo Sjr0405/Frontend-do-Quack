@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const Section = styled.section`
-
   width: 100vw;
   background-color: #292929;
   position: relative;
@@ -10,15 +9,14 @@ export const Section = styled.section`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  
 `;
 
 export const Title = styled.h1`
-  font-size: ${(props) => props.theme.fontxxl};
+  font-size:60px ;
   text-transform: uppercase;
-  color: ${(props) => props.theme.body};
+  color: #ffffff; /* Cor do texto alterada para branco */
   margin: 1rem auto;
-  border-bottom: 2px solid ${(props) => props.theme.carouselColor};
+  border-bottom: 2px solid #ffffff; /* Cor da linha alterada para branco */
   width: fit-content;
 
   @media (max-width: 48em) {
@@ -34,7 +32,8 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom  :  5rem;
+  margin-bottom: 5rem;
+  color: #ffffff; /* Cor do texto alterada para branco */
 
   @media (max-width: 64em) {
     width: 80%;
@@ -56,6 +55,7 @@ export const BoxContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-content: center;
+  color: #ffffff; /* Cor do texto alterada para branco */
 
   @media (max-width: 48em) {
     flex-direction: column;
@@ -64,8 +64,14 @@ export const BoxContainer = styled.div`
 
 export const Box = styled.div`
   width: 45%;
+  color: #ffffff; /* Cor do texto alterada para branco */
+
   @media (max-width: 64em) {
     width: 90%;
     align-self: center;
+  }
+
+  .icon {
+    color: #ffffff; /* Cor dos ícones alterada para branco */
   }
 `;

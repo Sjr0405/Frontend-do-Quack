@@ -1,14 +1,17 @@
 import React from 'react';
 
-interface IconProps extends React.SVGProps<SVGSVGElement> {}
+interface IconProps extends React.SVGProps<SVGSVGElement> {
+  color?: string;
+}
 
-export const Plus: React.FC<IconProps> = (props) => {
+export const Plus: React.FC<IconProps> = ({ color = '#ffffff', ...props }) => {
   return (
     <svg
       id="Layer_1"
       data-name="Layer 1"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 16 16"
+      fill={color}
       {...props}
     >
       <defs>
