@@ -191,6 +191,7 @@ const FazerAtividade = ({ changeSection }: { changeSection: (section: string) =>
             <option value="javascript">JavaScript</option>
             <option value="python">Python</option>
             <option value="csharp">C#</option>
+            <option value="php">PHP</option>
           </LanguageSelector>
 
         <EditorContainer>
