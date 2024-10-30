@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import Login from './Pages/Login/Login'; 
 import EsqueciSenha from './Pages/EsqueciSenha/EsqueciSenha'; 
 import Cadastro from './Pages/Cadastro/Cadastro';
+import CadastroNovo from './Pages/Cadastro/cadastronovo.tsx'; // Importando o componente CadastroNovo
 import Home from './Pages/Home/Home.tsx';
 import Aprender from './Components/Aprender.tsx';
 import Atividade from './Components/Desafio.tsx';
@@ -31,6 +32,7 @@ function MainRoutes() {
 
           </div>} />
         <Route path="/Cadastro" element={<Cadastro />} />
+        <Route path="/CadastroNovo" element={<CadastroNovo />} /> {/* Adicionando a rota para CadastroNovo */}
         <Route path="/Login" element={<Login />} />
         <Route path="/EsqueciSenha" element={<EsqueciSenha />} />
 

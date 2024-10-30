@@ -8,6 +8,10 @@ interface Crop {
   height: number;
 }
 
+interface ProfileImageUploaderProps {
+  setCroppedImageUrl: (url: string | null) => void;
+}
+
 const Main = styled.main`
   width: 100%;
   display: flex;
@@ -84,8 +88,8 @@ const CroppedImage = styled.img`
   box-shadow: 2px 3px 12px rgba(0, 0, 0, 0.6);
 `;
 
-const ProfileImageUploader: React.FC = () => {
-  const [croppedImageUrl, setCroppedImageUrl] = useState<string | null>(null);
+const ProfileImageUploader: React.FC<ProfileImageUploaderProps> = ({ setCroppedImageUrl }) => {
+  const [croppedImageUrl] = useState<string | null>(null);
   const [imageRef, setImageRef] = useState<HTMLImageElement | null>(null);
   const [hasImage, setHasImage] = useState(false);
   const imagePreviewRef = useRef<HTMLImageElement | null>(null);
@@ -122,7 +126,8 @@ const ProfileImageUploader: React.FC = () => {
 
         canvas.toBlob(blob => {
           if (blob) {
-            setCroppedImageUrl(URL.createObjectURL(blob));
+            const url = URL.createObjectURL(blob);
+            setCroppedImageUrl(url);
           }
         });
       }

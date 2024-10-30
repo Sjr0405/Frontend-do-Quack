@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { TextField, Button, Grid, Box, Typography, IconButton, InputLabel } from "@mui/material";
 import InputMask from "react-input-mask";
@@ -108,6 +108,8 @@ interface FormData {
   photo?: File[] | undefined;
 }
 
+
+
 export default function Cadastro() {
   const { handleSubmit, control, formState: { errors }, reset } = useForm<FormData>({
     resolver: yupResolver(schema),
@@ -118,15 +120,12 @@ export default function Cadastro() {
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     const formData = new FormData();
     formData.append("name", data.name);
-    formData.append("email", data.email);
     formData.append("username", data.username);
+    formData.append("phone", data.phone.replace(/\D/g, '')); // Remove caracteres não numéricos
+    formData.append("email", data.email);
     formData.append("password", data.password);
-    formData.append("phone", data.phone);
-    formData.append("cpf", data.cpf);
+    formData.append("cpf", data.cpf.replace(/\D/g, '')); // Remove caracteres não numéricos
     formData.append("bornAt", data.bornAt);
-    formData.append("imagePath", "");
-
-    
 
     if (croppedImageUrl) {
       const croppedImageBlob = await fetch(croppedImageUrl)
@@ -141,11 +140,29 @@ export default function Cadastro() {
       formData.append("photo", data.photo[0], "profile-image.jpg");
     }
 
-try {
-  const response = await fetch('/auth/register', {
-    method: 'POST',
-    body: (formData)
-  });
+    console.log("Dados enviados:", Object.fromEntries(formData.entries()));
+
+    try {
+      const response = await fetch('auth/register', {
+        method: 'POST',
+        body: JSON.stringify({
+          name: data.name,
+          username: data.username,
+          phone: data.phone.replace(/\D/g, ''),
+          email: data.email,
+          password: data.password,
+          cpf: data.cpf.replace(/\D/g, ''),
+          bornAt: data.bornAt,
+          imagePath: croppedImageUrl || (data.photo && data.photo[0] ? URL.createObjectURL(data.photo[0]) : "")
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        }
+      });
+
+      console.log("Resposta do servidor:", response);
+      console.log("Cabeçalhos da requisição:", response.headers);
 
       if (response.ok) {
         Swal.fire({
@@ -155,13 +172,13 @@ try {
         }).then(() => navigate("/Login"));
         reset();
       } else {
-        const errorData = await response.json();
+        const errorData = await response.json().catch(() => null);
         console.error("Erro ao cadastrar o usuário", errorData);
         Swal.fire({
           icon: "error",
           title: "Erro",
-          text: errorData.message || "Algo deu errado!",
-          footer: "erro: " + errorData.message,
+          text: errorData?.message || "Algo deu errado!",
+          footer: "erro: " + (errorData?.message || "Erro desconhecido"),
         });
       }
     } catch (error: unknown) {

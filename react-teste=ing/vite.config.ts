@@ -8,7 +8,7 @@ export default defineConfig({
       '/auth': {
         target: 'https://145.223.27.98:5030',
         changeOrigin: true,
-        secure: false, 
+        secure: false,
         rewrite: (path) => path.replace(/^\/auth/, '/auth')
       },
       '/users': {
