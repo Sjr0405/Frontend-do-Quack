@@ -1,5 +1,7 @@
+import React from 'react';
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
+import Editor from '@monaco-editor/react';
 
 // Styled Components
 const Container = styled.div`
@@ -52,7 +54,7 @@ const SelectedTopBarItem = styled(TopBarItem)`
   text-decoration: underline;
 `;
 
-const CodeEditorContainer = styled.div`
+const EditorContainer = styled.div`
   display: flex;
   height: 75%;
   padding: 20px;
@@ -60,37 +62,12 @@ const CodeEditorContainer = styled.div`
   justify-content: center;
 `;
 
-// Definindo o tema da IDE
-const CodeEditor = styled.pre`
-  background-color: #1e1e1e; /* Cor de fundo escura típica de uma IDE */
-  color: #d4d4d4; /* Cor padrão do texto */
-  font-family: 'Source Code Pro', monospace; /* Fonte popular para editores de código */
+const LanguageSelector = styled.select`
+  padding: 10px;
   font-size: 16px;
-  padding: 20px;
-  border-radius: 8px;
-  border: 1px solid #333;
-  overflow: auto;
-  white-space: pre-wrap;
-  tab-size: 8;
-  line-height: 1.5;
-  max-height: 100%;
-`;
-
-// Destaque de sintaxe simulando uma IDE
-const Keyword = styled.span`
-  color: #569cd6; /* Cor das palavras-chave, ex: public, int */
-`;
-
-const Method = styled.span`
-  color: #dcdcaa; /* Cor dos nomes de métodos */
-`;
-
-const Variable = styled.span`
-  color: #9cdcfe; /* Cor de variáveis e parâmetros */
-`;
-
-const Number = styled.span`
-  color: #b5cea8; /* Cor de números */
+  margin-right: 20px;
+  border-radius: 5px;
+  border: 1px solid #BFB9B9;
 `;
 
 const ActionButtonsContainer = styled.div`
@@ -115,7 +92,6 @@ const ActionButton = styled.button`
   }
 `;
 
-// Lasagna.js (definir a classe Lasagna fora do componente para poder ser testada)
 export class Lasagna {
   expectedMinutesInOven() {
     return 40;
@@ -125,7 +101,7 @@ export class Lasagna {
     return 40 - actualMinutesInOven;
   }
 
-  preparationTimeInMinutes(layers : number) {
+  preparationTimeInMinutes(layers: number) {
     return layers * 2;
   }
 
@@ -134,51 +110,52 @@ export class Lasagna {
   }
 }
 
+const FazerAtividade = ({ changeSection }: { changeSection: (section: string) => void }) => {
+  const [userCode, setUserCode] = React.useState(`public class HelloWorld {
+    public static void main(String[] args) {
+      System.out.println("Hello World!");
+    }
+  }`);
+  const [language, setLanguage] = React.useState('python');
 
-const FazerAtividade = ( { changeSection }: { changeSection: (section: string) => void } ) => {
   const rodarTeste = () => {
     try {
-      const lasagna = new Lasagna();
-  
-      // Teste 1: expectedMinutesInOven
+      // Avaliando o código do usuário
+      const evalCode = new Function(userCode + "; return new Lasagna();");
+      const lasagna = evalCode();
+
       const Cond1 = 40;
       const result1 = lasagna.expectedMinutesInOven();
       if (result1 !== Cond1) {
         throw new Error(`Erro no teste expectedMinutesInOven: Esperado ${Cond1}, mas obteve ${result1}`);
       }
-  
-      // Teste 2: remainingMinutesInOven
+
       const Cond2 = 30;
       const result2 = lasagna.remainingMinutesInOven(10);
       if (result2 !== Cond2) {
         throw new Error(`Erro no teste remainingMinutesInOven: Esperado ${Cond2} com 10 minutos no forno, mas obteve ${result2}`);
       }
-  
-      // Teste 3: preparationTimeInMinutes
+
       const Cond3 = 4;
       const result3 = lasagna.preparationTimeInMinutes(2);
       if (result3 !== Cond3) {
         throw new Error(`Erro no teste preparationTimeInMinutes: Esperado ${Cond3} minutos com 2 camadas, mas obteve ${result3}`);
       }
-  
-      // Teste 4: totalTimeInMinutes
+
       const Cond4 = 23;
       const result4 = lasagna.totalTimeInMinutes(2, 20);
       if (result4 !== Cond4) {
         throw new Error(`Erro no teste totalTimeInMinutes: Esperado ${Cond4} minutos no total com 2 camadas e 20 minutos no forno, mas obteve ${result4}`);
       }
-  
-      // Se todos os testes passarem
+
       Swal.fire('Sucesso!', 'Todos os testes passaram com sucesso.', 'success').then(() => {
         changeSection('CodeReview');
       });
-  
     } catch (error) {
-      const errorAsError = error as Error;
       Swal.fire({
         icon: 'error',
         title: 'Falha no Teste',
-        text: errorAsError.message,
+        text: (error as Error).message,
         footer: `<a href="/FazerAtividade" style="color: #eb832e;">Clique aqui ver o log</a>`
       });
     }
@@ -205,32 +182,32 @@ const FazerAtividade = ( { changeSection }: { changeSection: (section: string) =
               <a>Respostas</a>
             </TopBarItem>
           </TopBar>
-        </Header>
-          {/* Code Editor */}
-        <CodeEditorContainer>
-        <CodeEditor>
-    {`
-`}
-    <Keyword>public</Keyword> <Keyword>class</Keyword> <Method>Lasagna</Method> {'{\n\n'}
-    <Keyword>  public</Keyword> <Keyword>int</Keyword> <Method>expectedMinutesInOven</Method>() {'{\n'}
-    {'    '}<Keyword>return</Keyword> <Number>40</Number>;{'\n'}
-    {'  }'}{'\n\n'}
-    <Keyword>  public</Keyword> <Keyword>int</Keyword> <Method>remainingMinutesInOven</Method>(<Keyword>int</Keyword> <Variable>actualMinutesInOven</Variable>) {'{\n'}
-    {'    '}<Keyword>return</Keyword> <Number>40</Number> - <Variable>actualMinutesInOven</Variable>;{'\n'}
-    {'  }'}{'\n\n'}
-    <Keyword>  public</Keyword> <Keyword>int</Keyword> <Method>preparationTimeInMinutes</Method>(<Keyword>int</Keyword> <Variable>layers</Variable>) {'{\n'}
-    {'    '}<Keyword>return</Keyword> <Variable>layers</Variable> * <Number>2</Number>;{'\n'}
-    {'  }'}{'\n\n'}
-    <Keyword>  public</Keyword> <Keyword>int</Keyword> <Method>totalTimeInMinutes</Method>(<Keyword>int</Keyword> <Variable>layers</Variable>, <Keyword>int</Keyword> <Variable>actualMinutesInOven</Variable>) {'{\n'}
-    {'    '}<Keyword>return</Keyword> <Method>preparationTimeInMinutes</Method>(<Variable>layers</Variable>) + <Variable>actualMinutesInOven</Variable>;{'\n'}
-    {'  }'}{'\n\n'}
-    {'}'}
-  </CodeEditor>
-        </CodeEditorContainer>
 
-        {/* Action Buttons */}
+          
+        </Header>
+        <LanguageSelector value={language} onChange={(e) => setLanguage(e.target.value)}>
+            <option value="java">Java</option>
+            <option value="typescript">TypeScript</option>
+            <option value="javascript">JavaScript</option>
+            <option value="python">Python</option>
+            <option value="csharp">C#</option>
+            <option value="php">PHP</option>
+          </LanguageSelector>
+
+        <EditorContainer>
+          
+          <Editor
+            height="100%"
+            width="100%"
+            language={language} // Set language based on dropdown
+            theme="vs-dark"
+            value={userCode}
+            onChange={(value) => setUserCode(value || '')}
+          />
+        </EditorContainer>
+
         <ActionButtonsContainer>
-        <ActionButton onClick={rodarTeste}>Rodar teste</ActionButton>
+          <ActionButton onClick={rodarTeste}>Rodar teste</ActionButton>
           <ActionButton onClick={() => {
             Swal.fire('Sucesso!', 'Atividade enviada com sucesso.', 'success').then(() => {
               changeSection('Respostas');
