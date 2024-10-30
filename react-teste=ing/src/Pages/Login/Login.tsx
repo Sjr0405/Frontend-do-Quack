@@ -1,11 +1,15 @@
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import styled from 'styled-components';
-import { TextField, Grid, Box, Typography } from "@mui/material";
+import { TextField, Grid, Box, Typography, IconButton, InputAdornment } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from 'react';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
+import axios from "axios";
+
 
 const A = styled.a`
   color: white;
@@ -55,13 +59,15 @@ const StyledTypography = styled(Typography)`
     font-weight:300;
     font-size: 35px;
     font-family: "Lilita One", sans-serif;
-    margin-top: 30%;
+    font-weight: 300;
+    margin-top: 50%;
   }
 
   h4 {
     text-decoration: none;
     font-size: 24px;
     font-family: "Montserrat Alternates", sans-serif;
+    font-weight: 500;
     margin-top: 30%;
   }
 
@@ -159,20 +165,14 @@ const LoginLink = styled.a`
 
 const DuckImage = styled.img`
   width: 500px;
-  margin-top: 46%;
+  margin-top: 41%;
   margin-right: 25%;
 `;
 
 const schema = yup.object().shape({
   email: yup.string().email("Email inválido").required("Email é obrigatório"),
-  password: yup.string().min(8, "A senha deve ter no mínimo 8 caracteres").required("Senha é obrigatória"),
+  password: yup.string().min(8, "A deve ter no mínimo 8 caracteres").required("Senha é obrigatória"),
 });
-
-const fetchUserData = async () => [
-  { email: 'Admin@gmail.com', password: 'Administrator1' },
-  { email: 'user1@example.com', password: '12345678' },
-  { email: 'user2@example.com', password: '87654321' },
-];
 
 const Login = () => {
   const { handleSubmit, control, formState: { errors }, reset } = useForm({
@@ -182,16 +182,25 @@ const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<{ email: string; password: string }> = async (data) => {
-    try {
-      const users = await fetchUserData();
-      const user = users.find(user => user.email === data.email && user.password === data.password);
+  
+  const [showPassword, setShowPassword] = useState(false);
 
-      if (user) {
-        login(data.email, data.password);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const onSubmit: SubmitHandler<{
+    email: string; password: string }> = async (data) => {
+    try {
+      const response = await axios.post('/auth/login', data);
+      const { token } = response.data;
+  
+      if (token) {
+        login(data.email, token);
         Swal.fire('Sucesso!', 'Login realizado com sucesso.', 'success').then(() => {
-          navigate('/dashboard');
+          navigate('/home');
         });
+
       } else {
         Swal.fire({
           icon: 'error',
@@ -208,7 +217,6 @@ const Login = () => {
 
   return (
     <LoginContainer>
-      {/* Seção do formulário */}
       <FormSection>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Typography variant="h5" style={{textAlign: 'left', fontFamily: 'Lilita One',fontSize: '80px', marginBottom: '20px', color: '#ff7f00' }}>
@@ -246,10 +254,19 @@ const Login = () => {
                   <TextField
                     {...field}
                     label="Digite sua senha"
-                    type="password"
+                    type={showPassword ? "text" : "password"} // Alterar o tipo do campo de senha
                     fullWidth
                     error={!!errors.password}
                     helperText={errors.password ? errors.password.message : ""}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton onClick={togglePasswordVisibility} edge="end">
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
                   />
                 )}
               />
@@ -282,7 +299,6 @@ const Login = () => {
         </Form>
       </FormSection>
 
-      {/* Seção de Apresentação */}
       <ImageSection>
         
         <StyledTypography variant="body1" style={{ marginTop: '20px' }}>

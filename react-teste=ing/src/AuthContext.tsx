@@ -4,6 +4,7 @@ interface AuthContextData {
   user: { email: string; password: string } | null;
   login: (email: string, password: string) => void;
   logout: () => void;
+  isAuthenticated: () => boolean;
 }
 
 const AuthContext = createContext<AuthContextData | undefined>(undefined);
@@ -19,8 +20,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setUser(null);
   };
 
+  const isAuthenticated = () => {
+    return !!user;
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, isAuthenticated }}>
       {children}
     </AuthContext.Provider>
   );

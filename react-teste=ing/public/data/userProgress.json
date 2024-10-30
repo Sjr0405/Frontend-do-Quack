@@ -1,0 +1,31 @@
+{
+  "userId": "12345",
+  "progress": {
+    "nodes": {
+      "Começo": {
+        "status": "pendente",
+        "checkboxes": [false, false, false]
+      },
+      "Internet": {
+        "status": "pendente",
+        "checkboxes": [false, false, false]
+      },
+      "Sistemas de controle de versão": {
+        "status": "pendente",
+        "checkboxes": [false, false, false]
+      },
+      "Bancos de Dados Relacionais": {
+        "status": "pendente",
+        "checkboxes": [false, false, false]
+      },
+      "APIs": {
+        "status": "pendente",
+        "checkboxes": [false, false, false]
+      },
+      "Design e Arquitetura de Software": {
+        "status": "pendente",
+        "checkboxes": [false, false, false]
+      }
+    }
+  }
+}
