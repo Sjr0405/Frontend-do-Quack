@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Section = styled.section`
-  height: auto;
+
   width: 100vw;
   background-color: #292929;
   position: relative;
@@ -10,6 +10,7 @@ export const Section = styled.section`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  
 `;
 
 export const Title = styled.h1`
@@ -33,7 +34,7 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
+  margin-bottom  :  5rem;
 
   @media (max-width: 64em) {
     width: 80%;
