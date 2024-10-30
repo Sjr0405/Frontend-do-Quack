@@ -27,12 +27,7 @@ function MainRoutes() {
           <div> 
           <GlobalStyles /> 
           <ThemeProvider theme={light|| dark}/> 
-          <Navigation /> 
-          <Landpage /> 
-          <About /> 
-          <Showcase /> 
-          <Faq /> 
-          <Footer /> 
+        
           </div>} />
         <Route path="/Cadastro" element={<Cadastro />} />
         <Route path="/Login" element={<Login />} />
@@ -83,7 +78,7 @@ function MainRoutes() {
 
         <Route path="/Backend_Roadmap" element={
           <PrivateRoute> 
-            <Trilha />
+            <Trilhas />
           </PrivateRoute>
         } />
 
