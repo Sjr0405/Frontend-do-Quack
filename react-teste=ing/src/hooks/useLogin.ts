@@ -1,4 +1,3 @@
-// hooks/useLogin.ts
 import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import * as yup from 'yup';
@@ -18,7 +17,7 @@ export const useLogin = () => {
     resolver: yupResolver(schema),
   });
 
-  const { login } = useAuth();
+  const { login, fetchUserProfile } = useAuth();
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -29,22 +28,11 @@ export const useLogin = () => {
 
   const onSubmit: SubmitHandler<{ email: string; password: string }> = async (data) => {
     try {
-      const response = await axios.post('/auth/login', data);
-      const { token } = response.data;
-
-      if (token) {
-        login(data.email, token);
-        Swal.fire('Sucesso!', 'Login realizado com sucesso.', 'success').then(() => {
-          navigate('/home');
-        });
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Falha no Login',
-          text: 'E-mail ou senha incorretos.',
-          footer: `<a href="/Cadastro" style="color: #eb832e;">Clique aqui para se cadastrar</a>`
-        });
-      }
+      await login(data.email, data.password);
+      await fetchUserProfile();
+      Swal.fire('Sucesso!', 'Login realizado com sucesso.', 'success').then(() => {
+        navigate('/home');
+      });
     } catch {
       Swal.fire('Erro', 'Houve um problema ao tentar fazer login.', 'error');
     }
