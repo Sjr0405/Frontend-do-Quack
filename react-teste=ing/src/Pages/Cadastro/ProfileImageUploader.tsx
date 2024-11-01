@@ -95,6 +95,7 @@ const ProfileImageUploader: React.FC<ProfileImageUploaderProps> = ({ setCroppedI
   const imagePreviewRef = useRef<HTMLImageElement | null>(null);
 
   const onCropComplete = (crop: Crop) => {
+    console.log("onCropComplete chamado com crop:", crop);
     if (imageRef && crop.width && crop.height) {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
@@ -127,6 +128,7 @@ const ProfileImageUploader: React.FC<ProfileImageUploaderProps> = ({ setCroppedI
         canvas.toBlob(blob => {
           if (blob) {
             const url = URL.createObjectURL(blob);
+            console.log("Imagem cortada URL:", url);
             setCroppedImageUrl(url);
           }
         });
@@ -144,6 +146,7 @@ const ProfileImageUploader: React.FC<ProfileImageUploaderProps> = ({ setCroppedI
           imagePreviewRef.current.src = img.src;
         }
         setHasImage(true);
+        console.log("Imagem carregada:", img.src);
         onCropComplete({ x: 0, y: 0, width: 100, height: 100 }); 
       };
       img.src = URL.createObjectURL(file);
