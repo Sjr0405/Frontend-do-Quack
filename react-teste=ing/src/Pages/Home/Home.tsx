@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import SideBar from '../../Components/SideBar';
-import Aprender from '../../Components/Aprender';
-import FazerAtividade from '../../Components/FazerAtividade';
-import Desafio from '../../Components/Desafio';
-import Rankings from '../../Components/Rankings';
-import Perfil from '../../Components/Perfil';
+import SideBar from '../../Components/Dashboard/SideBar';
+import Aprender from '../../Components/Dashboard/Inicio';
+import FazerAtividade from '../../Components/Dashboard/FazerAtividade';
+import Desafio from '../../Components/Dashboard/Desafio';
+import Rankings from '../../Components/Dashboard/Rankings';
+import Perfil from '../../Components/Dashboard/Perfil';
 import Missoes from '../../Components/Missão/MissoesPage';
 
 const Container = styled.div`

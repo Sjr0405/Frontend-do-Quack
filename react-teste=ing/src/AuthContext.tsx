@@ -34,7 +34,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
       setToken(storedToken);
-      fetchUserProfile();
+      fetchUserProfile(storedToken);
     }
   }, []);
 
@@ -56,14 +56,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return !!token;
   };
 
-  const fetchUserProfile = async () => {
-    if (token) {
-      const response = await axios.get('/auth/profile', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setUser(response.data);
+  const fetchUserProfile = async (authToken?: string) => {
+    const tokenToUse = authToken || token;
+    if (tokenToUse) {
+      try {
+        const response = await axios.get('/auth/profile', {
+          headers: {
+            Authorization: `Bearer ${tokenToUse}`,
+          },
+        });
+        setUser(response.data);
+      } catch (error) {
+        console.error('Erro ao buscar perfil do usuário:', error);
+        logout();
+      }
     }
   };
 

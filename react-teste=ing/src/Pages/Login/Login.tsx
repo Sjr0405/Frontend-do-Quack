@@ -27,6 +27,7 @@ const Login = () => {
     showPassword,
     togglePasswordVisibility,
     onSubmit,
+    clearErrors,
   } = useLogin();
 
   return (
@@ -56,6 +57,7 @@ const Login = () => {
                     fullWidth
                     error={!!errors.email}
                     helperText={errors.email ? errors.email.message : ""}
+                    onFocus={() => clearErrors("email")}
                   />
                 )}
               />
@@ -81,6 +83,7 @@ const Login = () => {
                         </InputAdornment>
                       ),
                     }}
+                    onFocus={() => clearErrors("password")}
                   />
                 )}
               />
