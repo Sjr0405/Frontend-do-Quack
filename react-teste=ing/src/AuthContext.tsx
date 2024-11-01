@@ -21,7 +21,7 @@ interface AuthContextData {
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   isAuthenticated: () => boolean;
-  fetchUserProfile: () => Promise<void>;
+  fetchUserProfile: (authToken?: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextData | undefined>(undefined);
@@ -60,7 +60,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const tokenToUse = authToken || token;
     if (tokenToUse) {
       try {
-        const response = await axios.get('/auth/profile', {
+        const response = await axios.get('/users', {
           headers: {
             Authorization: `Bearer ${tokenToUse}`,
           },

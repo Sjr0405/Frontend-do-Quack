@@ -8,13 +8,21 @@ import Desafio from '../../Components/Dashboard/Desafio';
 import Rankings from '../../Components/Dashboard/Rankings';
 import Perfil from '../../Components/Dashboard/Perfil';
 import Missoes from '../../Components/Missão/MissoesPage';
+import Header from '../../Components/Dashboard/Header';
 
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
   height: 100vh;
 `;
 
 const MainContent = styled.div`
+  flex: 1;
+  display: flex;
+  height: calc(100vh - 60px); // Ajuste a altura para considerar o cabeçalho
+`;
+
+const ContentArea = styled.div`
   flex: 1;
   padding: 20px;
   background-color: #f7f7f7;
@@ -24,7 +32,6 @@ const MainContent = styled.div`
 const Home = () => {
   const [section, setSection] = useState('Aprender');
   const location = useLocation();
-
 
   useEffect(() => {
     if (location.state?.section) {
@@ -70,17 +77,20 @@ const Home = () => {
 
   return (
     <Container>
-      <Routes>
-        <Route path="/" element={<SideBar changeSection={setSection} />} />
-      </Routes>
-
+      <Header />
       <MainContent>
-        {renderSectionAprender()}
-        {renderSectionFazerAtividade()}
-        {renderSectionAtividade()}
-        {renderSectionRankings()}
-        {renderSectionPerfil()}
-        {renderSectionMissoes()}
+        <Routes>
+          <Route path="/" element={<SideBar changeSection={setSection} />} />
+        </Routes>
+
+        <ContentArea>
+          {renderSectionAprender()}
+          {renderSectionFazerAtividade()}
+          {renderSectionAtividade()}
+          {renderSectionRankings()}
+          {renderSectionPerfil()}
+          {renderSectionMissoes()}
+        </ContentArea>
       </MainContent>
     </Container>
   );
