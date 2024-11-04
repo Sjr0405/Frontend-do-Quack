@@ -22,6 +22,7 @@ interface AuthContextData {
   logout: () => void;
   isAuthenticated: () => boolean;
   fetchUserProfile: (userId: number) => Promise<void>;
+  updateUserProfile: (updatedData: Partial<User>) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextData | undefined>(undefined);
@@ -73,6 +74,30 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  // Função para atualizar o perfil do usuário
+  const updateUserProfile = async (updatedData: Partial<User>) => {
+    if (!user?.id || !token) {
+      throw new Error('Usuário não está logado ou token ausente');
+    }
+  
+    try {
+      const response = await axios.put(`/users/${user.id}`, updatedData, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+  
+      // Atualiza o estado do usuário com as novas informações (sem atualizar o localStorage)
+      const updatedUser = { ...user, ...response.data };
+      setUser(updatedUser); // Atualiza apenas o estado do contexto
+    } catch (error: any) {
+      console.error('Erro ao atualizar o perfil do usuário:', error.response?.data || error.message);
+      throw error;
+    }
+  };
+  
+
+
   const logout = () => {
     setToken(null);
     setUser(null);
@@ -85,7 +110,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout, isAuthenticated, fetchUserProfile }}>
+    <AuthContext.Provider value={{ user, token, login, logout, isAuthenticated, fetchUserProfile, updateUserProfile }}>
       {children}
     </AuthContext.Provider>
   );
