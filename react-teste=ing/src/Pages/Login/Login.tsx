@@ -117,11 +117,13 @@ const Login = () => {
       </FormSection>
 
       <ImageSection>
-        <StyledTypography variant="body1" style={{ marginTop: '20px' }}>
-          <h3>Seja Bem Vindo a Quack()</h3>
-          <A>A plataforma que tem como missão,<br/> ajudar você a aprender e compreender <br/>a</A>
-          <A style={{ color: '#7A5FF5', fontWeight: 'bold' }}> programação!</A>
-        </StyledTypography>
+      <StyledTypography variant="body1" style={{ marginTop: '20px' }}>
+  <h3>Seja Bem Vindo a Quack()</h3>
+  <p>
+    <A>A plataforma que tem como missão,<br/> ajudar você a aprender e compreender <br/>a</A>
+    <A style={{ color: '#7A5FF5', fontWeight: 'bold' }}> programação!</A>
+  </p>
+</StyledTypography>
         <DuckImage src="/src/Assets/LogoReverse.svg" alt="Mascote Quack" />
       </ImageSection>
     </LoginContainer>

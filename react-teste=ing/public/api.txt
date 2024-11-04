@@ -1,0 +1,5 @@
+User Controller: Permite operações CRUD nos usuários (/users/{id} para obter, atualizar e deletar), iniciar e encerrar roteiros, além de listar todos os usuários.
+Task Controller: Permite operações CRUD nas tarefas (/tasks/{id}), bem como visualizar e adicionar tarefas.
+Roadmap Controller: Oferece operações CRUD para roteiros (/roadmaps/{id}), permitindo criar, obter, atualizar e deletar roteiros.
+Achievement Controller: Gerencia conquistas com operações CRUD (/achievements/{id}).
+Auth Controller: Lida com registro e login de usuários (/auth/register e /auth/login).

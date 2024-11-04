@@ -12,11 +12,11 @@ const HeaderContainer = styled.div`
 `;
 
 const Header: React.FC = () => {
-  const { user } = useAuth();
+  const { user } = useAuth(); // Acessa o usuário do contexto de autenticação
 
   return (
     <HeaderContainer>
-      Bem-vindo, {user?.username}!
+      {user ? `Bem-vindo, ${user.email}!` : 'Bem-vindo!'}
     </HeaderContainer>
   );
 };
