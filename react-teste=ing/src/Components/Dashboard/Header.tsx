@@ -16,7 +16,7 @@ const Header: React.FC = () => {
 
   return (
     <HeaderContainer>
-      {user ? `Bem-vindo, ${user.email}!` : 'Bem-vindo!'}
+      {user ? `Bem-vindo, ${user.username}!` : 'Bem-vindo!'}
     </HeaderContainer>
   );
 };
