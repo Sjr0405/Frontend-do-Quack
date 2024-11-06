@@ -30,15 +30,31 @@ const AuthContext = createContext<AuthContextData | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
+  const TOKEN_EXPIRATION_TIME = 5 * 60 * 60 * 1000; // 5 horas em milissegundos
 
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
     const storedUser = localStorage.getItem('user');
-    if (storedToken && storedUser) {
-      setToken(storedToken);
-      setUser(JSON.parse(storedUser));
+    const tokenExpiry = localStorage.getItem('tokenExpiry');
+
+    if (storedToken && storedUser && tokenExpiry) {
+      const isTokenExpired = Date.now() > parseInt(tokenExpiry);
+      if (isTokenExpired) {
+        logout();
+      } else {
+        setToken(storedToken);
+        setUser(JSON.parse(storedUser));
+      }
     }
   }, []);
+
+  // Novo useEffect para buscar o perfil assim que o token for definido
+  useEffect(() => {
+    if (token && !user) {
+      const manualId = 40; // Id do usuário a ser buscado
+      fetchUserProfile(manualId);
+    }
+  }, [token]);
 
   const login = async (email: string, password: string) => {
     try {
@@ -47,11 +63,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const emailFromResponse = response.data?.email;
 
       if (token && emailFromResponse) {
+        const expirationTime = Date.now() + TOKEN_EXPIRATION_TIME;
+
+        // Define o token no estado e no localStorage
         setToken(token);
         localStorage.setItem('token', token);
-
-        const manualId = 40;
-        await fetchUserProfile(manualId);
+        localStorage.setItem('tokenExpiry', expirationTime.toString());
       } else {
         throw new Error('Dados de autenticação ausentes');
       }
@@ -62,6 +79,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const fetchUserProfile = async (userId: number) => {
+    if (!token) {
+      console.error("Token não disponível.");
+      return;
+    }
+
     try {
       const response = await axios.get(`/users/${userId}`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -74,35 +96,33 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  // Função para atualizar o perfil do usuário
   const updateUserProfile = async (updatedData: Partial<User>) => {
     if (!user?.id || !token) {
       throw new Error('Usuário não está logado ou token ausente');
     }
-  
+
     try {
       const response = await axios.put(`/users/${user.id}`, updatedData, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-  
-      // Atualiza o estado do usuário com as novas informações (sem atualizar o localStorage)
+
       const updatedUser = { ...user, ...response.data };
-      setUser(updatedUser); // Atualiza apenas o estado do contexto
+      setUser(updatedUser);
+      localStorage.setItem('user', JSON.stringify(updatedUser));
     } catch (error: any) {
       console.error('Erro ao atualizar o perfil do usuário:', error.response?.data || error.message);
       throw error;
     }
   };
-  
-
 
   const logout = () => {
     setToken(null);
     setUser(null);
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('tokenExpiry');
   };
 
   const isAuthenticated = () => {
@@ -125,3 +145,4 @@ export const useAuth = (): AuthContextData => {
 };
 
 export default useAuth;
+//teste
