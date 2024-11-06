@@ -1,12 +1,8 @@
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import styled from 'styled-components';
-import { TextField, Grid, Box, Typography, IconButton, InputAdornment } from "@mui/material";
+import { Controller } from "react-hook-form";
+import { TextField, Grid, Typography, IconButton, InputAdornment } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from 'react';
-import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+<<<<<<< HEAD
 import { useAuth } from '../../AuthContext';
 import axios from "axios";
 
@@ -173,47 +169,35 @@ const schema = yup.object().shape({
   email: yup.string().email("Email inválido").required("Email é obrigatório"),
   password: yup.string().min(8, "A deve ter no mínimo 8 caracteres").required("Senha é obrigatória"),
 });
+=======
+import { useLogin } from '../../hooks/auth/useLogin';
+import {
+  A,
+  Label,
+  Input,
+  StyledTypography,
+  LoginContainer,
+  FormSection,
+  ImageSection,
+  Form,
+  StyledButton,
+  GoogleButton,
+  LoginLink,
+  DuckImage
+} from './LoginStyles';
+>>>>>>> Dev
 
 const Login = () => {
-  const { handleSubmit, control, formState: { errors }, reset } = useForm({
-    resolver: yupResolver(schema),
-  });
-
-  const { login } = useAuth();
   const navigate = useNavigate();
-
-  
-  const [showPassword, setShowPassword] = useState(false);
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const onSubmit: SubmitHandler<{
-    email: string; password: string }> = async (data) => {
-    try {
-      const response = await axios.post('/auth/login', data);
-      const { token } = response.data;
-  
-      if (token) {
-        login(data.email, token);
-        Swal.fire('Sucesso!', 'Login realizado com sucesso.', 'success').then(() => {
-          navigate('/home');
-        });
-
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Falha no Login',
-          text: 'E-mail ou senha incorretos.',
-          footer: `<a href="/Cadastro" style="color: #eb832e;">Clique aqui para se cadastrar</a>`
-        });
-      }
-    } catch {
-      Swal.fire('Erro', 'Houve um problema ao tentar fazer login.', 'error');
-    }
-    reset();
-  };
+  const {
+    handleSubmit,
+    control,
+    errors,
+    showPassword,
+    togglePasswordVisibility,
+    onSubmit,
+    clearErrors,
+  } = useLogin();
 
   return (
     <LoginContainer>
@@ -242,6 +226,7 @@ const Login = () => {
                     fullWidth
                     error={!!errors.email}
                     helperText={errors.email ? errors.email.message : ""}
+                    onFocus={() => clearErrors("email")}
                   />
                 )}
               />
@@ -267,6 +252,7 @@ const Login = () => {
                         </InputAdornment>
                       ),
                     }}
+                    onFocus={() => clearErrors("password")}
                   />
                 )}
               />
@@ -300,12 +286,13 @@ const Login = () => {
       </FormSection>
 
       <ImageSection>
-        
-        <StyledTypography variant="body1" style={{ marginTop: '20px' }}>
-          <h3>Seja Bem Vindo a Quack()</h3>
-          <A>A plataforma que tem como missão,<br/> ajudar você a aprender e compreender <br/>a</A>
-          <A style={{ color: '#7A5FF5', fontWeight: 'bold' }}> programação!</A>
-        </StyledTypography>
+      <StyledTypography variant="body1" style={{ marginTop: '20px' }}>
+  <h3>Seja Bem Vindo a Quack()</h3>
+  <p>
+    <A>A plataforma que tem como missão,<br/> ajudar você a aprender e compreender <br/>a</A>
+    <A style={{ color: '#7A5FF5', fontWeight: 'bold' }}> programação!</A>
+  </p>
+</StyledTypography>
         <DuckImage src="/src/Assets/LogoReverse.svg" alt="Mascote Quack" />
       </ImageSection>
     </LoginContainer>
