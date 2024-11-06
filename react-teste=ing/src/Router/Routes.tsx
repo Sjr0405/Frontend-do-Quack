@@ -1,21 +1,21 @@
 import { Routes, Route } from 'react-router-dom'; 
-import Login from './Pages/Login/Login'; 
-import EsqueciSenha from './Pages/EsqueciSenha/EsqueciSenha'; 
-import Cadastro from './Pages/Cadastro/Cadastro';
-import Home from './Pages/Home/Home.tsx';
-import Aprender from './Components/Dashboard/Inicio.tsx';
-import Atividade from './Components/Dashboard/Desafio.tsx';
-import Rankings from './Components/Dashboard/Rankings.tsx';
-import FazerAtividade from './Components/Dashboard/FazerAtividade.tsx';
-import Perfil from './Components/Dashboard/TeladePefil/Perfil.tsx';
-import EditarPerfil from './Pages/EditarPerfil/EditarPerfil.tsx';
-import PrivateRoute from './Components/Dashboard/PrivateRoute';
-import { AuthProvider } from './AuthContext.tsx';
-import GlobalStyles from './Styles/GlobalStyles.tsx';
+import Login from '../Pages/Login/Login'; 
+import EsqueciSenha from '../Pages/EsqueciSenha/EsqueciSenha'; 
+import Cadastro from '../Pages/Cadastro/Cadastro';
+import Home from '../Pages/Home/Home.tsx';
+import Aprender from '../Components/Dashboard/Inicio.tsx';
+import Atividade from '../Components/Dashboard/Desafio.tsx';
+import Rankings from '../Components/Dashboard/Rankings.tsx';
+import FazerAtividade from '../Components/Dashboard/FazerAtividade.tsx';
+import Perfil from '../Components/Dashboard/TeladePefil/Perfil.tsx';
+import EditarPerfil from '../Pages/EditarPerfil/EditarPerfil.tsx';
+import PrivateRoute from '../Router/PrivateRoute.tsx';
+import { AuthProvider } from '../AuthContext.tsx';
+import GlobalStyles from '../Styles/GlobalStyles.tsx';
 import { ThemeProvider } from 'styled-components';
-import { light, dark } from './Styles/Themes';
-import LandingPage from './Pages/LandingPage/LandingPage'; // Importando o componente LandingPage
-import Trilhas from './Pages/Trilhas/Trilhas';
+import { light, dark } from '../Styles/Themes';
+import LandingPage from '../Pages/LandingPage/LandingPage'; // Importando o componente LandingPage
+import Trilhas from '../Pages/Trilhas/Trilhas';
 
 export { MainRoutes }
 

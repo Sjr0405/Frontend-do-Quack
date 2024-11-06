@@ -5,7 +5,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import 'react-image-crop/dist/ReactCrop.css';
 import ProfileImageUploader from './ProfileImageUploader.tsx'; 
 import { Form, GoogleButton, ImageSection, StyledTypography, Inputinho } from './CadastroStyles';
-import { useCadastro } from '../../hooks/useCadastro';
+import { useCadastro } from '../../hooks/auth/useCadastro.ts';
 import { useNavigate } from 'react-router-dom';
 
 export default function Cadastro() {
