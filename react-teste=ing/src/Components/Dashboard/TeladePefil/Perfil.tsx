@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Input } from '@mui/material';
 import { useAuth } from '../../../AuthContext';
@@ -39,13 +39,13 @@ import {
 } from './PerfilStyles';
 
 const Perfil = ({ changeSection }: { changeSection: (section: string) => void }) => {
-  const { user } = useAuth(); // Acessa o usuário do AuthContext
+  const { user, achievements } = useAuth(); 
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [activeTab, setActiveTab] = useState('NaAsa');
 
   if (!user) {
-    return <div>Carregando...</div>; // Mostra um loading caso o usuário não esteja carregado
+    return <div>Carregando...</div>; 
   }
 
   return (
@@ -79,7 +79,7 @@ const Perfil = ({ changeSection }: { changeSection: (section: string) => void })
           <p><span>Username:</span> {user.username}</p>
           <p><span>Email:</span> {user.email}</p>
           <p>Aluno desde {new Date(user.registerAt).toLocaleDateString('pt-BR', { year: 'numeric', month: 'long' })}</p>
-          <p><span>Ranking:</span> <span className="ranking">#30</span></p> {/* Exemplo de ranking */}
+          <p><span>Ranking:</span> <span className="ranking">#30</span></p> 
         </ProfileInfo>
 
         <EditIcon onClick={() => navigate('/EditarPerfil')}>
@@ -114,11 +114,17 @@ const Perfil = ({ changeSection }: { changeSection: (section: string) => void })
           <BadgeTitle>Coleção de emblemas:</BadgeTitle>
           <BadgeCollectionContainer>
             <BadgeGrid>
-              <BadgeItem>
-                <BadgeImage src="/path/to/badge1.svg" alt="Introdução à Programação" />
-                <BadgeText>Introdução à Programação</BadgeText>
-              </BadgeItem>
-              {/* Adicione mais BadgeItems conforme necessário */}
+              {achievements?.length > 0 ? (
+                achievements.map((achievement) => (
+                  <BadgeItem key={achievement.id}>
+                    <BadgeImage src={achievement.imagePath} alt={achievement.name} />
+                    <BadgeText>{achievement.name}</BadgeText>
+                    <p>{achievement.description}</p>
+                  </BadgeItem>
+                ))
+              ) : (
+                <p>Nenhum emblema encontrado</p>
+              )}
             </BadgeGrid>
           </BadgeCollectionContainer>
         </div>
