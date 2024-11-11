@@ -36,13 +36,14 @@ interface Achievement {
 interface AuthContextData {
   user: User | null;
   token: string | null;
-  achievements: Achievement | null;
+  achievements: Achievement[] | null;
   statistics: Statistics | null;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   isAuthenticated: () => boolean;
   fetchUserProfile: (userId: number) => Promise<void>;
   fetchUserAchievements: () => Promise<void>;
+  fetchUserAchievementsById: (userId: number) => Promise<void>;
   updateUserProfile: (updatedData: Partial<User>) => Promise<void>;
 }
 
@@ -51,10 +52,11 @@ const AuthContext = createContext<AuthContextData | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
-  const [achievements, setAchievements] = useState<Achievement | null>(null);
+  const [achievements, setAchievements] = useState<Achievement[] | null>(null);
   const [statistics, setStatistics] = useState<Statistics | null>(null);
   const TOKEN_EXPIRATION_TIME = 5 * 60 * 60 * 1000; // 5 horas
 
+//***************************************************************************
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
     const storedUser = localStorage.getItem('user');
@@ -70,7 +72,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
     }
   }, []);
-
+//***************************************************************************
   useEffect(() => {
     if (token && !user) {
       const manualId = 40;
@@ -79,7 +81,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       fetchUserStatistics();
     }
   }, [token, user]);
-
+//***************************************************************************
   const login = async (email: string, password: string) => {
     try {
       const response = await axios.post('/auth/login', { email, password });
@@ -96,7 +98,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       throw new Error('Falha no login');
     }
   };
-
+//***************************************************************************
   const fetchUserProfile = async (userId: number) => {
     if (!token) return;
 
@@ -111,7 +113,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       logout();
     }
   };
-
+//***************************************************************************
   const fetchUserAchievements = async () => {
     if (!token || !user) return;
 
@@ -124,7 +126,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       console.error('Erro ao buscar achievements:', error);
     }
   };
-
+//***************************************************************************
   const fetchUserStatistics = async () => {
     if (!token || !user) return;
 
@@ -138,7 +140,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       console.error('Erro ao buscar estatísticas:', error);
     }
   };
-
+//***************************************************************************
   const updateUserProfile = async (updatedData: Partial<User>) => {
     if (!user?.id || !token) return;
 
@@ -155,7 +157,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       throw error;
     }
   };
+//***************************************************************************
+const fetchUserAchievementsById = async (userId: number) => {
+  if (!token) return;
 
+  try {
+    const response = await axios.get(`/achievements/${userId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    setAchievements(response.data);
+  } catch (error) {
+    console.error('Erro ao buscar conquistas:', error);
+  }
+};
+//***************************************************************************
   const logout = () => {
     setToken(null);
     setUser(null);
@@ -165,11 +180,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.removeItem('user');
     localStorage.removeItem('tokenExpiry');
   };
-
+//***************************************************************************
   const isAuthenticated = () => {
     return !!token;
   };
-
+//***************************************************************************
   return (
     <AuthContext.Provider value={{
       user,
@@ -181,6 +196,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       isAuthenticated,
       fetchUserProfile,
       fetchUserAchievements,
+      fetchUserAchievementsById, 
       updateUserProfile,
     }}>
       {children}
@@ -197,5 +213,3 @@ export const useAuth = (): AuthContextData => {
 };
 
 export default useAuth;
-
-

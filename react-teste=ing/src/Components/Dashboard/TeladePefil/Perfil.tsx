@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Input } from '@mui/material';
 import { useAuth } from '../../../AuthContext';
@@ -39,11 +39,18 @@ import {
 } from './PerfilStyles';
 
 const Perfil = ({ changeSection }: { changeSection: (section: string) => void }) => {
-  const { user, achievements, statistics } = useAuth(); 
+  const { user, achievements, statistics, fetchUserAchievementsById } = useAuth(); 
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [activeTab, setActiveTab] = useState('NaAsa');
 
+//***************************************************************************
+  useEffect(() => {
+    if (user) {
+      fetchUserAchievementsById(user.id);
+    }
+  }, [user, fetchUserAchievementsById]);
+//***************************************************************************
   if (!user) {
     return <div>Carregando...</div>; 
   }
@@ -67,7 +74,7 @@ const Perfil = ({ changeSection }: { changeSection: (section: string) => void })
           Acesse nossa loja!
         </StoreButton>
       </Header>
-
+     
       <ProfileSection>
         <ProfileImageContainer>
           <ProfileImageBuble>
@@ -114,16 +121,16 @@ const Perfil = ({ changeSection }: { changeSection: (section: string) => void })
           <BadgeTitle>Coleção de emblemas:</BadgeTitle>
           <BadgeCollectionContainer>
             <BadgeGrid>
-              {achievements && Object.keys(achievements).length > 0 ? (
-                Object.keys(achievements).map((achievement) => (
-                  <BadgeItem key={achievement}>
-                    <BadgeImage src={achievements.imagePath} alt={achievements.name} />
-                    <BadgeText>{achievements.name}</BadgeText>
-                    <p>{achievements.description}</p>
+              {achievements && achievements.length > 0 ? (
+                achievements.map((achievement) => (
+                  <BadgeItem key={achievement.id}>
+                    <BadgeImage src={achievement.imagePath} alt={achievement.name} />
+                    <BadgeText>{achievement.name}</BadgeText>
+                    <p>{achievement.description}</p>
                   </BadgeItem>
                 ))
               ) : (
-                <p>Nenhum emblema encontrado</p>
+                <p>Você não tem conquistas</p>
               )}
             </BadgeGrid>
           </BadgeCollectionContainer>
