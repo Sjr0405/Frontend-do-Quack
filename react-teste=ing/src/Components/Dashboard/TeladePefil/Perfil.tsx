@@ -39,7 +39,7 @@ import {
 } from './PerfilStyles';
 
 const Perfil = ({ changeSection }: { changeSection: (section: string) => void }) => {
-  const { user, achievements } = useAuth(); 
+  const { user, achievements, statistics } = useAuth(); 
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [activeTab, setActiveTab] = useState('NaAsa');
@@ -114,12 +114,12 @@ const Perfil = ({ changeSection }: { changeSection: (section: string) => void })
           <BadgeTitle>Coleção de emblemas:</BadgeTitle>
           <BadgeCollectionContainer>
             <BadgeGrid>
-              {achievements?.length > 0 ? (
-                achievements.map((achievement) => (
-                  <BadgeItem key={achievement.id}>
-                    <BadgeImage src={achievement.imagePath} alt={achievement.name} />
-                    <BadgeText>{achievement.name}</BadgeText>
-                    <p>{achievement.description}</p>
+              {achievements && Object.keys(achievements).length > 0 ? (
+                Object.keys(achievements).map((achievement) => (
+                  <BadgeItem key={achievement}>
+                    <BadgeImage src={achievements.imagePath} alt={achievements.name} />
+                    <BadgeText>{achievements.name}</BadgeText>
+                    <p>{achievements.description}</p>
                   </BadgeItem>
                 ))
               ) : (
@@ -132,27 +132,51 @@ const Perfil = ({ changeSection }: { changeSection: (section: string) => void })
         <StatsSection>
           <StatsTitle>Estatísticas:</StatsTitle>
           <StatsGrid>
-            <StatItem>
-              <StatIcon src="/path/to/icon1.svg" alt="Dias de investida" />
-              <StatLabel>Dias de investida</StatLabel>
-              <StatValue>24</StatValue>
-            </StatItem>
-            <StatItem>
-              <StatIcon src="/path/to/icon2.svg" alt="Nível" />
-              <StatLabel>Nível</StatLabel>
-              <StatValue>20</StatValue>
-              <ProgressBar><Progress /></ProgressBar>
-            </StatItem>
-            <StatItem>
-              <StatIcon src="/path/to/icon3.svg" alt="Desafios concluídos" />
-              <StatLabel>Desafios concluídos</StatLabel>
-              <StatValue>24</StatValue>
-            </StatItem>
-            <StatItem>
-              <StatIcon src="/path/to/icon4.svg" alt="Lições completadas" />
-              <StatLabel>Lições completadas</StatLabel>
-              <StatValue>42</StatValue>
-            </StatItem>
+            {statistics && Object.keys(statistics).length > 0 ? (
+              Object.keys(statistics).map((statistic) => (
+                <StatItem key={statistic}>
+                  <StatIcon src="/src/Icons/fire.svg" alt="Foginho" />
+                  <StatLabel>{statistics.user}</StatLabel>
+                  <StatValue>{statistics.streakDays}</StatValue>
+                </StatItem>
+              ))
+            ) : (
+              <p>Nenhuma estatística encontrada</p>
+            )}
+            {statistics && Object.keys(statistics).length > 0 ? (
+              Object.keys(statistics).map((statistic) => (
+                <StatItem key={statistic}>
+                  <StatIcon src="/src/Icons/fire.svg" alt="Foginho" />
+                  <StatLabel>{statistics.user}</StatLabel>
+                  <StatValue>{statistics.userLevel}</StatValue>
+                  <StatValue>{statistics.userExperience}</StatValue>
+                </StatItem>
+              ))
+            ) : (
+              <p>Nenhuma estatística encontrada</p>
+            )}
+            {statistics && Object.keys(statistics).length > 0 ? (
+              Object.keys(statistics).map((statistic) => (
+                <StatItem key={statistic}>
+                  <StatIcon src="/src/Icons/fire.svg" alt="Foginho" />
+                  <StatLabel>{statistics.user}</StatLabel>
+                  <StatValue>{statistics.challengesCompletedCount}</StatValue>
+                </StatItem>
+              ))
+            ) : (
+              <p>Nenhuma estatística encontrada</p>
+            )}
+            {statistics && Object.keys(statistics).length > 0 ? (
+              Object.keys(statistics).map((statistic) => (
+                <StatItem key={statistic}>
+                  <StatIcon src="/src/Icons/fire.svg" alt="Foginho" />
+                  <StatLabel>{statistics.user}</StatLabel>
+                  <StatValue>{statistics.roadmapsCompletedCount}</StatValue>
+                </StatItem>
+              ))
+            ) : (
+              <p>Nenhuma estatística encontrada</p>
+            )}
           </StatsGrid>
         </StatsSection>
       </Content>

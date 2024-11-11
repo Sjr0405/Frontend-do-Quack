@@ -15,6 +15,17 @@ interface User {
   status: string;
 }
 
+interface Statistics {
+  id : number;
+  user: string;
+  streakDays : number;
+  bestStreak : number;
+  userLevel : number;
+  userExperience : number;
+  challengesCompletedCount : number;
+  roadmapsCompletedCount : number;
+}
+
 interface Achievement {
   id: number;
   name: string;
@@ -25,7 +36,8 @@ interface Achievement {
 interface AuthContextData {
   user: User | null;
   token: string | null;
-  achievements: Achievement[];
+  achievements: Achievement | null;
+  statistics: Statistics | null;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   isAuthenticated: () => boolean;
@@ -39,7 +51,8 @@ const AuthContext = createContext<AuthContextData | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
-  const [achievements, setAchievements] = useState<Achievement[]>([]);
+  const [achievements, setAchievements] = useState<Achievement | null>(null);
+  const [statistics, setStatistics] = useState<Statistics | null>(null);
   const TOKEN_EXPIRATION_TIME = 5 * 60 * 60 * 1000; // 5 horas
 
   useEffect(() => {
@@ -59,10 +72,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   useEffect(() => {
-    if (token && user) {
+    if (token && !user) {
       const manualId = 40;
       fetchUserProfile(manualId);
       fetchUserAchievements();
+      fetchUserStatistics();
     }
   }, [token, user]);
 
@@ -111,6 +125,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  const fetchUserStatistics = async () => {
+    if (!token || !user) return;
+
+    try {
+      const response = await axios.get('/statistics', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setStatistics(response.data);
+      return response.data;
+    } catch (error) {
+      console.error('Erro ao buscar estatísticas:', error);
+    }
+  };
+
   const updateUserProfile = async (updatedData: Partial<User>) => {
     if (!user?.id || !token) return;
 
@@ -131,7 +159,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const logout = () => {
     setToken(null);
     setUser(null);
-    setAchievements([]);
+    setAchievements(null);
+    setStatistics(null);
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     localStorage.removeItem('tokenExpiry');
@@ -146,12 +175,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       user,
       token,
       achievements,
+      statistics,
       login,
       logout,
       isAuthenticated,
       fetchUserProfile,
       fetchUserAchievements,
-      updateUserProfile
+      updateUserProfile,
     }}>
       {children}
     </AuthContext.Provider>
