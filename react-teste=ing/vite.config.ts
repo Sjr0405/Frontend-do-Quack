@@ -34,6 +34,13 @@ export default defineConfig({
         changeOrigin: true,
         secure: false, // Adicionado para aceitar certificados autoassinados
         rewrite: (path) => path.replace(/^\/achievements/, '/achievements')
+      },
+      'statistics':{
+        target: 'https://145.223.27.98:5030',
+        changeOrigin: true,
+        secure: false, //Adicionando para aceitar certificados autoassinados
+
+        rewrite: (path) => path.replace(/^\/statistics/, '/statistics')
       }
     }
   }
