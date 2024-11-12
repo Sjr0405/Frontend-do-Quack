@@ -26,6 +26,26 @@ interface Statistics {
   roadmapsCompletedCount : number;
 }
 
+interface TaskText {
+  title: string;
+  description: string;
+  text: string;
+}
+
+interface Task {
+  id: number;
+  steps: string;
+  tasktext: TaskText;
+  imagePath: string;
+}
+
+interface Roadmaps {
+  id: number;
+  title: string;
+  description: string;
+  imagePath: string;
+}
+
 interface Achievement {
   id: number;
   name: string;
@@ -36,6 +56,8 @@ interface Achievement {
 interface AuthContextData {
   user: User | null;
   token: string | null;
+  tasks: Task[] | null;
+  roadmaps: Roadmaps[] | null;
   achievements: Achievement[] | null;
   statistics: Statistics | null;
   login: (email: string, password: string) => Promise<void>;
@@ -43,7 +65,10 @@ interface AuthContextData {
   isAuthenticated: () => boolean;
   fetchUserProfile: (userId: number) => Promise<void>;
   fetchUserAchievements: () => Promise<void>;
+  fetchUserTasksById: (userId: number) => Promise<void>;
+  fetchUserRoadmapsById: (userId: number) => Promise<void>;
   fetchUserAchievementsById: (userId: number) => Promise<void>;
+  fetchUserStatisticsById: (userId: number) => Promise<void>;
   updateUserProfile: (updatedData: Partial<User>) => Promise<void>;
 }
 
@@ -52,6 +77,8 @@ const AuthContext = createContext<AuthContextData | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
+  const [tasks, setTasks] = useState<Task[] | null>(null);
+  const [roadmaps, setRoadmaps] = useState<Roadmaps[] | null>(null);
   const [achievements, setAchievements] = useState<Achievement[] | null>(null);
   const [statistics, setStatistics] = useState<Statistics | null>(null);
   const TOKEN_EXPIRATION_TIME = 5 * 60 * 60 * 1000; // 5 horas
@@ -72,15 +99,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
     }
   }, []);
+
 //***************************************************************************
   useEffect(() => {
     if (token && !user) {
       const manualId = 40;
       fetchUserProfile(manualId);
+      fecthUserTasks();
+      fecthUserRoadmaps();
       fetchUserAchievements();
       fetchUserStatistics();
     }
   }, [token, user]);
+
 //***************************************************************************
   const login = async (email: string, password: string) => {
     try {
@@ -98,6 +129,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       throw new Error('Falha no login');
     }
   };
+
 //***************************************************************************
   const fetchUserProfile = async (userId: number) => {
     if (!token) return;
@@ -113,6 +145,39 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       logout();
     }
   };
+
+  //***************************************************************************
+  const fecthUserTasks = async () => {
+    if (!token || !user) return;
+  
+    try {
+      const response = await axios.get('/tasks', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setTasks(response.data);
+      localStorage.setItem('user', JSON.stringify(response.data));
+    } catch (error) {
+      console.error('Erro ao buscar tarefas:', error);
+      logout();
+    }
+  }
+  
+  //*****************************************************************************
+  const fecthUserRoadmaps = async () => {
+    if (!token || !user) return;
+    
+    try {
+      const response = await axios.get('/roadmaps', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setTasks(response.data);
+      localStorage.setItem('user', JSON.stringify(response.data));
+    } catch (error) {
+      console.error('Erro ao buscar tarefas:', error);
+      logout();
+    }
+  }
+
 //***************************************************************************
   const fetchUserAchievements = async () => {
     if (!token || !user) return;
@@ -122,11 +187,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         headers: { Authorization: `Bearer ${token}` },
       });
       setAchievements(response.data);
+      localStorage.setItem('user', JSON.stringify(response.data));
     } catch (error) {
       console.error('Erro ao buscar achievements:', error);
+      logout();
     }
   };
-//***************************************************************************
+
+//*****************************************************************************
   const fetchUserStatistics = async () => {
     if (!token || !user) return;
 
@@ -135,12 +203,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         headers: { Authorization: `Bearer ${token}` },
       });
       setStatistics(response.data);
-      return response.data;
+      localStorage.setItem('user', JSON.stringify(response.data));
     } catch (error) {
       console.error('Erro ao buscar estatísticas:', error);
+      logout();
     }
   };
-//***************************************************************************
+
+//*****************************************************************************
   const updateUserProfile = async (updatedData: Partial<User>) => {
     if (!user?.id || !token) return;
 
@@ -157,7 +227,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       throw error;
     }
   };
-//***************************************************************************
+
+//*****************************************************************************
 const fetchUserAchievementsById = async (userId: number) => {
   if (!token) return;
 
@@ -170,25 +241,75 @@ const fetchUserAchievementsById = async (userId: number) => {
     console.error('Erro ao buscar conquistas:', error);
   }
 };
-//***************************************************************************
+
+//*****************************************************************************
+const fetchUserStatisticsById = async (userId: number) => {
+  if (!token) return;
+
+  try {
+    const response = await axios.get(`/statistics/${userId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    setStatistics(response.data);
+  } catch (error) {
+    console.error('Erro ao buscar estatísticas:', error);
+  }
+};
+
+//*****************************************************************************
+const fetchUserTasksById = async (userId: number) => {
+  if (!token) return;
+
+  try {    
+    const response = await axios.get(`/tasks/${userId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    setTasks(response.data);
+  } catch (error) {
+    console.error('Erro ao buscar tarefas:', error);
+  }
+};
+
+//*****************************************************************************
+const fetchUserRoadmapsById = async (userId: number) => {
+  if (!token) return;
+
+  try {    
+    const response = await axios.get(`/roadmaps/${userId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    setRoadmaps(response.data);    
+  } catch (error) {
+    console.error('Erro ao buscar tarefas:', error);
+  }
+};
+
+//*****************************************************************************
+
   const logout = () => {
     setToken(null);
     setUser(null);
+    setTasks(null);
+    setRoadmaps(null);
     setAchievements(null);
     setStatistics(null);
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     localStorage.removeItem('tokenExpiry');
   };
-//***************************************************************************
+
+//*****************************************************************************
   const isAuthenticated = () => {
     return !!token;
   };
-//***************************************************************************
+
+//*****************************************************************************
   return (
     <AuthContext.Provider value={{
       user,
       token,
+      tasks,
+      roadmaps,
       achievements,
       statistics,
       login,
@@ -196,6 +317,9 @@ const fetchUserAchievementsById = async (userId: number) => {
       isAuthenticated,
       fetchUserProfile,
       fetchUserAchievements,
+      fetchUserTasksById,
+      fetchUserRoadmapsById,
+      fetchUserStatisticsById,
       fetchUserAchievementsById, 
       updateUserProfile,
     }}>
@@ -204,6 +328,7 @@ const fetchUserAchievementsById = async (userId: number) => {
   );
 };
 
+//*****************************************************************************
 export const useAuth = (): AuthContextData => {
   const context = useContext(AuthContext);
   if (!context) {

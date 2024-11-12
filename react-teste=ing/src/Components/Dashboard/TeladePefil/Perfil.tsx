@@ -39,7 +39,7 @@ import {
 } from './PerfilStyles';
 
 const Perfil = ({ changeSection }: { changeSection: (section: string) => void }) => {
-  const { user, achievements, statistics, fetchUserAchievementsById } = useAuth(); 
+  const { user, achievements, statistics, fetchUserAchievementsById, fetchUserStatisticsById, fetchUserTasksById, fetchUserRoadmapsById } = useAuth(); 
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [activeTab, setActiveTab] = useState('NaAsa');
@@ -48,8 +48,11 @@ const Perfil = ({ changeSection }: { changeSection: (section: string) => void })
   useEffect(() => {
     if (user) {
       fetchUserAchievementsById(user.id);
+      fetchUserStatisticsById(user.id);
+      fetchUserTasksById(user.id);
+      fetchUserRoadmapsById(user.id);
     }
-  }, [user, fetchUserAchievementsById]);
+  }, [user, fetchUserAchievementsById, fetchUserStatisticsById, fetchUserTasksById, fetchUserRoadmapsById]);
 //***************************************************************************
   if (!user) {
     return <div>Carregando...</div>; 
@@ -156,6 +159,9 @@ const Perfil = ({ changeSection }: { changeSection: (section: string) => void })
                   <StatIcon src="/src/Icons/fire.svg" alt="Foginho" />
                   <StatLabel>{statistics.user}</StatLabel>
                   <StatValue>{statistics.userLevel}</StatValue>
+                  <ProgressBar>
+                    <Progress/>
+                  </ProgressBar>
                   <StatValue>{statistics.userExperience}</StatValue>
                 </StatItem>
               ))
