@@ -128,12 +128,13 @@ const Function = styled.a`
   color: #000;
 `;
 
+const AtividadeConcluida = localStorage.getItem('AtividadeConcluida') || 'false'; 
+
 const Desafio = ({ changeSection }: { changeSection: (section: string) => void }) => {
 
-
+if (AtividadeConcluida === 'false') {
   return (
     <Container>
-      {/* Main Content */}
       <MainContent>
         <Header>
           <TopBar>
@@ -218,5 +219,10 @@ const Desafio = ({ changeSection }: { changeSection: (section: string) => void }
     </Container>
   );
 };
-
+  return (
+    <Container>
+      <p>Atividade da Semana Finalizada</p>
+    </Container>
+  );
+}
 export default Desafio;

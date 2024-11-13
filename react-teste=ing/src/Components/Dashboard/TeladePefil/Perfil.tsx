@@ -39,7 +39,7 @@ import {
 } from './PerfilStyles';
 
 const Perfil = ({ changeSection }: { changeSection: (section: string) => void }) => {
-  const { user, achievements, statistics, fetchUserAchievementsById, fetchUserStatisticsById, fetchUserTasksById, fetchUserRoadmapsById } = useAuth(); 
+  const { user, achievements, statistics, fetchUserAchievementsById, fetchUserStatisticsById, fetchUserTasksById } = useAuth(); 
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [activeTab, setActiveTab] = useState('NaAsa');
@@ -50,9 +50,9 @@ const Perfil = ({ changeSection }: { changeSection: (section: string) => void })
       fetchUserAchievementsById(user.id);
       fetchUserStatisticsById(user.id);
       fetchUserTasksById(user.id);
-      fetchUserRoadmapsById(user.id);
     }
-  }, [user, fetchUserAchievementsById, fetchUserStatisticsById, fetchUserTasksById, fetchUserRoadmapsById]);
+  }, [user, fetchUserAchievementsById, fetchUserStatisticsById, fetchUserTasksById]);
+
 //***************************************************************************
   if (!user) {
     return <div>Carregando...</div>; 
