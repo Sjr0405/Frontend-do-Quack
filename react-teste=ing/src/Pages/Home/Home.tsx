@@ -9,6 +9,7 @@ import Rankings from '../../Components/Dashboard/Rankings';
 import Perfil from '../../Components/Dashboard/TeladePefil/Perfil';
 import Missoes from '../../Components/Missão/MissoesPage';
 import Header from '../../Components/Dashboard/Header';
+import ChallengeCard from '../../Components/Missão/MainContentContainer/ChallengeCard/ChallengeCard';
 
 const Container = styled.div`
   display: flex;
@@ -49,6 +50,7 @@ const Home = () => {
       Rankings: <Rankings />,
       Perfil: <Perfil changeSection={setSection} />,
       Missoes: <Missoes />,
+      ChallengeCard: <ChallengeCard changeSection={setSection} />
     };
 
     return sectionComponents[section] || <Aprender changeSection={setSection} />;

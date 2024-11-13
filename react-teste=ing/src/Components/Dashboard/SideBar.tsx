@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
@@ -120,7 +120,7 @@ const SideBar = ({ changeSection }: { changeSection: (section: string) => void }
 
   return (
     <Sidebar>
-      <Logo onClick={() => navigate('/Home')}>
+      <Logo onClick={() => handleItemClick('Aprender')}>
         <img src="/src/assets/Logo.svg" alt="Logo Quack()" />
         <span>Quack()</span>
       </Logo>
