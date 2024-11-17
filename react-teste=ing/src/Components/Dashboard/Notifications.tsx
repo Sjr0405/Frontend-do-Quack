@@ -24,13 +24,19 @@ import { useNavigate } from 'react-router-dom';
 // Componente para itens de notificação
 const NotificationItem = ({ Icon, title, description, actionLabel, actionColor, iconColor, onClose }) => {
   const navigate = useNavigate();
+  const [visible, setVisible] = useState(true);
 
   const handleButtonClick = () => {
     navigate("/home"); // Temporariamente redirecionando para a mesma página
   };
 
+  const handleClose = () => {
+    setVisible(false);
+    setTimeout(onClose, 300); // Tempo da animação de saída
+  };
+
   return (
-    <Slide direction="up" in mountOnEnter unmountOnExit>
+    <Slide direction={visible ? "left" : "right"} in={visible} mountOnEnter unmountOnExit>
       <Box
         display="flex"
         alignItems="center"
@@ -80,7 +86,7 @@ const NotificationItem = ({ Icon, title, description, actionLabel, actionColor, 
               {actionLabel}
             </Button>
           )}
-          <IconButton onClick={onClose}>
+          <IconButton onClick={handleClose}>
             <CloseIcon />
           </IconButton>
         </Box>

@@ -148,7 +148,6 @@ const CardWrapper = styled.article`
     max-width: 100%;
     margin-top: 39px;
     padding: 0 20px;
-    
   }
 `;
 
@@ -426,10 +425,11 @@ const MainContentContainer: React.FC<{ changeSection: (section: string) => void 
 };
 
 const PageTitle = styled.h1`
-  color: #FC7A02;
+  color: #7a5ff5;
   font-size: 30px;
-  font-family: 'Montserrat Alternates', sans-serif;
-  font-weight: 700;
+  font-family: 'Montserrat Alternates';
+            fontWeight: "bold";
+
   text-align: center;
   margin: 20px 0;
 `;

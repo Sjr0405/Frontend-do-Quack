@@ -139,7 +139,7 @@ const Loja = () => {
                     zIndex: 1, // Garantir que o texto fique acima do SVG
                   }}
                 >
-                  Experimente o Quack Premium por 2 semanas grátis e aproveite benefícios exclusivos!
+                  Experimente o Quack Turbo por 2 semanas grátis e aproveite benefícios exclusivos!
                 </Typography>
                 <Button
                   variant="contained"
@@ -174,7 +174,7 @@ const Loja = () => {
               <StoreItem
                 Icon={AllInclusiveIcon}
                 title="Vidas ilimitadas"
-                description="Com o Quack Premium, você nunca fica sem vidas!"
+                description="Com o Quack Turbo, você nunca fica sem vidas!"
                 actionLabel="TESTAR GRÁTIS"
                 actionColor="#FF914D"
                 iconColor="#00CFFF"
@@ -281,7 +281,7 @@ const Loja = () => {
                 Usando um bloqueador de anúncios?
               </Typography>
               <Typography variant="body2" gutterBottom>
-                Apoie a educação com o Quack Premium e vamos remover os anúncios para você.
+                Apoie a educação com o Quack Turbo e vamos remover os anúncios para você.
               </Typography>
               <Button
                 variant="contained"
@@ -293,7 +293,7 @@ const Loja = () => {
                   fontWeight: "bold",
                 }}
               >
-                EXPERIMENTE O PREMIUM DE GRAÇA
+                EXPERIMENTE O TURBO DE GRAÇA
               </Button>
             </Card>
           </Grid>
