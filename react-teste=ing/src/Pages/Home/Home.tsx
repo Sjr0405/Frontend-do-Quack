@@ -10,6 +10,7 @@ import Perfil from '../../Components/Dashboard/TeladePefil/Perfil';
 import Missoes from '../../Components/Missão/MissoesPage';
 import Configuracoes from '../../Components/Dashboard/Configuracoes';
 import Loja from '../../Components/Dashboard/Loja'; // Importa o componente Loja
+import Notifications from '../../Components/Dashboard/Notifications'; // Importa o componente Notifications
 
 const Container = styled.div`
   display: flex;
@@ -47,11 +48,12 @@ const Home = () => {
       Aprender: <Aprender changeSection={setSection} />,
       FazerAtividade: <FazerAtividade changeSection={setSection} />,
       Desafio: <Desafio changeSection={setSection} />,
-      Rankings: <Rankings />,
+      Rankings: <Rankings  changeSection={setSection}/>,
       Perfil: <Perfil changeSection={setSection} />,
       Missoes: <Missoes changeSection={setSection} />,
-      Configuracoes: <Configuracoes />,
-      Loja: <Loja /> // Adiciona a nova seção Loja
+      Configuracoes: <Configuracoes  changeSection={setSection}/>,
+      Loja: <Loja changeSection={setSection} />, // Adiciona a nova seção Loja
+      Notifications: <Notifications  changeSection={setSection} /> // Adiciona a nova seção Notifications
     };
 
     return sectionComponents[section] || <Aprender changeSection={setSection} />;

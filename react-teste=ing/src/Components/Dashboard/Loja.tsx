@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Grid,
   Box,
@@ -13,6 +12,8 @@ import AllInclusiveIcon from "@mui/icons-material/AllInclusive";
 import ShieldIcon from "@mui/icons-material/Shield";
 import EventIcon from "@mui/icons-material/Event";
 import { useNavigate } from "react-router-dom";
+import React from "react"; // Importar React
+import PatoSvg from "../../Assets/Svg_thigas/VETOR PATO.svg";
 
 // Componente para itens da loja
 const StoreItem = ({ Icon, title, description, actionLabel, actionColor, iconColor }) => {
@@ -94,9 +95,11 @@ const Loja = () => {
             marginBottom: 3,
             fontWeight: "bold",
             color: "#7a5ff5",
+            fontFamily: 'Montserrat Alternates', // Aplicando a fonte Lilita One
+
           }}
         >
-          Bem-vindo à Loja Quack Premium!
+          Bem-vindo à Loja Quack!
         </Typography>
         <Grid container spacing={4}>
           {/* Coluna principal */}
@@ -104,13 +107,27 @@ const Loja = () => {
             {/* Banner Superior */}
             <Card
               sx={{
+                position: "relative", // Importante para posicionar a imagem dentro do card
                 borderRadius: "16px",
                 boxShadow: 3,
                 backgroundColor: "#7a5ff5",
                 color: "#fff",
                 padding: 3,
+                overflow: "hidden", // Garantir que a imagem não ultrapasse os limites do Card
               }}
             >
+              {/* Imagem do Pato */}
+              <Box
+                component="img"
+                src={PatoSvg}
+                alt="Vetor Pato"
+                sx={{
+                  position: "absolute",
+                  right: 50,
+                  bottom: 0,
+                  width: "70px", // Ajuste o tamanho conforme necessário
+                }}
+              />
               <Box>
                 <Typography
                   variant="h5"
@@ -118,6 +135,8 @@ const Loja = () => {
                   sx={{
                     marginBottom: 2,
                     textAlign: "left",
+                    position: "relative", // Para garantir que o texto fique acima do SVG
+                    zIndex: 1, // Garantir que o texto fique acima do SVG
                   }}
                 >
                   Experimente o Quack Premium por 2 semanas grátis e aproveite benefícios exclusivos!
@@ -130,6 +149,8 @@ const Loja = () => {
                     borderRadius: "16px",
                     fontWeight: "bold",
                     minWidth: 150,
+                    position: "relative", // Para garantir que o botão fique acima do SVG
+                    zIndex: 1, // Garantir que o botão fique acima do SVG
                   }}
                 >
                   COMEÇAR 14 DIAS GRÁTIS

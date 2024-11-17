@@ -5,30 +5,32 @@ import Swal from 'sweetalert2';
 
 // Styled Components
 const Sidebar = styled.div`
-  width: 250px;
+  width: 220px;
   background-color: #ffffff;
   border-right: 1px solid #ddd;
-  padding: 20px;
+  padding: 15px;
   display: flex;
   flex-direction: column;
   transition: all 0.3s ease-in-out;
 `;
 
 const SidebarItemBase = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   display: flex;
   align-items: center;
   font-family: 'Montserrat Alternates', sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  border-radius: 8px;
-  padding: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 8px;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 
   img {
-    margin-right: 5px;
-    padding: 5px;
+    margin-right: 8px;
+    padding: 4px;
+    height: 20px;
+    width: 20px;
     transition: transform 0.3s ease-in-out;
   }
 
@@ -69,17 +71,17 @@ const SairSidebarItem = styled(SidebarItemBase)`
 const Logo = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 
   img {
-    height: 60px;
-    margin-right: 15px;
+    height: 50px;
+    margin-right: 10px;
     cursor: pointer;
     transition: transform 0.3s ease-in-out;
   }
 
   span {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: bold;
     color: #FF914D;
     transition: color 0.3s, transform 0.3s;
@@ -94,11 +96,11 @@ const Logo = styled.div`
 
   @media (max-width: 768px) {
     img {
-      height: 50px;
+      height: 40px;
     }
 
     span {
-      font-size: 24px;
+      font-size: 20px;
     }
   }
 `;
@@ -137,7 +139,6 @@ const SideBar = ({ changeSection }: { changeSection: (section: string) => void }
         <span>Quack()</span>
       </Logo>
 
-      {/* Verifica se o item selecionado é o 'Aprender' */}
       {selectedItem === 'Aprender' ? (
         <SelectedSidebarItem onClick={() => handleItemClick('Aprender')}>
           <img src="/src/svgs/Home-svgs/Selected-Colors/Laranja/Books.svg" alt="Aprender" />
@@ -150,7 +151,6 @@ const SideBar = ({ changeSection }: { changeSection: (section: string) => void }
         </SidebarItem>
       )}
 
-      {/* Verifica se o item selecionado é o 'Rankings' */}
       {selectedItem === 'Rankings' ? (
         <SelectedSidebarItem onClick={() => handleItemClick('Rankings')}>
           <img src="/src/svgs/Home-svgs/Selected-Colors/Laranja/Ranking.svg" alt="Ranking" />
@@ -163,7 +163,6 @@ const SideBar = ({ changeSection }: { changeSection: (section: string) => void }
         </SidebarItem>
       )}
 
-      {/* Repetir lógica para outros itens */}
       {selectedItem === 'Perfil' ? (
         <SelectedSidebarItem onClick={() => handleItemClick('Perfil')}>
           <img src="/src/svgs/Home-svgs/Selected-Colors/Laranja/User.svg" alt="Perfil" />
@@ -176,7 +175,6 @@ const SideBar = ({ changeSection }: { changeSection: (section: string) => void }
         </SidebarItem>
       )}
 
-      {/* Continue para os demais itens */}
       {selectedItem === 'Missoes' ? (
         <SelectedSidebarItem onClick={() => handleItemClick('Missoes')}>
           <img src="/src/svgs/Home-svgs/Selected-Colors/Laranja/Alvo.svg" alt="Missões" />

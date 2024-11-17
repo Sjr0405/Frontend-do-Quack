@@ -14,8 +14,9 @@ import { AuthProvider } from './AuthContext.tsx';
 import GlobalStyles from './Styles/GlobalStyles.tsx';
 import { ThemeProvider } from 'styled-components';
 import { light, dark } from './Styles/Themes';
-import LandingPage from './Pages/LandingPage/LandingPage'; // Importando o componente LandingPage
+import LandingPage from './Pages/LandingPage/LandingPage';
 import Trilhas from './Pages/Trilhas/Trilhas';
+import Errors from './Pages/Errors'; // Importando o componente Errors
 
 export { MainRoutes }
 
@@ -69,8 +70,11 @@ function MainRoutes() {
               <Trilhas />
             </PrivateRoute>
           } />
+          <Route path="*" element={<Errors />} /> {/* Adicionando a rota para a página de erros */}
         </Routes>
       </ThemeProvider>
     </AuthProvider>
   );
 }
+
+export default MainRoutes;
