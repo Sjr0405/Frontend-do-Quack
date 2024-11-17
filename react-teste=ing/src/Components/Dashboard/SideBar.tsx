@@ -11,6 +11,7 @@ const Sidebar = styled.div`
   padding: 20px;
   display: flex;
   flex-direction: column;
+  transition: all 0.3s ease-in-out;
 `;
 
 const SidebarItemBase = styled.div`
@@ -23,10 +24,19 @@ const SidebarItemBase = styled.div`
   border-radius: 8px;
   padding: 10px;
   cursor: pointer;
+  transition: all 0.3s ease-in-out;
 
   img {
     margin-right: 5px;
     padding: 5px;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  &:hover {
+    box-shadow: inset 0 0 0 2px #FB7901;
+    img {
+      transform: scale(1.1);
+    }
   }
 `;
 
@@ -41,7 +51,7 @@ const SidebarItem = styled(SidebarItemBase)`
 
   &:hover {
     color: #FB7901;
-    border: 1px solid #FB7901;
+    box-shadow: inset 0 0 0 2px #FB7901;
     background-color: rgba(251, 123, 5, 0.05);
   }
 `;
@@ -50,7 +60,7 @@ const SairSidebarItem = styled(SidebarItemBase)`
   color: #ff4a4a;
 
   &:hover {
-    border: 1px solid #ff4a4a;
+    box-shadow: inset 0 0 0 2px #ff4a4a;
     background-color: rgba(255, 62, 65, 0.05);
   }
 `;
@@ -65,18 +75,20 @@ const Logo = styled.div`
     height: 60px;
     margin-right: 15px;
     cursor: pointer;
+    transition: transform 0.3s ease-in-out;
   }
 
   span {
     font-size: 28px;
     font-weight: bold;
     color: #FF914D;
-    transition: color 0.3s;
+    transition: color 0.3s, transform 0.3s;
     cursor: pointer;
     font-family: 'Montserrat', sans-serif;
   
     &:hover {
       color: #4834d4;
+      transform: scale(1.1);
     }
   }
 
@@ -189,15 +201,15 @@ const SideBar = ({ changeSection }: { changeSection: (section: string) => void }
         </SidebarItem>
       )}
 
-      {selectedItem === 'Opcoes' ? (
-        <SelectedSidebarItem onClick={() => handleItemClick('Opcoes')}>
-          <img src="/src/svgs/Home-svgs/Selected-Colors/Laranja/Configuracao.svg" alt="Opções" />
-          Opções
+      {selectedItem === 'Configuracoes' ? (
+        <SelectedSidebarItem onClick={() => handleItemClick('Configuracoes')}>
+          <img src="/src/svgs/Home-svgs/Selected-Colors/Laranja/Configuracao.svg" alt="Configurações" />
+          Configurações
         </SelectedSidebarItem>
       ) : (
-        <SidebarItem onClick={() => handleItemClick('Opcoes')}>
-          <img src="/src/svgs/Home-svgs/Selected-Colors/Preto/Configuracao.svg" alt="Opções" />
-          Opções
+        <SidebarItem onClick={() => handleItemClick('Configuracoes')}>
+          <img src="/src/svgs/Home-svgs/Selected-Colors/Preto/Configuracao.svg" alt="Configurações" />
+          Configurações
         </SidebarItem>
       )}
 

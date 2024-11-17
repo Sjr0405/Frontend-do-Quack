@@ -8,8 +8,8 @@ import Desafio from '../../Components/Dashboard/Desafio';
 import Rankings from '../../Components/Dashboard/Rankings';
 import Perfil from '../../Components/Dashboard/TeladePefil/Perfil';
 import Missoes from '../../Components/Missão/MissoesPage';
-import Header from '../../Components/Dashboard/Header';
-import ChallengeCard from '../../Components/Missão/MainContentContainer/ChallengeCard/ChallengeCard';
+import Configuracoes from '../../Components/Dashboard/Configuracoes';
+import Loja from '../../Components/Dashboard/Loja'; // Importa o componente Loja
 
 const Container = styled.div`
   display: flex;
@@ -35,7 +35,7 @@ const Home = () => {
   const location = useLocation();
 
   useEffect(() => {
-    // Verifica se uma seção foi passada pela navegação
+    // Verifica se seção foi passada pela navegação
     if (location.state?.section) {
       setSection(location.state.section);
     }
@@ -49,8 +49,9 @@ const Home = () => {
       Desafio: <Desafio changeSection={setSection} />,
       Rankings: <Rankings />,
       Perfil: <Perfil changeSection={setSection} />,
-      Missoes: <Missoes />,
-      ChallengeCard: <ChallengeCard changeSection={setSection} />
+      Missoes: <Missoes changeSection={setSection} />,
+      Configuracoes: <Configuracoes />,
+      Loja: <Loja /> // Adiciona a nova seção Loja
     };
 
     return sectionComponents[section] || <Aprender changeSection={setSection} />;
@@ -58,7 +59,6 @@ const Home = () => {
 
   return (
     <Container>
-      <Header /> {/* Header que exibe o nome do usuário */}
       <MainContent>
         <SideBar changeSection={setSection} /> {/* Sidebar para alterar as seções */}
         <ContentArea>
