@@ -8,13 +8,15 @@ import Icon from '@mui/material/Icon';
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-`;
+  margin bottom
+  
+  /* Adicionar padding para o conteúdo não ficar colado nas bordas */`;
 
 const Container = styled.main`
   border-radius: 0;
   padding: 20px;
-  background-color: white; /* Fundo branco */
+  margin-bottom: 20px; /* Adicionar margem inferior */
+  /* Remover a cor de fundo */
 `;
 
 const MissionsWrapper = styled.div`
@@ -139,10 +141,14 @@ const CardWrapper = styled.article`
   padding: 22px 38px 50px;
   border: 1px solid #bfb9b9;
   background-color: white; /* Fundo branco */
+  height: 100%; /* Ajustar para ter o mesmo tamanho do MissionsWrapper */
+  justify-content: center; /* Centralizar o conteúdo verticalmente */
+  align-items: center; /* Centralizar o conteúdo horizontalmente */
   @media (max-width: 991px) {
     max-width: 100%;
     margin-top: 39px;
     padding: 0 20px;
+    
   }
 `;
 
@@ -159,7 +165,7 @@ const StartButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px; 
+  margin-top: 40px; /* Aumentar a margem superior */
 `;
 
 const CustomIconButton = muiStyled(IconButton)({
@@ -353,7 +359,6 @@ interface MissionItemProps {
   isCompleted: boolean;
   disabled?: boolean;
 }
-
 const MissionItem: React.FC<MissionItemProps> = ({ icon, description, isCompleted, disabled = false }) => {
   return (
     <MissionWrapper isCompleted={isCompleted} disabled={disabled}>
@@ -362,6 +367,14 @@ const MissionItem: React.FC<MissionItemProps> = ({ icon, description, isComplete
     </MissionWrapper>
   );
 };
+
+const AdditionalText = styled.p`
+  margin-top: 30px; /* Aumentar a margem superior */
+  font-size: 18px; /* Aumentar o tamanho da fonte */
+  color: #000; /* Aumentar a cor do texto */
+  text-align: center;
+  font-family: 'Montserrat Alternates', sans-serif;
+`;
 
 const ChallengeCard: React.FC<{ changeSection: (section: string) => void }> = ({ changeSection }) => {
   const handleStartClick = () => {
@@ -379,12 +392,14 @@ const ChallengeCard: React.FC<{ changeSection: (section: string) => void }> = ({
           <StartText>Iniciar!</StartText>
         </CustomIconButton>
       </StartButtonWrapper>
+      <AdditionalText>Prepare-se para desafios emocionantes e aprenda algo novo a cada dia!</AdditionalText>
     </CardWrapper>
   );
 };
 
 const MainContentContainer: React.FC<{ changeSection: (section: string) => void }> = ({ changeSection }) => {
   const missions: MissionItemProps[] = [
+    { icon: "/src/Assets/iconnew.svg", description: "Complete uma nova missão", isCompleted: false },
     { icon: "/src/Assets/icongoal.svg", description: "Conclua duas etapas de uma trilha", isCompleted: false },
     { icon: "/src/Assets/iconexperience.svg", description: "Ganhe 30 pontos de experiência", isCompleted: false },
     { icon: "/src/Assets/iconlock.svg", description: "Volte amanhã para uma nova missão", isCompleted: true, disabled: true },
@@ -410,6 +425,15 @@ const MainContentContainer: React.FC<{ changeSection: (section: string) => void 
   );
 };
 
+const PageTitle = styled.h1`
+  color: #FC7A02;
+  font-size: 30px;
+  font-family: 'Montserrat Alternates', sans-serif;
+  font-weight: 700;
+  text-align: center;
+  margin: 20px 0;
+`;
+
 const MissoesPage: React.FC<{ changeSection: (section: string) => void }> = ({ changeSection }) => {
   const userName = "Usuário";
   const quoteText = "Cada linha de código é um passo para o sucesso!";
@@ -418,6 +442,7 @@ const MissoesPage: React.FC<{ changeSection: (section: string) => void }> = ({ c
 
   return (
     <PageContainer>
+      <PageTitle>Missões Diárias</PageTitle>
       <HeaderContainer 
         userName={userName} 
         quoteText={quoteText} 

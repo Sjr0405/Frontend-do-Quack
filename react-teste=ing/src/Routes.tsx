@@ -17,6 +17,7 @@ import { light, dark } from './Styles/Themes';
 import LandingPage from './Pages/LandingPage/LandingPage';
 import Trilhas from './Pages/Trilhas/Trilhas';
 import Errors from './Pages/Errors'; // Importando o componente Errors
+import CentraldeAjuda from './Pages/CentraldeAjuda'; // Importando o componente CentraldeAjuda
 
 export { MainRoutes }
 
@@ -68,6 +69,11 @@ function MainRoutes() {
           <Route path="/Backend_Roadmap" element={
             <PrivateRoute> 
               <Trilhas />
+            </PrivateRoute>
+          } />
+          <Route path="/CentraldeAjuda" element={
+            <PrivateRoute>
+              <CentraldeAjuda />
             </PrivateRoute>
           } />
           <Route path="*" element={<Errors />} /> {/* Adicionando a rota para a página de erros */}

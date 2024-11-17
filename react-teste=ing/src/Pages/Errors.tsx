@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import SadIcon from '../Assets/Svg_thigas/TRISTE.svg';
@@ -42,8 +41,12 @@ const Errors = () => {
           marginBottom: 4,
         }}
       >
-        Desculpe, a página que você estava procurando não existe. Tente voltar para a página inicial ou entre em contato pelo suporte.
+        Desculpe, a página que você estava procurando não existe. <p> </p>
+
+        Tente voltar para a página inic ial ou entre em contato pelo suporte.
+       
       </Typography>
+      
       <Button
         variant="contained"
         onClick={handleGoHomeClick}

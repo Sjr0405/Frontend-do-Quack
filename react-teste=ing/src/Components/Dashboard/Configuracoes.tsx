@@ -41,6 +41,10 @@ const Configuracoes = () => {
     navigate('/Errors');
   };
 
+  const handleHelpClick = () => {
+    navigate('/CentraldeAjuda');
+  };
+
   return (
     <Box sx={{ padding: 4 }}>
       <Typography
@@ -60,7 +64,7 @@ const Configuracoes = () => {
         sx={{
           position: 'absolute',
           top: 16,
-          right: 16,
+          right: 32,
           backgroundColor: '#FF914D',
           color: '#fff',
           '&:hover': {
@@ -69,6 +73,21 @@ const Configuracoes = () => {
         }}
       >
         <ErrorIcon />
+      </IconButton>
+      <IconButton
+        onClick={handleNotificationsClick}
+        sx={{
+          position: 'absolute',
+          top: 16,
+          right: 96, // Ajuste para posicionar próximo ao botão de erro
+          backgroundColor: '#4834d4',
+          color: '#fff',
+          '&:hover': {
+            backgroundColor: '#3a2baf',
+          },
+        }}
+      >
+        <NotificationsIcon />
       </IconButton>
       <Grid container spacing={4}>
         {/* Coluna esquerda */}
@@ -270,10 +289,6 @@ const Configuracoes = () => {
                   <PreferencesIcon sx={{ color: selectedItem === 'Preferências' ? '#FB7901' : '#757575', mr: 1 }} />
                   <ListItemText primary="Preferências" />
                 </ListItem>
-                <ListItem button onClick={handleNotificationsClick} selected={selectedItem === 'Notificações'} sx={{ border: selectedItem === 'Notificações' ? '2px solid #FB7901' : 'none', borderRadius: '8px' }}>
-                  <NotificationsIcon sx={{ color: selectedItem === 'Notificações' ? '#FB7901' : '#757575', mr: 1 }} />
-                  <ListItemText primary="Notificações" />
-                </ListItem>
                 <ListItem button onClick={handleSocialAccountsClick} selected={selectedItem === 'Contas em redes sociais'} sx={{ border: selectedItem === 'Contas em redes sociais' ? '2px solid #FB7901' : 'none', borderRadius: '8px' }}>
                   <SocialIcon sx={{ color: selectedItem === 'Contas em redes sociais' ? '#FB7901' : '#757575', mr: 1 }} />
                   <ListItemText primary="Contas em redes sociais" />
@@ -284,7 +299,7 @@ const Configuracoes = () => {
                 </ListItem>
               </List>
               <Typography variant="h6" gutterBottom mt={4}>Suporte</Typography>
-              <Button variant="outlined" fullWidth sx={{ borderRadius: '12px', mt: 2, borderColor: '#FB7901', color: '#FB7901' }}>
+              <Button variant="outlined" fullWidth sx={{ borderRadius: '12px', mt: 2, borderColor: '#FB7901', color: '#FB7901' }} onClick={handleHelpClick}>
                 <HelpIcon sx={{ mr: 1 }} /> Central de Ajuda
               </Button>
             </CardContent>
