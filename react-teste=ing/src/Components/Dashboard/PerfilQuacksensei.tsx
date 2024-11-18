@@ -118,10 +118,7 @@ const PerfilQuacksensei: React.FC<PerfilQuacksenseiProps> = ({
 
   const predefinedMessages = [
     "Olá! Estou aqui para ajudar você com suas dúvidas.",
-    "Não hesite em perguntar sobre a matéria!",
-    "Lembre-se de revisar seus exercícios regularmente.",
-    "Estou disponível para tirar suas dúvidas a qualquer momento.",
-    "A prática leva à perfeição! Continue se esforçando."
+    "Não hesite em perguntar sobre a matéria!"
   ];
 
   return (

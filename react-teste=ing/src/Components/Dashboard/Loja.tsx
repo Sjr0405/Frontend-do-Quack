@@ -12,7 +12,6 @@ import AllInclusiveIcon from "@mui/icons-material/AllInclusive";
 import ShieldIcon from "@mui/icons-material/Shield";
 import EventIcon from "@mui/icons-material/Event";
 import { useNavigate } from "react-router-dom";
-import React from "react"; // Importar React
 import PatoSvg from "../../Assets/Svg_thigas/VETOR PATO.svg";
 
 // Componente para itens da loja

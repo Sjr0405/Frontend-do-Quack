@@ -10,9 +10,8 @@ const ContainerPerfil = styled.div`
   font-family: 'Arial', sans-serif;
   width: 100%;
   min-height: 100vh; /* Ajusta a altura mínima para ocupar a tela inteira */
-  padding: 20px; /* Adiciona padding */
+  padding: 30px; 
   box-sizing: border-box; /* Inclui padding e border no cálculo da altura */
-  overflow: hidden; /* Remove rolagem */
   @media (max-width: 768px) {
     padding: 10px; /* Ajusta padding para telas pequenas */
   }

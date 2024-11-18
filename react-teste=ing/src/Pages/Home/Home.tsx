@@ -12,6 +12,9 @@ import Configuracoes from '../../Components/Dashboard/Configuracoes';
 import Loja from '../../Components/Dashboard/Loja'; // Importa o componente Loja
 import Notifications from '../../Components/Dashboard/Notifications'; // Importa o componente Notifications
 import EditarPerfil from '../../Components/Dashboard/EditarPerfil'; // Importa o componente EditarPerfil
+import PerfilQuacksensei from '../../Components/Dashboard/PerfilQuacksensei';
+import Quacksensei from '../../Components/Dashboard/Quacksensei';
+import CodeReview from '../../Components/Dashboard/CodeReview';
 
 const Container = styled.div`
   display: flex;
@@ -50,13 +53,16 @@ const Home = () => {
       Aprender: <Aprender changeSection={setSection} />,
       FazerAtividade: <FazerAtividade changeSection={setSection} />,
       Desafio: <Desafio changeSection={setSection} />,
-      Rankings: <Rankings  changeSection={setSection}/>,
+      Rankings: <Rankings  />,
       Perfil: <Perfil changeSection={setSection} />,
-      EditarPerfil: <EditarPerfil changeSection={setSection} />, // Adiciona a nova seção EditarPerfil
+      EditarPerfil: <EditarPerfil />,
       Missoes: <Missoes changeSection={setSection} />,
-      Configuracoes: <Configuracoes  changeSection={setSection}/>,
-      Loja: <Loja changeSection={setSection} />, // Adiciona a nova seção Loja
-      Notifications: <Notifications  changeSection={setSection} /> // Adiciona a nova seção Notifications
+      Configuracoes: <Configuracoes />,
+      Loja: <Loja/>,
+      Notifications: <Notifications  changeSection={setSection} />,
+      Quacksensei: <Quacksensei changeSection={setSection} />,
+      PerfilQuacksensei: <PerfilQuacksensei changeSection={setSection} />,
+      CodeReview:<CodeReview changeSection={setSection} />
     };
 
     return sectionComponents[section] || <Aprender changeSection={setSection} />;

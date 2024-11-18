@@ -5,22 +5,21 @@ import { IconButton, Input } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
 
 // Styled Components
-const Container = styled.div`
-  display: flex;
-  height: 100vh;
+const Container = styled.div`  
+  height: 100%;
 `;
 
 const MainContent = styled.div`
-  flex: 1;
-  padding: 20px;
+  display: flex;
   background-color: #f7f7f7;
-  overflow-y: auto;
+  overflow-y: hidden;
 `;
 
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 2%;
 `;
 
 const InvestidaBox = styled.div`
@@ -65,7 +64,7 @@ const Titulo = styled.h1`
 `;
 
 const ModuloCard = styled.div<{ bgColor: string }>`
-  width: 60%;
+  width: 90%;
   background-color: ${({ bgColor }) => bgColor || '#fff'};
   padding: 20px;
   margin: 15px 0;
@@ -149,29 +148,80 @@ const ProgressBar = styled.div<ProgressBarProps>`
   }
 `;
 
-const EmblemasBox = styled.div`
-  margin-top: 20px;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 12px;
-  width: 300px;
+const ColunaEmblemas = styled.div`
+  display: flex;
+  flex-direction: column;
+  @media (max-width: 768px) {
+    padding: 10px; /* Ajusta padding para telas pequenas */
+    margin-top: 20px; /* Adiciona margem superior em telas pequenas */
+    align-items: center; /* Centraliza ao centro em telas pequenas */
+    
+    }
 `;
 
-const EmblemaItem = styled.div`
-  display: flex;
+const ContainerColecaoEmblemas = styled.div`
+  padding: 20px;
+  border-radius: 15px;
+  background-color: transparent;
+  height: 100%; /* Ajusta a altura para 100% */
+  @media (max-width: 768px) {
   align-items: center;
+  justify-content: center;
+
+  }
+`;
+
+const TituloEmblemas = styled.h2`
+  text-align: left;
+  font-size: 24px;
+  color: #ff7f00;
+  margin-bottom: 20px;
+  @media (max-width: 768px) {
+    text-align: center;
+  }
+`;
+
+const GradeEmblemas = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-content: center;
+
+  }
+`;
+
+const ItemEmblema = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 15px;
+  width: 120px;
+  height: 120px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  @media (max-width: 768px) {
+    width: 100px;
+    height: 100px;
+    align-items: center;
+    justify-content: center;
+  }
+`;
+
+const ImagemEmblema = styled.img`
+  width: 50px;
+  height: 50px;
   margin-bottom: 10px;
+`;
 
-  img {
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
-  }
-
-  span {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
-  }
+const TextoEmblema = styled.p`
+  font-size: 14px;
+  text-align: center;
+  color: #333;
 `;
 
 const PuzzleButton = styled.button`
@@ -260,7 +310,6 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
   return (
     <Container>
       {/* Main Content */}
-      <MainContent>
         <Header>
           <PuzzleButton onClick={() => changeSection('Desafio')}>
             <img src="/src/svgs/Home-svgs/Puzzle.svg" alt="Estrela icon" />
@@ -286,9 +335,12 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
               placeholder="Pesquisar por nome..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-            />
+              />
           </SearchBar>
         </Header>
+              
+      <MainContent>
+        <div style={{display: 'flex', flexDirection: 'column', width: '80%'}}>
         <Titulo>Módulos Semelhantes</Titulo>
         {similarMatches.map((modulo, index) => (
           <ModuloCard key={index} bgColor={modulo.bgColor}>
@@ -310,22 +362,48 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
             </IconButton>
           </ModuloCard>
         ))}
+        </div>
              
-        <EmblemasBox>
-          <h3>Emblemas em destaque</h3>
-          <EmblemaItem>
-            <img src="icon-fullstack.svg" alt="Fullstack icon" />
-            <span>FullStack</span>
-          </EmblemaItem>
-          <EmblemaItem>
-            <img src="icon-frontend.svg" alt="Frontend icon" />
-            <span>Frontend</span>
-          </EmblemaItem>
-          <EmblemaItem>
-            <img src="icon-backend.svg" alt="Backend icon" />
-            <span>Backend</span>
-          </EmblemaItem>
-        </EmblemasBox>
+        <ColunaEmblemas>
+          <ContainerColecaoEmblemas>
+            <TituloEmblemas>Coleção de emblemas:</TituloEmblemas>
+            <GradeEmblemas>
+              <ItemEmblema>
+                <ImagemEmblema src="/src/Assets/Iconesperfil/medalha1.png" alt="Introdução à Programação" />
+                <TextoEmblema>Introdução à Programação</TextoEmblema>
+              </ItemEmblema>
+              <ItemEmblema>
+                <ImagemEmblema src="/src/Assets/Iconesperfil/medalha2.png" alt="Fundamentos de Algoritmos" />
+                <TextoEmblema>Fundamentos de Algoritmos</TextoEmblema>
+              </ItemEmblema>
+              <ItemEmblema>
+                <ImagemEmblema src="/src/Assets/Iconesperfil/medalha3.png" alt="Programação Estruturada" />
+                <TextoEmblema>Programação Estruturada</TextoEmblema>
+              </ItemEmblema>
+              <ItemEmblema>
+                <ImagemEmblema src="/src/Assets/Iconesperfil/troveu.png" alt="Estruturas de Dados" />
+                <TextoEmblema>Estruturas de Dados</TextoEmblema>
+              </ItemEmblema>
+              <ItemEmblema>
+                <ImagemEmblema src="/src/Assets/Iconesperfil/experiencia.png" alt="Desenvolvimento Web" />
+                <TextoEmblema>Desenvolvimento Web</TextoEmblema>
+              </ItemEmblema>
+              <ItemEmblema>
+                <ImagemEmblema src="/src/Assets/Iconesperfil/api.png" alt="Desenvolvimento de APIs" />
+                <TextoEmblema>Desenvolvimento de APIs</TextoEmblema>
+              </ItemEmblema>
+              <ItemEmblema>
+                <ImagemEmblema src="/src/Assets/Iconesperfil/devops.png" alt="DevOps" />
+                <TextoEmblema>DevOps</TextoEmblema>
+              </ItemEmblema>
+              <ItemEmblema>
+                <ImagemEmblema src="/src/Assets/Iconesperfil/database.png" alt="Banco de Dados" />
+                <TextoEmblema>Banco de Dados</TextoEmblema>
+              </ItemEmblema>
+            </GradeEmblemas>
+          </ContainerColecaoEmblemas>
+        </ColunaEmblemas>
+
       </MainContent>
     </Container>
   );

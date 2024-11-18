@@ -4,7 +4,6 @@ import styled from 'styled-components';
 // Styled Components
 const Container = styled.div`
   font-family: 'Arial', sans-serif;
-  padding: 20px;
   text-align: center;
 `;
 
