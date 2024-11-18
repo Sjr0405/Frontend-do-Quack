@@ -128,23 +128,22 @@ const Function = styled.a`
   color: #000;
 `;
 
-const AtividadeConcluida = localStorage.getItem('AtividadeConcluida') || 'false'; 
-
 const Desafio = ({ changeSection }: { changeSection: (section: string) => void }) => {
 
-if (AtividadeConcluida === 'false') {
+
   return (
     <Container>
+      {/* Main Content */}
       <MainContent>
         <Header>
           <TopBar>
-            <SelectedTopBarItem onClick={() => changeSection('Atividade')}>
+            <SelectedTopBarItem onClick={() => changeSection('Desafio')}>
               <a>Visão Geral</a>
             </SelectedTopBarItem>
             <TopBarItem onClick={() => changeSection('FazerAtividade')}>
               <a>Fazer Atividade</a>
             </TopBarItem>
-            <TopBarItem onClick={() => changeSection('SolicitarAjuda')}>
+            <TopBarItem onClick={() => changeSection('Quacksensei')}>
               <a>Solicitar Quacksensei</a>
             </TopBarItem>
             <TopBarItem onClick={() => changeSection('CodeReview')}>
@@ -219,10 +218,5 @@ if (AtividadeConcluida === 'false') {
     </Container>
   );
 };
-  return (
-    <Container>
-      <p>Atividade da Semana Finalizada</p>
-    </Container>
-  );
-}
+
 export default Desafio;

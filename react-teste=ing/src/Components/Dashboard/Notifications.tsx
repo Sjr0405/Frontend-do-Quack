@@ -13,6 +13,8 @@ import {
   Switch,
   FormControlLabel,
   FormGroup,
+  Select,
+  MenuItem,
 } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import CloseIcon from '@mui/icons-material/Close';
@@ -162,6 +164,15 @@ const Notifications = ({ changeSection }) => {
   const [callReminder, setCallReminder] = useState(false);
   const [meetingReminder, setMeetingReminder] = useState(false);
   const [promotionReminder, setPromotionReminder] = useState(false);
+  const [emailNotifications, setEmailNotifications] = useState(true);
+  const [productUpdates, setProductUpdates] = useState(true);
+  const [newFollowers, setNewFollowers] = useState(true);
+  const [friendActivity, setFriendActivity] = useState(true);
+  const [weeklyProgress, setWeeklyProgress] = useState(true);
+  const [specialPromotions, setSpecialPromotions] = useState(true);
+  const [surveyOpportunities, setSurveyOpportunities] = useState(true);
+  const [dailyReminder, setDailyReminder] = useState('17:00');
+  const [filter, setFilter] = useState('Todas');
   const navigate = useNavigate();
 
   const handleClose = (id) => {
@@ -183,6 +194,21 @@ const Notifications = ({ changeSection }) => {
       navigate('/home', { state: { section: 'Configuracoes' } });
     }
   };
+
+  const handleFilterChange = (event) => {
+    setFilter(event.target.value);
+  };
+
+  const filteredNotifications = notifications.filter(notification => {
+    if (filter === 'Todas') return true;
+    if (filter === 'Mensagens' && notification.title.includes('mensagem')) return true;
+    if (filter === 'Atualizações' && notification.title.includes('Atualização')) return true;
+    if (filter === 'Eventos' && notification.title.includes('Evento')) return true;
+    if (filter === 'Missões' && notification.title.includes('missão')) return true;
+    if (filter === 'Alertas' && notification.title.includes('Alerta')) return true;
+    if (filter === 'Roadmap' && notification.title.includes('roadmap')) return true;
+    return false;
+  });
 
   return (
     <Box
@@ -211,12 +237,25 @@ const Notifications = ({ changeSection }) => {
           >
             Notificações
           </Typography>
+          <Select
+            value={filter}
+            onChange={handleFilterChange}
+            sx={{ marginLeft: 'auto', minWidth: 150 }}
+          >
+            <MenuItem value="Todas">Todas</MenuItem>
+            <MenuItem value="Mensagens">Mensagens</MenuItem>
+            <MenuItem value="Atualizações">Atualizações</MenuItem>
+            <MenuItem value="Eventos">Eventos</MenuItem>
+            <MenuItem value="Missões">Missões</MenuItem>
+            <MenuItem value="Alertas">Alertas</MenuItem>
+            <MenuItem value="Roadmap">Roadmap</MenuItem>
+          </Select>
         </Box>
         <Grid container spacing={4}>
           <Grid item xs={12}>
             <Box mt={4}>
-              {notifications.length > 0 ? (
-                notifications.map(notification => (
+              {filteredNotifications.length > 0 ? (
+                filteredNotifications.map(notification => (
                   <NotificationItem
                     key={notification.id}
                     Icon={notification.Icon}
@@ -421,6 +460,150 @@ const Notifications = ({ changeSection }) => {
                 />
               }
               label="Notificações de Promoções"
+              sx={{ marginBottom: 2 }}
+            />
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={emailNotifications}
+                  onChange={() => setEmailNotifications(!emailNotifications)}
+                  sx={{
+                    '& .MuiSwitch-switchBase.Mui-checked': {
+                      color: '#FF914D',
+                    },
+                    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+                      backgroundColor: '#FF914D',
+                    },
+                  }}
+                />
+              }
+              label="Notificações por Email"
+              sx={{ marginBottom: 2 }}
+            />
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={productUpdates}
+                  onChange={() => setProductUpdates(!productUpdates)}
+                  sx={{
+                    '& .MuiSwitch-switchBase.Mui-checked': {
+                      color: '#FF914D',
+                    },
+                    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+                      backgroundColor: '#FF914D',
+                    },
+                  }}
+                />
+              }
+              label="Atualizações de Produto"
+              sx={{ marginBottom: 2 }}
+            />
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={newFollowers}
+                  onChange={() => setNewFollowers(!newFollowers)}
+                  sx={{
+                    '& .MuiSwitch-switchBase.Mui-checked': {
+                      color: '#FF914D',
+                    },
+                    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+                      backgroundColor: '#FF914D',
+                    },
+                  }}
+                />
+              }
+              label="Novos Seguidores"
+              sx={{ marginBottom: 2 }}
+            />
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={friendActivity}
+                  onChange={() => setFriendActivity(!friendActivity)}
+                  sx={{
+                    '& .MuiSwitch-switchBase.Mui-checked': {
+                      color: '#FF914D',
+                    },
+                    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+                      backgroundColor: '#FF914D',
+                    },
+                  }}
+                />
+              }
+              label="Atividade dos Amigos"
+              sx={{ marginBottom: 2 }}
+            />
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={weeklyProgress}
+                  onChange={() => setWeeklyProgress(!weeklyProgress)}
+                  sx={{
+                    '& .MuiSwitch-switchBase.Mui-checked': {
+                      color: '#FF914D',
+                    },
+                    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+                      backgroundColor: '#FF914D',
+                    },
+                  }}
+                />
+              }
+              label="Progresso Semanal"
+              sx={{ marginBottom: 2 }}
+            />
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={specialPromotions}
+                  onChange={() => setSpecialPromotions(!specialPromotions)}
+                  sx={{
+                    '& .MuiSwitch-switchBase.Mui-checked': {
+                      color: '#FF914D',
+                    },
+                    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+                      backgroundColor: '#FF914D',
+                    },
+                  }}
+                />
+              }
+              label="Promoções Especiais"
+              sx={{ marginBottom: 2 }}
+            />
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={surveyOpportunities}
+                  onChange={() => setSurveyOpportunities(!surveyOpportunities)}
+                  sx={{
+                    '& .MuiSwitch-switchBase.Mui-checked': {
+                      color: '#FF914D',
+                    },
+                    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+                      backgroundColor: '#FF914D',
+                    },
+                  }}
+                />
+              }
+              label="Oportunidades de Pesquisa"
+              sx={{ marginBottom: 2 }}
+            />
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={dailyReminder}
+                  onChange={() => setDailyReminder(!dailyReminder)}
+                  sx={{
+                    '& .MuiSwitch-switchBase.Mui-checked': {
+                      color: '#FF914D',
+                    },
+                    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+                      backgroundColor: '#FF914D',
+                    },
+                  }}
+                />
+              }
+              label="Lembrete Diário"
               sx={{ marginBottom: 2 }}
             />
           </FormGroup>

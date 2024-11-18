@@ -149,30 +149,30 @@ const ProgressBar = styled.div<ProgressBarProps>`
   }
 `;
 
-// const EmblemasBox = styled.div`
-//   margin-top: 20px;
-//   padding: 20px;
-//   background-color: #ffffff;
-//   border-radius: 12px;
-//   width: 300px;
-// `;
+const EmblemasBox = styled.div`
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  width: 300px;
+`;
 
-// const EmblemaItem = styled.div`
-//   display: flex;
-//   align-items: center;
-//   margin-bottom: 10px;
+const EmblemaItem = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
 
-//   img {
-//     width: 40px;
-//     height: 40px;
-//     margin-right: 10px;
-//   }
+  img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
 
-//   span {
-//     font-family: 'Montserrat', sans-serif;
-//     font-size: 18px;
-//   }
-// `;
+  span {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+  }
+`;
 
 const PuzzleButton = styled.button`
   display: flex;
@@ -311,7 +311,7 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
           </ModuloCard>
         ))}
              
-        {/* <EmblemasBox>
+        <EmblemasBox>
           <h3>Emblemas em destaque</h3>
           <EmblemaItem>
             <img src="icon-fullstack.svg" alt="Fullstack icon" />
@@ -325,7 +325,7 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
             <img src="icon-backend.svg" alt="Backend icon" />
             <span>Backend</span>
           </EmblemaItem>
-        </EmblemasBox> */}
+        </EmblemasBox>
       </MainContent>
     </Container>
   );

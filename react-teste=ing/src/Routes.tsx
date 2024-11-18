@@ -3,12 +3,12 @@ import Login from './Pages/Login/Login';
 import EsqueciSenha from './Pages/EsqueciSenha/EsqueciSenha'; 
 import Cadastro from './Pages/Cadastro/Cadastro';
 import Home from './Pages/Home/Home.tsx';
-import Aprender from './Components/Dashboard/Inicio.tsx';
+import Aprender from './Components/Dashboard/Aprender.tsx';
 import Atividade from './Components/Dashboard/Desafio.tsx';
 import Rankings from './Components/Dashboard/Rankings.tsx';
 import FazerAtividade from './Components/Dashboard/FazerAtividade.tsx';
-import Perfil from './Components/Dashboard/TeladePefil/Perfil.tsx';
-import EditarPerfil from './Pages/EditarPerfil/EditarPerfil.tsx';
+import Perfil from './Components/Dashboard/Perfil.tsx';
+import EditarPerfil from './Components/Dashboard/EditarPerfil.tsx';
 import PrivateRoute from './Components/Dashboard/PrivateRoute';
 import { AuthProvider } from './AuthContext.tsx';
 import GlobalStyles from './Styles/GlobalStyles.tsx';
@@ -59,11 +59,6 @@ function MainRoutes() {
           <Route path="/Perfil" element={
             <PrivateRoute>
               <Perfil changeSection={(section: string) => console.log(section)} />
-            </PrivateRoute>
-          } />
-          <Route path="/EditarPerfil" element={
-            <PrivateRoute>
-              <EditarPerfil />
             </PrivateRoute>
           } />
           <Route path="/Backend_Roadmap" element={

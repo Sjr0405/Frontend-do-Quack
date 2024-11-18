@@ -3,24 +3,167 @@ import { useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useAuth } from '../../AuthContext';
 import Swal from 'sweetalert2';
-import {
-  ProfileEditContainer,
-  Header,
-  BackButton,
-  SaveButton,
-  FormContainer,
-  FormGroup,
-  Label,
-  Input,
-  PasswordInput,
-  EyeIcon,
-  PhotoSection,
-  PhotoButton,
-  RemovePhotoButton,
-  LogoContainer,
-  LogoImage,
-  LogoText
-} from './EditarPerfilStyles';
+import styled from 'styled-components';
+
+const ProfileEditContainer = styled.div`
+  font-family: 'Montserrat Alternates', sans-serif;
+`;
+
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  h1 {
+    font-size: 24px;
+    color: #444;
+  }
+`;
+
+const BackButton = styled.button`
+  font-family: 'Montserrat Alternates';
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FF3E41;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 12px;
+  cursor: pointer;
+  font-size: 18px;
+
+  &:hover {
+    background-color: #e62e33;
+  }
+`;
+
+const SaveButton = styled.button`
+  font-family: 'Montserrat Alternates';
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #785ef0;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 15px 25px;
+  cursor: pointer;
+  font-size: 18px;
+
+  &:hover {
+    background-color: #5841d8;
+  }
+`;
+
+const FormContainer = styled.div`
+  margin-left: 5%;
+  width: 90%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+`;
+
+const FormGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  position: relative;
+  justify-content: center;
+`;
+
+const Label = styled.label`
+  font-weight: bold;
+  font-family: 'Montserrat Alternates';
+  margin-bottom: 5px;
+  font-size: 20px;
+`;
+
+const Input = styled.input`
+  font-family: 'Montserrat Alternates';
+  padding: 15px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+`;
+
+const PasswordInput = styled(Input)`
+  font-family: 'Montserrat Alternates';
+  padding-right: 40px;
+`;
+
+const EyeIcon = styled.img`
+  justify-self: center;
+  align-self: center;
+  position: absolute;
+  right: 2%;
+  top: 55%;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+`;
+
+const PhotoSection = styled.div`
+  grid-column: span 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20px;
+`;
+
+const PhotoButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F6C761;
+  border: none;
+  border-radius: 5px;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: 'Montserrat Alternates';
+
+  &:hover {
+    background-color: #e5b14c;
+  }
+`;
+
+const RemovePhotoButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  border: 1px solid #F6C761;
+  border-radius: 5px;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: 'Montserrat Alternates';
+
+  &:hover {
+    background-color: #f7f7f7;
+    border-color: #e5b14c;
+  }
+`;
+
+const LogoContainer = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 15px;
+`;
+
+const LogoImage = styled.img`
+  margin-right: 10px;
+`;
+
+const LogoText = styled.span`
+  font-size: 24px;
+  font-weight: bold; 
+  color: #FC7A02;
+`;
 
 const ProfileEdit = () => {
   const { user, updateUserProfile } = useAuth();
@@ -47,31 +190,29 @@ const ProfileEdit = () => {
   const handleSaveChanges = async () => {
     try {
       const updatedData = {
-        ...user, // Inclui todos os dados atuais do usuário
+        ...user,
         name,
         email,
         username,
         phone,
-        ...(newPassword && { password: newPassword }), // Inclui nova senha apenas se fornecida
+        ...(newPassword && { password: newPassword }),
       };
   
-      await updateUserProfile(updatedData); // Chama a função updateUserProfile do AuthContext
+      await updateUserProfile(updatedData);
   
-      // Atualiza o estado do usuário no localStorage
       localStorage.setItem('user', JSON.stringify({ ...user, ...updatedData }));
   
-      // Limpa os campos de senha após uma atualização bem-sucedida
       setCurrentPassword('');
       setNewPassword('');
       
-      // Exibe mensagem de sucesso e permanece na mesma página
-      Swal.fire('Sucesso', 'Perfil atualizado com sucesso!', 'success');
+      Swal.fire('Sucesso', 'Perfil atualizado com sucesso!', 'success').then(() => {
+        navigate('/Home', { state: { section: 'Perfil' } });
+      });
     } catch (error) {
       Swal.fire('Erro', 'Não foi possível atualizar o perfil.', 'error');
       console.error('Erro ao atualizar o perfil:', error);
     }
   };
-  
 
   return (
     <ProfileEditContainer>

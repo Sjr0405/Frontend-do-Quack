@@ -2,15 +2,16 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import SideBar from '../../Components/Dashboard/SideBar';
-import Aprender from '../../Components/Dashboard/Inicio';
+import Aprender from '../../Components/Dashboard/Aprender';
 import FazerAtividade from '../../Components/Dashboard/FazerAtividade';
 import Desafio from '../../Components/Dashboard/Desafio';
 import Rankings from '../../Components/Dashboard/Rankings';
-import Perfil from '../../Components/Dashboard/TeladePefil/Perfil';
+import Perfil from '../../Components/Dashboard/Perfil';
 import Missoes from '../../Components/Missão/MissoesPage';
 import Configuracoes from '../../Components/Dashboard/Configuracoes';
 import Loja from '../../Components/Dashboard/Loja'; // Importa o componente Loja
 import Notifications from '../../Components/Dashboard/Notifications'; // Importa o componente Notifications
+import EditarPerfil from '../../Components/Dashboard/EditarPerfil'; // Importa o componente EditarPerfil
 
 const Container = styled.div`
   display: flex;
@@ -51,6 +52,7 @@ const Home = () => {
       Desafio: <Desafio changeSection={setSection} />,
       Rankings: <Rankings  changeSection={setSection}/>,
       Perfil: <Perfil changeSection={setSection} />,
+      EditarPerfil: <EditarPerfil changeSection={setSection} />, // Adiciona a nova seção EditarPerfil
       Missoes: <Missoes changeSection={setSection} />,
       Configuracoes: <Configuracoes  changeSection={setSection}/>,
       Loja: <Loja changeSection={setSection} />, // Adiciona a nova seção Loja
