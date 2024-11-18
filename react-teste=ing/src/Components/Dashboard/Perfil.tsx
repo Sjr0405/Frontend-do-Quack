@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Input } from '@mui/material';
 
 // Container principal
 const ContainerPerfil = styled.div`
@@ -10,8 +9,10 @@ const ContainerPerfil = styled.div`
   align-items: center;
   font-family: 'Arial', sans-serif;
   width: 100%;
-  height: auto;
+  min-height: 100vh; /* Ajusta a altura mínima para ocupar a tela inteira */
   padding: 20px; /* Adiciona padding */
+  box-sizing: border-box; /* Inclui padding e border no cálculo da altura */
+  overflow: hidden; /* Remove rolagem */
   @media (max-width: 768px) {
     padding: 10px; /* Ajusta padding para telas pequenas */
   }
@@ -199,7 +200,7 @@ const InformacoesPerfil = styled.div`
 const Conteudo = styled.div`
   display: flex;
   width: 100%;
-  padding: 20px; /* Adiciona padding */
+  flex-grow: 1; /* Permite que o conteúdo cresça para preencher o espaço disponível */
   @media (max-width: 768px) {
     flex-direction: column; /* Ajusta para coluna em telas pequenas */
   }
@@ -209,26 +210,36 @@ const Conteudo = styled.div`
 
 const ColunaEmblemas = styled.div`
   flex: 1;
-  padding: 20px; /* Adiciona padding */
   display: flex;
   flex-direction: column;
   justify-content: space-between; /* Ajusta os itens para ficarem espaçados */
+  margin-top: 20px; /* Adiciona margem superior */
+  margin-bottom: 20px; /* Adiciona margem inferior */
   @media (max-width: 768px) {
     padding: 10px; /* Ajusta padding para telas pequenas */
-  }
+    margin-top: 20px; /* Adiciona margem superior em telas pequenas */
+    align-items: center; /* Centraliza ao centro em telas pequenas */
+    
+    }
 `;
 
 //*****************************************//
 
 const ColunaEstatisticas = styled.div`
   flex: 1;
-  padding: 20px; /* Adiciona padding */
   display: flex;
   flex-direction: column;
+  margin-top: 20px; /* Adiciona margem superior */
+  margin-bottom: 20px; /* Adiciona margem inferior */
+  margin-left: 20px; /* Adiciona espaçamento entre as colunas */
+
   @media (max-width: 768px) {
     padding: 10px; /* Ajusta padding para telas pequenas */
     margin-top: 20px; /* Adiciona margem superior em telas pequenas */
-  }
+    margin-left: 0; /* Remove espaçamento entre as colunas em telas pequenas */
+    align-items: center; /* Centraliza ao centro em telas pequenas */
+
+    }
 `;
 
 //*****************************************//
@@ -240,6 +251,11 @@ const ContainerColecaoEmblemas = styled.div`
   background-color: #ffffff;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   height: 100%; /* Ajusta a altura para 100% */
+  @media (max-width: 768px) {
+  align-items: center;
+  justify-content: center;
+
+  }
 `;
 
 const TituloEmblemas = styled.h2`
@@ -247,12 +263,21 @@ const TituloEmblemas = styled.h2`
   font-size: 24px;
   color: #ff7f00;
   margin-bottom: 20px;
+  @media (max-width: 768px) {
+    text-align: center;
+  }
 `;
 
 const GradeEmblemas = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-content: center;
+
+  }
 `;
 
 const ItemEmblema = styled.div`
@@ -266,6 +291,15 @@ const ItemEmblema = styled.div`
   width: 120px;
   height: 120px;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  @media (max-width: 768px) {
+    width: 100px;
+    height: 100px;
+    align-items: center;
+    justify-content: center;
+    
+
+    
+  }
 `;
 
 const ImagemEmblema = styled.img`
@@ -281,14 +315,15 @@ const TextoEmblema = styled.p`
 `;
 
 const SecaoEstatisticas = styled.div`
-
-
   padding: 20px;
   border: 2px solid #e9e8e8;
   border-radius: 15px;
   background-color: #ffffff;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   height: 100%; /* Ajusta a altura para 100% */
+  @media (max-width: 768px) {
+    padding: 10px; /* Ajusta padding para telas pequenas */
+  }
 `;
 
 const TituloEstatisticas = styled.h2`
@@ -454,6 +489,11 @@ const ColunasPerfil = styled.div`
   display: flex;
   width: 100%;
   justify-content: center;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  
+  flex-wrap: wrap; /* Permite que os itens quebrem linha em telas pequenas */
   @media (max-width: 768px) {
     flex-direction: column; /* Ajusta para coluna em telas pequenas */
   }
@@ -462,12 +502,14 @@ const ColunasPerfil = styled.div`
 const ColunaPerfil = styled.div`
   flex: 1;
   display: flex;
+  
   align-items: center;
   padding: 20px;
   justify-content: space-between; /* Ajusta os itens para ficarem espaçados */
   @media (max-width: 768px) {
     flex-direction: column; /* Ajusta para coluna em telas pequenas */
     align-items: flex-start;
+    padding: 10px; /* Ajusta padding para telas pequenas */
   }
 `;
 
@@ -475,10 +517,12 @@ const ColunaAba = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
+  
   align-items: center;
   padding: 20px;
   @media (max-width: 768px) {
     margin-top: 20px; /* Adiciona margem superior em telas pequenas */
+    padding: 10px; /* Ajusta padding para telas pequenas */
   }
 `;
 
@@ -486,7 +530,6 @@ const ColunaAba = styled.div`
 
 const Perfil = ({ changeSection }: { changeSection: (section: string) => void }) => {
   const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState('');
   const [activeTab, setActiveTab] = useState('NaAsa');
 
   return (
