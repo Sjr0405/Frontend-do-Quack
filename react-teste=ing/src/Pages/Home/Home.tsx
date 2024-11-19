@@ -15,6 +15,8 @@ import EditarPerfil from '../../Components/Dashboard/EditarPerfil/EditarPerfil';
 import PerfilQuacksensei from '../../Components/Dashboard/PerfilQuacksensei';
 import Quacksensei from '../../Components/Dashboard/Quacksensei';
 import CodeReview from '../../Components/Dashboard/CodeReview';
+import Praticar from '../../Components/Dashboard/Praticar';
+import Roadmap from '../../Components/Dashboard/Roadmap';
 
 const Container = styled.div`
   display: flex;
@@ -62,7 +64,7 @@ const Home = () => {
     }
   }, [location]);
 
-  // Mapeamento das seções para seus componentes
+  // Mapeamento das seções para seu[s componentes
   const renderSection = () => {
     const sectionComponents: { [key: string]: JSX.Element } = {
       Aprender: <Aprender changeSection={setSection} />,
@@ -88,6 +90,8 @@ const Home = () => {
         />
       ) : null,
       CodeReview: <CodeReview changeSection={setSection} submittedCode={submittedCode} />,
+      Praticar: <Praticar changeSection={setSection} />,
+      Roadmap: <Roadmap changeSection={setSection} />,
     };
 
     return sectionComponents[section] || <Aprender changeSection={setSection} />;
