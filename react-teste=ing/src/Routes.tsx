@@ -12,108 +12,102 @@ import PrivateRoute from './Components/Dashboard/PrivateRoute';
 import Quacksensei from './Components/Dashboard/Quacksensei.tsx';
 import PerfilQuacksensei from './Components/Dashboard/PerfilQuacksensei.tsx';
 import CodeReview from './Components/Dashboard/CodeReview.tsx';
-import EditarPerfil from './Components/Dashboard/EditarPerfil.tsx';
+import EditarPerfil from './Components/EditarPerfil/EditarPerfil.tsx';
 import { AuthProvider } from './AuthContext.tsx';
 import GlobalStyles from './Styles/GlobalStyles.tsx';
 import { ThemeProvider } from 'styled-components';
 import { light, dark } from './Styles/Themes';
-import LandingPage from './Pages/LandingPage/LandingPage'; // Importando o componente LandingPage
+import LandingPage from './Pages/LandingPage/LandingPage';
 import Trilhas from './Pages/Trilhas/Trilhas';
+import Errors from './Pages/Errors'; // Importando o componente Errors
+import CentraldeAjuda from './Pages/CentraldeAjuda'; // Importando o componente CentraldeAjuda
 
 export { MainRoutes }
 
 function MainRoutes() {
   return (
     <AuthProvider>
-      <Routes>
-        <Route path="/" element={
-          <div> 
-          <GlobalStyles /> 
-          <ThemeProvider theme={light|| dark}/> 
-          <LandingPage /> 
-
-          </div>} />
-        <Route path="/Cadastro" element={<Cadastro />} />
-        <Route path="/Login" element={<Login />} />
-        <Route path="/EsqueciSenha" element={<EsqueciSenha />} />
-
-        <Route path="/Home" element={ 
-          <PrivateRoute>
-          <Home />
-        </PrivateRoute>
-          } 
-        />
-
-        <Route path="/Aprender" element={
-          <PrivateRoute>
-            <Aprender changeSection={(section: string) => console.log(section)} />
-          </PrivateRoute>
-        } />
-
-        <Route path="/FazerAtividade" element={
-          <PrivateRoute>
-            <FazerAtividade changeSection={(section: string) => console.log(section)} />
-          </PrivateRoute>
-        } />
-
-        <Route path="/Desafio" element={
-          <PrivateRoute>
-            <Desafio changeSection={(section: string) => console.log(section)} />
-          </PrivateRoute>
-        } />
-
-        <Route path="/Quacksensei" element={
-          <PrivateRoute>
-            <Quacksensei changeSection={(section: string) => console.log(section)} 
-              setSelectedProfessor={() => console.log('setSelectedProfessor called')} />
-          </PrivateRoute>
-        } />
-
-        <Route path="/PerfilQuacksensei" element={
-          <PrivateRoute>
-            <PerfilQuacksensei 
-              changeSection={(section : string) => console.log(section)}
-              selectedProfessor={{ name: "name", email:"email", ensina:"ensina", linguagem:"linguagem", photo:"photo" }} 
-              messages={{ messages: [{ message: "message" }] }} 
-              setMessages={() => console.log('setMessages called')} 
-            />
-          </PrivateRoute>
-        } />
-
-        <Route path="/CodeReview" element={
-          <PrivateRoute>
-            <CodeReview 
-              changeSection={(section: string) => console.log(section)} 
-              submittedCode="código submetido" 
-            />
-          </PrivateRoute>
-        } />
-
-        <Route path="/Rankings" element={
-          <PrivateRoute>
-            <Rankings />__
-          </PrivateRoute>
-        } />
-
-        <Route path="/Perfil" element={
-          <PrivateRoute>
-            <Perfil changeSection={(section: string) => console.log(section)} />
-          </PrivateRoute>
-        } />
-
-        <Route path="/EditarPerfil" element={
-          <PrivateRoute>
-            <EditarPerfil />
-          </PrivateRoute>
-        } />
-
-        <Route path="/Backend_Roadmap" element={
-          <PrivateRoute> 
-            <Trilhas />
-          </PrivateRoute>
-        } />
-
-      </Routes>
+      <ThemeProvider theme={light || dark}>
+        <GlobalStyles />
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/Cadastro" element={<Cadastro />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/EsqueciSenha" element={<EsqueciSenha />} />
+          <Route path="/Home" element={
+            <PrivateRoute>
+              <Home />
+            </PrivateRoute>
+          } />
+          <Route path="/FazerAtividade" element={
+            <PrivateRoute>
+              <FazerAtividade changeSection={() => {}} />
+            </PrivateRoute>
+          } />
+          <Route path="/Aprender" element={
+            <PrivateRoute>
+              <Aprender changeSection={() => {}} />
+            </PrivateRoute>
+          } />
+          <Route path="/Desafio" element={
+            <PrivateRoute>
+              <Desafio changeSection={() => {}} />
+            </PrivateRoute>
+          } />
+          <Route path="/Quacksensei" element={
+            <PrivateRoute>
+              <Quacksensei changeSection={() => {}} 
+                setSelectedProfessor={() => console.log('setSelectedProfessor called')} />
+            </PrivateRoute>
+          } />
+          <Route path="/PerfilQuacksensei" element={
+            <PrivateRoute>
+              <PerfilQuacksensei 
+                changeSection={() => {}}
+                selectedProfessor={{ name: "name", email:"email", ensina:"ensina", linguagem:"linguagem", photo:"photo" }} 
+                messages={{ messages: [{ message: "message" }] }} 
+                setMessages={() => console.log('setMessages called')} 
+              />
+            </PrivateRoute>
+          } />
+          <Route path="/CodeReview" element={
+            <PrivateRoute>
+              <CodeReview 
+                changeSection={() => {}} 
+                submittedCode="código submetido" 
+              />
+            </PrivateRoute>
+          } />
+          <Route path="/Rankings" element={
+            <PrivateRoute>
+              <Rankings />
+            </PrivateRoute>
+          } />
+          <Route path="/Perfil" element={
+            <PrivateRoute>
+              <Perfil changeSection={() => {}} />
+            </PrivateRoute>
+          } />
+          <Route path="/EditarPerfil" element={
+            <PrivateRoute>
+              <EditarPerfil />
+            </PrivateRoute>
+          } />
+          <Route path="/Backend_Roadmap" element={
+            <PrivateRoute> 
+              <Trilhas />
+            </PrivateRoute>
+          } />
+          <Route path="/CentraldeAjuda" element={
+            <PrivateRoute>
+              <CentraldeAjuda />
+            </PrivateRoute>
+          } />
+          <Route path="*" element={<Errors />} /> {/* Adicionando a rota para a página de erros */}
+        </Routes>
+      </ThemeProvider>
     </AuthProvider>
   );
 }
+
+export default MainRoutes;
