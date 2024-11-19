@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { IconButton, Input } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
+import { set } from 'gsap';
 
 // Styled Components
 const Container = styled.div`  
@@ -11,6 +12,7 @@ const Container = styled.div`
 
 const MainContent = styled.div`
   display: flex;
+  flex-direction: row;
   background-color: #f7f7f7;
   overflow-y: hidden;
 `;
@@ -40,7 +42,7 @@ const InvestidaBox = styled.div`
 const SearchBar = styled.div`
   display: flex;
   align-items: center;
-  width: 20%;
+  width: 30%;
 
   Input {
     width: 100%;
@@ -128,6 +130,16 @@ const ModuloCard = styled.div<{ bgColor: string }>`
   }
 `;
 
+const ColunaEmblemas = styled.div`
+  display: flex;
+  flex-direction: column;
+  @media (max-width: 768px) {
+    padding: 10px; /* Ajusta padding para telas pequenas */
+    margin-top: 20px; /* Adiciona margem superior em telas pequenas */
+    align-items: center; /* Centraliza ao centro em telas pequenas */
+  }
+`;
+
 interface ProgressBarProps {
   progress: string;
   color: string;
@@ -148,31 +160,21 @@ const ProgressBar = styled.div<ProgressBarProps>`
   }
 `;
 
-const ColunaEmblemas = styled.div`
-  display: flex;
-  flex-direction: column;
-  @media (max-width: 768px) {
-    padding: 10px; /* Ajusta padding para telas pequenas */
-    margin-top: 20px; /* Adiciona margem superior em telas pequenas */
-    align-items: center; /* Centraliza ao centro em telas pequenas */
-    
-    }
-`;
-
 const ContainerColecaoEmblemas = styled.div`
   padding: 20px;
   border-radius: 15px;
   background-color: transparent;
   height: 100%; /* Ajusta a altura para 100% */
   @media (max-width: 768px) {
-  align-items: center;
-  justify-content: center;
-
+    align-items: center;
+    justify-content: center;
   }
 `;
 
 const TituloEmblemas = styled.h2`
   text-align: left;
+  font-family: 'Lilita One', sans-serif;
+  font-weight: 300;
   font-size: 24px;
   color: #ff7f00;
   margin-bottom: 20px;
@@ -189,7 +191,6 @@ const GradeEmblemas = styled.div`
     grid-template-columns: 1fr;
     align-items: center;
     justify-content: center;
-
   }
 `;
 
@@ -253,7 +254,6 @@ const PuzzleButton = styled.button`
   }
 `;
 
-
 interface Modulo {
   nome: string;
   aulasCompletas: number;
@@ -264,43 +264,68 @@ interface Modulo {
   icon: string;
 }
 
+interface Emblema {
+  nome: string;
+  imagem: string;
+}
+
 const Aprender = ({ changeSection }: { changeSection: (section: string) => void }) => {
   const navigate = useNavigate();
   const [modulos, setModulos] = useState<Modulo[]>([]);
+  const [emblemas, setEmblemas] = useState<Emblema[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [exactMatches, setExactMatches] = useState<Modulo[]>([]);
-  const [similarMatches, setSimilarMatches] = useState<Modulo[]>([]);
+  const [exactModuloMatches, setExactModuloMatches] = useState<Modulo[]>([]);
+  const [similarModuloMatches, setModuloSimilarMatches] = useState<Modulo[]>([]);
+  const [exactEmblemaMatches, setExactEmblemaMatches] = useState<Emblema[]>([]);
+  const [similarEmblemaMatches, setEmblemaSimilarMatches] = useState<Emblema[]>([]);
 
-  // Simulação da busca de dados do banco de dados
+
   useEffect(() => {
-    // Aqui você integraria a chamada para o banco de dados real
-    const fetchModulos = async () => {
-      // Exemplo: chamada à API ou banco de dados
+    const fetchData = async () => {
       const dadosDoBanco = [
         { nome: 'Lógica de Programação', aulasCompletas: 18, totalAulas: 300, corBarra: '#FFD700', bgColor: '#FFEB99', rota: 'Logica_Programacao', icon: '/src/svgs/Home-svgs/Programacao.svg' },
         { nome: 'Frontend', aulasCompletas: 18, totalAulas: 18, corBarra: '#8000FF', bgColor: '#D9B3FF', rota: 'Frontend_Roadmap', icon: '/src/svgs/Home-svgs/Frontend.svg' },
         { nome: 'DevOps', aulasCompletas: 3, totalAulas: 18, corBarra: '#1E90FF', bgColor: '#CCE0FF', rota: 'DevOps_Roadmap', icon: '/src/svgs/Home-svgs/DevOps.svg' },
         { nome: 'Backend', aulasCompletas: 5, totalAulas: 18, corBarra: '#32CD32', bgColor: '#CCFFCC', rota: '/Backend_Roadmap', icon: '/src/svgs/Home-svgs/Backend.svg' },
       ];
-
       setModulos(dadosDoBanco);
-    };
 
-    fetchModulos();
+      const emblemasMock = [
+        { nome: 'Introdução à Programação', imagem: '/src/Assets/Iconesperfil/medalha1.png' },
+        { nome: 'Fundamentos de Algoritmos', imagem: '/src/Assets/Iconesperfil/medalha2.png' },
+        { nome: 'Programação Estruturada', imagem: '/src/Assets/Iconesperfil/medalha3.png' },
+        { nome: 'Estruturas de Dados', imagem: '/src/Assets/Iconesperfil/troveu.png' },
+        { nome: 'Desenvolvimento Web', imagem: '/src/Assets/Iconesperfil/experiencia.png' },
+        { nome: 'Desenvolvimento de APIs', imagem: '/src/Assets/Iconesperfil/api.png' },
+        { nome: 'DevOps', imagem: '/src/Assets/Iconesperfil/devops.png' },
+        { nome: 'Banco de Dados', imagem: '/src/Assets/Iconesperfil/database.png' }
+      ];
+      setEmblemas(emblemasMock);
+    };
+    fetchData();
   }, []);
 
   useEffect(() => {
-    const exact = modulos.filter(modulo => modulo.nome.toLowerCase() === searchTerm.toLowerCase());
-    const similar = modulos.filter(modulo => 
-      modulo.nome.toLowerCase().includes(searchTerm.toLowerCase()) && 
-      modulo.nome.toLowerCase() !== searchTerm.toLowerCase()
+    const exactfilteredModulos = modulos.filter(modulo => modulo.nome.toLowerCase() === searchTerm.toLowerCase());
+
+    const exactfilteredEmblemas = emblemas.filter(emblemas => emblemas.nome.toLowerCase() === searchTerm.toLowerCase());
+
+    const similarfilteredModulos = modulos.filter(modulo =>
+      modulo.nome.toLowerCase().includes(searchTerm.toLowerCase()) &&
+      modulo.nome.toLowerCase() !== (searchTerm.toLowerCase())
+    );
+    const similarfilteredEmblemas = emblemas.filter(emblema =>
+      emblema.nome.toLowerCase().includes(searchTerm.toLowerCase()) &&
+      emblema.nome.toLowerCase() !== (searchTerm.toLowerCase())
     );
 
-    setExactMatches(exact);
-    setSimilarMatches(similar);
-  }, [searchTerm, modulos]);
+    setExactModuloMatches(exactfilteredModulos);
+    setExactEmblemaMatches(exactfilteredEmblemas);
+    setModuloSimilarMatches(similarfilteredModulos);
+    setEmblemaSimilarMatches(similarfilteredEmblemas);
+  }, [searchTerm, modulos, emblemas]);
 
-  // Função para calcular a porcentagem da barra de progresso
+
   const calcularProgresso = (aulasCompletas: number, totalAulas: number) => {
     if (totalAulas === 0) return '0%';
     const progresso = (aulasCompletas / totalAulas) * 100;
@@ -309,13 +334,21 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
 
   return (
     <Container>
-      {/* Main Content */}
         <Header>
           <PuzzleButton onClick={() => changeSection('Desafio')}>
             <img src="/src/svgs/Home-svgs/Puzzle.svg" alt="Estrela icon" />
             <p> Desafio diário! </p>
           </PuzzleButton>
 
+
+          <SearchBar>
+            <Input
+              type="search"
+              placeholder="Pesquisar por nome..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              />
+          </SearchBar>
           <InvestidaBox>
               Investida de 3 dias!
               <div>
@@ -328,21 +361,12 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
               <img src="/src/Icons/no-fire.svg" alt="Void icon" />
               </div>
             </InvestidaBox>
-
-          <SearchBar>
-            <Input
-              type="search"
-              placeholder="Pesquisar por nome..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              />
-          </SearchBar>
         </Header>
-              
+
       <MainContent>
-        <div style={{display: 'flex', flexDirection: 'column', width: '80%'}}>
+      <div style={{display: 'flex', flexDirection: 'column', width: '80%'}}>
         <Titulo>Módulos Semelhantes</Titulo>
-        {similarMatches.map((modulo, index) => (
+        {similarModuloMatches.map((modulo, index) => (
           <ModuloCard key={index} bgColor={modulo.bgColor}>
             <img src={modulo.icon} alt={modulo.nome} />
             <div>
@@ -363,47 +387,20 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
           </ModuloCard>
         ))}
         </div>
-             
-        <ColunaEmblemas>
+          
+          <ColunaEmblemas>
           <ContainerColecaoEmblemas>
-            <TituloEmblemas>Coleção de emblemas:</TituloEmblemas>
+          <TituloEmblemas>Coleção de emblemas:</TituloEmblemas>
             <GradeEmblemas>
-              <ItemEmblema>
-                <ImagemEmblema src="/src/Assets/Iconesperfil/medalha1.png" alt="Introdução à Programação" />
-                <TextoEmblema>Introdução à Programação</TextoEmblema>
-              </ItemEmblema>
-              <ItemEmblema>
-                <ImagemEmblema src="/src/Assets/Iconesperfil/medalha2.png" alt="Fundamentos de Algoritmos" />
-                <TextoEmblema>Fundamentos de Algoritmos</TextoEmblema>
-              </ItemEmblema>
-              <ItemEmblema>
-                <ImagemEmblema src="/src/Assets/Iconesperfil/medalha3.png" alt="Programação Estruturada" />
-                <TextoEmblema>Programação Estruturada</TextoEmblema>
-              </ItemEmblema>
-              <ItemEmblema>
-                <ImagemEmblema src="/src/Assets/Iconesperfil/troveu.png" alt="Estruturas de Dados" />
-                <TextoEmblema>Estruturas de Dados</TextoEmblema>
-              </ItemEmblema>
-              <ItemEmblema>
-                <ImagemEmblema src="/src/Assets/Iconesperfil/experiencia.png" alt="Desenvolvimento Web" />
-                <TextoEmblema>Desenvolvimento Web</TextoEmblema>
-              </ItemEmblema>
-              <ItemEmblema>
-                <ImagemEmblema src="/src/Assets/Iconesperfil/api.png" alt="Desenvolvimento de APIs" />
-                <TextoEmblema>Desenvolvimento de APIs</TextoEmblema>
-              </ItemEmblema>
-              <ItemEmblema>
-                <ImagemEmblema src="/src/Assets/Iconesperfil/devops.png" alt="DevOps" />
-                <TextoEmblema>DevOps</TextoEmblema>
-              </ItemEmblema>
-              <ItemEmblema>
-                <ImagemEmblema src="/src/Assets/Iconesperfil/database.png" alt="Banco de Dados" />
-                <TextoEmblema>Banco de Dados</TextoEmblema>
-              </ItemEmblema>
+              {similarEmblemaMatches.map((emblema, idx) => (
+                <ItemEmblema key={idx}>
+                  <ImagemEmblema src={emblema.imagem} alt={emblema.nome} />
+                  <TextoEmblema>{emblema.nome}</TextoEmblema>
+                </ItemEmblema>
+              ))}
             </GradeEmblemas>
-          </ContainerColecaoEmblemas>
-        </ColunaEmblemas>
-
+            </ContainerColecaoEmblemas>
+          </ColunaEmblemas>
       </MainContent>
     </Container>
   );
