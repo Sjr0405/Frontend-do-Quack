@@ -1,199 +1,214 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Input } from '@mui/material';
-import { useAuth } from '../../../AuthContext';
 import {
-  ProfileContainer,
-  Header,
-  ProfileSection,
-  ProfileImageContainer,
-  ProfileImageBuble,
-  ProfileImage,
-  EditIcon,
-  ProfileInfo,
-  Content,
-  BadgeCollectionContainer,
-  BadgeTitle,
-  BadgeGrid,
-  BadgeItem,
-  BadgeImage,
-  BadgeText,
-  StatsSection,
-  StatsTitle,
-  StatsGrid,
-  StatItem,
-  StatIcon,
-  StatLabel,
-  StatValue,
-  ProgressBar,
-  Progress,
-  ImgBuble,
-  StoreButton,
-  TabContainer,
-  TabNav,
-  TabButton,
-  TabContent,
-  Heading,
-  SubText,
-  SearchBar
+  ContainerPerfil,
+  ContainerCabecalho,
+  BotaoLoja,
+  BolhaImagem,
+  ColunasPerfil,
+  ColunaPerfil,
+  ContainerImagemPerfil,
+  BolhaImagemPerfil,
+  ImagemPerfil,
+  InformacoesPerfil,
+  IconeEditar,
+  ColunaAba,
+  ContainerAbas,
+  NavegacaoAbas,
+  BotaoAba,
+  ConteudoAba,
+  Titulo,
+  TextoSecundario,
+  Conteudo,
+  ColunaEmblemas,
+  ContainerColecaoEmblemas,
+  TituloEmblemas,
+  GradeEmblemas,
+  ItemEmblema,
+  ImagemEmblema,
+  TextoEmblema,
+  ColunaEstatisticas,
+  SecaoEstatisticas,
+  TituloEstatisticas,
+  GradeEstatisticas,
+  ItemEstatistica,
+  IconeEstatistica,
+  RotuloEstatistica,
+  ValorEstatistica,
+  BarraProgresso,
+  Progresso,
 } from './PerfilStyles';
+import { useAuth } from '../../../AuthContext';
 
 const Perfil = ({ changeSection }: { changeSection: (section: string) => void }) => {
-  const { user, achievements, statistics, fetchUserAchievementsById, fetchUserStatisticsById, fetchUserTasksById } = useAuth(); 
   const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState('');
+  const { user, fetchUserProfile } = useAuth();
   const [activeTab, setActiveTab] = useState('NaAsa');
 
-//***************************************************************************
   useEffect(() => {
     if (user) {
-      fetchUserAchievementsById(user.id);
-      fetchUserStatisticsById(user.id);
-      fetchUserTasksById(user.id);
+      fetchUserProfile(user.id);
     }
-  }, [user, fetchUserAchievementsById, fetchUserStatisticsById, fetchUserTasksById]);
-
-//***************************************************************************
-  if (!user) {
-    return <div>Carregando...</div>; 
-  }
+  }, [user, fetchUserProfile]);
 
   return (
-    <ProfileContainer>
-      <Header>
-        <h2 style={{ fontSize: '30px', fontWeight: '500', fontFamily: 'Montserrat Alternates' }}>Seu perfil</h2>
-        <SearchBar>
-          <Input
-            type="search"
-            placeholder="Pesquisar por nome..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </SearchBar>
-        <StoreButton onClick={() => changeSection('Loja')}>
-          <ImgBuble>
-            <img src="/src/svgs/Home-svgs/Perfil/Loja.svg" alt="Ícone de loja" />
-          </ImgBuble>
+    <ContainerPerfil>
+      <ContainerCabecalho>
+        <h2 style={{ fontSize: '30px', fontWeight: '500', fontFamily: 'Montserrat Alternates', textAlign: 'center', color: 'purple' }}>Seu perfil</h2>
+        <BotaoLoja onClick={() => changeSection('Loja')}>
+          <BolhaImagem>
+            <img src="/src/svgs/Home-svgs/Perfil/Loja.svg" alt="Icône de loja" />
+          </BolhaImagem>
           Acesse nossa loja!
-        </StoreButton>
-      </Header>
-     
-      <ProfileSection>
-        <ProfileImageContainer>
-          <ProfileImageBuble>
-            <ProfileImage src={user.imagePath || "https://randomuser.me/api/portraits/men/1.jpg"} alt="Foto do perfil" />
-          </ProfileImageBuble>
-        </ProfileImageContainer>
-        <ProfileInfo>
-          <h2>{user.name}</h2>
-          <p><span>Username:</span> {user.username}</p>
-          <p><span>Email:</span> {user.email}</p>
-          <p>Aluno desde {new Date(user.registerAt).toLocaleDateString('pt-BR', { year: 'numeric', month: 'long' })}</p>
-          <p><span>Ranking:</span> <span className="ranking">#30</span></p> 
-        </ProfileInfo>
+        </BotaoLoja>
+      </ContainerCabecalho>
 
-        <EditIcon onClick={() => navigate('/EditarPerfil')}>
-          <img src="/src/svgs/Home-svgs/Perfil/Pencil.svg" alt="Ícone de editar" />
-        </EditIcon>
+      <ColunasPerfil>
+        <ColunaPerfil>
+          <ContainerImagemPerfil>
+            <BolhaImagemPerfil>
+              <ImagemPerfil src={user?.imagePath || 'https://randomuser.me/api/portraits/men/1.jpg'} alt="Foto do perfil" />
+            </BolhaImagemPerfil>
+          </ContainerImagemPerfil>
+            <InformacoesPerfil>
+            <div className="name">{user?.name}</div>
+            <div className="handle">@{user?.username}</div>
+            <div className="description">
+              Por aqui desde {user?.registerAt ? new Date(user.registerAt).toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' }) : 'Data desconhecida'}
+            </div>
+            <div className="achievement-container">
+              <div className="achievement-item">
+                <img className="achievement-icon" src="/src/Assets/Iconesperfil/potion.svg" alt="Ícone de conquista" />
+              </div>
+              <div className="achievement-item">
+                <span className="achievement-text">#30</span>
+              </div>
+            </div>
+            <div className="links">
+              <a href="#">Segue: 7</a>
+              <a href="#">Tem 8 seguidores</a>
+            </div>
+          </InformacoesPerfil>
+          <IconeEditar onClick={() => navigate('/Home', { state: { section: 'EditarPerfil' } })}>
+            <img src="/src/svgs/Home-svgs/Perfil/Pencil.svg" alt="Icône de editar" />
+          </IconeEditar>
+        </ColunaPerfil>
 
-        <TabContainer>
-          <TabNav>
-            <TabButton active={activeTab === 'NaAsa'} onClick={() => setActiveTab('NaAsa')}>Na Asa</TabButton>
-            <TabButton active={activeTab === 'NoLago'} onClick={() => setActiveTab('NoLago')}>No Lago</TabButton>
-          </TabNav>
+        <ColunaAba>
+          <ContainerAbas>
+            <NavegacaoAbas>
+              <BotaoAba active={activeTab === 'NaAsa'} onClick={() => setActiveTab('NaAsa')}>
+                Na Asa
+              </BotaoAba>
+              <BotaoAba active={activeTab === 'NoLago'} onClick={() => setActiveTab('NoLago')}>
+                No Lago
+              </BotaoAba>
+            </NavegacaoAbas>
 
-          <TabContent>
-            {activeTab === 'NaAsa' && (
-              <>
-                <Heading>Todo grande pato começa sozinho!</Heading>
-                <SubText>Explore o lago, siga outros patos e deixe seu voo ser acompanhado. Cada jornada começa com o primeiro quack!</SubText>
-              </>
-            )}
-            {activeTab === 'NoLago' && (
-              <>
-                <Heading>Explore com os outros patos!</Heading>
-                <SubText>No lago, você pode seguir patos, aprender novas habilidades e compartilhar suas jornadas com amigos.</SubText>
-              </>
-            )}
-          </TabContent>
-        </TabContainer>
-      </ProfileSection>
-
-      <Content>
-        <div style={{ display: 'flex', flexDirection: 'column', marginRight: '5%' }}>
-          <BadgeTitle>Coleção de emblemas:</BadgeTitle>
-          <BadgeCollectionContainer>
-            <BadgeGrid>
-              {achievements && achievements.length > 0 ? (
-                achievements.map((achievement) => (
-                  <BadgeItem key={achievement.id}>
-                    <BadgeImage src={achievement.imagePath} alt={achievement.name} />
-                    <BadgeText>{achievement.name}</BadgeText>
-                    <p>{achievement.description}</p>
-                  </BadgeItem>
-                ))
-              ) : (
-                <p>Você não tem conquistas</p>
+            <ConteudoAba>
+              {activeTab === 'NaAsa' && (
+                <>
+                  <Titulo>Todo grande pato começa sozinho!</Titulo>
+                  <TextoSecundario>
+                    Explore o lago, siga outros patos e deixe seu voo ser acompanhado.
+                    Cada jornada começa com o primeiro quack!
+                  </TextoSecundario>
+                </>
               )}
-            </BadgeGrid>
-          </BadgeCollectionContainer>
-        </div>
+              {activeTab === 'NoLago' && (
+                <>
+                  <Titulo>Explore com os outros patos!</Titulo>
+                  <TextoSecundario>
+                    No lago, você pode seguir patos, aprender novas habilidades e
+                    compartilhar suas jornadas com amigos.
+                  </TextoSecundario>
+                </>
+              )}
+            </ConteudoAba>
+          </ContainerAbas>
+        </ColunaAba>
+      </ColunasPerfil>
 
-        <StatsSection>
-          <StatsTitle>Estatísticas:</StatsTitle>
-          <StatsGrid>
-            {statistics && Object.keys(statistics).length > 0 ? (
-              Object.keys(statistics).map((statistic) => (
-                <StatItem key={statistic}>
-                  <StatIcon src="/src/Icons/fire.svg" alt="Foginho" />
-                  <StatLabel>{statistics.user}</StatLabel>
-                  <StatValue>{statistics.streakDays}</StatValue>
-                </StatItem>
-              ))
-            ) : (
-              <p>Nenhuma estatística encontrada</p>
-            )}
-            {statistics && Object.keys(statistics).length > 0 ? (
-              Object.keys(statistics).map((statistic) => (
-                <StatItem key={statistic}>
-                  <StatIcon src="/src/Icons/fire.svg" alt="Foginho" />
-                  <StatLabel>{statistics.user}</StatLabel>
-                  <StatValue>{statistics.userLevel}</StatValue>
-                  <ProgressBar>
-                    <Progress/>
-                  </ProgressBar>
-                  <StatValue>{statistics.userExperience}</StatValue>
-                </StatItem>
-              ))
-            ) : (
-              <p>Nenhuma estatística encontrada</p>
-            )}
-            {statistics && Object.keys(statistics).length > 0 ? (
-              Object.keys(statistics).map((statistic) => (
-                <StatItem key={statistic}>
-                  <StatIcon src="/src/Icons/fire.svg" alt="Foginho" />
-                  <StatLabel>{statistics.user}</StatLabel>
-                  <StatValue>{statistics.challengesCompletedCount}</StatValue>
-                </StatItem>
-              ))
-            ) : (
-              <p>Nenhuma estatística encontrada</p>
-            )}
-            {statistics && Object.keys(statistics).length > 0 ? (
-              Object.keys(statistics).map((statistic) => (
-                <StatItem key={statistic}>
-                  <StatIcon src="/src/Icons/fire.svg" alt="Foginho" />
-                  <StatLabel>{statistics.user}</StatLabel>
-                  <StatValue>{statistics.roadmapsCompletedCount}</StatValue>
-                </StatItem>
-              ))
-            ) : (
-              <p>Nenhuma estatística encontrada</p>
-            )}
-          </StatsGrid>
-        </StatsSection>
-      </Content>
-    </ProfileContainer>
+      <Conteudo>
+        <ColunaEmblemas>
+          <ContainerColecaoEmblemas>
+            <TituloEmblemas>Coleção de emblemas:</TituloEmblemas>
+            <GradeEmblemas>
+              <ItemEmblema>
+                <ImagemEmblema src="/src/Assets/Iconesperfil/medalha1.png" alt="Introdução à Programação" />
+                <TextoEmblema>Introdução à Programação</TextoEmblema>
+              </ItemEmblema>
+              <ItemEmblema>
+                <ImagemEmblema src="/src/Assets/Iconesperfil/medalha2.png" alt="Fundamentos de Algoritmos" />
+                <TextoEmblema>Fundamentos de Algoritmos</TextoEmblema>
+              </ItemEmblema>
+              <ItemEmblema>
+                <ImagemEmblema src="/src/Assets/Iconesperfil/medalha3.png" alt="Programação Estruturada" />
+                <TextoEmblema>Programação Estruturada</TextoEmblema>
+              </ItemEmblema>
+              <ItemEmblema>
+                <ImagemEmblema src="/src/Assets/Iconesperfil/troveu.png" alt="Estruturas de Dados" />
+                <TextoEmblema>Estruturas de Dados</TextoEmblema>
+              </ItemEmblema>
+              <ItemEmblema>
+                <ImagemEmblema src="/src/Assets/Iconesperfil/experiencia.png" alt="Desenvolvimento Web" />
+                <TextoEmblema>Desenvolvimento Web</TextoEmblema>
+              </ItemEmblema>
+              <ItemEmblema>
+                <ImagemEmblema src="/src/Assets/Iconesperfil/api.png" alt="Desenvolvimento de APIs" />
+                <TextoEmblema>Desenvolvimento de APIs</TextoEmblema>
+              </ItemEmblema>
+              <ItemEmblema>
+                <ImagemEmblema src="/src/Assets/Iconesperfil/devops.png" alt="DevOps" />
+                <TextoEmblema>DevOps</TextoEmblema>
+              </ItemEmblema>
+              <ItemEmblema>
+                <ImagemEmblema src="/src/Assets/Iconesperfil/database.png" alt="Banco de Dados" />
+                <TextoEmblema>Banco de Dados</TextoEmblema>
+              </ItemEmblema>
+            </GradeEmblemas>
+          </ContainerColecaoEmblemas>
+        </ColunaEmblemas>
+
+        <ColunaEstatisticas>
+          <SecaoEstatisticas>
+            <TituloEstatisticas>Estatísticas:</TituloEstatisticas>
+            <GradeEstatisticas>
+              <ItemEstatistica>
+                <IconeEstatistica src="/src/Assets/Iconesperfil/fire.png" alt="Dias de investida" />
+                <div>
+                  <RotuloEstatistica>Dias de investida</RotuloEstatistica>
+                  <ValorEstatistica>24</ValorEstatistica>
+                </div>
+              </ItemEstatistica>
+              <ItemEstatistica>
+                <IconeEstatistica src="/src/Assets/Iconesperfil/experiencia.png" alt="Nível" />
+                <div>
+                  <RotuloEstatistica>Nível</RotuloEstatistica>
+                  <BarraProgresso>
+                    <Progresso />
+                  </BarraProgresso>
+                </div>
+              </ItemEstatistica>
+              <ItemEstatistica>
+                <IconeEstatistica src="/src/Assets/Iconesperfil/quest.png" alt="Desafios concluídos" />
+                <div>
+                  <RotuloEstatistica>Desafios concluídos</RotuloEstatistica>
+                  <ValorEstatistica>24</ValorEstatistica>
+                </div>
+              </ItemEstatistica>
+              <ItemEstatistica>
+                <IconeEstatistica src="/src/Assets/Iconesperfil/lissão.png" alt="Lições completadas" />
+                <div>
+                  <RotuloEstatistica>Lições completadas</RotuloEstatistica>
+                  <ValorEstatistica>42</ValorEstatistica>
+                </div>
+              </ItemEstatistica>
+            </GradeEstatisticas>
+          </SecaoEstatisticas>
+        </ColunaEstatisticas>
+      </Conteudo>
+    </ContainerPerfil>
   );
 };
 

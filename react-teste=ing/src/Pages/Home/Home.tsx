@@ -6,7 +6,7 @@ import Aprender from '../../Components/Dashboard/Aprender';
 import FazerAtividade from '../../Components/Dashboard/FazerAtividade';
 import Desafio from '../../Components/Dashboard/Desafio';
 import Rankings from '../../Components/Dashboard/Rankings';
-import Perfil from '../../Components/Dashboard/Perfil';
+import Perfil from '../../Components/Dashboard/TeladePefil/Perfil';
 import Missoes from '../../Components/Missão/MissoesPage';
 import Configuracoes from '../../Components/Dashboard/Configuracoes';
 import Loja from '../../Components/Dashboard/Loja'; // Importa o componente Loja

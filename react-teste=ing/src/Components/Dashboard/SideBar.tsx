@@ -12,6 +12,11 @@ const Sidebar = styled.div`
   display: flex;
   flex-direction: column;
   transition: all 0.3s ease-in-out;
+
+  @media (max-width: 768px) {
+    width: 60px;
+    padding: 10px;
+  }
 `;
 
 const SidebarItemBase = styled.div`
@@ -32,6 +37,14 @@ const SidebarItemBase = styled.div`
     height: 20px;
     width: 20px;
     transition: transform 0.3s ease-in-out;
+  }
+
+  @media (max-width: 768px) {
+    justify-content: center;
+    font-size: 0;
+    img {
+      margin-right: 0;
+    }
   }
 
   &:hover {
@@ -95,12 +108,14 @@ const Logo = styled.div`
   }
 
   @media (max-width: 768px) {
+    justify-content: center;
     img {
       height: 40px;
+      margin-right: 0;
     }
 
     span {
-      font-size: 20px;
+      display: none;
     }
   }
 `;

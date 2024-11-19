@@ -1,303 +1,431 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useAuth } from '../../AuthContext';
 import Swal from 'sweetalert2';
+import {
+  Container,
+  Box,
+  Typography,
+  Button,
+  TextField,
+  IconButton,
+  Avatar,
+  Link,
+  InputAdornment,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Divider
+} from '@mui/material';
+import ClearIcon from '@mui/icons-material/Clear';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import InputMask from 'react-input-mask';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import styled from 'styled-components';
 
-const ProfileEditContainer = styled.div`
-  font-family: 'Montserrat Alternates', sans-serif;
+const StyledContainer = styled(Container)`
+  font-family: 'Montserrat Alternates';
+  border-radius: 8px;
+  padding: 24px;
+  margin-top: 24px;
+  max-width: 100%; // Ajusta a largura máxima para evitar scroll horizontal
+  @media (max-width: 600px) {
+    padding: 16px;
+    margin-top: 16px;
+  }
+  overflow-x: hidden; // Adicionado para evitar scroll horizontal
 `;
 
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-
-  h1 {
-    font-size: 24px;
-    color: #444;
+const BasicInfoContainer = styled(Box)`
+  margin-top: 24px;
+  padding: 24px;
+  border-radius: 8px;
+  @media (max-width: 600px) {
+    padding: 16px;
+    margin-top: 16px;
   }
 `;
 
-const BackButton = styled.button`
-  font-family: 'Montserrat Alternates';
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #FF3E41;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 12px;
-  cursor: pointer;
-  font-size: 18px;
-
-  &:hover {
-    background-color: #e62e33;
+const ContactInfoContainer = styled(Box)`
+  margin-top: 24px;
+  padding: 24px;
+  border-radius: 8px;
+  @media (max-width: 600px) {
+    padding: 16px;
+    margin-top: 16px;
   }
 `;
 
-const SaveButton = styled.button`
-  font-family: 'Montserrat Alternates';
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #785ef0;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 15px 25px;
-  cursor: pointer;
-  font-size: 18px;
-
-  &:hover {
-    background-color: #5841d8;
+const SecurityInfoContainer = styled(Box)`
+  margin-top: 24px;
+  padding: 24px;
+  border-radius: 8px;
+  @media (max-width: 600px) {
+    padding: 16px;
+    margin-top: 16px;
   }
 `;
 
-const FormContainer = styled.div`
-  margin-left: 5%;
-  width: 90%;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-`;
-
-const FormGroup = styled.div`
+const StyledBox = styled(Box)`
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  height: fit-content;
-  position: relative;
   justify-content: center;
-`;
-
-const Label = styled.label`
-  font-weight: bold;
-  font-family: 'Montserrat Alternates';
-  margin-bottom: 5px;
-  font-size: 20px;
-`;
-
-const Input = styled.input`
-  font-family: 'Montserrat Alternates';
-  padding: 15px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-`;
-
-const PasswordInput = styled(Input)`
-  font-family: 'Montserrat Alternates';
-  padding-right: 40px;
-`;
-
-const EyeIcon = styled.img`
-  justify-self: center;
-  align-self: center;
-  position: absolute;
-  right: 2%;
-  top: 55%;
-  cursor: pointer;
-  width: 20px;
-  height: 20px;
-`;
-
-const PhotoSection = styled.div`
-  grid-column: span 2;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-bottom: 20px;
-`;
-
-const PhotoButton = styled.button`
-  display: flex;
   align-items: center;
-  justify-content: center;
-  background-color: #F6C761;
-  border: none;
-  border-radius: 5px;
-  padding: 12px 20px;
-  cursor: pointer;
-  font-size: 14px;
-  font-family: 'Montserrat Alternates';
-
-  &:hover {
-    background-color: #e5b14c;
-  }
+  padding: 24px;
+  overflow-x: hidden; // Adicionado para evitar scroll horizontal
 `;
 
-const RemovePhotoButton = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #fff;
-  border: 1px solid #F6C761;
-  border-radius: 5px;
-  padding: 12px 20px;
-  cursor: pointer;
-  font-size: 14px;
-  font-family: 'Montserrat Alternates';
+const EditarPerfil = () => {
+  const { usuario, atualizarPerfilUsuario } = useAuth();
+  const navegar = useNavigate();
 
-  &:hover {
-    background-color: #f7f7f7;
-    border-color: #e5b14c;
-  }
-`;
-
-const LogoContainer = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 15px;
-`;
-
-const LogoImage = styled.img`
-  margin-right: 10px;
-`;
-
-const LogoText = styled.span`
-  font-size: 24px;
-  font-weight: bold; 
-  color: #FC7A02;
-`;
-
-const ProfileEdit = () => {
-  const { user, updateUserProfile } = useAuth();
-  const navigate = useNavigate();
-
-  const [name, setName] = useState(user?.name || '');
-  const [email, setEmail] = useState(user?.email || '');
-  const [username, setUsername] = useState(user?.username || '');
-  const [phone, setPhone] = useState(user?.phone || '');
-  const [currentPassword, setCurrentPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
-  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [nome, setNome] = useState(usuario?.name || '');
+  const [email, setEmail] = useState(usuario?.email || '');
+  const [nomeUsuario, setNomeUsuario] = useState(usuario?.username || '');
+  const [telefone, setTelefone] = useState(usuario?.phone || '');
+  const [senhaAtual, setSenhaAtual] = useState('');
+  const [novaSenha, setNovaSenha] = useState('');
+  const [modificado, setModificado] = useState(false);
+  const [mostrarSenhaAtual, setMostrarSenhaAtual] = useState(false);
+  const [mostrarNovaSenha, setMostrarNovaSenha] = useState(false);
+  const [dialogoAberto, setDialogoAberto] = useState(false);
+  const [imagemSelecionada, setImagemSelecionada] = useState<File | null>(null);
+  const [cpf, setCpf] = useState(usuario?.cpf || '');
+  const [dataNascimento, setDataNascimento] = useState(usuario?.bornAt || '');
 
   useEffect(() => {
-    if (user) {
-      setName(user.name);
-      setEmail(user.email);
-      setUsername(user.username);
-      setPhone(user.phone);
+    if (usuario) {
+      setNome(usuario.name);
+      setEmail(usuario.email);
+      setNomeUsuario(usuario.username);
+      setTelefone(usuario.phone);
+      setCpf(usuario.cpf);
+      setDataNascimento(usuario.bornAt);
     }
-  }, [user]);
+  }, [usuario]);
 
-  const handleSaveChanges = async () => {
-    try {
-      const updatedData = {
-        ...user,
-        name,
-        email,
-        username,
-        phone,
-        ...(newPassword && { password: newPassword }),
+  useEffect(() => {
+    setModificado(
+      nome !== usuario?.name ||
+      email !== usuario?.email ||
+      nomeUsuario !== usuario?.username ||
+      telefone !== usuario?.phone ||
+      novaSenha.length > 0 ||
+      cpf !== usuario?.cpf ||
+      dataNascimento !== usuario?.bornAt
+    );
+  }, [nome, email, nomeUsuario, telefone, novaSenha, cpf, dataNascimento, usuario]);
+
+  const handleSalvarAlteracoes = async () => {
+    const result = await Swal.fire({
+      title: 'Você tem certeza?',
+      text: 'Deseja realmente alterar o perfil do usuário?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sim, alterar!',
+      cancelButtonText: 'Cancelar',
+    });
+
+    if (result.isConfirmed) {
+      try {
+        const dadosAtualizados = {
+          ...usuario,
+          name: nome,
+          email,
+          username: nomeUsuario,
+          phone: telefone,
+          cpf,
+          bornAt: dataNascimento,
+          ...(novaSenha && { password: novaSenha }),
+        };
+
+        await atualizarPerfilUsuario(dadosAtualizados);
+
+        localStorage.setItem('user', JSON.stringify({ ...usuario, ...dadosAtualizados }));
+
+        setSenhaAtual('');
+        setNovaSenha('');
+
+        Swal.fire('Sucesso', 'Perfil atualizado com sucesso!', 'success').then(() => {
+          navegar('/Home', { state: { section: 'Perfil' } });
+        });
+      } catch (error) {
+        Swal.fire('Erro', 'Não foi possível atualizar o perfil.', 'error');
+        console.error('Erro ao atualizar o perfil:', error);
+      }
+    }
+  };
+
+  const handleAbrirDialogo = () => {
+    setDialogoAberto(true);
+  };
+
+  const handleFecharDialogo = () => {
+    setDialogoAberto(false);
+  };
+
+  const handleRemoverImagem = () => {
+    setDialogoAberto(false);
+  };
+
+  const handleAlterarImagem = () => {
+    if (imagemSelecionada) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        atualizarPerfilUsuario({ ...usuario, imagePath: reader.result });
+        setDialogoAberto(false);
       };
-  
-      await updateUserProfile(updatedData);
-  
-      localStorage.setItem('user', JSON.stringify({ ...user, ...updatedData }));
-  
-      setCurrentPassword('');
-      setNewPassword('');
-      
-      Swal.fire('Sucesso', 'Perfil atualizado com sucesso!', 'success').then(() => {
-        navigate('/Home', { state: { section: 'Perfil' } });
-      });
-    } catch (error) {
-      Swal.fire('Erro', 'Não foi possível atualizar o perfil.', 'error');
-      console.error('Erro ao atualizar o perfil:', error);
+      reader.readAsDataURL(imagemSelecionada);
+    }
+  };
+
+  const handleImagemChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      setImagemSelecionada(event.target.files[0]);
     }
   };
 
   return (
-    <ProfileEditContainer>
-      <Header style={{ boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}>
-        <LogoContainer>
-          <LogoImage src="src/Assets/Logo.svg" alt="Logo" />
-          <LogoText>Quack()</LogoText>
-        </LogoContainer>
-      </Header>
-      <Header>
-        <BackButton onClick={() => navigate('/Home', { state: { section: 'Perfil' } })}>
-          <ArrowBackIcon style={{ marginRight: '10px' }} /> Voltar
-        </BackButton>
-        <SaveButton onClick={handleSaveChanges}>Salvar Alterações</SaveButton>
-      </Header>
-      <FormContainer>
-        <PhotoSection>
-          <Label>Foto de Perfil</Label>
-          <img
-            style={{ width: '150px', height: '150px', borderRadius: '50%' }}
-            src={user?.imagePath || "https://via.placeholder.com/150"}
-            alt="Foto do Perfil"
-          />
-          <div style={{ display: 'flex', gap: '20px', marginTop: '10px' }}>
-            <PhotoButton>
-              <img src="/src/svgs/Home-svgs/Perfil/Image.svg" alt="Adicionar Foto" /> Adicionar Foto
-            </PhotoButton>
-            <RemovePhotoButton>
-              <img src="/src/svgs/Home-svgs/Perfil/Trash.svg" alt="Remover Foto" /> Remover Foto
-            </RemovePhotoButton>
-          </div>
-        </PhotoSection>
-
-        <FormGroup>
-          <Label>Nome</Label>
-          <Input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Nome" />
-        </FormGroup>
-
-        <FormGroup>
-          <Label>Email</Label>
-          <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
-        </FormGroup>
-
-        <FormGroup>
-          <Label>Nome de Usuário</Label>
-          <Input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
-        </FormGroup>
-
-        <FormGroup>
-          <Label>Número de Telefone</Label>
-          <Input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Telefone" />
-        </FormGroup>
-
-        <FormGroup>
-          <Label>Senha Atual</Label>
-          <PasswordInput
-            type={showCurrentPassword ? 'text' : 'password'}
-            value={currentPassword}
-            onChange={(e) => setCurrentPassword(e.target.value)}
-            placeholder="Senha Atual"
-          />
-          <EyeIcon
-            onClick={() => setShowCurrentPassword(!showCurrentPassword)}
-            src="/src/svgs/Home-svgs/Perfil/Eye.svg"
-            alt={showCurrentPassword ? 'Ocultar Senha' : 'Mostrar Senha'}
-          />
-        </FormGroup>
-
-        <FormGroup>
-          <Label>Nova Senha</Label>
-          <PasswordInput
-            type={showNewPassword ? 'text' : 'password'}
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            placeholder="Nova Senha"
-          />
-          <EyeIcon
-            onClick={() => setShowNewPassword(!showNewPassword)}
-            src="/src/svgs/Home-svgs/Perfil/Eye.svg"
-            alt={showNewPassword ? 'Ocultar Senha' : 'Mostrar Senha'}
-          />
-        </FormGroup>
-      </FormContainer>
-    </ProfileEditContainer>
+    <StyledBox>
+      <StyledContainer maxWidth="md">
+        <Box display="flex" justifyContent="center" alignItems="center" mb={3} position="relative">
+          <IconButton 
+            onClick={() => navegar('/Home', { state: { section: 'Perfil' } })}
+            sx={{ position: 'absolute', left: 0 }}
+          >
+            <ArrowBackIcon />
+          </IconButton>
+          <Typography variant="h4" fontWeight="bold">Perfil</Typography>
+        </Box>
+        <Divider sx={{ my: 2 }} />
+        <Box mb={3}>
+          <Typography variant="h6" fontWeight="bold">Informações Básicas</Typography>
+          <Typography variant="body2" color="textSecondary" gutterBottom>
+            Algumas informações podem estar visíveis para outras pessoas que estejam usando os serviços do quack()
+          </Typography>
+          <BasicInfoContainer>
+            <Box display="flex" alignItems="center" mb={2}>
+              <Avatar
+                src={usuario?.imagePath || 'https://via.placeholder.com/120'}
+                alt="Foto do Perfil"
+                sx={{ width: 60, height: 60, cursor: 'pointer' }}
+              />
+              <IconButton
+                sx={{ marginLeft: 1 }}
+                size="small"
+                onClick={handleAbrirDialogo}
+              >
+                <EditIcon />
+              </IconButton>
+            </Box>
+            <Typography variant="body2" color="textSecondary" sx={{ mt: 1 }}>
+              Uma foto de perfil ajuda a personalizar sua conta
+            </Typography>
+          </BasicInfoContainer>
+        </Box>
+        <Divider sx={{ my: 2 }} />
+        <Box mb={3}>
+          <Typography variant="h6" fontWeight="bold">Informações de Contato</Typography>
+          <ContactInfoContainer>
+            <TextField
+              label="Nome"
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
+              placeholder="Nome"
+              fullWidth
+              margin="normal"
+              InputProps={{
+                endAdornment: (
+                  <IconButton onClick={() => setNome('')}>
+                    <ClearIcon />
+                  </IconButton>
+                )
+              }}
+            />
+            <TextField
+              label="Email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email"
+              fullWidth
+              margin="normal"
+              InputProps={{
+                endAdornment: (
+                  <IconButton onClick={() => setEmail('')}>
+                    <ClearIcon />
+                  </IconButton>
+                )
+              }}
+            />
+            <TextField
+              label="Nome de Usuário"
+              value={nomeUsuario}
+              onChange={(e) => setNomeUsuario(e.target.value)}
+              placeholder="Nome de Usuário"
+              fullWidth
+              margin="normal"
+              InputProps={{
+                endAdornment: (
+                  <IconButton onClick={() => setNomeUsuario('')}>
+                    <ClearIcon />
+                  </IconButton>
+                )
+              }}
+            />
+            <TextField
+              label="Número de Telefone"
+              type="tel"
+              value={telefone}
+              onChange={(e) => setTelefone(e.target.value)}
+              placeholder="Telefone"
+              fullWidth
+              margin="normal"
+            />
+            <InputMask
+              mask="999.999.999-99"
+              value={cpf}
+              onChange={(e) => setCpf(e.target.value)}
+            >
+              {() => (
+                <TextField
+                  label="CPF"
+                  placeholder="CPF"
+                  fullWidth
+                  margin="normal"
+                />
+              )}
+            </InputMask>
+            <InputMask
+              mask="99/99/9999"
+              value={dataNascimento}
+              onChange={(e) => setDataNascimento(e.target.value)}
+            >
+              {() => (
+                <TextField
+                  label="Data de Nascimento"
+                  placeholder="Data de Nascimento"
+                  fullWidth
+                  margin="normal"
+                />
+              )}
+            </InputMask>
+          </ContactInfoContainer>
+        </Box>
+        <Divider sx={{ my: 2 }} />
+        <Box mb={3}>
+          <Typography variant="h6" fontWeight="bold">Segurança</Typography>
+          <SecurityInfoContainer>
+            <TextField
+              label="Senha Atual"
+              type={mostrarSenhaAtual ? 'text' : 'password'}
+              value={senhaAtual}
+              onChange={(e) => setSenhaAtual(e.target.value)}
+              placeholder="Senha Atual"
+              fullWidth
+              margin="normal"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => setMostrarSenhaAtual(!mostrarSenhaAtual)}
+                    >
+                      {mostrarSenhaAtual ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                )
+              }}
+            />
+            <TextField
+              label="Nova Senha"
+              type={mostrarNovaSenha ? 'text' : 'password'}
+              value={novaSenha}
+              onChange={(e) => setNovaSenha(e.target.value)}
+              placeholder="Nova Senha"
+              fullWidth
+              margin="normal"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => setMostrarNovaSenha(!mostrarNovaSenha)}
+                    >
+                      {mostrarNovaSenha ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                )
+              }}
+            />
+          </SecurityInfoContainer>
+        </Box>
+        <Button
+          variant="contained"
+          sx={{ width: '100%', padding: 2, fontSize: 18, fontWeight: 'bold', mt: 2 }}
+          onClick={handleSalvarAlteracoes}
+          disabled={!modificado}
+        >
+          Salvar Alterações
+        </Button>
+        <Box display="flex" justifyContent="space-between" width="100%" mt={2}>
+          <Link href="#" underline="hover">Exportar os meus dados</Link>
+          <Link href="#" underline="hover">Excluir a minha conta</Link>
+        </Box>
+        <Dialog open={dialogoAberto} onClose={handleFecharDialogo} maxWidth="xs" fullWidth>
+          <DialogTitle sx={{ textAlign: 'center', paddingBottom: 0 }}>
+            Editar Foto do Perfil
+          </DialogTitle>
+          <DialogContent sx={{ textAlign: 'center' }}>
+            <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
+              Uma foto ajuda as pessoas a reconhecerem você e permite que você saiba quando a conta está conectada
+            </Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 1 }}>
+              <Avatar
+                src={imagemSelecionada ? URL.createObjectURL(imagemSelecionada) : usuario?.imagePath || 'https://via.placeholder.com/100'}
+                alt="Perfil"
+                sx={{ width: 100, height: 100 }}
+              />
+            </Box>
+            <Typography variant="caption" color="textSecondary">
+              Visível para todos.
+            </Typography>
+            <Box sx={{ mt: 3, display: 'flex', justifyContent: 'space-evenly' }}>
+              <Button
+                variant="contained"
+                component="label"
+                startIcon={<EditIcon />}
+              >
+                Escolher Imagem
+                <input
+                  type="file"
+                  hidden
+                  accept="image/*"
+                  onChange={handleImagemChange}
+                />
+              </Button>
+              <Button
+                variant="contained"
+                startIcon={<DeleteIcon />}
+                onClick={handleRemoverImagem}
+              >
+                Remover
+              </Button>
+            </Box>
+            <Button
+              variant="contained"
+              sx={{ mt: 2 }}
+              onClick={handleAlterarImagem}
+              disabled={!imagemSelecionada}
+            >
+              Salvar Imagem
+            </Button>
+          </DialogContent>
+        </Dialog>
+      </StyledContainer>
+    </StyledBox>
   );
 };
 
-export default ProfileEdit;
+export default EditarPerfil;
