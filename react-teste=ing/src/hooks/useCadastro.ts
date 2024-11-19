@@ -8,10 +8,12 @@ import Swal from 'sweetalert2';
 const schema = yup.object().shape({
   name: yup.string().required("Nome completo é obrigatório"),
   email: yup.string().email("Email inválido").required("Email é obrigatório"),
+  confirmemail: yup.string().oneOf([yup.ref("email"), undefined], "Os emails devem ser iguais").required("Email é obrigatório"),
   username: yup.string().required("Nome de usuário é obrigatório"),
   phone: yup.string().required("Telefone é obrigatório").min(14, "Telefone inválido"),
   cpf: yup.string().required("CPF é obrigatório").min(14, "CPF inválido"),
   password: yup.string().min(8, "A senha deve ter no mínimo 8 caracteres").required("Senha é obrigatória"),
+  confirmpassword: yup.string().oneOf([yup.ref("password"), undefined], "As senhas devem ser iguais").required("Senha é obrigatória"),
   bornAt: yup.string().required("Data de nascimento é obrigatória"),
   photo: yup.array().of(yup.mixed().nullable()).nullable() as yup.Schema<File[] | undefined>,
 });
@@ -19,10 +21,12 @@ const schema = yup.object().shape({
 interface FormData {
   name: string;
   email: string;
+  confirmemail: string;
   username: string;
   phone: string;
   cpf: string;
   password: string;
+  confirmpassword: string;
   bornAt: string;
   photo?: File[] | undefined;
 }

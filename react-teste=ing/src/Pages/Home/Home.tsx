@@ -9,9 +9,9 @@ import Rankings from '../../Components/Dashboard/Rankings';
 import Perfil from '../../Components/Dashboard/TeladePefil/Perfil';
 import Missoes from '../../Components/Missão/MissoesPage';
 import Configuracoes from '../../Components/Dashboard/Configuracoes';
-import Loja from '../../Components/Dashboard/Loja'; // Importa o componente Loja
-import Notifications from '../../Components/Dashboard/Notifications'; // Importa o componente Notifications
-import EditarPerfil from '../../Components/Dashboard/EditarPerfil/EditarPerfil'; // Importa o componente EditarPerfil
+import Loja from '../../Components/Dashboard/Loja';
+import Notifications from '../../Components/Dashboard/Notifications';
+import EditarPerfil from '../../Components/Dashboard/EditarPerfil/EditarPerfil';
 import PerfilQuacksensei from '../../Components/Dashboard/PerfilQuacksensei';
 import Quacksensei from '../../Components/Dashboard/Quacksensei';
 import CodeReview from '../../Components/Dashboard/CodeReview';
@@ -36,12 +36,27 @@ const ContentArea = styled.div`
   overflow-y: auto;
 `;
 
+interface Message {
+  id: number;
+  text: string;
+}
+
 const Home = () => {
   const [section, setSection] = useState('Aprender');
   const location = useLocation();
+  const [selectedProfessor, setSelectedProfessor] = useState<{ name: string; email: string; ensina: string; linguagem: string, photo: string } | null>(null);
+  const [messages, setMessages] = useState<{ [key: string]: Message[] }>({});
+  const [submittedCode, setSubmittedCode] = useState('');
+
+  // Função para definir mensagens para cada professor com base no email
+  const handleSetMessages = (professorEmail: string, newMessages: Message[]) => {
+    setMessages((prevMessages) => ({
+      ...prevMessages,
+      [professorEmail]: newMessages,
+    }));
+  };
 
   useEffect(() => {
-    // Verifica se seção foi passada pela navegação
     if (location.state?.section) {
       setSection(location.state.section);
     }
@@ -51,18 +66,28 @@ const Home = () => {
   const renderSection = () => {
     const sectionComponents: { [key: string]: JSX.Element } = {
       Aprender: <Aprender changeSection={setSection} />,
-      FazerAtividade: <FazerAtividade changeSection={setSection} />,
+      FazerAtividade: <FazerAtividade changeSection={(newSection, code) => {
+        if (code) setSubmittedCode(code);
+        setSection(newSection);
+      }} />,
       Desafio: <Desafio changeSection={setSection} />,
-      Rankings: <Rankings  />,
-      Perfil: <Perfil changeSection={setSection} />,
+      Rankings: <Rankings />,
       EditarPerfil: <EditarPerfil />,
-      Missoes: <Missoes changeSection={setSection} />,
+      Perfil: <Perfil changeSection={setSection} />,
       Configuracoes: <Configuracoes />,
       Loja: <Loja/>,
       Notifications: <Notifications  changeSection={setSection} />,
-      Quacksensei: <Quacksensei changeSection={setSection} setSelectedProfessor={() => {}}/>,
-      PerfilQuacksensei: <PerfilQuacksensei changeSection={setSection} selectedProfessor={null} messages={{}} setMessages={() => {}} />,
-      CodeReview:<CodeReview changeSection={setSection} />
+      Missoes: <Missoes changeSection={setSection}/>,
+      Quacksensei: <Quacksensei changeSection={setSection} setSelectedProfessor={setSelectedProfessor} />,
+      PerfilQuacksensei: selectedProfessor ? (
+        <PerfilQuacksensei
+          changeSection={setSection}
+          selectedProfessor={selectedProfessor}
+          messages={{ [selectedProfessor.email]: messages[selectedProfessor.email] || [] }}
+          setMessages={handleSetMessages}
+        />
+      ) : null,
+      CodeReview: <CodeReview changeSection={setSection} submittedCode={submittedCode} />,
     };
 
     return sectionComponents[section] || <Aprender changeSection={setSection} />;
@@ -79,5 +104,6 @@ const Home = () => {
     </Container>
   );
 };
+
 
 export default Home;
