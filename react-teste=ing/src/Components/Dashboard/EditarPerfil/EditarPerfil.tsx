@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../AuthContext';
+import { useAuth } from '../../../AuthContext';
 import Swal from 'sweetalert2';
 import {
   Typography,
@@ -9,7 +9,6 @@ import {
   IconButton,
   Avatar,
   InputAdornment,
-  Dialog,
   DialogContent,
   DialogTitle,
   Divider
@@ -27,7 +26,9 @@ import {
   SecurityInfoContainer,
   StyledButton,
   StyledLink,
-  colorPalette as colors
+  colorPalette as colors,
+  DialogContainer,
+  CloseButton
 } from './EditarPerfilStyles';
 
 const EditarPerfil = () => {
@@ -336,9 +337,12 @@ const EditarPerfil = () => {
         <StyledLink href="#">Exportar os meus dados</StyledLink>
         <StyledLink href="#">Excluir a minha conta</StyledLink>
       </div>
-      <Dialog open={dialogoAberto} onClose={handleFecharDialogo} maxWidth="xs" fullWidth>
+      <DialogContainer open={dialogoAberto} onClose={handleFecharDialogo} maxWidth="xs" fullWidth>
         <DialogTitle style={{ textAlign: 'center', paddingBottom: 0 }}>
           Editar Foto do Perfil
+          <CloseButton onClick={handleFecharDialogo}>
+            <ClearIcon />
+          </CloseButton>
         </DialogTitle>
         <DialogContent style={{ textAlign: 'center' }}>
           <Typography variant="body2" color="textSecondary" style={{ marginBottom: '16px' }}>
@@ -386,7 +390,7 @@ const EditarPerfil = () => {
           </Button>
          
         </DialogContent>
-      </Dialog>
+      </DialogContainer>
     </StyledContainer>
   );
 };

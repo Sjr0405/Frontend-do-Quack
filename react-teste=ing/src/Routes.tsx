@@ -12,7 +12,7 @@ import PrivateRoute from './Components/Dashboard/PrivateRoute';
 import Quacksensei from './Components/Dashboard/Quacksensei.tsx';
 import PerfilQuacksensei from './Components/Dashboard/PerfilQuacksensei.tsx';
 import CodeReview from './Components/Dashboard/CodeReview.tsx';
-import EditarPerfil from './Components/EditarPerfil/EditarPerfil.tsx';
+import EditarPerfil from './Components/Dashboard/EditarPerfil/EditarPerfil.tsx';
 import { AuthProvider } from './AuthContext.tsx';
 import GlobalStyles from './Styles/GlobalStyles.tsx';
 import { ThemeProvider } from 'styled-components';

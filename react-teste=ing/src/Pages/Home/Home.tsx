@@ -11,7 +11,7 @@ import Missoes from '../../Components/Missão/MissoesPage';
 import Configuracoes from '../../Components/Dashboard/Configuracoes';
 import Loja from '../../Components/Dashboard/Loja'; // Importa o componente Loja
 import Notifications from '../../Components/Dashboard/Notifications'; // Importa o componente Notifications
-import EditarPerfil from '../../Components/EditarPerfil/EditarPerfil'; // Importa o componente EditarPerfil
+import EditarPerfil from '../../Components/Dashboard/EditarPerfil/EditarPerfil'; // Importa o componente EditarPerfil
 import PerfilQuacksensei from '../../Components/Dashboard/PerfilQuacksensei';
 import Quacksensei from '../../Components/Dashboard/Quacksensei';
 import CodeReview from '../../Components/Dashboard/CodeReview';

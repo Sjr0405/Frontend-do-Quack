@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import Dialog from '@mui/material/Dialog';
+import IconButton from '@mui/material/IconButton';
 
 const colors = {
   primary: '#FF6F00',
@@ -76,6 +78,19 @@ export const StyledButton = styled.button`
 export const StyledLink = styled.a`
   text-decoration: underline;
   cursor: pointer;
+  color: ${colors.primary};
+`;
+
+export const DialogContainer = styled(Dialog)`
+  .MuiPaper-root {
+    border-radius: 24px;
+    max-width: 500px;
+  }
+`;
+
+export const CloseButton = styled(IconButton)`
+  position: absolute;
+  right: -100px;
   color: ${colors.primary};
 `;
 
