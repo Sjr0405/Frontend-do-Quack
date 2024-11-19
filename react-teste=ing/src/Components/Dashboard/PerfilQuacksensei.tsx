@@ -87,10 +87,10 @@ interface PerfilQuacksenseiProps {
 }
 
 const PerfilQuacksensei: React.FC<PerfilQuacksenseiProps> = ({
+  changeSection,
   selectedProfessor,
   messages,
   setMessages,
-  changeSection,
 }) => {
   const [message, setMessage] = useState('');
 
@@ -142,7 +142,6 @@ const PerfilQuacksensei: React.FC<PerfilQuacksenseiProps> = ({
             <MessageBubble>{text}</MessageBubble>
           </MessageContainer>
         ))}
-        {/* Renderizar mensagens enviadas */}
         {(messages[selectedProfessor.email] || []).map((msg) => (
           <MessageContainer key={msg.id}>
             <MessageBubble isSender={msg.isSender}>{msg.text}</MessageBubble>

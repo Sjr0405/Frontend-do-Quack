@@ -65,7 +65,7 @@ function MainRoutes() {
               <PerfilQuacksensei 
                 changeSection={() => {}}
                 selectedProfessor={{ name: "name", email:"email", ensina:"ensina", linguagem:"linguagem", photo:"photo" }} 
-                messages={{ messages: [{ message: "message" }] }} 
+                messages={{}}
                 setMessages={() => console.log('setMessages called')} 
               />
             </PrivateRoute>

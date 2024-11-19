@@ -60,8 +60,8 @@ const Home = () => {
       Configuracoes: <Configuracoes />,
       Loja: <Loja/>,
       Notifications: <Notifications  changeSection={setSection} />,
-      Quacksensei: <Quacksensei changeSection={setSection} />,
-      PerfilQuacksensei: <PerfilQuacksensei changeSection={setSection} />,
+      Quacksensei: <Quacksensei changeSection={setSection} setSelectedProfessor={() => {}}/>,
+      PerfilQuacksensei: <PerfilQuacksensei changeSection={setSection} selectedProfessor={null} messages={{}} setMessages={() => {}} />,
       CodeReview:<CodeReview changeSection={setSection} />
     };
 
