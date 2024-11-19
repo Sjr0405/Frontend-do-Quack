@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useEffect, useState as useStateReact } from 'react';
 import styled from 'styled-components';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { IconButton, Input } from "@mui/material";
@@ -253,6 +254,69 @@ const PuzzleButton = styled.button`
   }
 `;
 
+const StatusBar = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+`;
+
+const StatusItem = styled.div`
+  position: relative; /* Necessário para posicionar o balão */
+  display: flex;
+  align-items: center;
+
+  img {
+    margin-right: 8px;
+  }
+
+  span {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+  }
+`;
+
+const Tooltip = styled.div<{ visible: boolean }>`
+  position: absolute;
+  top: -80px; /* Ajusta a posição para dar espaço ao ícone e seta */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  white-space: nowrap; /* Impede quebra de linha */
+  visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
+  opacity: ${({ visible }) => (visible ? 1 : 0)};
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  img {
+    margin-bottom: 8px;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: -10px; /* Ajusta a posição da seta */
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 10px;
+    border-style: solid;
+    border-color: #fff transparent transparent transparent;
+  }
+`;
+
 interface Modulo {
   nome: string;
   aulasCompletas: number;
@@ -270,14 +334,22 @@ interface Emblema {
 
 const Aprender = ({ changeSection }: { changeSection: (section: string) => void }) => {
   const navigate = useNavigate();
-  const [modulos, setModulos] = useState<Modulo[]>([]);
-  const [emblemas, setEmblemas] = useState<Emblema[]>([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [exactModuloMatches, setExactModuloMatches] = useState<Modulo[]>([]);
-  const [similarModuloMatches, setModuloSimilarMatches] = useState<Modulo[]>([]);
-  const [exactEmblemaMatches, setExactEmblemaMatches] = useState<Emblema[]>([]);
-  const [similarEmblemaMatches, setEmblemaSimilarMatches] = useState<Emblema[]>([]);
+  const [modulos, setModulos] = useStateReact<Modulo[]>([]);
+  const [emblemas, setEmblemas] = useStateReact<Emblema[]>([]);
+  const [searchTerm, setSearchTerm] = useStateReact('');
+  const [exactModuloMatches, setExactModuloMatches] = useStateReact<Modulo[]>([]);
+  const [similarModuloMatches, setModuloSimilarMatches] = useStateReact<Modulo[]>([]);
+  const [exactEmblemaMatches, setExactEmblemaMatches] = useStateReact<Emblema[]>([]);
+  const [similarEmblemaMatches, setEmblemaSimilarMatches] = useStateReact<Emblema[]>([]);
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
+  const handleMouseEnter = (item: string) => {
+    setHoveredItem(item);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredItem(null);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -361,6 +433,41 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
               </div>
             </InvestidaBox>
         </Header>
+        <StatusBar>
+        <StatusItem
+          onMouseEnter={() => handleMouseEnter('vida')}
+          onMouseLeave={handleMouseLeave}
+        >
+          <img src="/src/Assets/barra de status/vida.svg" alt="Vida" />
+          <span>5</span>
+          <Tooltip visible={hoveredItem === 'vida'}>
+            <img src="/src/Assets/barra de status/vida.svg" alt="Vida" />
+            Você tem 5 vidas restantes.
+          </Tooltip>
+        </StatusItem>
+        <StatusItem
+          onMouseEnter={() => handleMouseEnter('pontos')}
+          onMouseLeave={handleMouseLeave}
+        >
+          <img src="/src/Assets/barra de status/pontos.svg" alt="Pontos" />
+          <span>30</span>
+          <Tooltip visible={hoveredItem === 'pontos'}>
+            <img src="/src/Assets/barra de status/pontos.svg" alt="Pontos" />
+             Você tem 30 pontos acumulados.
+          </Tooltip>
+        </StatusItem>
+        <StatusItem
+          onMouseEnter={() => handleMouseEnter('investidas')}
+          onMouseLeave={handleMouseLeave}
+        >
+          <img src="/src/Assets/barra de status/foquinho.svg" alt="Investidas" />
+          <span>3</span>
+          <Tooltip visible={hoveredItem === 'investidas'}>
+            <img src="/src/Assets/barra de status/foquinho.svg" alt="Investidas" />
+            Você tem 3 tentativas.
+          </Tooltip>
+        </StatusItem>
+      </StatusBar>
 
       <MainContent>
       <div style={{display: 'flex', flexDirection: 'column', width: '80%'}}>
