@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { IconButton, Input } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
-import { set } from 'gsap';
 
 // Styled Components
 const Container = styled.div`  
