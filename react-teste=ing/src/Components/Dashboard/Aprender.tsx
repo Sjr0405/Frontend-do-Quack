@@ -5,22 +5,22 @@ import { IconButton, Input } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
 
 // Styled Components
-const Container = styled.div`
-  display: flex;
-  height: 100vh;
+const Container = styled.div`  
+  height: 100%;
 `;
 
 const MainContent = styled.div`
-  flex: 1;
-  padding: 20px;
+  display: flex;
+  flex-direction: row;
   background-color: #f7f7f7;
-  overflow-y: auto;
+  overflow-y: hidden;
 `;
 
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 2%;
 `;
 
 const InvestidaBox = styled.div`
@@ -41,7 +41,7 @@ const InvestidaBox = styled.div`
 const SearchBar = styled.div`
   display: flex;
   align-items: center;
-  width: 20%;
+  width: 30%;
 
   Input {
     width: 100%;
@@ -65,7 +65,7 @@ const Titulo = styled.h1`
 `;
 
 const ModuloCard = styled.div<{ bgColor: string }>`
-  width: 60%;
+  width: 90%;
   background-color: ${({ bgColor }) => bgColor || '#fff'};
   padding: 20px;
   margin: 15px 0;
@@ -129,6 +129,16 @@ const ModuloCard = styled.div<{ bgColor: string }>`
   }
 `;
 
+const ColunaEmblemas = styled.div`
+  display: flex;
+  flex-direction: column;
+  @media (max-width: 768px) {
+    padding: 10px; /* Ajusta padding para telas pequenas */
+    margin-top: 20px; /* Adiciona margem superior em telas pequenas */
+    align-items: center; /* Centraliza ao centro em telas pequenas */
+  }
+`;
+
 interface ProgressBarProps {
   progress: string;
   color: string;
@@ -149,29 +159,69 @@ const ProgressBar = styled.div<ProgressBarProps>`
   }
 `;
 
-const EmblemasBox = styled.div`
-  margin-top: 20px;
+const ContainerColecaoEmblemas = styled.div`
   padding: 20px;
-  background-color: #ffffff;
-  border-radius: 12px;
-  width: 300px;
+  border-radius: 15px;
+  background-color: transparent;
+  height: 100%; /* Ajusta a altura para 100% */
+  @media (max-width: 768px) {
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
-const EmblemaItem = styled.div`
+const TituloEmblemas = styled.h2`
+  text-align: left;
+  font-family: 'Lilita One', sans-serif;
+  font-weight: 300;
+  font-size: 24px;
+  color: #ff7f00;
+  margin-bottom: 20px;
+  @media (max-width: 768px) {
+    text-align: center;
+  }
+`;
+
+const GradeEmblemas = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-content: center;
+  }
+`;
+
+const ItemEmblema = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 15px;
+  width: 120px;
+  height: 120px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  @media (max-width: 768px) {
+    width: 100px;
+    height: 100px;
+    align-items: center;
+    justify-content: center;
+  }
+`;
+
+const ImagemEmblema = styled.img`
+  width: 50px;
+  height: 50px;
   margin-bottom: 10px;
+`;
 
-  img {
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
-  }
-
-  span {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
-  }
+const TextoEmblema = styled.p`
+  font-size: 14px;
+  text-align: center;
+  color: #333;
 `;
 
 const PuzzleButton = styled.button`
@@ -203,7 +253,6 @@ const PuzzleButton = styled.button`
   }
 `;
 
-
 interface Modulo {
   nome: string;
   aulasCompletas: number;
@@ -214,43 +263,68 @@ interface Modulo {
   icon: string;
 }
 
+interface Emblema {
+  nome: string;
+  imagem: string;
+}
+
 const Aprender = ({ changeSection }: { changeSection: (section: string) => void }) => {
   const navigate = useNavigate();
   const [modulos, setModulos] = useState<Modulo[]>([]);
+  const [emblemas, setEmblemas] = useState<Emblema[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [exactMatches, setExactMatches] = useState<Modulo[]>([]);
-  const [similarMatches, setSimilarMatches] = useState<Modulo[]>([]);
+  const [exactModuloMatches, setExactModuloMatches] = useState<Modulo[]>([]);
+  const [similarModuloMatches, setModuloSimilarMatches] = useState<Modulo[]>([]);
+  const [exactEmblemaMatches, setExactEmblemaMatches] = useState<Emblema[]>([]);
+  const [similarEmblemaMatches, setEmblemaSimilarMatches] = useState<Emblema[]>([]);
 
-  // Simulação da busca de dados do banco de dados
+
   useEffect(() => {
-    // Aqui você integraria a chamada para o banco de dados real
-    const fetchModulos = async () => {
-      // Exemplo: chamada à API ou banco de dados
+    const fetchData = async () => {
       const dadosDoBanco = [
         { nome: 'Lógica de Programação', aulasCompletas: 18, totalAulas: 300, corBarra: '#FFD700', bgColor: '#FFEB99', rota: 'Logica_Programacao', icon: '/src/svgs/Home-svgs/Programacao.svg' },
         { nome: 'Frontend', aulasCompletas: 18, totalAulas: 18, corBarra: '#8000FF', bgColor: '#D9B3FF', rota: 'Frontend_Roadmap', icon: '/src/svgs/Home-svgs/Frontend.svg' },
         { nome: 'DevOps', aulasCompletas: 3, totalAulas: 18, corBarra: '#1E90FF', bgColor: '#CCE0FF', rota: 'DevOps_Roadmap', icon: '/src/svgs/Home-svgs/DevOps.svg' },
         { nome: 'Backend', aulasCompletas: 5, totalAulas: 18, corBarra: '#32CD32', bgColor: '#CCFFCC', rota: '/Backend_Roadmap', icon: '/src/svgs/Home-svgs/Backend.svg' },
       ];
-
       setModulos(dadosDoBanco);
-    };
 
-    fetchModulos();
+      const emblemasMock = [
+        { nome: 'Introdução à Programação', imagem: '/src/Assets/Iconesperfil/medalha1.png' },
+        { nome: 'Fundamentos de Algoritmos', imagem: '/src/Assets/Iconesperfil/medalha2.png' },
+        { nome: 'Programação Estruturada', imagem: '/src/Assets/Iconesperfil/medalha3.png' },
+        { nome: 'Estruturas de Dados', imagem: '/src/Assets/Iconesperfil/troveu.png' },
+        { nome: 'Desenvolvimento Web', imagem: '/src/Assets/Iconesperfil/experiencia.png' },
+        { nome: 'Desenvolvimento de APIs', imagem: '/src/Assets/Iconesperfil/api.png' },
+        { nome: 'DevOps', imagem: '/src/Assets/Iconesperfil/devops.png' },
+        { nome: 'Banco de Dados', imagem: '/src/Assets/Iconesperfil/database.png' }
+      ];
+      setEmblemas(emblemasMock);
+    };
+    fetchData();
   }, []);
 
   useEffect(() => {
-    const exact = modulos.filter(modulo => modulo.nome.toLowerCase() === searchTerm.toLowerCase());
-    const similar = modulos.filter(modulo => 
-      modulo.nome.toLowerCase().includes(searchTerm.toLowerCase()) && 
-      modulo.nome.toLowerCase() !== searchTerm.toLowerCase()
+    const exactfilteredModulos = modulos.filter(modulo => modulo.nome.toLowerCase() === searchTerm.toLowerCase());
+
+    const exactfilteredEmblemas = emblemas.filter(emblemas => emblemas.nome.toLowerCase() === searchTerm.toLowerCase());
+
+    const similarfilteredModulos = modulos.filter(modulo =>
+      modulo.nome.toLowerCase().includes(searchTerm.toLowerCase()) &&
+      modulo.nome.toLowerCase() !== (searchTerm.toLowerCase())
+    );
+    const similarfilteredEmblemas = emblemas.filter(emblema =>
+      emblema.nome.toLowerCase().includes(searchTerm.toLowerCase()) &&
+      emblema.nome.toLowerCase() !== (searchTerm.toLowerCase())
     );
 
-    setExactMatches(exact);
-    setSimilarMatches(similar);
-  }, [searchTerm, modulos]);
+    setExactModuloMatches(exactfilteredModulos);
+    setExactEmblemaMatches(exactfilteredEmblemas);
+    setModuloSimilarMatches(similarfilteredModulos);
+    setEmblemaSimilarMatches(similarfilteredEmblemas);
+  }, [searchTerm, modulos, emblemas]);
 
-  // Função para calcular a porcentagem da barra de progresso
+
   const calcularProgresso = (aulasCompletas: number, totalAulas: number) => {
     if (totalAulas === 0) return '0%';
     const progresso = (aulasCompletas / totalAulas) * 100;
@@ -259,14 +333,21 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
 
   return (
     <Container>
-      {/* Main Content */}
-      <MainContent>
         <Header>
           <PuzzleButton onClick={() => changeSection('Desafio')}>
             <img src="/src/svgs/Home-svgs/Puzzle.svg" alt="Estrela icon" />
             <p> Desafio diário! </p>
           </PuzzleButton>
 
+
+          <SearchBar>
+            <Input
+              type="search"
+              placeholder="Pesquisar por nome..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              />
+          </SearchBar>
           <InvestidaBox>
               Investida de 3 dias!
               <div>
@@ -279,18 +360,12 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
               <img src="/src/Icons/no-fire.svg" alt="Void icon" />
               </div>
             </InvestidaBox>
-
-          <SearchBar>
-            <Input
-              type="search"
-              placeholder="Pesquisar por nome..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </SearchBar>
         </Header>
+
+      <MainContent>
+      <div style={{display: 'flex', flexDirection: 'column', width: '80%'}}>
         <Titulo>Módulos Semelhantes</Titulo>
-        {similarMatches.map((modulo, index) => (
+        {similarModuloMatches.map((modulo, index) => (
           <ModuloCard key={index} bgColor={modulo.bgColor}>
             <img src={modulo.icon} alt={modulo.nome} />
             <div>
@@ -310,22 +385,21 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
             </IconButton>
           </ModuloCard>
         ))}
-             
-        <EmblemasBox>
-          <h3>Emblemas em destaque</h3>
-          <EmblemaItem>
-            <img src="icon-fullstack.svg" alt="Fullstack icon" />
-            <span>FullStack</span>
-          </EmblemaItem>
-          <EmblemaItem>
-            <img src="icon-frontend.svg" alt="Frontend icon" />
-            <span>Frontend</span>
-          </EmblemaItem>
-          <EmblemaItem>
-            <img src="icon-backend.svg" alt="Backend icon" />
-            <span>Backend</span>
-          </EmblemaItem>
-        </EmblemasBox>
+        </div>
+          
+          <ColunaEmblemas>
+          <ContainerColecaoEmblemas>
+          <TituloEmblemas>Coleção de emblemas:</TituloEmblemas>
+            <GradeEmblemas>
+              {similarEmblemaMatches.map((emblema, idx) => (
+                <ItemEmblema key={idx}>
+                  <ImagemEmblema src={emblema.imagem} alt={emblema.nome} />
+                  <TextoEmblema>{emblema.nome}</TextoEmblema>
+                </ItemEmblema>
+              ))}
+            </GradeEmblemas>
+            </ContainerColecaoEmblemas>
+          </ColunaEmblemas>
       </MainContent>
     </Container>
   );
