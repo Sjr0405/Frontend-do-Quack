@@ -106,6 +106,23 @@ export default function Cadastro() {
 
               <Grid item xs={12}>
                 <Controller
+                  name="confirmemail"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      label="Confirmar E-mail"
+                      variant="outlined"
+                      fullWidth
+                      error={!!errors.confirmemail}
+                      helperText={errors.confirmemail ? errors.confirmemail.message : ""}
+                    />
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <Controller
                   name="phone"
                   control={control}
                   render={({ field }) => (
@@ -153,6 +170,24 @@ export default function Cadastro() {
                       {...field}
                       type="password"
                       label="Senha"
+                      variant="outlined"
+                      fullWidth
+                      error={!!errors.password}
+                      helperText={errors.password ? errors.password.message : ""}
+                    />
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <Controller
+                  name="confirmpassword"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      type="password"
+                      label="Confirmar Senha"
                       variant="outlined"
                       fullWidth
                       error={!!errors.password}

@@ -8,7 +8,7 @@ const MainContent: React.FC = () => {
   const [userProgress, setUserProgress] = useState<any>({ nodes: {} });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedNode, setSelectedNode] = useState<string | null>(null);
-  const [modalData, setModalData] = useState<any>(null);
+  const [modalData, setModalData] = useState<string | null>(null);
 
   useEffect(() => {
     // Ajuste o caminho para o JSON

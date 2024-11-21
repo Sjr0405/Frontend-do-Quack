@@ -1,32 +1,57 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
 
 // Styled Components
 const Sidebar = styled.div`
-  width: 250px;
+  width: 220px;
   background-color: #ffffff;
   border-right: 1px solid #ddd;
-  padding: 20px;
+  padding: 15px;
   display: flex;
   flex-direction: column;
+  transition: all 0.3s ease-in-out;
+
+  @media (max-width: 768px) {
+    width: 60px;
+    padding: 10px;
+  }
 `;
 
 const SidebarItemBase = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   display: flex;
   align-items: center;
   font-family: 'Montserrat Alternates', sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  border-radius: 8px;
-  padding: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 8px;
   cursor: pointer;
+  transition: all 0.3s ease-in-out;
 
   img {
-    margin-right: 5px;
-    padding: 5px;
+    margin-right: 8px;
+    padding: 4px;
+    height: 20px;
+    width: 20px;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  @media (max-width: 768px) {
+    justify-content: center;
+    font-size: 0;
+    img {
+      margin-right: 0;
+    }
+  }
+
+  &:hover {
+    box-shadow: inset 0 0 0 2px #FB7901;
+    img {
+      transform: scale(1.1);
+    }
   }
 `;
 
@@ -41,7 +66,7 @@ const SidebarItem = styled(SidebarItemBase)`
 
   &:hover {
     color: #FB7901;
-    border: 1px solid #FB7901;
+    box-shadow: inset 0 0 0 2px #FB7901;
     background-color: rgba(251, 123, 5, 0.05);
   }
 `;
@@ -50,7 +75,7 @@ const SairSidebarItem = styled(SidebarItemBase)`
   color: #ff4a4a;
 
   &:hover {
-    border: 1px solid #ff4a4a;
+    box-shadow: inset 0 0 0 2px #ff4a4a;
     background-color: rgba(255, 62, 65, 0.05);
   }
 `;
@@ -59,34 +84,38 @@ const SairSidebarItem = styled(SidebarItemBase)`
 const Logo = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 
   img {
-    height: 60px;
-    margin-right: 15px;
+    height: 50px;
+    margin-right: 10px;
     cursor: pointer;
+    transition: transform 0.3s ease-in-out;
   }
 
   span {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: bold;
     color: #FF914D;
-    transition: color 0.3s;
+    transition: color 0.3s, transform 0.3s;
     cursor: pointer;
     font-family: 'Montserrat', sans-serif;
   
     &:hover {
       color: #4834d4;
+      transform: scale(1.1);
     }
   }
 
   @media (max-width: 768px) {
+    justify-content: center;
     img {
-      height: 50px;
+      height: 40px;
+      margin-right: 0;
     }
 
     span {
-      font-size: 24px;
+      display: none;
     }
   }
 `;
@@ -120,12 +149,12 @@ const SideBar = ({ changeSection }: { changeSection: (section: string) => void }
 
   return (
     <Sidebar>
-      <Logo onClick={() => navigate('/Home')}>
+      <Logo onClick={() => handleItemClick('Aprender')}>
         <img src="/src/assets/Logo.svg" alt="Logo Quack()" />
         <span>Quack()</span>
       </Logo>
 
-      {/* Verifica se o item selecionado é o 'Aprender' */}
+
       {selectedItem === 'Aprender' ? (
         <SelectedSidebarItem onClick={() => handleItemClick('Aprender')}>
           <img src="/src/svgs/Home-svgs/Selected-Colors/Laranja/Books.svg" alt="Aprender" />
@@ -138,7 +167,35 @@ const SideBar = ({ changeSection }: { changeSection: (section: string) => void }
         </SidebarItem>
       )}
 
-      {/* Verifica se o item selecionado é o 'Rankings' */}
+
+      {selectedItem === 'Roadmap' ? (
+        <SelectedSidebarItem onClick={() => handleItemClick('Roadmap')}>
+          <img src="/src/svgs/Home-svgs/Selected-Colors/Laranja/Roadmap.svg" alt="Roadmap" />
+          Roadmap
+        </SelectedSidebarItem>
+      ) : (
+        <SidebarItem onClick={() => handleItemClick('Roadmap')}>
+          <img src="/src/svgs/Home-svgs/Selected-Colors/Preto/Roadmap.svg" alt="Roadmap" />
+          Roadmap
+        </SidebarItem>
+      )}
+
+
+
+      {selectedItem === 'Praticar' ? (
+        <SelectedSidebarItem onClick={() => handleItemClick('Praticar')}>
+          <img src="/src/svgs/Home-svgs/Selected-Colors/Laranja/Praticar.svg" alt="Praticar" />
+          Praticar
+        </SelectedSidebarItem>
+      ) : (
+        <SidebarItem onClick={() => handleItemClick('Praticar')}>
+          <img src="/src/svgs/Home-svgs/Selected-Colors/Preto/Praticar.svg" alt="Praticar" />
+          Praticar
+        </SidebarItem>
+      )}
+
+
+
       {selectedItem === 'Rankings' ? (
         <SelectedSidebarItem onClick={() => handleItemClick('Rankings')}>
           <img src="/src/svgs/Home-svgs/Selected-Colors/Laranja/Ranking.svg" alt="Ranking" />
@@ -151,7 +208,6 @@ const SideBar = ({ changeSection }: { changeSection: (section: string) => void }
         </SidebarItem>
       )}
 
-      {/* Repetir lógica para outros itens */}
       {selectedItem === 'Perfil' ? (
         <SelectedSidebarItem onClick={() => handleItemClick('Perfil')}>
           <img src="/src/svgs/Home-svgs/Selected-Colors/Laranja/User.svg" alt="Perfil" />
@@ -164,7 +220,6 @@ const SideBar = ({ changeSection }: { changeSection: (section: string) => void }
         </SidebarItem>
       )}
 
-      {/* Continue para os demais itens */}
       {selectedItem === 'Missoes' ? (
         <SelectedSidebarItem onClick={() => handleItemClick('Missoes')}>
           <img src="/src/svgs/Home-svgs/Selected-Colors/Laranja/Alvo.svg" alt="Missões" />
@@ -189,15 +244,15 @@ const SideBar = ({ changeSection }: { changeSection: (section: string) => void }
         </SidebarItem>
       )}
 
-      {selectedItem === 'Opcoes' ? (
-        <SelectedSidebarItem onClick={() => handleItemClick('Opcoes')}>
-          <img src="/src/svgs/Home-svgs/Selected-Colors/Laranja/Configuracao.svg" alt="Opções" />
-          Opções
+      {selectedItem === 'Configuracoes' ? (
+        <SelectedSidebarItem onClick={() => handleItemClick('Configuracoes')}>
+          <img src="/src/svgs/Home-svgs/Selected-Colors/Laranja/Configuracao.svg" alt="Configurações" />
+          Configurações
         </SelectedSidebarItem>
       ) : (
-        <SidebarItem onClick={() => handleItemClick('Opcoes')}>
-          <img src="/src/svgs/Home-svgs/Selected-Colors/Preto/Configuracao.svg" alt="Opções" />
-          Opções
+        <SidebarItem onClick={() => handleItemClick('Configuracoes')}>
+          <img src="/src/svgs/Home-svgs/Selected-Colors/Preto/Configuracao.svg" alt="Configurações" />
+          Configurações
         </SidebarItem>
       )}
 

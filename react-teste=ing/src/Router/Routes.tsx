@@ -1,21 +1,26 @@
 import { Routes, Route } from 'react-router-dom'; 
-import Login from '../Pages/Login/Login'; 
-import EsqueciSenha from '../Pages/EsqueciSenha/EsqueciSenha'; 
-import Cadastro from '../Pages/Cadastro/Cadastro';
-import Home from '../Pages/Home/Home.tsx';
-import Aprender from '../Components/Dashboard/Inicio.tsx';
-import Atividade from '../Components/Dashboard/Desafio.tsx';
-import Rankings from '../Components/Dashboard/Rankings.tsx';
-import FazerAtividade from '../Components/Dashboard/FazerAtividade.tsx';
-import Perfil from '../Components/Dashboard/TeladePefil/Perfil.tsx';
-import EditarPerfil from '../Pages/EditarPerfil/EditarPerfil.tsx';
-import PrivateRoute from '../Router/PrivateRoute.tsx';
-import { AuthProvider } from '../AuthContext.tsx';
-import GlobalStyles from '../Styles/GlobalStyles.tsx';
+import Login from './Pages/Login/Login'; 
+import EsqueciSenha from './Pages/EsqueciSenha/EsqueciSenha'; 
+import Cadastro from './Pages/Cadastro/Cadastro';
+import Home from './Pages/Home/Home.tsx';
+import Aprender from './Components/Dashboard/Aprender.tsx';
+import Desafio from './Components/Dashboard/Desafio.tsx';
+import Rankings from './Components/Dashboard/Rankings.tsx';
+import FazerAtividade from './Components/Dashboard/FazerAtividade.tsx';
+import Perfil from './Components/Dashboard/TeladePefil/Perfil.tsx';
+import PrivateRoute from './Components/Dashboard/PrivateRoute';
+import Quacksensei from './Components/Dashboard/Quacksensei.tsx';
+import PerfilQuacksensei from './Components/Dashboard/PerfilQuacksensei.tsx';
+import CodeReview from './Components/Dashboard/CodeReview.tsx';
+import EditarPerfil from './Components/Dashboard/EditarPerfil/EditarPerfil.tsx';
+import { AuthProvider } from './AuthContext.tsx';
+import GlobalStyles from './Styles/GlobalStyles.tsx';
 import { ThemeProvider } from 'styled-components';
-import { light, dark } from '../Styles/Themes';
-import LandingPage from '../Pages/LandingPage/LandingPage'; // Importando o componente LandingPage
-import Trilhas from '../Pages/Trilhas/Trilhas';
+import { light, dark } from './Styles/Themes';
+import LandingPage from './Pages/LandingPage/LandingPage';
+import Trilhas from './Pages/Trilhas/Trilhas';
+import Errors from './Pages/Errors'; // Importando o componente Errors
+import CentraldeAjuda from './Pages/CentraldeAjuda'; // Importando o componente CentraldeAjuda
 
 export { MainRoutes }
 
@@ -36,17 +41,41 @@ function MainRoutes() {
           } />
           <Route path="/FazerAtividade" element={
             <PrivateRoute>
-              <FazerAtividade changeSection={(section: string) => console.log(section)} />
+              <FazerAtividade changeSection={() => {}} />
             </PrivateRoute>
           } />
           <Route path="/Aprender" element={
             <PrivateRoute>
-              <Aprender changeSection={(section: string) => console.log(section)} />
+              <Aprender changeSection={() => {}} />
             </PrivateRoute>
           } />
-          <Route path="/Atividade" element={
+          <Route path="/Desafio" element={
             <PrivateRoute>
-              <Atividade changeSection={(section: string) => console.log(section)} />
+              <Desafio changeSection={() => {}} />
+            </PrivateRoute>
+          } />
+          <Route path="/Quacksensei" element={
+            <PrivateRoute>
+              <Quacksensei changeSection={() => {}} 
+                setSelectedProfessor={() => console.log('setSelectedProfessor called')} />
+            </PrivateRoute>
+          } />
+          <Route path="/PerfilQuacksensei" element={
+            <PrivateRoute>
+              <PerfilQuacksensei 
+                changeSection={() => {}}
+                selectedProfessor={{ name: "name", email:"email", ensina:"ensina", linguagem:"linguagem", photo:"photo" }} 
+                messages={{}}
+                setMessages={() => console.log('setMessages called')} 
+              />
+            </PrivateRoute>
+          } />
+          <Route path="/CodeReview" element={
+            <PrivateRoute>
+              <CodeReview 
+                changeSection={() => {}} 
+                submittedCode="código submetido" 
+              />
             </PrivateRoute>
           } />
           <Route path="/Rankings" element={
@@ -56,7 +85,7 @@ function MainRoutes() {
           } />
           <Route path="/Perfil" element={
             <PrivateRoute>
-              <Perfil changeSection={(section: string) => console.log(section)} />
+              <Perfil changeSection={() => {}} />
             </PrivateRoute>
           } />
           <Route path="/EditarPerfil" element={
@@ -69,8 +98,16 @@ function MainRoutes() {
               <Trilhas />
             </PrivateRoute>
           } />
+          <Route path="/CentraldeAjuda" element={
+            <PrivateRoute>
+              <CentraldeAjuda />
+            </PrivateRoute>
+          } />
+          <Route path="*" element={<Errors />} /> {/* Adicionando a rota para a página de erros */}
         </Routes>
       </ThemeProvider>
     </AuthProvider>
   );
 }
+
+export default MainRoutes;
