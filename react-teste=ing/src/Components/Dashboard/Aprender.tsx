@@ -435,17 +435,6 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
         </Header>
         <StatusBar>
         <StatusItem
-          onMouseEnter={() => handleMouseEnter('vida')}
-          onMouseLeave={handleMouseLeave}
-        >
-          <img src="/src/Assets/barra de status/vida.svg" alt="Vida" />
-          <span>5</span>
-          <Tooltip visible={hoveredItem === 'vida'}>
-            <img src="/src/Assets/barra de status/vida.svg" alt="Vida" />
-            Você tem 5 vidas restantes.
-          </Tooltip>
-        </StatusItem>
-        <StatusItem
           onMouseEnter={() => handleMouseEnter('pontos')}
           onMouseLeave={handleMouseLeave}
         >
