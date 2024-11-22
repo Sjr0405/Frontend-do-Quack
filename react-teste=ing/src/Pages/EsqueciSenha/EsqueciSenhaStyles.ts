@@ -1,11 +1,89 @@
-// Login.styles.ts
 import styled from 'styled-components';
 import { Box, Typography } from "@mui/material";
 
-export const A = styled.a`
+export const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f9f9f9;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    height: auto;
+    padding: 20px;
+  }
+`;
+
+export const FormSection = styled(Box)`
+  width: 50%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 10px;
+  }
+`;
+
+export const ImageSection = styled(Box)`
+  background-image: url("/src/svgs/Cadastro-svgs/1.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: left;
+  display: flex;
+  width: 50%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   color: white;
-  text-decoration: none;
+  font-family: "Lilita One", sans-serif;
+  @media (max-width: 768px) {
+    width: 100%;
+    height: auto;
+    background-position: top;
+  }
+`;
+
+export const FormWrapper = styled(Box)`
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
+`;
+
+export const StyledTypography = styled(Typography)`
   font-family: "Montserrat Alternates", sans-serif;
+  font-size: 24px;
+
+  h3 {
+    text-decoration: none;
+    font-size: 24px;
+    font-family: "Lilita One", sans-serif;
+    margin-top: 30%;
+  }
+
+  h4 {
+    text-decoration: none;
+    font-size: 35px;
+    font-family: "Montserrat Alternates", sans-serif;
+    text-align: left;
+    font-weight: 500;
+    margin-top: -20%;
+  }
+
+  p {
+    color: #ffffff;
+    text-decoration: none;
+    font-family: "Montserrat Alternates", sans-serif;
+  }
 `;
 
 export const Label = styled.label`
@@ -34,95 +112,6 @@ export const Input = styled.input`
   &:hover {
     cursor: pointer;
     border-color: #7A5FF5;
-  }
-`;
-
-export const StyledTypography = styled(Typography)`
-  font-family: "Montserrat Alternates", sans-serif;
-  font-size: 24px;
-  margin-bottom: 20px;
-
-  h3 {
-    text-decoration: none;
-    font-size: 32px; /* Aumenta a fonte */
-    font-family: "Lilita One", sans-serif;
-    font-weight: 300;
-    margin-top: 50%;
-  }
-
-  h4 {
-    text-decoration: none;
-    font-size: 24px;
-    font-family: "Montserrat Alternates", sans-serif;
-    font-weight: 500;
-    margin-top: 30%;
-  }
-
-  p {
-    color: #ffffff;
-    text-decoration: none;
-    font-family: "Montserrat Alternates", sans-serif;
-  }
-`;
-
-export const LoginContainer = styled(Box)`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100vh;
-  background-color: #f8f9fa;
-  overflow-x: hidden; /* Evita rolagem horizontal */
-  @media (max-width: 768px) {
-    flex-direction: column;
-    height: auto;
-    padding: 20px;
-  }
-`;
-
-export const FormSection = styled(Box)`
-  width: 50%;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  @media (max-width: 768px) {
-    width: 100%;
-    padding: 10px;
-  }
-`;
-
-export const ImageSection = styled(Box)`
-  background-image: url("/src/svgs/Login-svgs/1.svg");
-  background-repeat: no-repeat;
-  background-size: cover; /* Ajusta a imagem para cobrir toda a área */
-  background-position: left; /* Estica a imagem para a esquerda */
-  display: flex;
-  width: 50%;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  color: white;
-  font-family: "Lilita One", sans-serif;
-  @media (max-width: 768px) {
-    width: 100%;
-    height: auto;
-    background-position: top;
-  }
-`;
-
-export const Form = styled.form`
-  background-color: #fff;
-  padding: 40px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
-  width: 100%;
-  @media (max-width: 768px) {
-    padding: 20px;
   }
 `;
 
@@ -189,13 +178,4 @@ export const DuckImage = styled.img`
   @media (max-width: 768px) {
     width: 60%;
   }
-`;
-
-export const ErrorMessage = styled.span`
-  color: red;
-  font-size: 12px;
-  font-family: "Montserrat Alternates", sans-serif;
-  margin-top: -15px;
-  margin-bottom: 10px;
-  display: block;
 `;

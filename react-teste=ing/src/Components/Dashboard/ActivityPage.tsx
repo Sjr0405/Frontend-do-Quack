@@ -2,11 +2,9 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
-import falandoPato from '../../Assets/Svg_thigas/FALANDO.svg';
 import felizPato from '../../Assets/Svg_thigas/FELIZ.svg';
 import tristePato from '../../Assets/Svg_thigas/TRISTE.svg';
 import turnDownPato from '../../Assets/Svg_thigas/TURN DOWN FOR WHAT.svg';
-import vetorPato from '../../Assets/Svg_thigas/VETOR PATO.svg';
 
 const Container = styled.div`
   padding: 20px;
@@ -146,6 +144,13 @@ const QuizOption = styled.button`
   }
 `;
 
+const RestartButton = styled(Button)`
+  background-color: #d32f2f;
+  &:hover {
+    background-color: #b71c1c;
+  }
+`;
+
 interface Activity {
   name: string;
   description: string;
@@ -233,6 +238,13 @@ const ActivityPage: React.FC<{ activityType: string }> = ({ activityType }) => {
     }
   };
 
+  const handleRestart = () => {
+    setCurrentActivityIndex(0);
+    setCorrectAnswers(0);
+    setShowResult(false);
+    setUserCode('');
+  };
+
   const currentActivity = activityList[currentActivityIndex];
 
   return (
@@ -282,6 +294,10 @@ const ActivityPage: React.FC<{ activityType: string }> = ({ activityType }) => {
           ) : (
             <PatoImage src={tristePato} alt="Pato triste" />
           )}
+          <Description>
+            Você acertou {correctAnswers} de {activityList.length} questões.
+          </Description>
+          <RestartButton onClick={handleRestart}>Reiniciar</RestartButton>
         </>
       )}
     </Container>

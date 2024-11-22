@@ -52,7 +52,6 @@ export default function Cadastro() {
                   )}
                 />
               </Grid>
-
               <Grid item xs={12}>
                 <Controller
                   name="name"
@@ -69,7 +68,6 @@ export default function Cadastro() {
                   )}
                 />
               </Grid>
-
               <Grid item xs={12}>
                 <Controller
                   name="username"
@@ -86,7 +84,6 @@ export default function Cadastro() {
                   )}
                 />
               </Grid>
-
               <Grid item xs={12}>
                 <Controller
                   name="email"
@@ -103,7 +100,6 @@ export default function Cadastro() {
                   )}
                 />
               </Grid>
-
               <Grid item xs={12}>
                 <Controller
                   name="confirmemail"
@@ -120,7 +116,6 @@ export default function Cadastro() {
                   )}
                 />
               </Grid>
-
               <Grid item xs={12}>
                 <Controller
                   name="phone"
@@ -140,7 +135,6 @@ export default function Cadastro() {
                   )}
                 />
               </Grid>
-
               <Grid item xs={12}>
                 <Controller
                   name="cpf"
@@ -160,7 +154,6 @@ export default function Cadastro() {
                   )}
                 />
               </Grid>
-
               <Grid item xs={12}>
                 <Controller
                   name="password"
@@ -178,7 +171,6 @@ export default function Cadastro() {
                   )}
                 />
               </Grid>
-
               <Grid item xs={12}>
                 <Controller
                   name="confirmpassword"
@@ -196,7 +188,6 @@ export default function Cadastro() {
                   )}
                 />
               </Grid>
-
               <Grid item xs={12}>
                 <Controller
                   name="bornAt"
@@ -205,25 +196,23 @@ export default function Cadastro() {
                     <TextField
                       {...field}
                       type="date"
-                      label="Data de Nascimento"
                       variant="outlined"
                       fullWidth
+                      InputLabelProps={{ shrink: true }}
+                      label="Data de Nascimento"
                       error={!!errors.bornAt}
                       helperText={errors.bornAt ? errors.bornAt.message : ""}
                     />
                   )}
                 />
               </Grid>
-
               <Grid item xs={12}>
                 <Button type="submit" variant="contained" color="primary" fullWidth sx={{ color: 'white' , backgroundColor: '#7A5FF5'}}>
                   Cadastrar
                 </Button>
-              
                 <Typography align="center" sx={{ marginY: 2 }}>
                   ou
                 </Typography>
-
                 <GoogleButton>
                   <img src="/src/Icons/Google.svg" alt="Google" style={{ height: '20px', fontFamily: 'Montserrat Alternates', marginRight: '10px' }} />
                   Iniciar sessão com o Google

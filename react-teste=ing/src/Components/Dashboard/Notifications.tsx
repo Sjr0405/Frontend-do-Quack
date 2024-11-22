@@ -22,6 +22,7 @@ import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied
 import SettingsIcon from '@mui/icons-material/Settings';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
+import tristeIcon from "../../Assets/Svg_thigas/TRISTE.svg";
 
 // Componente para itens de notificação
 const NotificationItem = ({ Icon, title, description, actionLabel, actionColor, iconColor, onClose }) => {
@@ -275,7 +276,7 @@ const Notifications = ({ changeSection }) => {
                   justifyContent="center"
                   mt={4}
                 >
-                  <SentimentDissatisfiedIcon sx={{ fontSize: 80, color: "#b0b0b0" }} />
+                  <img src={tristeIcon} alt="Pato triste" style={{ width: 80, height: 80, opacity: 0.7 }} />
                   <Typography variant="h6" color="textSecondary" mt={2}>
                     Nenhuma notificação disponível
                   </Typography>

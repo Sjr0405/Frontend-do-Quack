@@ -34,10 +34,10 @@ const Login = () => {
     <LoginContainer>
       <FormSection>
         <Form onSubmit={handleSubmit(onSubmit)}>
-          <Typography variant="h5" style={{textAlign: 'left', fontFamily: 'Lilita One',fontSize: '80px', marginBottom: '20px', color: '#ff7f00' }}>
+          <Typography variant="h5" style={{textAlign: 'left', fontFamily: 'Lilita One',fontSize: '60px', marginBottom: '20px', color: '#ff7f00' }}>
             Quack()
           </Typography>
-          <Typography variant="h6" style={{textAlign: 'left', fontFamily: 'Montserrat Alternates', fontSize: '30px',marginBottom: '10px', fontWeight: 'bold' }}>
+          <Typography variant="h6" style={{textAlign: 'left', fontFamily: 'Montserrat Alternates', fontSize: '24px',marginBottom: '10px', fontWeight: 'bold' }}>
             Bem Vindo Dev! <br />
             Jefte o mestre supremo
           </Typography>
@@ -117,13 +117,13 @@ const Login = () => {
       </FormSection>
 
       <ImageSection>
-      <StyledTypography variant="body1" style={{ marginTop: '20px' }}>
-  <h3>Seja Bem Vindo a Quack()</h3>
-  <p>
-    <A>A plataforma que tem como missão,<br/> ajudar você a aprender e compreender <br/>a</A>
-    <A style={{ color: '#7A5FF5', fontWeight: 'bold' }}> programação!</A>
-  </p>
-</StyledTypography>
+        <StyledTypography variant="body1" style={{  }}>
+          <h3>Seja Bem Vindo a Quack()</h3>
+          <p>
+            <A>A plataforma que tem como missão,<br/> ajudar você a aprender e compreender <br/>a</A>
+            <A style={{ color: '#7A5FF5', fontWeight: 'bold' }}> programação!</A>
+          </p>
+        </StyledTypography>
         <DuckImage src="/src/Assets/LogoReverse.svg" alt="Mascote Quack" />
       </ImageSection>
     </LoginContainer>

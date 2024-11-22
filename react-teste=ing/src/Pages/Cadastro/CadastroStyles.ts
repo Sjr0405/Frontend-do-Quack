@@ -46,15 +46,17 @@ export const StyledTypography = styled(Typography)`
   font-family: "Montserrat Alternates", sans-serif;
   font-size: 24px;
 
-  h3 {
+  h3, h4, p {
     text-decoration: none;
+  }
+
+  h3 {
     font-size: 24px;
     font-family: "Lilita One", sans-serif;
     margin-top: 30%;
   }
 
   h4 {
-    text-decoration: none;
     font-size: 35px;
     font-family: "Montserrat Alternates", sans-serif;
     text-align: left;
@@ -64,7 +66,6 @@ export const StyledTypography = styled(Typography)`
 
   p {
     color: #ffffff;
-    text-decoration: none;
     font-family: "Montserrat Alternates", sans-serif;
   }
 `;

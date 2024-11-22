@@ -47,7 +47,7 @@ const Description = styled.p`
 const Link = styled.a`
   font-weight: bold;
   text-decoration: none;
-  color: #6a1b9a;
+  color: #ff9800; /* Laranja */
   &:hover {
     text-decoration: underline;
   }
@@ -57,7 +57,7 @@ const SearchBarSection = styled.section`
   width: 100%;
   padding: 20px;
   background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(106, 27, 154, 0.5); /* Roxo */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -76,12 +76,12 @@ const FilterButton = styled.button<{ active: boolean }>`
   padding: 10px 20px;
   border: none;
   border-radius: 16px;
-  background-color: ${({ active }) => (active ? '#6a1b9a' : '#ccc')};
+  background-color: ${({ active }) => (active ? '#6a1b9a' : '#ff9800')}; /* Roxo e Laranja */
   color: #fff;
   cursor: pointer;
   transition: background-color 0.3s;
   &:hover {
-    background-color: #6a1b9a;
+    background-color: #6a1b9a; /* Roxo */
   }
 `;
 
@@ -94,16 +94,17 @@ const LanguageList = styled.div`
   border-radius: 16px;
 `;
 
-const RoadmapCard = styled.div<{ bgColor: string }>`
-  background-color: ${({ bgColor }) => bgColor || '#fff'};
+const RoadmapCard = styled.div`
+  background-color: #fff;
+  border: 2px solid rgba(255, 152, 0, 0.7); /* Laranja com opacidade de 70% */
   border-radius: 16px;
   padding: 20px;
   text-align: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s, box-shadow 0.2s;
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   }
 `;
 
@@ -184,13 +185,13 @@ const PopupButton = styled.button`
   padding: 10px 20px;
   border: none;
   border-radius: 16px;
-  background-color: #6a1b9a;
+  background-color: #ff9800; /* Laranja */
   color: #fff;
   cursor: pointer;
   margin: 10px;
   transition: background-color 0.3s;
   &:hover {
-    background-color: #4a148c;
+    background-color: #e65100; /* Laranja mais escuro */
   }
 `;
 
@@ -210,24 +211,24 @@ const CloseButton = styled.button`
 
 // Data for Languages
 const languages = [
-  { name: "JavaScript", img: javascriptIcon, description: "Linguagem popular para web.", bgColor: "#FFEB99" },
-  { name: "Kotlin", img: kotlinIcon, description: "Linguagem moderna para desenvolvimento Android.", bgColor: "#D9B3FF" },
-  { name: "Lua", img: luaIcon, description: "Conhecida por ser leve e embutível.", bgColor: "#CCE0FF" },
-  { name: "PHP", img: phpIcon, description: "Popular para desenvolvimento web.", bgColor: "#CCFFCC" },
-  { name: "TypeScript", img: typescriptIcon, description: "JavaScript com tipagem estática.", bgColor: "#FFD700" },
+  { name: "JavaScript", img: javascriptIcon, description: "Linguagem popular para web." },
+  { name: "Kotlin", img: kotlinIcon, description: "Linguagem moderna para desenvolvimento Android." },
+  { name: "Lua", img: luaIcon, description: "Conhecida por ser leve e embutível." },
+  { name: "PHP", img: phpIcon, description: "Popular para desenvolvimento web." },
+  { name: "TypeScript", img: typescriptIcon, description: "JavaScript com tipagem estática." },
   // Adicione mais linguagens aqui
 ];
 
 const modules = [
-  { name: 'Lógica de Programação', img: logicProgrammingIcon, description: 'Fundamentos de lógica de programação.', bgColor: "#CCFFCC" },
-  { name: 'Frontend', img: '/src/svgs/Home-svgs/Frontend.svg', description: 'Desenvolvimento de interfaces de usuário.', bgColor: "#FFEB99" },
-  { name: 'Backend', img: '/src/svgs/Home-svgs/Backend.svg', description: 'Desenvolvimento de lógica de servidor e banco de dados.', bgColor: "#D9B3FF" },
-  { name: 'Full Stack', img: fullStackIcon, description: 'Desenvolvimento completo de aplicações web.', bgColor: "#CCE0FF" },
-  { name: 'DevOps', img: '/src/svgs/Home-svgs/DevOps.svg', description: 'Integração e entrega contínua.', bgColor: "#CCFFCC" },
-  { name: 'Data Analyst', img: dataAnalystIcon, description: 'Análise e visualização de dados.', bgColor: "#FFD700" },
-  { name: 'AI Engineer', img: aiEngineerIcon, description: 'Desenvolvimento de soluções de inteligência artificial.', bgColor: "#FFEB99" },
-  { name: 'Cyber Security', img: cyberSecurityIcon, description: 'Proteção de sistemas e dados.', bgColor: "#D9B3FF" },
-  { name: 'Software Architect', img: softwareArchitectIcon, description: 'Design e arquitetura de software.', bgColor: "#CCE0FF" },
+  { name: 'Lógica de Programação', img: logicProgrammingIcon, description: 'Fundamentos de lógica de programação.' },
+  { name: 'Frontend', img: '/src/svgs/Home-svgs/Frontend.svg', description: 'Desenvolvimento de interfaces de usuário.' },
+  { name: 'Backend', img: '/src/svgs/Home-svgs/Backend.svg', description: 'Desenvolvimento de lógica de servidor e banco de dados.' },
+  { name: 'Full Stack', img: fullStackIcon, description: 'Desenvolvimento completo de aplicações web.' },
+  { name: 'DevOps', img: '/src/svgs/Home-svgs/DevOps.svg', description: 'Integração e entrega contínua.' },
+  { name: 'Data Analyst', img: dataAnalystIcon, description: 'Análise e visualização de dados.' },
+  { name: 'AI Engineer', img: aiEngineerIcon, description: 'Desenvolvimento de soluções de inteligência artificial.' },
+  { name: 'Cyber Security', img: cyberSecurityIcon, description: 'Proteção de sistemas e dados.' },
+  { name: 'Software Architect', img: softwareArchitectIcon, description: 'Design e arquitetura de software.' },
 ];
 
 const Header: React.FC = () => {
@@ -266,15 +267,15 @@ const Header: React.FC = () => {
       aulasCompletas: 0,
       totalAulas: 0,
       corBarra: '#FFD700',
-      bgColor: selectedRoadmap.bgColor,
       rota: '/Backend_Roadmap',
       icon: selectedRoadmap.img,
     };
-    // Atualizar o estado da localização com o novo módulo
-    navigate(location.pathname, { state: { newModule } });
+    // Atualizar o estado da localização com os novos módulos
+    const newModules = location.state?.newModules ? [...location.state.newModules, newModule] : [newModule];
+    navigate(location.pathname, { state: { newModules } });
     Swal.fire({
       title: 'Sucesso!',
-      text: 'Cadastrado com sucesso!',
+      text: 'Iniciado com sucesso!',
       icon: 'success',
       confirmButtonText: 'OK'
     });
@@ -321,14 +322,14 @@ const Header: React.FC = () => {
       {hasResults ? (
         <LanguageList>
           {(filter === "all" || filter === "languages") && filteredLanguages.map((lang) => (
-            <RoadmapCard key={lang.name} bgColor={lang.bgColor} onClick={() => handleCardClick(lang)}>
+            <RoadmapCard key={lang.name} onClick={() => handleCardClick(lang)}>
               <RoadmapImage src={lang.img} alt={`${lang.name} logo`} />
               <RoadmapName>{lang.name}</RoadmapName>
               <RoadmapDescription>{lang.description}</RoadmapDescription>
             </RoadmapCard>
           ))}
           {(filter === "all" || filter === "modules") && filteredModules.map((mod) => (
-            <RoadmapCard key={mod.name} bgColor={mod.bgColor} onClick={() => handleCardClick(mod)}>
+            <RoadmapCard key={mod.name} onClick={() => handleCardClick(mod)}>
               <RoadmapImage src={mod.img} alt={`${mod.name} logo`} />
               <RoadmapName>{mod.name}</RoadmapName>
               <RoadmapDescription>{mod.description}</RoadmapDescription>
@@ -350,7 +351,7 @@ const Header: React.FC = () => {
             <PopupTitle>{selectedRoadmap.name}</PopupTitle>
             <PopupDescription>{selectedRoadmap.description}</PopupDescription>
             <CloseButton onClick={handleClosePopup}>Fechar</CloseButton>
-            <PopupButton onClick={handleRegister}>Cadastrar-se</PopupButton>
+            <PopupButton onClick={handleRegister}>Iniciar !</PopupButton>
           </PopupContent>
         </PopupOverlay>
       )}

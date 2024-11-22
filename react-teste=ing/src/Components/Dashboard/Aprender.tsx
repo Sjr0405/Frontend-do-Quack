@@ -178,8 +178,12 @@ const NotificationIconWrapper = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;  
-  transition: color 0.3s ease; 
+  transition: color 0.3s ease, transform 0.3s ease; 
   margin-right: 40px;
+
+  &:hover {
+    transform: scale(1.1); /* Aumenta o tamanho do ícone */
+  }
 `;
 
 const NotificationDot = styled.div`
@@ -363,6 +367,7 @@ const StatusItem = styled.div`
   display: flex;
   align-items: center;
   margin: 0 40px; /* Adiciona margem horizontal para espaçamento */
+  transition: transform 0.3s ease; /* Adiciona transição para o efeito de hover */
 
   img {
     margin-right: 8px;
@@ -372,6 +377,10 @@ const StatusItem = styled.div`
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
     font-weight: bold;
+  }
+
+  &:hover {
+    transform: scale(1.1); /* Aumenta o tamanho do ícone */
   }
 `;
 
@@ -488,9 +497,9 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
       ];
       setModulos(dadosDoBanco);
 
-      // Adicionar novo módulo se existir
-      if (location.state?.newModule) {
-        setModulos((prevModulos) => [...prevModulos, location.state.newModule]);
+      // Adicionar novos módulos se existirem
+      if (location.state?.newModules) {
+        setModulos((prevModulos) => [...prevModulos, ...location.state.newModules]);
       }
     };
     fetchData();
