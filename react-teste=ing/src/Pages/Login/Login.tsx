@@ -15,8 +15,10 @@ import {
   StyledButton,
   GoogleButton,
   LoginLink,
-  DuckImage
+  DuckImage,
+  BackButton
 } from './LoginStyles';
+import { ArrowBack } from '@mui/icons-material';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -34,9 +36,14 @@ const Login = () => {
     <LoginContainer>
       <FormSection>
         <Form onSubmit={handleSubmit(onSubmit)}>
-          <Typography variant="h5" style={{textAlign: 'left', fontFamily: 'Lilita One',fontSize: '60px', marginBottom: '20px', color: '#ff7f00' }}>
-            Quack()
-          </Typography>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <BackButton onClick={() => navigate('/')}>
+              <ArrowBack />
+            </BackButton>
+            <Typography variant="h5" style={{textAlign: 'left', fontFamily: 'Lilita One',fontSize: '60px', marginBottom: '20px', color: '#ff7f00' }}>
+              Quack()
+            </Typography>
+          </div>
           <Typography variant="h6" style={{textAlign: 'left', fontFamily: 'Montserrat Alternates', fontSize: '24px',marginBottom: '10px', fontWeight: 'bold' }}>
             Bem Vindo Dev! <br />
             Jefte o mestre supremo
