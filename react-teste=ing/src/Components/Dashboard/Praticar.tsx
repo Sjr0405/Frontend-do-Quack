@@ -4,6 +4,7 @@ const Praticar = ({ changeSection }: { changeSection: (section: string) => void 
   return (
     <div>
       <h1>Olá Mundo - Praticar</h1>
+      <button onClick={() => changeSection('Aprender')}>Voltar</button>
     </div>
   );
 };
