@@ -170,12 +170,12 @@ const SideBar = ({ changeSection }: { changeSection: (section: string) => void }
 
       {selectedItem === 'Roadmap' ? (
         <SelectedSidebarItem onClick={() => handleItemClick('Roadmap')}>
-          <img src="/src/svgs/Home-svgs/Selected-Colors/Laranja/Roadmap.svg" alt="Roadmap" />
+          <img src="/src/Assets/roadmap.svg" alt="Roadmap" />
           Roadmap
         </SelectedSidebarItem>
       ) : (
         <SidebarItem onClick={() => handleItemClick('Roadmap')}>
-          <img src="/src/svgs/Home-svgs/Selected-Colors/Preto/Roadmap.svg" alt="Roadmap" />
+          <img src="/src/Assets/roadmap.svg" alt="Roadmap" />
           Roadmap
         </SidebarItem>
       )}
@@ -184,12 +184,12 @@ const SideBar = ({ changeSection }: { changeSection: (section: string) => void }
 
       {selectedItem === 'Praticar' ? (
         <SelectedSidebarItem onClick={() => handleItemClick('Praticar')}>
-          <img src="/src/svgs/Home-svgs/Selected-Colors/Laranja/Praticar.svg" alt="Praticar" />
+          <img src="/src/Assets/praticar.svg" alt="Praticar" />
           Praticar
         </SelectedSidebarItem>
       ) : (
         <SidebarItem onClick={() => handleItemClick('Praticar')}>
-          <img src="/src/svgs/Home-svgs/Selected-Colors/Preto/Praticar.svg" alt="Praticar" />
+          <img src="/src/Assets/praticar.svg" alt="Praticar" />
           Praticar
         </SidebarItem>
       )}
