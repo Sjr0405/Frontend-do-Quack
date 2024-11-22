@@ -17,6 +17,7 @@ import Quacksensei from '../../Components/Dashboard/Quacksensei';
 import CodeReview from '../../Components/Dashboard/CodeReview';
 import Praticar from '../../Components/Dashboard/Praticar';
 import Roadmap from '../../Components/Dashboard/Roadmap';
+import ActivityPage from '../../Components/Dashboard/ActivityPage';
 
 const Container = styled.div`
   display: flex;
@@ -49,6 +50,7 @@ const Home = () => {
   const [selectedProfessor, setSelectedProfessor] = useState<{ name: string; email: string; ensina: string; linguagem: string, photo: string } | null>(null);
   const [messages, setMessages] = useState<{ [key: string]: Message[] }>({});
   const [submittedCode, setSubmittedCode] = useState('');
+  const [activityType, setActivityType] = useState<string | null>(null);
 
   // Função para definir mensagens para cada professor com base no email
   const handleSetMessages = (professorEmail: string, newMessages: Message[]) => {
@@ -90,8 +92,14 @@ const Home = () => {
         />
       ) : null,
       CodeReview: <CodeReview changeSection={setSection} submittedCode={submittedCode} />,
-      Praticar: <Praticar changeSection={setSection} />,
+      Praticar: <Praticar changeSection={(newSection, activityType) => {
+        setSection(newSection);
+        if (activityType) {
+          setActivityType(activityType);
+        }
+      }} />,
       Roadmap: <Roadmap changeSection={setSection} />,
+      ActivityPage: <ActivityPage activityType={activityType} />,
     };
 
     return sectionComponents[section] || <Aprender changeSection={setSection} />;

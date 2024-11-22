@@ -4,6 +4,8 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { IconButton, Input } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../AuthContext'; // Importa o contexto de autenticação
+import { useLocation } from 'react-router-dom';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 
 // Styled Components
 const Container = styled.div`  
@@ -65,11 +67,27 @@ const ProfileSubtitle = styled.span`
 `;
 
 const WelcomeSection = styled.div`
+  display: flex;
+  align-items: center;
   text-align: left;
   margin-top: 20px;
 `;
 
+const WelcomeImage = styled.img`
+  width: 30%;
+  max-width: 100px;
+  margin-right: 20px;
+  transform: scaleX(-1); /* Inverte a imagem horizontalmente */
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1)); /* Adiciona sombra */
+  
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
 
+const WelcomeTextContainer = styled.div`
+  flex: 1;
+`;
 
 const WelcomeTitle = styled.h2`
   font-size: 28px;
@@ -109,10 +127,13 @@ const Quack = ({ user }: { user: any }) => {
       </ProfileSection>
       <Divider />
       <WelcomeSection>
-        <WelcomeTitle>Bem-vindo de volta, {user?.username || "Usuário"}!</WelcomeTitle>
-        <WelcomeText>
-          Explore caminhos de aprendizado estruturados para impulsionar sua jornada como desenvolvedor.
-        </WelcomeText>
+        <WelcomeImage src="/src/Assets/Svg_thigas/FALANDO.svg" alt="Imagem de boas-vindas" />
+        <WelcomeTextContainer>
+          <WelcomeTitle>Bem-vindo de volta, {user?.username || "Usuário"}!</WelcomeTitle>
+          <WelcomeText>
+            Explore caminhos de aprendizado estruturados para impulsionar sua jornada como desenvolvedor.
+          </WelcomeText>
+        </WelcomeTextContainer>
       </WelcomeSection>
     </QuackContainer>
   );
@@ -152,6 +173,25 @@ const Header = styled.div`
   }
 `;
 
+const NotificationIconWrapper = styled.div`
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;  
+  transition: color 0.3s ease; 
+  margin-right: 40px;
+`;
+
+const NotificationDot = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
+  
+`;
 
 const Titulo = styled.h1`
   color: #000;
@@ -197,8 +237,10 @@ const ModuloCard = styled.div<{ bgColor: string }>`
   img {
     margin-right: 15px;
     background-color: #fff;
-    padding: 15px;
+    padding: 10px; /* Reduzir padding */
     border-radius: 50%;
+    width: 50px; /* Definir largura */
+    height: 50px; /* Definir altura */
   }
 
   div {
@@ -409,6 +451,7 @@ interface Modulo {
 const Aprender = ({ changeSection }: { changeSection: (section: string) => void }) => {
   const navigate = useNavigate();
   const { user } = useAuth(); // Obtém o usuário do contexto de autenticação
+  const location = useLocation();
   const [modulos, setModulos] = useState<Modulo[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [similarModuloMatches, setModuloSimilarMatches] = useState<Modulo[]>([]);
@@ -427,6 +470,14 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
     setTooltipVisible(false);
   };
 
+  const handleNotificationClick = () => {
+    changeSection('Notifications');
+  };
+
+  const handleVerTodosClick = () => {
+    changeSection('Roadmap');
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       const dadosDoBanco = [
@@ -437,9 +488,13 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
       ];
       setModulos(dadosDoBanco);
 
+      // Adicionar novo módulo se existir
+      if (location.state?.newModule) {
+        setModulos((prevModulos) => [...prevModulos, location.state.newModule]);
+      }
     };
     fetchData();
-  }, []);
+  }, [location.state]);
 
   useEffect(() => {
     const similarfilteredModulos = modulos.filter(modulo =>
@@ -469,6 +524,7 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
+      
         <StatusBar>
           <StatusItem
             onMouseEnter={() => handleMouseEnter('investidas')}
@@ -503,12 +559,16 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
             </Tooltip>
           </StatusItem>
         </StatusBar>
+        <NotificationIconWrapper onClick={handleNotificationClick}>
+          <NotificationsIcon style={{ color: '#FFD700', fontSize: '30px' }} />
+          <NotificationDot />
+        </NotificationIconWrapper>
       </Header>
       <Quack user={user} /> {/* Passa o usuário para o Quack */}
       <MainContent>
         <TituloContainer>
           <Titulo>Minhas Roadmaps</Titulo>
-          <VerTodosLink href="/roadmap">Ver todos</VerTodosLink>
+          <VerTodosLink onClick={handleVerTodosClick}>Ver todos</VerTodosLink>
         </TituloContainer>
         <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
           {similarModuloMatches.map((modulo, index) => (
