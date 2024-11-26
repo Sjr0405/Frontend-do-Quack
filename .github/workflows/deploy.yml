@@ -18,6 +18,12 @@ jobs:
         with:
           node-version: '18' # Versão LTS atual do Node.js
 
+      - name: Navegar para o Diretório do Projeto
+        run: cd react-teste-ing
+
+      - name: Instalação das Dependências
+        run: npm install
+
       - name: Build do Projeto
         run: npm run build
 
@@ -33,3 +39,5 @@ jobs:
             git pull origin prod
             npm install --production
             pm2 restart all
+
+  
