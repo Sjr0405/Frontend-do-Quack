@@ -13,17 +13,10 @@ jobs:
       - name: Checkout do Repositório
         uses: actions/checkout@v1
 
-
-      - name: Navegar para o Diretório do Projeto
-        run: cd react-teste-ing
-
-
       - name: Instalação do Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18' # Versão LTS atual do Node.js
-
-
 
       - name: Instalação das Dependências
         run: npm install
