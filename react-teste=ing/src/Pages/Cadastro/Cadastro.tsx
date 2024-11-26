@@ -21,7 +21,7 @@ export default function Cadastro() {
               Faltam poucos passos<br /> para<br /> se tornar um Dev!
             </h4>
           </StyledTypography>
-          <img src="src/assets/Personagem.svg" alt="Ilustração" style={{ width: '80%' }} />
+          <img src="/assets/Personagem.svg" alt="Ilustração" style={{ width: '80%' }} />
         </Box>
       </ImageSection>
 
@@ -52,7 +52,6 @@ export default function Cadastro() {
                   )}
                 />
               </Grid>
-
               <Grid item xs={12}>
                 <Controller
                   name="name"
@@ -69,7 +68,6 @@ export default function Cadastro() {
                   )}
                 />
               </Grid>
-
               <Grid item xs={12}>
                 <Controller
                   name="username"
@@ -86,7 +84,6 @@ export default function Cadastro() {
                   )}
                 />
               </Grid>
-
               <Grid item xs={12}>
                 <Controller
                   name="email"
@@ -103,7 +100,6 @@ export default function Cadastro() {
                   )}
                 />
               </Grid>
-
               <Grid item xs={12}>
                 <Controller
                   name="confirmemail"
@@ -120,47 +116,40 @@ export default function Cadastro() {
                   )}
                 />
               </Grid>
-
               <Grid item xs={12}>
                 <Controller
                   name="phone"
                   control={control}
                   render={({ field }) => (
                     <InputMask mask="(99) 99999-9999" {...field}>
-                      {() => (
-                        <TextField
-                          label="Telefone"
-                          variant="outlined"
-                          fullWidth
-                          error={!!errors.phone}
-                          helperText={errors.phone ? errors.phone.message : ""}
-                        />
-                      )}
+                      <TextField
+                        label="Telefone"
+                        variant="outlined"
+                        fullWidth
+                        error={!!errors.phone}
+                        helperText={errors.phone ? errors.phone.message : ""}
+                      />
                     </InputMask>
                   )}
                 />
               </Grid>
-
               <Grid item xs={12}>
                 <Controller
                   name="cpf"
                   control={control}
                   render={({ field }) => (
                     <InputMask mask="999.999.999-99" {...field}>
-                      {() => (
-                        <TextField
-                          label="CPF"
-                          variant="outlined"
-                          fullWidth
-                          error={!!errors.cpf}
-                          helperText={errors.cpf ? errors.cpf.message : ""}
-                        />
-                      )}
+                      <TextField
+                        label="CPF"
+                        variant="outlined"
+                        fullWidth
+                        error={!!errors.cpf}
+                        helperText={errors.cpf ? errors.cpf.message : ""}
+                      />
                     </InputMask>
                   )}
                 />
               </Grid>
-
               <Grid item xs={12}>
                 <Controller
                   name="password"
@@ -178,7 +167,6 @@ export default function Cadastro() {
                   )}
                 />
               </Grid>
-
               <Grid item xs={12}>
                 <Controller
                   name="confirmpassword"
@@ -196,7 +184,6 @@ export default function Cadastro() {
                   )}
                 />
               </Grid>
-
               <Grid item xs={12}>
                 <Controller
                   name="bornAt"
@@ -205,27 +192,25 @@ export default function Cadastro() {
                     <TextField
                       {...field}
                       type="date"
-                      label="Data de Nascimento"
                       variant="outlined"
                       fullWidth
+                      InputLabelProps={{ shrink: true }}
+                      label="Data de Nascimento"
                       error={!!errors.bornAt}
                       helperText={errors.bornAt ? errors.bornAt.message : ""}
                     />
                   )}
                 />
               </Grid>
-
               <Grid item xs={12}>
                 <Button type="submit" variant="contained" color="primary" fullWidth sx={{ color: 'white' , backgroundColor: '#7A5FF5'}}>
                   Cadastrar
                 </Button>
-              
                 <Typography align="center" sx={{ marginY: 2 }}>
                   ou
                 </Typography>
-
                 <GoogleButton>
-                  <img src="/src/Icons/Google.svg" alt="Google" style={{ height: '20px', fontFamily: 'Montserrat Alternates', marginRight: '10px' }} />
+                  <img src="/Icons/Google.svg" alt="Google" style={{ height: '20px', fontFamily: 'Montserrat Alternates', marginRight: '10px' }} />
                   Iniciar sessão com o Google
                 </GoogleButton>
               </Grid>

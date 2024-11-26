@@ -12,7 +12,6 @@ const Showcase = lazy(() => import('../../Components/Londpage/Showcase/Showcase'
 const Hero = lazy(() => import('../../Components/Londpage/Hero/Hero'));
 const Team = lazy(() => import('../../Components/Londpage/Team/Team'));
 const Faq = lazy(() => import('../../Components/Londpage/Faq/Faq'));
-const Roadmap = lazy(() => import('../../Components/Londpage/Roadmap/Roadmap'));
 
 const LandingPage: React.FC = () => {
   return (

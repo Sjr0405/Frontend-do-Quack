@@ -1,59 +1,200 @@
-import React, { useState } from 'react';
-import { useEffect, useState as useStateReact } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { IconButton, Input } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../AuthContext'; // Importa o contexto de autenticação
+import { useLocation } from 'react-router-dom';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 
 // Styled Components
 const Container = styled.div`  
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centraliza o conteúdo horizontalmente */
+  box-sizing: border-box; /* Inclui padding e border no tamanho total */
+  background-color: #f7f7f7; /* Adiciona fundo cinza claro */
+  overflow-y: auto; /* Adiciona scroll vertical */
+  overflow-x: hidden; /* Oculta scroll horizontal */
+  width: 100%; /* Garante que o Container ocupe toda a largura disponível */
+  padding: 20px; /* Adiciona padding interno */
+
+  @media (max-width: 768px) {
+    padding: 20px; /* Adiciona padding interno */
+  }
 `;
+
+const QuackContainer = styled.div`
+  background-color: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  margin: 10px auto; /* Diminui o espaçamento */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  font-family: "Arial", sans-serif;
+  max-width: 1200px;
+  width: 100%;
+  box-sizing: border-box;
+`;
+
+const ProfileSection = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+`;
+
+const ProfileImage = styled.img`
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  margin-right: 16px;
+`;
+
+const ProfileInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const ProfileName = styled.h1`
+  margin: 0;
+  font-size: 22px;
+  font-weight: bold;
+  color: #2d3748;
+`;
+
+const ProfileSubtitle = styled.span`
+  font-size: 16px;
+  color: #718096;
+`;
+
+const WelcomeSection = styled.div`
+  display: flex;
+  align-items: center;
+  text-align: left;
+  margin-top: 20px;
+`;
+
+const WelcomeImage = styled.img`
+  width: 30%;
+  max-width: 100px;
+  margin-right: 20px;
+  transform: scaleX(-1); /* Inverte a imagem horizontalmente */
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1)); /* Adiciona sombra */
+  
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const WelcomeTextContainer = styled.div`
+  flex: 1;
+`;
+
+const WelcomeTitle = styled.h2`
+  font-size: 28px;
+  color: #2d3748;
+  margin: 0;
+  font-weight: bold;
+`;
+
+const WelcomeText = styled.p`
+  font-size: 16px;
+  color: #4a5568;
+  margin-top: 12px;
+  line-height: 1.6;
+
+  strong {
+    color: #2b6cb0;
+    font-weight: bold;
+  }
+`;
+
+const Divider = styled.hr`
+  border: 0;
+  height: 1px;
+  background: #e0e0e0;
+  margin: 20px 0;
+`;
+
+const Quack = ({ user }: { user: any }) => {
+  return (
+    <QuackContainer>
+      <ProfileSection>
+        <ProfileImage src={user?.imagePath || "https://via.placeholder.com/64"} alt="Foto de Perfil" />
+        <ProfileInfo>
+          <ProfileName>{user?.username || "Usuário"}</ProfileName>
+          <ProfileSubtitle>{user?.name || "Nome do Usuário"}</ProfileSubtitle>
+        </ProfileInfo>
+      </ProfileSection>
+      <Divider />
+      <WelcomeSection>
+        <WelcomeImage src="/src/Assets/Svg_thigas/FALANDO.svg" alt="Imagem de boas-vindas" />
+        <WelcomeTextContainer>
+          <WelcomeTitle>Bem-vindo de volta, {user?.username || "Usuário"}!</WelcomeTitle>
+          <WelcomeText>
+            Explore caminhos de aprendizado estruturados para impulsionar sua jornada como desenvolvedor.
+          </WelcomeText>
+        </WelcomeTextContainer>
+      </WelcomeSection>
+    </QuackContainer>
+  );
+};
 
 const MainContent = styled.div`
   display: flex;
-  flex-direction: row;
-  background-color: #f7f7f7;
-  overflow-y: hidden;
+  flex-direction: column; /* Alinha itens em coluna */
+  align-items: center; /* Centraliza o conteúdo horizontalmente */
+  width: 100%; /* Garante que o MainContent ocupe toda a largura disponível */
+  max-width: 1200px; /* Define uma largura máxima */
+  padding: 20px; /* Adiciona padding interno */
+  box-sizing: border-box; /* Inclui padding e border no tamanho total */
+  border-radius: 8px; /* Adiciona bordas arredondadas */
+  margin-bottom: 20px;
 `;
 
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2%;
-`;
-
-const InvestidaBox = styled.div`
-  background-color: #fff;
-  padding: 10px 20px;
-  border-radius: 8px;
-  border: 1px solid #FB7901;
-  font-family: 'Montserrat', sans-serif;
-  color: #ff9800;
-  font-weight: bold;
-
-  img {
-    margin-top: 10px;
-    margin-right: 15px;
+  flex-wrap: wrap; /* Permite que os itens quebrem linha */
+  width: 100%; /* Garante que o header ocupe toda a largura disponível */
+  max-width: 1200px; /* Define uma largura máxima */
+  box-sizing: border-box; /* Inclui padding e border no tamanho total */
+  align-items: center; /* Centraliza o conteúdo horizontalmente */
+  padding: 20px; /* Adiciona padding interno */
+  background-color: #fff; /* Adiciona fundo branco */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adiciona sombra */
+  border-radius: 8px; /* Adiciona bordas arredondadas */
+  margin-bottom: 20px; /* Adiciona margem inferior */
+  
+  
+  @media (max-width: 768px) {
+    flex-direction: column; /* Alinha itens em coluna em telas menores */
+    align-items: center; /* Centraliza o conteúdo horizontalmente em telas menores */
   }
 `;
 
-const SearchBar = styled.div`
+const NotificationIconWrapper = styled.div`
+  position: relative;
+  cursor: pointer;
   display: flex;
-  align-items: center;
-  width: 30%;
+  align-items: center;  
+  transition: color 0.3s ease, transform 0.3s ease; 
+  margin-right: 40px;
 
-  Input {
-    width: 100%;
-    height: 40px;
-    padding: 0 10px;
-    font-size: 18px;
+  &:hover {
+    transform: scale(1.1); /* Aumenta o tamanho do ícone */
   }
+`;
 
-  img {
-    cursor: pointer;
-  }
+const NotificationDot = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
+  
 `;
 
 const Titulo = styled.h1`
@@ -65,8 +206,28 @@ const Titulo = styled.h1`
   margin-top: 20px;
 `;
 
+const TituloContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 20px;
+`;
+
+const VerTodosLink = styled.a`
+  color: #007bff;
+  text-decoration: none;
+  font-family: 'Lilita One', sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #0056b3;
+  }
+`;
+
 const ModuloCard = styled.div<{ bgColor: string }>`
-  width: 90%;
   background-color: ${({ bgColor }) => bgColor || '#fff'};
   padding: 20px;
   margin: 15px 0;
@@ -74,12 +235,16 @@ const ModuloCard = styled.div<{ bgColor: string }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
 
   img {
     margin-right: 15px;
     background-color: #fff;
-    padding: 15px;
+    padding: 10px; /* Reduzir padding */
     border-radius: 50%;
+    width: 50px; /* Definir largura */
+    height: 50px; /* Definir altura */
   }
 
   div {
@@ -128,17 +293,14 @@ const ModuloCard = styled.div<{ bgColor: string }>`
     padding: 10px;
     margin-left: 20px;
   }
-`;
 
-const ColunaEmblemas = styled.div`
-  display: flex;
-  flex-direction: column;
-  @media (max-width: 768px) {
-    padding: 10px; /* Ajusta padding para telas pequenas */
-    margin-top: 20px; /* Adiciona margem superior em telas pequenas */
-    align-items: center; /* Centraliza ao centro em telas pequenas */
+  &:hover {
+    transform: translateY(-5px); /* Adiciona um efeito de elevação */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adiciona uma sombra mais forte */
   }
 `;
+
+
 
 interface ProgressBarProps {
   progress: string;
@@ -160,71 +322,6 @@ const ProgressBar = styled.div<ProgressBarProps>`
   }
 `;
 
-const ContainerColecaoEmblemas = styled.div`
-  padding: 20px;
-  border-radius: 15px;
-  background-color: transparent;
-  height: 100%; /* Ajusta a altura para 100% */
-  @media (max-width: 768px) {
-    align-items: center;
-    justify-content: center;
-  }
-`;
-
-const TituloEmblemas = styled.h2`
-  text-align: left;
-  font-family: 'Lilita One', sans-serif;
-  font-weight: 300;
-  font-size: 24px;
-  color: #ff7f00;
-  margin-bottom: 20px;
-  @media (max-width: 768px) {
-    text-align: center;
-  }
-`;
-
-const GradeEmblemas = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    align-items: center;
-    justify-content: center;
-  }
-`;
-
-const ItemEmblema = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 15px;
-  background-color: #f9f9f9;
-  border-radius: 15px;
-  width: 120px;
-  height: 120px;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-  @media (max-width: 768px) {
-    width: 100px;
-    height: 100px;
-    align-items: center;
-    justify-content: center;
-  }
-`;
-
-const ImagemEmblema = styled.img`
-  width: 50px;
-  height: 50px;
-  margin-bottom: 10px;
-`;
-
-const TextoEmblema = styled.p`
-  font-size: 14px;
-  text-align: center;
-  color: #333;
-`;
-
 const PuzzleButton = styled.button`
   display: flex;
   border-radius: 8px;
@@ -237,7 +334,7 @@ const PuzzleButton = styled.button`
   background-color: #6c5ce7;
   
   position: relative;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
   z-index: 2; /* Mantém o botão acima dos SVGs */
 
   p {
@@ -251,6 +348,7 @@ const PuzzleButton = styled.button`
   &:hover {
     background-color: #4834d4;
     color: white;
+    transform: translateY(-5px); /* Adiciona um efeito de elevação */
   }
 `;
 
@@ -262,13 +360,14 @@ const StatusBar = styled.div`
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
 `;
 
 const StatusItem = styled.div`
   position: relative; /* Necessário para posicionar o balão */
   display: flex;
   align-items: center;
+  margin: 0 40px; /* Adiciona margem horizontal para espaçamento */
+  transition: transform 0.3s ease; /* Adiciona transição para o efeito de hover */
 
   img {
     margin-right: 8px;
@@ -279,27 +378,36 @@ const StatusItem = styled.div`
     font-size: 16px;
     font-weight: bold;
   }
+
+  &:hover {
+    transform: scale(1.1); /* Aumenta o tamanho do ícone */
+  }
 `;
 
 const Tooltip = styled.div<{ visible: boolean }>`
   position: absolute;
-  top: -80px; /* Ajusta a posição para dar espaço ao ícone e seta */
-  left: 50%;
+  top: 50px; /* Ajusta a posição para aparecer mais abaixo do ícone */
+  left: 50%; /* Ajusta a posição para aparecer mais à esquerda */
   transform: translateX(-50%);
+  
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adiciona sombra */
+  border: 1px solid #ddd; /* Adiciona contorno */
   white-space: nowrap; /* Impede quebra de linha */
   visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
   opacity: ${({ visible }) => (visible ? 1 : 0)};
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
   text-align: center;
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
   display: flex;
   align-items: center;
   flex-direction: column;
+  z-index: 9999; /* Garante que o tooltip fique por cima de tudo */
+  max-width: 90vw; /* Garante que o tooltip não encoste na lateral da página */
+  box-sizing: border-box; /* Inclui padding e border no tamanho total */
 
   img {
     margin-bottom: 8px;
@@ -308,12 +416,33 @@ const Tooltip = styled.div<{ visible: boolean }>`
   &::before {
     content: '';
     position: absolute;
-    bottom: -10px; /* Ajusta a posição da seta */
+    top: -10px; /* Ajusta a posição da seta */
     left: 50%;
     transform: translateX(-50%);
     border-width: 10px;
     border-style: solid;
-    border-color: #fff transparent transparent transparent;
+    border-color: transparent transparent #fff transparent;
+  }
+
+  &:hover {
+    transform: translateY(-5px); /* Adiciona um efeito de elevação */
+  }
+`;
+
+const DaysList = styled.ul`
+  display: flex;
+  padding: 0;
+  list-style: none;
+
+  li {
+    margin: 0 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  img {
+    margin-bottom: 5px;
   }
 `;
 
@@ -327,20 +456,14 @@ interface Modulo {
   icon: string;
 }
 
-interface Emblema {
-  nome: string;
-  imagem: string;
-}
 
 const Aprender = ({ changeSection }: { changeSection: (section: string) => void }) => {
   const navigate = useNavigate();
-  const [modulos, setModulos] = useStateReact<Modulo[]>([]);
-  const [emblemas, setEmblemas] = useStateReact<Emblema[]>([]);
-  const [searchTerm, setSearchTerm] = useStateReact('');
-  const [exactModuloMatches, setExactModuloMatches] = useStateReact<Modulo[]>([]);
-  const [similarModuloMatches, setModuloSimilarMatches] = useStateReact<Modulo[]>([]);
-  const [exactEmblemaMatches, setExactEmblemaMatches] = useStateReact<Emblema[]>([]);
-  const [similarEmblemaMatches, setEmblemaSimilarMatches] = useStateReact<Emblema[]>([]);
+  const { user } = useAuth(); // Obtém o usuário do contexto de autenticação
+  const location = useLocation();
+  const [modulos, setModulos] = useState<Modulo[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [similarModuloMatches, setModuloSimilarMatches] = useState<Modulo[]>([]);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
   const handleMouseEnter = (item: string) => {
@@ -351,51 +474,41 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
     setHoveredItem(null);
   };
 
+
+  const handleNotificationClick = () => {
+    changeSection('Notifications');
+  };
+
+  const handleVerTodosClick = () => {
+    changeSection('Roadmap');
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       const dadosDoBanco = [
-        { nome: 'Lógica de Programação', aulasCompletas: 18, totalAulas: 300, corBarra: '#FFD700', bgColor: '#FFEB99', rota: 'Logica_Programacao', icon: '/src/svgs/Home-svgs/Programacao.svg' },
-        { nome: 'Frontend', aulasCompletas: 18, totalAulas: 18, corBarra: '#8000FF', bgColor: '#D9B3FF', rota: 'Frontend_Roadmap', icon: '/src/svgs/Home-svgs/Frontend.svg' },
-        { nome: 'DevOps', aulasCompletas: 3, totalAulas: 18, corBarra: '#1E90FF', bgColor: '#CCE0FF', rota: 'DevOps_Roadmap', icon: '/src/svgs/Home-svgs/DevOps.svg' },
+        { nome: 'Lógica de Programação', aulasCompletas: 18, totalAulas: 300, corBarra: '#FFD700', bgColor: '#FFEB99', rota: 'Backend_Roadmap', icon: '/src/svgs/Home-svgs/Programacao.svg' },
+        { nome: 'Frontend', aulasCompletas: 18, totalAulas: 18, corBarra: '#8000FF', bgColor: '#D9B3FF', rota: 'Backend_Roadmap', icon: '/src/svgs/Home-svgs/Frontend.svg' },
+        { nome: 'DevOps', aulasCompletas: 3, totalAulas: 18, corBarra: '#1E90FF', bgColor: '#CCE0FF', rota: 'Backend_Roadmap', icon: '/src/svgs/Home-svgs/DevOps.svg' },
         { nome: 'Backend', aulasCompletas: 5, totalAulas: 18, corBarra: '#32CD32', bgColor: '#CCFFCC', rota: '/Backend_Roadmap', icon: '/src/svgs/Home-svgs/Backend.svg' },
       ];
       setModulos(dadosDoBanco);
 
-      const emblemasMock = [
-        { nome: 'Introdução à Programação', imagem: '/src/Assets/Iconesperfil/medalha1.png' },
-        { nome: 'Fundamentos de Algoritmos', imagem: '/src/Assets/Iconesperfil/medalha2.png' },
-        { nome: 'Programação Estruturada', imagem: '/src/Assets/Iconesperfil/medalha3.png' },
-        { nome: 'Estruturas de Dados', imagem: '/src/Assets/Iconesperfil/troveu.png' },
-        { nome: 'Desenvolvimento Web', imagem: '/src/Assets/Iconesperfil/experiencia.png' },
-        { nome: 'Desenvolvimento de APIs', imagem: '/src/Assets/Iconesperfil/api.png' },
-        { nome: 'DevOps', imagem: '/src/Assets/Iconesperfil/devops.png' },
-        { nome: 'Banco de Dados', imagem: '/src/Assets/Iconesperfil/database.png' }
-      ];
-      setEmblemas(emblemasMock);
+      // Adicionar novos módulos se existirem
+      if (location.state?.newModules) {
+        setModulos((prevModulos) => [...prevModulos, ...location.state.newModules]);
+      }
     };
     fetchData();
-  }, []);
+  }, [location.state]);
 
   useEffect(() => {
-    const exactfilteredModulos = modulos.filter(modulo => modulo.nome.toLowerCase() === searchTerm.toLowerCase());
-
-    const exactfilteredEmblemas = emblemas.filter(emblemas => emblemas.nome.toLowerCase() === searchTerm.toLowerCase());
-
     const similarfilteredModulos = modulos.filter(modulo =>
       modulo.nome.toLowerCase().includes(searchTerm.toLowerCase()) &&
       modulo.nome.toLowerCase() !== (searchTerm.toLowerCase())
     );
-    const similarfilteredEmblemas = emblemas.filter(emblema =>
-      emblema.nome.toLowerCase().includes(searchTerm.toLowerCase()) &&
-      emblema.nome.toLowerCase() !== (searchTerm.toLowerCase())
-    );
 
-    setExactModuloMatches(exactfilteredModulos);
-    setExactEmblemaMatches(exactfilteredEmblemas);
     setModuloSimilarMatches(similarfilteredModulos);
-    setEmblemaSimilarMatches(similarfilteredEmblemas);
-  }, [searchTerm, modulos, emblemas]);
-
+  }, [searchTerm, modulos]);
 
   const calcularProgresso = (aulasCompletas: number, totalAulas: number) => {
     if (totalAulas === 0) return '0%';
@@ -405,97 +518,84 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
 
   return (
     <Container>
-        <Header>
-          <PuzzleButton onClick={() => changeSection('Desafio')}>
-            <img src="/src/svgs/Home-svgs/Puzzle.svg" alt="Estrela icon" />
-            <p> Desafio diário! </p>
-          </PuzzleButton>
-
-
-          <SearchBar>
-            <Input
-              type="search"
-              placeholder="Pesquisar por nome..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              />
-          </SearchBar>
-          <InvestidaBox>
-              Investida de 3 dias!
-              <div>
-              <img src="/src/Icons/fire.svg" alt="Estrela icon" />
-              <img src="/src/Icons/fire.svg" alt="Estrela icon" />
-              <img src="/src/Icons/fire.svg" alt="Estrela icon" />
-              <img src="/src/Icons/no-fire.svg" alt="Void icon" />
-              <img src="/src/Icons/no-fire.svg" alt="Void icon" />
-              <img src="/src/Icons/no-fire.svg" alt="Void icon" />
-              <img src="/src/Icons/no-fire.svg" alt="Void icon" />
-              </div>
-            </InvestidaBox>
-        </Header>
+      <Header>
+        <PuzzleButton onClick={() => changeSection('Desafio')}>
+          <img src="/src/svgs/Home-svgs/Puzzle.svg" alt="Estrela icon" />
+          <p> Desafio diário! </p>
+        </PuzzleButton>
+        <Input
+          type="search"
+          placeholder="Pesquisar por nome..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      
         <StatusBar>
-        <StatusItem
-          onMouseEnter={() => handleMouseEnter('pontos')}
-          onMouseLeave={handleMouseLeave}
-        >
-          <img src="/src/Assets/barra de status/pontos.svg" alt="Pontos" />
-          <span>30</span>
-          <Tooltip visible={hoveredItem === 'pontos'}>
-            <img src="/src/Assets/barra de status/pontos.svg" alt="Pontos" />
-             Você tem 30 pontos acumulados.
-          </Tooltip>
-        </StatusItem>
-        <StatusItem
-          onMouseEnter={() => handleMouseEnter('investidas')}
-          onMouseLeave={handleMouseLeave}
-        >
-          <img src="/src/Assets/barra de status/foquinho.svg" alt="Investidas" />
-          <span>3</span>
-          <Tooltip visible={hoveredItem === 'investidas'}>
+          <StatusItem
+            onMouseEnter={() => handleMouseEnter('investidas')}
+            onMouseLeave={handleMouseLeave}
+          >
             <img src="/src/Assets/barra de status/foquinho.svg" alt="Investidas" />
-            Você tem 3 tentativas.
-          </Tooltip>
-        </StatusItem>
-      </StatusBar>
-
+            <span>3</span>
+            <Tooltip visible={hoveredItem === 'investidas'}>
+              <h3>Dias de investida</h3>
+              <div>
+                <DaysList>
+                  <li>Seg <img src="/src/Icons/fire.svg" alt="Foguinho" /></li>
+                  <li>Ter <img src="/src/Icons/fire.svg" alt="Foguinho" /></li>
+                  <li>Qua <img src="/src/Icons/fire.svg" alt="Foguinho" /></li>
+                  <li>Qui <img src="/src/Icons/no-fire.svg" alt="Sem Foguinho" /></li>
+                  <li>Sex <img src="/src/Icons/no-fire.svg" alt="Sem Foguinho" /></li>
+                  <li>Sáb <img src="/src/Icons/no-fire.svg" alt="Sem Foguinho" /></li>
+                  <li>Dom <img src="/src/Icons/no-fire.svg" alt="Sem Foguinho" /></li>
+                </DaysList>
+              </div>
+            </Tooltip>
+          </StatusItem>
+          <StatusItem
+            onMouseEnter={() => handleMouseEnter('pontos')}
+            onMouseLeave={handleMouseLeave}
+          >
+            <img src="/src/Assets/barra de status/pontos.svg" alt="Pontos" />
+            <span>30</span>
+            <Tooltip visible={hoveredItem === 'pontos'}>
+              <img src="/src/Assets/barra de status/pontos.svg" alt="Pontos" />
+              Você tem 30 pontos acumulados.
+            </Tooltip>
+          </StatusItem>
+        </StatusBar>
+        <NotificationIconWrapper onClick={handleNotificationClick}>
+          <NotificationsIcon style={{ color: '#FFD700', fontSize: '30px' }} />
+          <NotificationDot />
+        </NotificationIconWrapper>
+      </Header>
+      <Quack user={user} /> {/* Passa o usuário para o Quack */}
       <MainContent>
-      <div style={{display: 'flex', flexDirection: 'column', width: '80%'}}>
-        <Titulo>Módulos Semelhantes</Titulo>
-        {similarModuloMatches.map((modulo, index) => (
-          <ModuloCard key={index} bgColor={modulo.bgColor}>
-            <img src={modulo.icon} alt={modulo.nome} />
-            <div>
-              <h3>{modulo.nome}</h3>
-              {modulo.aulasCompletas / modulo.totalAulas === 1 ? (
+        <TituloContainer>
+          <Titulo>Minhas Roadmaps</Titulo>
+          <VerTodosLink onClick={handleVerTodosClick}>Ver todos</VerTodosLink>
+        </TituloContainer>
+        <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+          {similarModuloMatches.map((modulo, index) => (
+            <ModuloCard key={index} bgColor={modulo.bgColor}>
+              <img src={modulo.icon} alt={modulo.nome} />
+              <div>
+                <h3>{modulo.nome}</h3>
+                {modulo.aulasCompletas / modulo.totalAulas === 1 ? (
                   <a>Módulo Completo</a>
                 ) : (
                   <a>{`${modulo.aulasCompletas}/${modulo.totalAulas} Aulas Completas`}</a>
                 )}
                 <ProgressBar progress={calcularProgresso(modulo.aulasCompletas, modulo.totalAulas)} color={modulo.corBarra}>
-                <div></div>
-              </ProgressBar>
-            </div>
-            
-            <IconButton onClick={() => navigate(modulo.rota)} aria-label="navegar">
-              <ArrowForwardIcon />
-            </IconButton>
-          </ModuloCard>
-        ))}
+                  <div></div>
+                </ProgressBar>
+              </div>
+              <IconButton onClick={() => navigate(modulo.rota)} aria-label="navegar">
+                <ArrowForwardIcon />
+              </IconButton>
+            </ModuloCard>
+          ))}
         </div>
-          
-          <ColunaEmblemas>
-          <ContainerColecaoEmblemas>
-          <TituloEmblemas>Coleção de emblemas:</TituloEmblemas>
-            <GradeEmblemas>
-              {similarEmblemaMatches.map((emblema, idx) => (
-                <ItemEmblema key={idx}>
-                  <ImagemEmblema src={emblema.imagem} alt={emblema.nome} />
-                  <TextoEmblema>{emblema.nome}</TextoEmblema>
-                </ItemEmblema>
-              ))}
-            </GradeEmblemas>
-            </ContainerColecaoEmblemas>
-          </ColunaEmblemas>
       </MainContent>
     </Container>
   );
