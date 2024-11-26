@@ -11,18 +11,24 @@ jobs:
 
     steps:
       - name: Checkout do Repositório
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
+
+      - name: Listar arquivos no diretório atual
+        run: ls -la
+
+      - name: Navegar para o diretório do projeto
+        run: cd react-teste-ing
 
       - name: Instalação do Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18' # Versão LTS atual do Node.js
 
-      - name: Instalação das Dependências
-        run: cd Frontend-do-Quack/react-teste=ing && npm install
+      - name: Instalar dependências
+        run: npm install
 
-      - name: Build do Projeto
-        run: cd Frontend-do-Quack/react-teste=ing && npm run build
+      - name: Construir o projeto
+        run: npm run build
 
       - name: Deploy para VPS
         uses: appleboy/ssh-action@v0.1.8
@@ -32,7 +38,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.REMOTE_PORT }}
           script: |
-            cd /var/www/html/Frontend-do-Quack/react-teste=ing
+            cd ${{ secrets.TARGET }}
             git pull origin prod
             npm install --production
             pm2 restart all
