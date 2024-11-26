@@ -34,23 +34,8 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.REMOTE_PORT }}
           script: |
-            if [ ! -d "/Frontend-do-Quack/react-teste=ing" ]; then
-              echo "Erro: Diretório /Frontend-do-Quack/react-teste=ing não encontrado"
-              exit 1
-            fi
-            cd /Frontend-do-Quack/react-teste=ing
-            if [ ! -d ".git" ]; then
-              echo "Erro: Não é um repositório Git válido"
-              exit 1
-            fi
-            git pull origin prod
-            if [ ! -f "react-teste=ing/package.json" ]; then
-              echo "Erro: Arquivo package.json não encontrado"
-              exit 1
-            fi
-            npm install --production --prefix react-teste=ing
-            if ! command -v pm2 &> /dev/null; then
-              echo "Erro: pm2 não encontrado"
-              exit 1
-            fi
+            cd /var/www/react-teste=ing
+            git pull
+            npm install
+            npm run build
             pm2 restart all
