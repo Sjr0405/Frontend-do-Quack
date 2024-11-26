@@ -10,13 +10,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout do Repositório/
+      - name: Checkout do Repositório
         uses: actions/checkout@v4
 
       - name: Instalação do Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18' 
+          node-version: '18'
+
       - name: Instalar dependências
         run: npm install
         working-directory: react-teste=ing
@@ -25,15 +26,21 @@ jobs:
         run: npm run build
         working-directory: react-teste=ing
 
-      - name: Deploy para VPS
-        uses: appleboy/ssh-action@v0.1.8
+      - name: Copiar conteúdo do repositório via SCP
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.REMOTE_PORT }}
+          source: "."
+          target: "/var/www/react-teste=ing"
 
+      - name: Executar comando remoto
+        uses: appleboy/ssh-action@v0.1.8
         with:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.REMOTE_PORT }}
           script: ls
-
-
-            
