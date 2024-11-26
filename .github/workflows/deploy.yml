@@ -34,8 +34,8 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.REMOTE_PORT }}
           script: |
-            cd /Frontend-do-Quack/react-teste=ing
-            
+            cd react-teste=ing
+
             git pull
             npm install
             npm run build
