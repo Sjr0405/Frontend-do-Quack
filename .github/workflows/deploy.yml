@@ -32,8 +32,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.REMOTE_PORT }}
           script: |
-            cd ${{ secrets.TARGET }}
+            cd /var/www/html/Frontend-do-Quack/react-teste=ing
             git pull origin prod
-            cd Frontend-do-Quack/react-teste=ing
             npm install --production
             pm2 restart all
