@@ -17,7 +17,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18' 
-
       - name: Instalar dependências
         run: npm install
         working-directory: react-teste=ing
@@ -28,15 +27,17 @@ jobs:
 
       - name: Deploy para VPS
         uses: appleboy/ssh-action@v0.1.8
+
         with:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.REMOTE_PORT }}
           script: |
-            cd react-teste=ing
-
-            git pull
-            npm install
-            npm run build
+            cd ${{ secrets.TARGET }}
+            git pull origin prod
+            npm install --production
             pm2 restart all
+
+
+            
