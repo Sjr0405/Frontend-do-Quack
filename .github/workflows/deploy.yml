@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout do Repositóri
+      - name: Checkout do Repositório/
         uses: actions/checkout@v4
 
       - name: Instalação do Node.js
