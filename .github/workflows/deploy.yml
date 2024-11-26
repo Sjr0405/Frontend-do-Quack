@@ -18,8 +18,6 @@ jobs:
         with:
           node-version: '18' # Versão LTS atual do Node.js
 
-      - name: Build do Projeto
-        run: npm run build
 
       - name: Deploy para VPS
         uses: appleboy/ssh-action@v0.1.8
