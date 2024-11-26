@@ -34,7 +34,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.REMOTE_PORT }}
           script: |
-            cd /var/www/react-teste=ing
+            cd /var/www/react-testing
             git pull
             npm install
             npm run build
