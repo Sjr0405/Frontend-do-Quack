@@ -18,9 +18,6 @@ jobs:
         with:
           node-version: '18' # Versão LTS atual do Node.js
 
-      - name: Instalação das Dependências
-        run: npm install
-
       - name: Build do Projeto
         run: npm run build
 
