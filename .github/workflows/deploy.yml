@@ -33,11 +33,7 @@ jobs:
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.REMOTE_PORT }}
-          script: |
-            cd ${{ secrets.TARGET }}
-            git pull origin prod
-            npm install --production
-            pm2 restart all
+          script: ls
 
 
             
