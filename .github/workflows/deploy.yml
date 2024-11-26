@@ -17,7 +17,7 @@ jobs:
         run: ls -la
 
       - name: Navegar para o diretório do projeto
-        run: cd react-teste-ing
+        run: cd react-teste=ing
 
       - name: Instalação do Node.js
         uses: actions/setup-node@v4
