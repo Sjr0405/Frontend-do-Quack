@@ -19,10 +19,10 @@ jobs:
           node-version: '18' # Versão LTS atual do Node.js
 
       - name: Instalação das Dependências
-        run: npm install
+        run: cd react-teste-ing && npm install
 
       - name: Build do Projeto
-        run: npm run build
+        run: cd react-teste-ing && npm run build
 
       - name: Deploy para VPS
         uses: appleboy/ssh-action@v0.1.8
@@ -34,5 +34,6 @@ jobs:
           script: |
             cd ${{ secrets.TARGET }}
             git pull origin prod
+            cd react-teste-ing
             npm install --production
             pm2 restart all
