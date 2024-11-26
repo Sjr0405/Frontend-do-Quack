@@ -1,0 +1,58 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: "baixar o codigo"
+      uses: actions/checkout@v4
+
+    - name: "Copiar arquivos para Vps"
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: "145.223.27.98"
+        username: "root"
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+        port: ${{ secrets.PORT }}
+        
+        source: "."
+        target: "/var/www/html"
+
+
+
+
+
+
+
+
+
+
+
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build project
+      run: npm run build
+
+    - name: Deploy to VPS
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        VPS_HOST: ${{ secrets.VPS_HOST }}
+        VPS_USER: ${{ secrets.VPS_USER }}
+      run: |
+        echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+        ssh-keyscan $VPS_HOST >> ~/.ssh/known_hosts
+        rsync -avz --delete ./dist/ $VPS_USER@$VPS_HOST:/path/to/deploy/

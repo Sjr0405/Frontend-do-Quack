@@ -465,7 +465,6 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
   const [searchTerm, setSearchTerm] = useState('');
   const [similarModuloMatches, setModuloSimilarMatches] = useState<Modulo[]>([]);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
-  const [tooltipVisible, setTooltipVisible] = useState(false);
 
   const handleMouseEnter = (item: string) => {
     setHoveredItem(item);
@@ -475,9 +474,6 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
     setHoveredItem(null);
   };
 
-  const handleTooltipClose = () => {
-    setTooltipVisible(false);
-  };
 
   const handleNotificationClick = () => {
     changeSection('Notifications');

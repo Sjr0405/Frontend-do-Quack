@@ -36,7 +36,7 @@ const ImageUpload = styled.div<{ hasImage: boolean }>`
   border-radius: 100%;
   box-shadow: 2px 3px 12px rgba(0, 0, 0, 0.6);
   overflow: hidden;
-  background-image: ${({ hasImage }) => (hasImage ? 'none' : 'url(/src/svgs/Cadastro-svgs/2.svg)')};
+  background-image: ${({ hasImage }) => (hasImage ? 'none' : 'url(/assets/Cadastro-svgs/2.svg)')};
   background-repeat: no-repeat;
   background-position: 50% 50%;
   background-size: 50% 50%;

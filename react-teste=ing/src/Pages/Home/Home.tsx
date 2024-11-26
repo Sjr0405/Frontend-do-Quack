@@ -40,17 +40,18 @@ const ContentArea = styled.div`
 `;
 
 interface Message {
-  id: number;
+  id: string;
   text: string;
+  isSender: boolean;
 }
 
 const Home = () => {
   const [section, setSection] = useState('Aprender');
   const location = useLocation();
-  const [selectedProfessor, setSelectedProfessor] = useState<{ name: string; email: string; ensina: string; linguagem: string, photo: string } | null>(null);
+  const [selectedProfessor, setSelectedProfessor] = useState<{ name: string; email: string; ensina: string; linguagem: string; photo: string } | null>(null);
   const [messages, setMessages] = useState<{ [key: string]: Message[] }>({});
   const [submittedCode, setSubmittedCode] = useState('');
-  const [activityType, setActivityType] = useState<string | null>(null);
+  const [activityType, setActivityType] = useState<string>('');
 
   // Função para definir mensagens para cada professor com base no email
   const handleSetMessages = (professorEmail: string, newMessages: Message[]) => {
@@ -68,7 +69,7 @@ const Home = () => {
 
   // Mapeamento das seções para seu[s componentes
   const renderSection = () => {
-    const sectionComponents: { [key: string]: JSX.Element } = {
+    const sectionComponents: { [key: string]: JSX.Element | null } = {
       Aprender: <Aprender changeSection={setSection} />,
       FazerAtividade: <FazerAtividade changeSection={(newSection, code) => {
         if (code) setSubmittedCode(code);
@@ -80,7 +81,7 @@ const Home = () => {
       Perfil: <Perfil changeSection={setSection} />,
       Configuracoes: <Configuracoes />,
       Loja: <Loja/>,
-      Notifications: <Notifications  changeSection={setSection} />,
+      Notifications: <Notifications changeSection={setSection} />,
       Missoes: <Missoes changeSection={setSection}/>,
       Quacksensei: <Quacksensei changeSection={setSection} setSelectedProfessor={setSelectedProfessor} />,
       PerfilQuacksensei: selectedProfessor ? (
@@ -98,7 +99,7 @@ const Home = () => {
           setActivityType(activityType);
         }
       }} />,
-      Roadmap: <Roadmap changeSection={setSection} />,
+      Roadmap: <Roadmap  />,
       ActivityPage: <ActivityPage activityType={activityType} />,
     };
 

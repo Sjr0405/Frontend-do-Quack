@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
 import felizPato from '../../Assets/Svg_thigas/FELIZ.svg';
@@ -33,15 +32,6 @@ const Description = styled.p`
   border-radius: 16px;
 `;
 
-const ActivityList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 100%;
-  max-width: 800px;
-  border-radius: 16px;
-`;
-
 const ActivityCard = styled.div`
   background-color: #fff;
   border-radius: 16px;
@@ -55,12 +45,6 @@ const ActivityCard = styled.div`
     transform: translateY(-5px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   }
-`;
-
-const ActivityIcon = styled.div`
-  font-size: 50px;
-  margin-bottom: 10px;
-  color: #6a1b9a;
 `;
 
 const ActivityDetails = styled.div`

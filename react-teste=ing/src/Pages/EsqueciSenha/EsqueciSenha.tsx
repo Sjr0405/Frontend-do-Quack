@@ -1,11 +1,10 @@
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { TextField, Button, Grid, Box, Typography } from "@mui/material";
+import { TextField, Grid, Box, Typography } from "@mui/material";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Container,
   FormSection,
@@ -15,10 +14,10 @@ import {
   Label,
   Input,
   StyledButton,
-  GoogleButton,
   LoginLink,
-  DuckImage
+  BackButton
 } from './EsqueciSenhaStyles';
+import { ArrowBack } from '@mui/icons-material';
 
 // Esquema de validação com Yup
 const schema = yup.object().shape({
@@ -50,9 +49,6 @@ const EsqueciSenha = () => {
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    console.log(data);
-    console.log(errors); 
-  
     if (secaoAtiva === "email" && Object.keys(errors).length === 0) {
       setEmail(data.email);
       setSecaoAtiva("senha");
@@ -63,7 +59,7 @@ const EsqueciSenha = () => {
     Swal.fire({
       icon: "success",
       title: "Sucesso!",
-      text: "Login realizado com sucesso.",
+      text: "Senha redefinida com sucesso.",
     });
   };
 
@@ -71,9 +67,6 @@ const EsqueciSenha = () => {
     if (secaoAtiva === "email") {
       return (
         <>
-          <Typography variant="h5" align="center" gutterBottom>
-            Olá Dev!
-          </Typography>
           <Typography variant="body1" align="center" sx={{ mb: 3 }}>
             Por favor, preencha os campos a seguir, para poder redefinir sua senha.
           </Typography>
@@ -198,6 +191,14 @@ const EsqueciSenha = () => {
 
       <FormSection>
         <FormWrapper>
+          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+            <BackButton onClick={() => navigate('/LandingPage')} style={{ marginRight: '16px' }}>
+              <ArrowBack />
+            </BackButton>
+            <Typography variant="h5" sx={{ flexGrow: 1, textAlign: 'center', marginLeft: '-50px' }}>
+              Olá Dev! 
+            </Typography>
+          </div>
           {renderConteudoPainelDireito()}
         </FormWrapper>
       </FormSection>

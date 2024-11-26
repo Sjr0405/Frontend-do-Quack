@@ -53,12 +53,6 @@ const MainContent: React.FC = () => {
     setUserProgress(updatedProgress);
   };
 
-  const openModal = (nodeLabel: string, data: any) => {
-    setSelectedNode(nodeLabel);
-    setModalData(data);
-    setIsModalOpen(true);
-  };
-
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedNode(null);

@@ -18,14 +18,23 @@ import {
 } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import CloseIcon from '@mui/icons-material/Close';
-import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
 import SettingsIcon from '@mui/icons-material/Settings';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
 import tristeIcon from "../../Assets/Svg_thigas/TRISTE.svg";
 
 // Componente para itens de notificação
-const NotificationItem = ({ Icon, title, description, actionLabel, actionColor, iconColor, onClose }) => {
+interface NotificationItemProps {
+  Icon: React.ElementType;
+  title: string;
+  description: string;
+  actionLabel?: string;
+  actionColor?: string;
+  iconColor?: string;
+  onClose: () => void;
+}
+
+const NotificationItem: React.FC<NotificationItemProps> = ({ Icon, title, description, actionLabel, actionColor, iconColor, onClose }) => {
   const navigate = useNavigate();
   const [visible, setVisible] = useState(true);
 
@@ -98,7 +107,11 @@ const NotificationItem = ({ Icon, title, description, actionLabel, actionColor, 
   );
 };
 
-const Notifications = ({ changeSection }) => {
+interface NotificationsProps {
+  changeSection: (section: string) => void;
+}
+
+const Notifications: React.FC<NotificationsProps> = ({ changeSection }) => {
   const [notifications, setNotifications] = useState([
     {
       id: 1,
@@ -176,7 +189,7 @@ const Notifications = ({ changeSection }) => {
   const [filter, setFilter] = useState('Todas');
   const navigate = useNavigate();
 
-  const handleClose = (id) => {
+  const handleClose = (id: number) => {
     setNotifications(notifications.filter(notification => notification.id !== id));
   };
 
@@ -196,8 +209,8 @@ const Notifications = ({ changeSection }) => {
     }
   };
 
-  const handleFilterChange = (event) => {
-    setFilter(event.target.value);
+  const handleFilterChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setFilter(event.target.value as string);
   };
 
   const filteredNotifications = notifications.filter(notification => {
@@ -240,7 +253,7 @@ const Notifications = ({ changeSection }) => {
           </Typography>
           <Select
             value={filter}
-            onChange={handleFilterChange}
+            onChange={(event) => handleFilterChange(event as React.ChangeEvent<{ value: unknown }>)}
             sx={{ marginLeft: 'auto', minWidth: 150 }}
           >
             <MenuItem value="Todas">Todas</MenuItem>
@@ -592,8 +605,8 @@ const Notifications = ({ changeSection }) => {
             <FormControlLabel
               control={
                 <Switch
-                  checked={dailyReminder}
-                  onChange={() => setDailyReminder(!dailyReminder)}
+                  checked={dailyReminder === '17:00'}
+                  onChange={() => setDailyReminder(dailyReminder === '17:00' ? '' : '17:00')}
                   sx={{
                     '& .MuiSwitch-switchBase.Mui-checked': {
                       color: '#FF914D',

@@ -13,9 +13,24 @@ import ShieldIcon from "@mui/icons-material/Shield";
 import EventIcon from "@mui/icons-material/Event";
 import { useNavigate } from "react-router-dom";
 import PatoSvg from "../../Assets/Svg_thigas/VETOR PATO.svg";
+import { SvgIconComponent } from "@mui/icons-material";
 
 // Componente para itens da loja
-const StoreItem = ({ Icon, title, description, actionLabel, actionColor, iconColor }) => {
+const StoreItem = ({
+  Icon,
+  title,
+  description,
+  actionLabel,
+  actionColor,
+  iconColor,
+}: {
+  Icon: SvgIconComponent;
+  title: string;
+  description: string;
+  actionLabel?: string;
+  actionColor?: string;
+  iconColor?: string;
+}) => {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {

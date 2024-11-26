@@ -179,3 +179,21 @@ export const DuckImage = styled.img`
     width: 60%;
   }
 `;
+
+export const BackButton = styled.button`
+  background-color: #7A5FF5;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-right: 10px;
+
+  &:hover {
+    background-color: #3700b3;
+  }
+`;

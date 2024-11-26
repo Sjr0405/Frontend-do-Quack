@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Grid, Box, Typography, Switch, Select, MenuItem, List, ListItem, ListItemText, Button, Card, CardContent, IconButton, Divider } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -28,7 +28,6 @@ const Configuracoes = () => {
   const [friendActivity, setFriendActivity] = useState(true);
   const [weeklyProgress, setWeeklyProgress] = useState(true);
   const [specialPromotions, setSpecialPromotions] = useState(true);
-  const [surveyOpportunities, setSurveyOpportunities] = useState(true);
   const [dailyReminder, setDailyReminder] = useState('17:00');
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const [silentMode, setSilentMode] = useState(false);
@@ -540,21 +539,29 @@ const Configuracoes = () => {
             <CardContent>
               <Typography variant="h6" gutterBottom>Conta</Typography>
               <List>
-                <ListItem button selected={selectedItem === 'Preferências'} sx={{ border: selectedItem === 'Preferências' ? '2px solid #FB7901' : 'none', borderRadius: '8px' }} onClick={() => setSelectedItem('Preferências')}>
-                  <PreferencesIcon sx={{ color: selectedItem === 'Preferências' ? '#FB7901' : '#757575', mr: 1 }} />
-                  <ListItemText primary="Preferências" />
+                <ListItem sx={{ border: selectedItem === 'Preferências' ? '2px solid #FB7901' : 'none', borderRadius: '8px' }}>
+                  <Button onClick={() => setSelectedItem('Preferências')} sx={{ display: 'flex', alignItems: 'center', width: '100%', textAlign: 'left' }}>
+                    <PreferencesIcon sx={{ color: selectedItem === 'Preferências' ? '#7a5ff5' : '#757575', mr: 1 }} />
+                    <ListItemText primary="Preferências" sx={{ color: selectedItem === 'Preferências' ? '#7a5ff5' : '#757575' }} />
+                  </Button>
                 </ListItem>
-                <ListItem button onClick={handleSocialAccountsClick} selected={selectedItem === 'Contas em redes sociais'} sx={{ border: selectedItem === 'Contas em redes sociais' ? '2px solid #FB7901' : 'none', borderRadius: '8px' }}>
-                  <SocialIcon sx={{ color: selectedItem === 'Contas em redes sociais' ? '#FB7901' : '#757575', mr: 1 }} />
-                  <ListItemText primary="Contas em redes sociais" />
+                <ListItem sx={{ border: selectedItem === 'Contas em redes sociais' ? '2px solid #FB7901' : 'none', borderRadius: '8px' }}>
+                  <Button onClick={handleSocialAccountsClick} sx={{ display: 'flex', alignItems: 'center', width: '100%', textAlign: 'left' }}>
+                    <SocialIcon sx={{ color: selectedItem === 'Contas em redes sociais' ? '#7a5ff5' : '#757575', mr: 1 }} />
+                    <ListItemText primary="Contas em redes sociais" sx={{ color: selectedItem === 'Contas em redes sociais' ? '#7a5ff5' : '#757575' }} />
+                  </Button>
                 </ListItem>
-                <ListItem button onClick={handlePrivacySettingsClick} selected={selectedItem === 'Configurações de privacidade'} sx={{ border: selectedItem === 'Configurações de privacidade' ? '2px solid #FB7901' : 'none', borderRadius: '8px' }}>
-                  <PrivacyTipIcon sx={{ color: selectedItem === 'Configurações de privacidade' ? '#FB7901' : '#757575', mr: 1 }} />
-                  <ListItemText primary="Configurações de privacidade" />
+                <ListItem sx={{ border: selectedItem === 'Configurações de privacidade' ? '2px solid #FB7901' : 'none', borderRadius: '8px' }}>
+                  <Button onClick={handlePrivacySettingsClick} sx={{ display: 'flex', alignItems: 'center', width: '100%', textAlign: 'left' }}>
+                    <PrivacyTipIcon sx={{ color: selectedItem === 'Configurações de privacidade' ? '#7a5ff5' : '#757575', mr: 1 }} />
+                    <ListItemText primary="Configurações de privacidade" sx={{ color: selectedItem === 'Configurações de privacidade' ? '#7a5ff5' : '#757575' }} />
+                  </Button>
                 </ListItem>
-                <ListItem button onClick={() => setSelectedItem('Configurações de Notificações')} selected={selectedItem === 'Configurações de Notificações'} sx={{ border: selectedItem === 'Configurações de Notificações' ? '2px solid #FB7901' : 'none', borderRadius: '8px' }}>
-                  <NotificationsIcon sx={{ color: selectedItem === 'Configurações de Notificações' ? '#FB7901' : '#757575', mr: 1 }} />
-                  <ListItemText primary="Configurações de Notificações" />
+                <ListItem sx={{ border: selectedItem === 'Configurações de Notificações' ? '2px solid #FB7901' : 'none', borderRadius: '8px' }}>
+                  <Button onClick={() => setSelectedItem('Configurações de Notificações')} sx={{ display: 'flex', alignItems: 'center', width: '100%', textAlign: 'left' }}>
+                    <NotificationsIcon sx={{ color: selectedItem === 'Configurações de Notificações' ? '#7a5ff5' : '#757575', mr: 1 }} />
+                    <ListItemText primary="Configurações de Notificações" sx={{ color: selectedItem === 'Configurações de Notificações' ? '#7a5ff5' : '#757575' }} />
+                  </Button>
                 </ListItem>
               </List>
               <Typography variant="h6" gutterBottom mt={4}>Suporte</Typography>

@@ -21,7 +21,7 @@ export default function Cadastro() {
               Faltam poucos passos<br /> para<br /> se tornar um Dev!
             </h4>
           </StyledTypography>
-          <img src="src/assets/Personagem.svg" alt="Ilustração" style={{ width: '80%' }} />
+          <img src="/assets/Personagem.svg" alt="Ilustração" style={{ width: '80%' }} />
         </Box>
       </ImageSection>
 
@@ -122,15 +122,13 @@ export default function Cadastro() {
                   control={control}
                   render={({ field }) => (
                     <InputMask mask="(99) 99999-9999" {...field}>
-                      {() => (
-                        <TextField
-                          label="Telefone"
-                          variant="outlined"
-                          fullWidth
-                          error={!!errors.phone}
-                          helperText={errors.phone ? errors.phone.message : ""}
-                        />
-                      )}
+                      <TextField
+                        label="Telefone"
+                        variant="outlined"
+                        fullWidth
+                        error={!!errors.phone}
+                        helperText={errors.phone ? errors.phone.message : ""}
+                      />
                     </InputMask>
                   )}
                 />
@@ -141,15 +139,13 @@ export default function Cadastro() {
                   control={control}
                   render={({ field }) => (
                     <InputMask mask="999.999.999-99" {...field}>
-                      {() => (
-                        <TextField
-                          label="CPF"
-                          variant="outlined"
-                          fullWidth
-                          error={!!errors.cpf}
-                          helperText={errors.cpf ? errors.cpf.message : ""}
-                        />
-                      )}
+                      <TextField
+                        label="CPF"
+                        variant="outlined"
+                        fullWidth
+                        error={!!errors.cpf}
+                        helperText={errors.cpf ? errors.cpf.message : ""}
+                      />
                     </InputMask>
                   )}
                 />
@@ -214,7 +210,7 @@ export default function Cadastro() {
                   ou
                 </Typography>
                 <GoogleButton>
-                  <img src="/src/Icons/Google.svg" alt="Google" style={{ height: '20px', fontFamily: 'Montserrat Alternates', marginRight: '10px' }} />
+                  <img src="/Icons/Google.svg" alt="Google" style={{ height: '20px', fontFamily: 'Montserrat Alternates', marginRight: '10px' }} />
                   Iniciar sessão com o Google
                 </GoogleButton>
               </Grid>
