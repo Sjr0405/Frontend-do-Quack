@@ -13,22 +13,17 @@ jobs:
       - name: Checkout do Repositório
         uses: actions/checkout@v4
 
-      - name: Listar arquivos no diretório atual
-        run: ls -la
-
-      - name: Navegar para o diretório do projeto
-        run: cd react-teste=ing
-
       - name: Instalação do Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18' # Versão LTS atual do Node.js
-
+          node-version: '18' 
       - name: Instalar dependências
         run: npm install
+        working-directory: react-teste=ing
 
       - name: Construir o projeto
         run: npm run build
+        working-directory: react-teste=ing
 
       - name: Deploy para VPS
         uses: appleboy/ssh-action@v0.1.8
