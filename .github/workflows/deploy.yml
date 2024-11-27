@@ -55,4 +55,4 @@ jobs:
           script: |
             cd /root/Frontend-do-Quack/react-teste=ing
             npm install --production
-            npm start
+            npm run dev
