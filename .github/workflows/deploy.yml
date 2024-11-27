@@ -10,22 +10,38 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. Checkout do Repositório
       - name: Checkout do Repositório
         uses: actions/checkout@v4
 
+      # 2. Instalação do Node.js
       - name: Instalação do Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
 
+      # 3. Instalar dependências
       - name: Instalar dependências
-        run: npm install
+        run: npm ci # Substitui 'npm install' por 'npm ci' para builds mais rápidos e reprodutíveis
         working-directory: react-teste=ing
 
+      # 4. Construir o projeto
       - name: Construir o projeto
         run: npm run build
         working-directory: react-teste=ing
 
+      # 5. Limpar diretório antigo no servidor
+      - name: Limpar diretório antigo no servidor
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.REMOTE_PORT }}
+          script: |
+            rm -rf /root/Frontend-do-Quack/react-teste=ing/*
+
+      # 6. Copiar arquivos de build para o servidor
       - name: Copiar arquivos de build para o servidor
         uses: appleboy/scp-action@master
         with:
@@ -36,6 +52,17 @@ jobs:
           source: "react-teste=ing/dist/*"
           target: "/root/Frontend-do-Quack/react-teste=ing/dist"
 
+      # 7. Verificar arquivos no servidor
+      - name: Verificar arquivos no servidor
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.REMOTE_PORT }}
+          script: ls -la /root/Frontend-do-Quack/react-teste=ing/dist
+
+      # 8. Reiniciar Nginx para aplicar mudanças
       - name: Reiniciar Nginx para aplicar mudanças
         uses: appleboy/ssh-action@v0.1.8
         with:
