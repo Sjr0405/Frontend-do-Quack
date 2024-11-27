@@ -20,7 +20,7 @@ import {
   BackButton
 } from './LoginStyles';
 import { ArrowBack } from '@mui/icons-material';
-import GoogleIcon from '../../Icons/GoogleIcon.svg';
+import GoogleIcon from '../../assets/GoogleIcon.svg';
 import LogoReverse from '../../Assets/LogoReverse.svg';
 
 
@@ -41,7 +41,7 @@ const Login = () => {
       <FormSection>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <BackButton onClick={() => navigate('/')}>
+            <BackButton onClick={() => navigate('/')}> 
               <ArrowBack />
             </BackButton>
             <Typography variant="h5" style={{textAlign: 'left', fontFamily: 'Lilita One',fontSize: '60px', marginBottom: '20px', color: '#ff7f00' }}>
