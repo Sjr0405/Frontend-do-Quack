@@ -22,7 +22,7 @@ jobs:
 
       # 3. Instalar dependências
       - name: Instalar dependências
-        run: npm ci # Substitui 'npm install' por 'npm ci' para builds mais rápidos e reprodutíveis
+        run: npm ci
         working-directory: react-teste=ing
 
       # 4. Construir o projeto
@@ -30,7 +30,7 @@ jobs:
         run: npm run build
         working-directory: react-teste=ing
 
-      # 5. Limpar diretório antigo no servidor
+      # 5. Limpar o conteúdo antigo no servidor
       - name: Limpar diretório antigo no servidor
         uses: appleboy/ssh-action@v0.1.8
         with:
@@ -39,7 +39,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.REMOTE_PORT }}
           script: |
-            rm -rf /root/Frontend-do-Quack/react-teste=ing/*
+            rm -rf /root/Frontend-do-Quack/react-teste=ing/dist
 
       # 6. Copiar arquivos de build para o servidor
       - name: Copiar arquivos de build para o servidor
@@ -52,17 +52,7 @@ jobs:
           source: "react-teste=ing/dist/*"
           target: "/root/Frontend-do-Quack/react-teste=ing/dist"
 
-      # 7. Verificar arquivos no servidor
-      - name: Verificar arquivos no servidor
-        uses: appleboy/ssh-action@v0.1.8
-        with:
-          host: ${{ secrets.REMOTE_HOST }}
-          username: ${{ secrets.REMOTE_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.REMOTE_PORT }}
-          script: ls -la /root/Frontend-do-Quack/react-teste=ing/dist
-
-      # 8. Reiniciar Nginx para aplicar mudanças
+      # 7. Reiniciar Nginx para aplicar mudanças
       - name: Reiniciar Nginx para aplicar mudanças
         uses: appleboy/ssh-action@v0.1.8
         with:
