@@ -1,7 +1,10 @@
 import { Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { Section, Container, Left, Logo, SocialIcons, NavMenu, Bottom } from './FooterStyles';
-
+import LogoImg from '/src/assets/Logo.svg';
+import TwitterIcon from '/src/Icons/twitter.svg';
+import FacebookIcon from '/src/Icons/facebook.svg';
+import LinkedinIcon from '/src/Icons/linkedin.svg';
 
 const Footer = () => {
   return (
@@ -12,19 +15,19 @@ const Footer = () => {
         <Left>
           <Logo>
             <Link to={"/"}>
-              <img src="/src/assets/Logo.svg" alt="Logo" />
+              <img src={LogoImg} alt="Logo" />
             </Link>
             <span>Quack()</span>
           </Logo>
           <SocialIcons>
             <Link to="https://github.com/Sjr0405/Login-do-Quack" target="_blank">
-              <img src="/src/Icons/twitter.svg" alt="Twitter" />
+              <img src={TwitterIcon} alt="Twitter" />
             </Link>
             <Link to="https://facebook.com" target="_blank">
-              <img src="/src/Icons/facebook.svg" alt="Facebook" />
+              <img src={FacebookIcon} alt="Facebook" />
             </Link>
             <Link to="https://linkedin.com" target="_blank">
-              <img src="/src/Icons/linkedin.svg" alt="Linkedin" />
+              <img src={LinkedinIcon} alt="Linkedin" />
             </Link>
           </SocialIcons>
         </Left>

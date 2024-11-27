@@ -6,13 +6,13 @@ export default defineConfig({
   server: {
     proxy: {
       '/auth': {
-        target: 'srv622492.hstgr.cloud:5030/',
+        target: 'https://srv622492.hstgr.cloud:5030/',
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/auth/, '/auth')
       },
       '/users': {
-        target: 'srv622492.hstgr.cloud:5030',
+        target: 'https://srv622492.hstgr.cloud:5030',
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/users/, '/users')

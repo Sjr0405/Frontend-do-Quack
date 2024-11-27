@@ -18,6 +18,7 @@ import {
   BackButton
 } from './EsqueciSenhaStyles';
 import { ArrowBack } from '@mui/icons-material';
+import Personagem from 'src/assets/Personagem.svg';
 
 // Esquema de validação com Yup
 const schema = yup.object().shape({
@@ -185,7 +186,7 @@ const EsqueciSenha = () => {
               Faltam poucos passos<br /> para<br /> se tornar um Dev!
             </h4>
           </StyledTypography>
-          <img src="src/assets/Personagem.svg" alt="Ilustração" style={{ width: '80%' }} />
+          <img src={Personagem} alt="Ilustração" style={{ width: '80%' }} />
         </Box>
       </ImageSection>
 

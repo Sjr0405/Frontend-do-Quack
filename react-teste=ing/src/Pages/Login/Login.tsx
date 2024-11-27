@@ -20,6 +20,8 @@ import {
   BackButton
 } from './LoginStyles';
 import { ArrowBack } from '@mui/icons-material';
+import GoogleIcon from '/src/Icons/Google.svg';
+import LogoReverse from '/src/Assets/LogoReverse.svg';
 
 
 const Login = () => {
@@ -113,7 +115,7 @@ const Login = () => {
             </Grid>
             <Grid item xs={12}>
               <GoogleButton>
-                <img src="/src/Icons/Google.svg" alt="Google" style={{height: '20px',fontFamily: 'Montserrat Alternates', marginRight: '10px' }} />
+                <img src={GoogleIcon} alt="Google" style={{height: '20px',fontFamily: 'Montserrat Alternates', marginRight: '10px' }} />
                 Iniciar sessão com o Google
               </GoogleButton>
             </Grid>
@@ -133,7 +135,7 @@ const Login = () => {
             <A style={{ color: '#7A5FF5', fontWeight: 'bold' }}> programação!</A>
           </p>
         </StyledTypography>
-        <DuckImage src="/src/Assets/LogoReverse.svg" alt="Mascote Quack" />
+        <DuckImage src={LogoReverse} alt="Mascote Quack" />
       </ImageSection>
     </LoginContainer>
   );

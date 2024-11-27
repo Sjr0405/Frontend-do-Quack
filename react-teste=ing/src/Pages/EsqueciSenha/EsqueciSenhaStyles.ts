@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Box, Typography } from "@mui/material";
+import BackgroundImage from 'src/svgs/Cadastro-svgs/1.svg';
 
 export const Container = styled.div`
   display: flex;
@@ -28,7 +29,7 @@ export const FormSection = styled(Box)`
 `;
 
 export const ImageSection = styled(Box)`
-  background-image: url("/src/svgs/Cadastro-svgs/1.svg");
+  background-image: url(${BackgroundImage});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: left;
