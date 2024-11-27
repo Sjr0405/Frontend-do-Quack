@@ -33,8 +33,17 @@ jobs:
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.REMOTE_PORT }}
-          source: "react-teste=ing/build/*"
+          source: "."
           target: "/root/Frontend-do-Quack/react-teste=ing"
+
+      - name: Verificar arquivos no servidor
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.REMOTE_PORT }}
+          script: ls -la /root/Frontend-do-Quack/react-teste=ing
 
       - name: Iniciar aplicação no servidor
         uses: appleboy/ssh-action@v0.1.8
