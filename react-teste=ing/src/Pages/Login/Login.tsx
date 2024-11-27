@@ -20,8 +20,8 @@ import {
   BackButton
 } from './LoginStyles';
 import { ArrowBack } from '@mui/icons-material';
-import GoogleIcon from '/src/Icons/Google.svg';
-import LogoReverse from '/src/Assets/LogoReverse.svg';
+import GoogleIcon from '../../Icons/GoogleIcon.svg';
+import LogoReverse from '../../Assets/LogoReverse.svg';
 
 
 const Login = () => {

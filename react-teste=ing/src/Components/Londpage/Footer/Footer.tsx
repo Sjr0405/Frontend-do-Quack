@@ -1,10 +1,10 @@
 import { Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { Section, Container, Left, Logo, SocialIcons, NavMenu, Bottom } from './FooterStyles';
-import LogoImg from '/src/assets/Logo.svg';
-import TwitterIcon from '/src/Icons/twitter.svg';
-import FacebookIcon from '/src/Icons/facebook.svg';
-import LinkedinIcon from '/src/Icons/linkedin.svg';
+import LogoImg from '../../../assets/logo.png';
+import TwitterIcon from '../../../Icons/twitter.svg';
+import FacebookIcon from '../../../Icons/facebook.svg';
+import LinkedinIcon from '../../../Icons/linkedin.svg';
 
 const Footer = () => {
   return (
