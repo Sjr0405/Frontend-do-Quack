@@ -44,7 +44,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.REMOTE_PORT }}
           source: "*"
-          target: "/root/Frontend-do-Quack/react-teste=ing/dist"
+          target: "/root/Frontend-do-Quack"
 
       - name: Reiniciar Nginx para aplicar mudanças
         uses: appleboy/ssh-action@v0.1.8
