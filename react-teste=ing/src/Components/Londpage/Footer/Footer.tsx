@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { Section, Container, Left, Logo, SocialIcons, NavMenu, Bottom } from './FooterStyles';
-import LogoImg from '../../../assets/logo.png';
+import LogoImg from '../../../Assets/Logo.svg';
 import TwitterIcon from '../../../Icons/twitter.svg';
 import FacebookIcon from '../../../Icons/facebook.svg';
 import LinkedinIcon from '../../../Icons/linkedin.svg';
