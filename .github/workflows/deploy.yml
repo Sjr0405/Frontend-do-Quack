@@ -26,26 +26,17 @@ jobs:
         run: npm run build
         working-directory: react-teste=ing
 
-      - name: Copiar conteúdo do repositório via SCP
+      - name: Copiar arquivos de build para o servidor
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.REMOTE_PORT }}
-          source: "react-teste=ing/dist"
-          target: "/root/Frontend-do-Quack/react-teste=ing"
+          source: "react-teste=ing/dist/*"
+          target: "/root/Frontend-do-Quack/react-teste=ing/dist"
 
-      - name: Verificar arquivos no servidor
-        uses: appleboy/ssh-action@v0.1.8
-        with:
-          host: ${{ secrets.REMOTE_HOST }}
-          username: ${{ secrets.REMOTE_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.REMOTE_PORT }}
-          script: ls -la /root/Frontend-do-Quack/react-teste=ing
-
-      - name: Iniciar aplicação no servidor
+      - name: Reiniciar Nginx para aplicar mudanças
         uses: appleboy/ssh-action@v0.1.8
         with:
           host: ${{ secrets.REMOTE_HOST }}
@@ -53,7 +44,4 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.REMOTE_PORT }}
           script: |
-            cd /root/Frontend-do-Quack/react-teste=ing
-            npm install --production
-            export PATH=$PATH:$(pwd)/node_modules/.bin
-            npm run preview
+            sudo systemctl reload nginx
