@@ -18,7 +18,7 @@ import {
   BackButton
 } from './EsqueciSenhaStyles';
 import { ArrowBack } from '@mui/icons-material';
-import Personagem from 'src/assets/Personagem.svg';
+import Personagem from '../../Assets/Personagem.svg';
 
 // Esquema de validação com Yup
 const schema = yup.object().shape({
