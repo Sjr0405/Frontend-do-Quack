@@ -20,7 +20,7 @@ import {
   BackButton
 } from './LoginStyles';
 import { ArrowBack } from '@mui/icons-material';
-import GoogleIcon from '../../assets/GoogleIcon.svg';
+import GoogleIcon from '../../Icons/google.svg';
 import LogoReverse from '../../Assets/LogoReverse.svg';
 
 
