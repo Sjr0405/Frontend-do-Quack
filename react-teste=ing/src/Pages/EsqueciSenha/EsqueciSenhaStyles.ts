@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Box, Typography } from "@mui/material";
-import BackgroundImage from 'src/svgs/Cadastro-svgs/1.svg';
+import BackgroundImage from '../../svgs/Cadastro-svgs/1.svg';
 
 export const Container = styled.div`
   display: flex;
