@@ -55,4 +55,5 @@ jobs:
           script: |
             cd /root/Frontend-do-Quack/react-teste=ing
             npm install --production
+            export PATH=$PATH:$(pwd)/node_modules/.bin
             npm run preview
