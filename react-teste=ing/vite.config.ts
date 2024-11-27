@@ -45,6 +45,5 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist', // Gera os arquivos na pasta dist, sem subdiretórios extras
-    emptyOutDir: true // Limpa a pasta antes de gerar novos arquivos
   }
 });
