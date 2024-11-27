@@ -34,7 +34,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.REMOTE_PORT }}
           source: "."
-          target: "/var/www/react-teste=ing"
+          target: "/root/Frontend-do-Quack/react-teste=ing"
 
       - name: Executar comando remoto
         uses: appleboy/ssh-action@v0.1.8
