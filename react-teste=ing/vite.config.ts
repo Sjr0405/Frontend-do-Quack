@@ -43,7 +43,5 @@ export default defineConfig({
       }
     }
   },
-  build: {
-    outDir: 'dist', // Gera os arquivos na pasta dist, sem subdiretórios extras
-  }
+  
 });
