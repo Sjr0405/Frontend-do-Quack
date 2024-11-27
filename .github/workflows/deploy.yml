@@ -13,10 +13,6 @@ jobs:
       - name: Checkout do Repositório
         uses: actions/checkout@v4
 
-      - name: Puxar as últimas alterações da branch prod
-        run: git pull origin prod
-        working-directory: react-teste=ing
-
       - name: Instalação do Node.js
         uses: actions/setup-node@v4
         with:
@@ -59,5 +55,4 @@ jobs:
           script: |
             cd /root/Frontend-do-Quack/react-teste=ing
             npm install --production
-            export PATH=$PATH:$(pwd)/node_modules/.bin
-            npm run dev
+            npm run preview
