@@ -19,10 +19,12 @@ jobs:
           node-version: '18'
 
       - name: Instalar dependências
-        run: npm ci --prefix ./react-teste=ing
+        run: npm ci
+        working-directory: react-teste=ing
 
       - name: Construir o projeto
-        run: npm run build --prefix ./react-teste=ing
+        run: npm run build
+        working-directory: react-teste=ing
 
       - name: Limpar diretório antigo no servidor
         uses: appleboy/ssh-action@v0.1.8
@@ -41,7 +43,7 @@ jobs:
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.REMOTE_PORT }}
-          source: "react-teste=ing/dist/*"
+          source: "*"
           target: "/root/Frontend-do-Quack/react-teste=ing/dist"
 
       - name: Reiniciar Nginx para aplicar mudanças
