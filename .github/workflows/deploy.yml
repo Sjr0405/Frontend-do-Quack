@@ -62,3 +62,6 @@ jobs:
           port: ${{ secrets.REMOTE_PORT }}
           script: |
             sudo systemctl reload nginx
+ 
+
+            
