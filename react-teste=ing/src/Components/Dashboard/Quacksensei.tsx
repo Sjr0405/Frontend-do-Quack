@@ -133,11 +133,11 @@ const Quacksensei = ({
   } | null>>;
 }) => {
   const professors = [
-    { photo: 'https://randomuser.me/api/portraits/men/4.jpg', name: 'Prof. João', email: 'joao@example.com', ensina: 'Desenvolvimento de Software', linguagem: 'java' },
-    { photo: 'https://randomuser.me/api/portraits/men/8.jpg', name: 'Prof. Maria', email: 'maria@example.com', ensina: 'Programação para Internet', linguagem: 'javascript' },
-    { photo: 'https://randomuser.me/api/portraits/men/9.jpg', name: 'Prof. Ana', email: 'anal@example.com', ensina: 'Fazer Dinheiro', linguagem: 'php' },
-    { photo: 'https://randomuser.me/api/portraits/men/5.jpg', name: 'Prof. Pedro', email: 'pedro@example.com', ensina: 'Programação Orientada a Objetos', linguagem: 'csharp' },
-    { photo: 'https://randomuser.me/api/portraits/men/2.jpg', name: 'Prof. João', email: 'joaoLol@example.com', ensina: 'Machine Learning', linguagem: 'python' },
+    { photo: 'https://randomuser.me/api/portraits/men/4.jpg', name: 'João Gabriel', email: 'joao@example.com', ensina: 'Desenvolvimento de Software', linguagem: 'java' },
+    { photo: 'https://randomuser.me/api/portraits/men/8.jpg', name: 'Maria Josefina', email: 'maria@example.com', ensina: 'Programação para Internet', linguagem: 'javascript' },
+    { photo: 'https://randomuser.me/api/portraits/men/9.jpg', name: 'Ana Rosa', email: 'anal@example.com', ensina: 'Fazer Dinheiro', linguagem: 'php' },
+    { photo: 'https://randomuser.me/api/portraits/men/5.jpg', name: 'Pedro Pascal', email: 'pedro@example.com', ensina: 'Programação Orientada a Objetos', linguagem: 'csharp' },
+    { photo: 'https://randomuser.me/api/portraits/men/2.jpg', name: 'Jão Silva', email: 'joaoLol@example.com', ensina: 'Machine Learning', linguagem: 'python' },
   ];
 
   const handleProfessorClick = (professor: {
@@ -176,7 +176,7 @@ const Quacksensei = ({
           </TopBar>
         </Header>
         <ContactContainer>
-          <h2>Professores Disponíveis</h2>
+          <h2>Mentores Disponíveis</h2>
           {professors.map((professor) => (
             <Professor key={`${professor.name}-${professor.email}`} onClick={() => handleProfessorClick(professor)}>
               <img src={professor.photo} alt={`Foto de ${professor.name}`} />
