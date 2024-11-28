@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Box, Typography, InputLabel } from "@mui/material";
+import BackgroundImage from '../../svgs/Cadastro-svgs/1.svg';
 
 export const Form = styled.form`
   width: 100%;
@@ -30,7 +31,7 @@ export const GoogleButton = styled.button`
 `;
 
 export const ImageSection = styled(Box)`
-  background-image: url("/assets/Cadastro-svgs/1.svg");
+  background-image: url(${BackgroundImage});
   background-repeat: no-repeat;
   display: flex;
   height: 100%;

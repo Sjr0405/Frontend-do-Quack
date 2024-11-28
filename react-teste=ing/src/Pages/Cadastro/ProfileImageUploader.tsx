@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
+import upload from '../../svgs/Cadastro-svgs/2.svg';
 
 interface Crop {
   x: number;
@@ -36,17 +37,22 @@ const ImageUpload = styled.div<{ hasImage: boolean }>`
   border-radius: 100%;
   box-shadow: 2px 3px 12px rgba(0, 0, 0, 0.6);
   overflow: hidden;
-  background-image: ${({ hasImage }) => (hasImage ? 'none' : 'url(/assets/Cadastro-svgs/2.svg)')};
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  background-size: 50% 50%;
+  ${({ hasImage }) =>
+    hasImage
+      ? ""
+      : `
+    background-image: url(${upload});
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: 50% 50%;
+  `}
   cursor: pointer;
   color: white;
   margin-bottom: 20px;
 
   &:hover {
     opacity: 0.7;
-  } 
+  }
 `;
 
 const ImagePreview = styled.img`
