@@ -12,7 +12,7 @@ const schema = yup.object().shape({
   username: yup.string().required("Nome de usuário é obrigatório"),
   phone: yup.string().required("Telefone é obrigatório").min(14, "Telefone inválido"),
   cpf: yup.string().required("CPF é obrigatório").min(14, "CPF inválido"),
-  password: yup.string().min(8, "A senha deve ter no mínimo 8 caracteres").required("Senha é obrigatória"),
+  password: yup.string().min(8, "A senha deve ter no mínimo 8 caracteres").matches(/[@$!%*?&#^()_+[\]{}|;:'",.<>]/, "A senha deve conter pelo menos um caractere especial").matches(/[A-Z]/, "A senha deve conter pelo menos uma letra maiúscula").required("Senha é obrigatória"),
   confirmpassword: yup.string().oneOf([yup.ref("password"), undefined], "As senhas devem ser iguais").required("Senha é obrigatória"),
   bornAt: yup.string().required("Data de nascimento é obrigatória"),
   photo: yup.array().of(yup.mixed().nullable()).nullable() as yup.Schema<File[] | undefined>,
@@ -42,10 +42,10 @@ export const useCadastro = () => {
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("username", data.username);
-    formData.append("phone", data.phone.replace(/\D/g, '')); // Remove caracteres não numéricos
+    formData.append("phone", data.phone.replace(/\D/g, ''));
     formData.append("email", data.email);
     formData.append("password", data.password);
-    formData.append("cpf", data.cpf.replace(/\D/g, '')); // Remove caracteres não numéricos
+    formData.append("cpf", data.cpf.replace(/\D/g, '')); 
     formData.append("bornAt", data.bornAt);
 
     if (croppedImageUrl) {
