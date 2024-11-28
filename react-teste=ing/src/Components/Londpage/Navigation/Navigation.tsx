@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Section, NavBar, Logo, Menu, NavItem, Button, Hamburger, MenuIcon } from './NavigationStyles';
+import LogoImage from '../../../Assets/Logo.svg';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +22,7 @@ const Navigation = () => {
     <Section>
       <NavBar isOpen={isOpen}>
         <Logo>
-          <img src="/src/assets/Logo.svg" alt="Logo Quack()" />
+          <img src={LogoImage} alt="Logo Quack()" />
           <span>Quack()</span>
         </Logo>
         <Hamburger onClick={toggleMenu} aria-label="Toggle menu">
