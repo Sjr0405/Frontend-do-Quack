@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/auth': {
-        target: 'https://localhost:5030',
+        target: 'https://145.223.27.98:5030',
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/auth/, '/auth')
