@@ -6,7 +6,7 @@ import Logoimg from '../../Assets/Logo.svg';
 import SelectedBooks from '../../Assets/svgs//Home-svgs/Selected-Colors/Laranja/Books.svg';
 import Books from '../../Assets/svgs/Home-svgs/Selected-Colors/Preto/Books.svg';
 import SelectedRoadmap from '../../Assets/svgs/Home-svgs/Selected-Colors/Laranja/roadmap.svg';
-import Roadmap from '../../Assets/svgs/Home-svgs/Selected-Colors/Preto/Roadmap.svg';
+import Roadmap from '../../Assets/svgs/Home-svgs/Selected-Colors/Preto/roadmap.svg';
 import SelectedPraticar from '../../Assets/svgs/Home-svgs/Selected-Colors/Laranja/praticar.svg';
 import Praticar from '../../Assets/svgs/Home-svgs/Selected-Colors/Preto/praticar.svg';
 import SelectedRankings from '../../Assets/svgs/Home-svgs/Selected-Colors/Laranja/Ranking.svg';
