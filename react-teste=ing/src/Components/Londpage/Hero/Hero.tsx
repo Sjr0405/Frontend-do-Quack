@@ -3,8 +3,9 @@ import imgSrc from '../../../Assets/HOMEMSENTADO.svg';
 import Navigation from '../Navigation/Navigation'; // Importando o componente Navigation
 
 // Importando as novas imagens SVG
-import Vector123 from '../../../svgs/Landpage-svgs/123.svg';
-import Vector2 from '../../../svgs/Landpage-svgs/5.svg';
+import Vector123 from '../../../Assets/svgs/Landpage-svgs/123.svg';
+import Vector2 from '../../../Assets/svgs/Landpage-svgs/5.svg';
+
 
 const Hero = () => {
   return (

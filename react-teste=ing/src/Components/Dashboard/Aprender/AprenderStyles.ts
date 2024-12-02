@@ -1,14 +1,7 @@
-import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { IconButton, Input } from "@mui/material";
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../AuthContext'; // Importa o contexto de autenticação
-import { useLocation } from 'react-router-dom';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 
 // Styled Components
-const Container = styled.div`  
+export const Container = styled.div`  
   display: flex;
   flex-direction: column;
   align-items: center; /* Centraliza o conteúdo horizontalmente */
@@ -24,7 +17,7 @@ const Container = styled.div`
   }
 `;
 
-const QuackContainer = styled.div`
+export const QuackContainer = styled.div`
   background-color: #fff;
   padding: 24px;
   border-radius: 12px;
@@ -36,44 +29,44 @@ const QuackContainer = styled.div`
   box-sizing: border-box;
 `;
 
-const ProfileSection = styled.div`
+export const ProfileSection = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 20px;
 `;
 
-const ProfileImage = styled.img`
+export const ProfileImage = styled.img`
   width: 64px;
   height: 64px;
   border-radius: 50%;
   margin-right: 16px;
 `;
 
-const ProfileInfo = styled.div`
+export const ProfileInfo = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-const ProfileName = styled.h1`
+export const ProfileName = styled.h1`
   margin: 0;
   font-size: 22px;
   font-weight: bold;
   color: #2d3748;
 `;
 
-const ProfileSubtitle = styled.span`
+export const ProfileSubtitle = styled.span`
   font-size: 16px;
   color: #718096;
 `;
 
-const WelcomeSection = styled.div`
+export const WelcomeSection = styled.div`
   display: flex;
   align-items: center;
   text-align: left;
   margin-top: 20px;
 `;
 
-const WelcomeImage = styled.img`
+export const WelcomeImage = styled.img`
   width: 30%;
   max-width: 100px;
   margin-right: 20px;
@@ -85,18 +78,18 @@ const WelcomeImage = styled.img`
   }
 `;
 
-const WelcomeTextContainer = styled.div`
+export const WelcomeTextContainer = styled.div`
   flex: 1;
 `;
 
-const WelcomeTitle = styled.h2`
+export const WelcomeTitle = styled.h2`
   font-size: 28px;
   color: #2d3748;
   margin: 0;
   font-weight: bold;
 `;
 
-const WelcomeText = styled.p`
+export const WelcomeText = styled.p`
   font-size: 16px;
   color: #4a5568;
   margin-top: 12px;
@@ -108,38 +101,14 @@ const WelcomeText = styled.p`
   }
 `;
 
-const Divider = styled.hr`
+export const Divider = styled.hr`
   border: 0;
   height: 1px;
   background: #e0e0e0;
   margin: 20px 0;
 `;
 
-const Quack = ({ user }: { user: any }) => {
-  return (
-    <QuackContainer>
-      <ProfileSection>
-        <ProfileImage src={user?.imagePath || "https://via.placeholder.com/64"} alt="Foto de Perfil" />
-        <ProfileInfo>
-          <ProfileName>{user?.username || "Usuário"}</ProfileName>
-          <ProfileSubtitle>{user?.name || "Nome do Usuário"}</ProfileSubtitle>
-        </ProfileInfo>
-      </ProfileSection>
-      <Divider />
-      <WelcomeSection>
-        <WelcomeImage src="/src/Assets/Svg_thigas/FALANDO.svg" alt="Imagem de boas-vindas" />
-        <WelcomeTextContainer>
-          <WelcomeTitle>Bem-vindo de volta, {user?.username || "Usuário"}!</WelcomeTitle>
-          <WelcomeText>
-            Explore caminhos de aprendizado estruturados para impulsionar sua jornada como desenvolvedor.
-          </WelcomeText>
-        </WelcomeTextContainer>
-      </WelcomeSection>
-    </QuackContainer>
-  );
-};
-
-const MainContent = styled.div`
+export const MainContent = styled.div`
   display: flex;
   flex-direction: column; /* Alinha itens em coluna */
   align-items: center; /* Centraliza o conteúdo horizontalmente */
@@ -151,7 +120,7 @@ const MainContent = styled.div`
   margin-bottom: 20px;
 `;
 
-const Header = styled.div`
+export const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -173,7 +142,7 @@ const Header = styled.div`
   }
 `;
 
-const NotificationIconWrapper = styled.div`
+export const NotificationIconWrapper = styled.div`
   position: relative;
   cursor: pointer;
   display: flex;
@@ -186,7 +155,7 @@ const NotificationIconWrapper = styled.div`
   }
 `;
 
-const NotificationDot = styled.div`
+export const NotificationDot = styled.div`
   position: absolute;
   top: 0;
   right: 0;
@@ -197,7 +166,7 @@ const NotificationDot = styled.div`
   
 `;
 
-const Titulo = styled.h1`
+export const Titulo = styled.h1`
   color: #000;
   font-size: 30px;
   font-weight: 500;
@@ -206,7 +175,7 @@ const Titulo = styled.h1`
   margin-top: 20px;
 `;
 
-const TituloContainer = styled.div`
+export const TituloContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -214,7 +183,7 @@ const TituloContainer = styled.div`
   padding: 0 20px;
 `;
 
-const VerTodosLink = styled.a`
+export const VerTodosLink = styled.a`
   color: #007bff;
   text-decoration: none;
   font-family: 'Lilita One', sans-serif;
@@ -227,7 +196,7 @@ const VerTodosLink = styled.a`
   }
 `;
 
-const ModuloCard = styled.div<{ bgColor: string }>`
+export const ModuloCard = styled.div<{ bgColor: string }>`
   background-color: ${({ bgColor }) => bgColor || '#fff'};
   padding: 20px;
   margin: 15px 0;
@@ -300,14 +269,12 @@ const ModuloCard = styled.div<{ bgColor: string }>`
   }
 `;
 
+export interface ProgressBarProps {
+    progress: string;
+    color: string;
+  }
 
-
-interface ProgressBarProps {
-  progress: string;
-  color: string;
-}
-
-const ProgressBar = styled.div<ProgressBarProps>`
+export const ProgressBar = styled.div<ProgressBarProps>`
   width: 100%;
   height: 15px;
   background-color: #ddd;
@@ -322,7 +289,7 @@ const ProgressBar = styled.div<ProgressBarProps>`
   }
 `;
 
-const PuzzleButton = styled.button`
+export const PuzzleButton = styled.button`
   display: flex;
   border-radius: 8px;
   border: none;
@@ -352,7 +319,7 @@ const PuzzleButton = styled.button`
   }
 `;
 
-const StatusBar = styled.div`
+export const StatusBar = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -362,7 +329,7 @@ const StatusBar = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
-const StatusItem = styled.div`
+export const StatusItem = styled.div`
   position: relative; /* Necessário para posicionar o balão */
   display: flex;
   align-items: center;
@@ -384,7 +351,7 @@ const StatusItem = styled.div`
   }
 `;
 
-const Tooltip = styled.div<{ visible: boolean }>`
+export const Tooltip = styled.div<{ visible: boolean }>`
   position: absolute;
   top: 50px; /* Ajusta a posição para aparecer mais abaixo do ícone */
   left: 50%; /* Ajusta a posição para aparecer mais à esquerda */
@@ -429,7 +396,7 @@ const Tooltip = styled.div<{ visible: boolean }>`
   }
 `;
 
-const DaysList = styled.ul`
+export const DaysList = styled.ul`
   display: flex;
   padding: 0;
   list-style: none;
@@ -445,160 +412,3 @@ const DaysList = styled.ul`
     margin-bottom: 5px;
   }
 `;
-
-interface Modulo {
-  nome: string;
-  aulasCompletas: number;
-  totalAulas: number;
-  corBarra: string;
-  bgColor: string;
-  rota: string;
-  icon: string;
-}
-
-
-const Aprender = ({ changeSection }: { changeSection: (section: string) => void }) => {
-  const navigate = useNavigate();
-  const { user } = useAuth(); // Obtém o usuário do contexto de autenticação
-  const location = useLocation();
-  const [modulos, setModulos] = useState<Modulo[]>([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [similarModuloMatches, setModuloSimilarMatches] = useState<Modulo[]>([]);
-  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
-
-  const handleMouseEnter = (item: string) => {
-    setHoveredItem(item);
-  };
-
-  const handleMouseLeave = () => {
-    setHoveredItem(null);
-  };
-
-
-  const handleNotificationClick = () => {
-    changeSection('Notifications');
-  };
-
-  const handleVerTodosClick = () => {
-    changeSection('Roadmap');
-  };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const dadosDoBanco = [
-        { nome: 'Lógica de Programação', aulasCompletas: 18, totalAulas: 300, corBarra: '#FFD700', bgColor: '#FFEB99', rota: 'Backend_Roadmap', icon: '/src/svgs/Home-svgs/Programacao.svg' },
-        { nome: 'Frontend', aulasCompletas: 18, totalAulas: 18, corBarra: '#8000FF', bgColor: '#D9B3FF', rota: 'Backend_Roadmap', icon: '/src/svgs/Home-svgs/Frontend.svg' },
-        { nome: 'DevOps', aulasCompletas: 3, totalAulas: 18, corBarra: '#1E90FF', bgColor: '#CCE0FF', rota: 'Backend_Roadmap', icon: '/src/svgs/Home-svgs/DevOps.svg' },
-        { nome: 'Backend', aulasCompletas: 5, totalAulas: 18, corBarra: '#32CD32', bgColor: '#CCFFCC', rota: '/Backend_Roadmap', icon: '/src/svgs/Home-svgs/Backend.svg' },
-      ];
-      setModulos(dadosDoBanco);
-
-      // Adicionar novos módulos se existirem
-      if (location.state?.newModules) {
-        setModulos((prevModulos) => [...prevModulos, ...location.state.newModules]);
-      }
-    };
-    fetchData();
-  }, [location.state]);
-
-  useEffect(() => {
-    const similarfilteredModulos = modulos.filter(modulo =>
-      modulo.nome.toLowerCase().includes(searchTerm.toLowerCase()) &&
-      modulo.nome.toLowerCase() !== (searchTerm.toLowerCase())
-    );
-
-    setModuloSimilarMatches(similarfilteredModulos);
-  }, [searchTerm, modulos]);
-
-  const calcularProgresso = (aulasCompletas: number, totalAulas: number) => {
-    if (totalAulas === 0) return '0%';
-    const progresso = (aulasCompletas / totalAulas) * 100;
-    return `${progresso}%`;
-  };
-
-  return (
-    <Container>
-      <Header>
-        <PuzzleButton onClick={() => changeSection('Desafio')}>
-          <img src="/src/svgs/Home-svgs/Puzzle.svg" alt="Estrela icon" />
-          <p> Desafio diário! </p>
-        </PuzzleButton>
-        <Input
-          type="search"
-          placeholder="Pesquisar por nome..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      
-        <StatusBar>
-          <StatusItem
-            onMouseEnter={() => handleMouseEnter('investidas')}
-            onMouseLeave={handleMouseLeave}
-          >
-            <img src="/src/Assets/barra de status/foquinho.svg" alt="Investidas" />
-            <span>3</span>
-            <Tooltip visible={hoveredItem === 'investidas'}>
-              <h3>Dias de investida</h3>
-              <div>
-                <DaysList>
-                  <li>Seg <img src="/src/Icons/fire.svg" alt="Foguinho" /></li>
-                  <li>Ter <img src="/src/Icons/fire.svg" alt="Foguinho" /></li>
-                  <li>Qua <img src="/src/Icons/fire.svg" alt="Foguinho" /></li>
-                  <li>Qui <img src="/src/Icons/no-fire.svg" alt="Sem Foguinho" /></li>
-                  <li>Sex <img src="/src/Icons/no-fire.svg" alt="Sem Foguinho" /></li>
-                  <li>Sáb <img src="/src/Icons/no-fire.svg" alt="Sem Foguinho" /></li>
-                  <li>Dom <img src="/src/Icons/no-fire.svg" alt="Sem Foguinho" /></li>
-                </DaysList>
-              </div>
-            </Tooltip>
-          </StatusItem>
-          <StatusItem
-            onMouseEnter={() => handleMouseEnter('pontos')}
-            onMouseLeave={handleMouseLeave}
-          >
-            <img src="/src/Assets/barra de status/pontos.svg" alt="Pontos" />
-            <span>30</span>
-            <Tooltip visible={hoveredItem === 'pontos'}>
-              <img src="/src/Assets/barra de status/pontos.svg" alt="Pontos" />
-              Você tem 30 pontos acumulados.
-            </Tooltip>
-          </StatusItem>
-        </StatusBar>
-        <NotificationIconWrapper onClick={handleNotificationClick}>
-          <NotificationsIcon style={{ color: '#FFD700', fontSize: '30px' }} />
-          <NotificationDot />
-        </NotificationIconWrapper>
-      </Header>
-      <Quack user={user} /> {/* Passa o usuário para o Quack */}
-      <MainContent>
-        <TituloContainer>
-          <Titulo>Minhas Roadmaps</Titulo>
-          <VerTodosLink onClick={handleVerTodosClick}>Ver todos</VerTodosLink>
-        </TituloContainer>
-        <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-          {similarModuloMatches.map((modulo, index) => (
-            <ModuloCard key={index} bgColor={modulo.bgColor}>
-              <img src={modulo.icon} alt={modulo.nome} />
-              <div>
-                <h3>{modulo.nome}</h3>
-                {modulo.aulasCompletas / modulo.totalAulas === 1 ? (
-                  <a>Módulo Completo</a>
-                ) : (
-                  <a>{`${modulo.aulasCompletas}/${modulo.totalAulas} Aulas Completas`}</a>
-                )}
-                <ProgressBar progress={calcularProgresso(modulo.aulasCompletas, modulo.totalAulas)} color={modulo.corBarra}>
-                  <div></div>
-                </ProgressBar>
-              </div>
-              <IconButton onClick={() => navigate(modulo.rota)} aria-label="navegar">
-                <ArrowForwardIcon />
-              </IconButton>
-            </ModuloCard>
-          ))}
-        </div>
-      </MainContent>
-    </Container>
-  );
-};
-
-export default Aprender;

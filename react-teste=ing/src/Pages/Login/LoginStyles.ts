@@ -1,7 +1,7 @@
 // Login.styles.ts
 import styled from 'styled-components';
 import { Box, Typography } from "@mui/material";
-import BackgroundImage from '../../svgs/Login-svgs/1.svg';
+import BackgroundImage from '../../Assets/svgs/Login-svgs/1.svg';
 
 export const A = styled.a`
   color: white;

@@ -2,6 +2,24 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
+import Logoimg from '../../Assets/Logo.svg';
+import SelectedBooks from '../../Assets/svgs//Home-svgs/Selected-Colors/Laranja/Books.svg';
+import Books from '../../Assets/svgs/Home-svgs/Selected-Colors/Preto/Books.svg';
+import SelectedRoadmap from '../../Assets/svgs/Home-svgs/Selected-Colors/Preto/Roadmap.svg';
+import Roadmap from '../../Assets/svgs/Home-svgs/Selected-Colors/Laranja/roadmap.svg';
+import SelectedPraticar from '../../Assets/svgs/Home-svgs/Selected-Colors/Preto/praticar.svg';
+import Praticar from '../../Assets/svgs/Home-svgs/Selected-Colors/Laranja/praticar.svg';
+import SelectedRankings from '../../Assets/svgs/Home-svgs/Selected-Colors/Laranja/Ranking.svg';
+import Rankings from '../../Assets/svgs/Home-svgs/Selected-Colors/Preto/Ranking.svg';
+import SelectedUser from '../../Assets/svgs/Home-svgs/Selected-Colors/Laranja/User.svg';
+import User from '../../Assets/svgs/Home-svgs/Selected-Colors/Preto/User.svg';
+import SelectedAlvo from '../../Assets/svgs/Home-svgs/Selected-Colors/Laranja/Alvo.svg';
+import Alvo from '../../Assets/svgs/Home-svgs/Selected-Colors/Preto/Alvo.svg';
+import SelectedLoja from '../../Assets/svgs/Home-svgs/Selected-Colors/Laranja/Loja.svg';
+import Loja from '../../Assets/svgs/Home-svgs/Selected-Colors/Preto/Loja.svg';
+import SelectedConfiguracao from '../../Assets/svgs/Home-svgs/Selected-Colors/Laranja/Configuracao.svg';
+import Configuracao from '../../Assets/svgs/Home-svgs/Selected-Colors/Preto/Configuracao.svg';
+import Logout from '../../Assets/svgs/Home-svgs/Selected-Colors/Vermelho/Logout.svg';
 
 // Styled Components
 const Sidebar = styled.div`
@@ -150,19 +168,19 @@ const SideBar = ({ changeSection }: { changeSection: (section: string) => void }
   return (
     <Sidebar>
       <Logo onClick={() => handleItemClick('Aprender')}>
-        <img src="/src/assets/Logo.svg" alt="Logo Quack()" />
+        <img src={Logoimg} alt="Logo Quack()" />
         <span>Quack()</span>
       </Logo>
 
 
       {selectedItem === 'Aprender' ? (
         <SelectedSidebarItem onClick={() => handleItemClick('Aprender')}>
-          <img src="/src/svgs/Home-svgs/Selected-Colors/Laranja/Books.svg" alt="Aprender" />
+          <img src={SelectedBooks} alt="Aprender" />
           Aprender
         </SelectedSidebarItem>
       ) : (
         <SidebarItem onClick={() => handleItemClick('Aprender')}>
-          <img src="/src/svgs/Home-svgs/Selected-Colors/Preto/Books.svg" alt="Aprender" />
+          <img src={Books} alt="Aprender" />
           Aprender
         </SidebarItem>
       )}
@@ -170,12 +188,12 @@ const SideBar = ({ changeSection }: { changeSection: (section: string) => void }
 
       {selectedItem === 'Roadmap' ? (
         <SelectedSidebarItem onClick={() => handleItemClick('Roadmap')}>
-          <img src="/src/Assets/roadmap.svg" alt="Roadmap" />
+          <img src={SelectedRoadmap} alt="Roadmap" />
           Roadmap
         </SelectedSidebarItem>
       ) : (
         <SidebarItem onClick={() => handleItemClick('Roadmap')}>
-          <img src="/src/Assets/roadmap.svg" alt="Roadmap" />
+          <img src={Roadmap} alt="Roadmap" />
           Roadmap
         </SidebarItem>
       )}
@@ -184,12 +202,12 @@ const SideBar = ({ changeSection }: { changeSection: (section: string) => void }
 
       {selectedItem === 'Praticar' ? (
         <SelectedSidebarItem onClick={() => handleItemClick('Praticar')}>
-          <img src="/src/Assets/praticar.svg" alt="Praticar" />
+          <img src={SelectedPraticar} alt="Praticar" />
           Praticar
         </SelectedSidebarItem>
       ) : (
         <SidebarItem onClick={() => handleItemClick('Praticar')}>
-          <img src="/src/Assets/praticar.svg" alt="Praticar" />
+          <img src={Praticar} alt="Praticar" />
           Praticar
         </SidebarItem>
       )}
@@ -198,66 +216,66 @@ const SideBar = ({ changeSection }: { changeSection: (section: string) => void }
 
       {selectedItem === 'Rankings' ? (
         <SelectedSidebarItem onClick={() => handleItemClick('Rankings')}>
-          <img src="/src/svgs/Home-svgs/Selected-Colors/Laranja/Ranking.svg" alt="Ranking" />
+          <img src={SelectedRankings} alt="Ranking" />
           Rankings
         </SelectedSidebarItem>
       ) : (
         <SidebarItem onClick={() => handleItemClick('Rankings')}>
-          <img src="/src/svgs/Home-svgs/Selected-Colors/Preto/Ranking.svg" alt="Ranking" />
+          <img src={Rankings} alt="Ranking" />
           Rankings
         </SidebarItem>
       )}
 
       {selectedItem === 'Perfil' ? (
         <SelectedSidebarItem onClick={() => handleItemClick('Perfil')}>
-          <img src="/src/svgs/Home-svgs/Selected-Colors/Laranja/User.svg" alt="Perfil" />
+          <img src={SelectedUser} alt="Perfil" />
           Perfil
         </SelectedSidebarItem>
       ) : (
         <SidebarItem onClick={() => handleItemClick('Perfil')}>
-          <img src="/src/svgs/Home-svgs/Selected-Colors/Preto/User.svg" alt="Perfil" />
+          <img src={User} alt="Perfil" />
           Perfil
         </SidebarItem>
       )}
 
       {selectedItem === 'Missoes' ? (
         <SelectedSidebarItem onClick={() => handleItemClick('Missoes')}>
-          <img src="/src/svgs/Home-svgs/Selected-Colors/Laranja/Alvo.svg" alt="Missões" />
+          <img src={SelectedAlvo} alt="Missões" />
           Missões
         </SelectedSidebarItem>
       ) : (
         <SidebarItem onClick={() => handleItemClick('Missoes')}>
-          <img src="/src/svgs/Home-svgs/Selected-Colors/Preto/Alvo.svg" alt="Missões" />
+          <img src={Alvo} alt="Missões" />
           Missões
         </SidebarItem>
       )}
 
       {selectedItem === 'Loja' ? (
         <SelectedSidebarItem onClick={() => handleItemClick('Loja')}>
-          <img src="/src/svgs/Home-svgs/Selected-Colors/Laranja/Loja.svg" alt="Loja" />
+          <img src={SelectedLoja} alt="Loja" />
           Loja
         </SelectedSidebarItem>
       ) : (
         <SidebarItem onClick={() => handleItemClick('Loja')}>
-          <img src="/src/svgs/Home-svgs/Selected-Colors/Preto/Loja.svg" alt="Loja" />
+          <img src={Loja} alt="Loja" />
           Loja
         </SidebarItem>
       )}
 
       {selectedItem === 'Configuracoes' ? (
         <SelectedSidebarItem onClick={() => handleItemClick('Configuracoes')}>
-          <img src="/src/svgs/Home-svgs/Selected-Colors/Laranja/Configuracao.svg" alt="Configurações" />
+          <img src={SelectedConfiguracao} alt="Configurações" />
           Configurações
         </SelectedSidebarItem>
       ) : (
         <SidebarItem onClick={() => handleItemClick('Configuracoes')}>
-          <img src="/src/svgs/Home-svgs/Selected-Colors/Preto/Configuracao.svg" alt="Configurações" />
+          <img src={Configuracao} alt="Configurações" />
           Configurações
         </SidebarItem>
       )}
 
       <SairSidebarItem onClick={handleLogout}>
-        <img src="/src/svgs/Home-svgs/Selected-Colors/Vermelho/Logout.svg" alt="Sair" />
+        <img src={Logout} alt="Sair" />
         Sair
       </SairSidebarItem>
     </Sidebar>

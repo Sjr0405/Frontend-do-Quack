@@ -167,7 +167,7 @@ const Desafio = ({ changeSection }: { changeSection: (section: string) => void }
         </Header>
         <ContentContainer>
           <ContentHeader>
-            <ContentImage src="/src/svgs/Atividade-svgs/1.svg" alt="Lasagna" />
+            <ContentImage src="../../Assets/svgs/Atividade-svgs/1.svg" alt="Lasagna" />
             <ContentTitle>Faça sua Lasagna</ContentTitle>
           </ContentHeader>
           <Paragraph>

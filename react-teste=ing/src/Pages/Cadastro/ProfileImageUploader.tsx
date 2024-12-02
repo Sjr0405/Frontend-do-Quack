@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
-import upload from '../../svgs/Cadastro-svgs/2.svg';
+import upload from '../../Assets/svgs/Cadastro-svgs/2.svg';
 
 interface Crop {
   x: number;

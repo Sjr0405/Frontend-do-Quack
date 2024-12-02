@@ -39,6 +39,24 @@ import {
   Progresso,
 } from './PerfilStyles';
 import { useAuth } from '../../../AuthContext';
+import Loja from '../../../Assets/svgs/Home-svgs/Perfil/Loja.svg';
+import podium from '../../../Assets/Iconesperfil/podium.svg';
+import lapis from '../../../Assets/svgs/Home-svgs/Perfil/Pencil.svg';
+
+//imports temporarios
+import medalha1 from '../../../Assets/Iconesperfil/medalha1.png';
+import medalha2 from '../../../Assets/Iconesperfil/medalha2.png';
+import medalha3 from '../../../Assets/Iconesperfil/medalha3.png';
+import medalha4 from '../../../Assets/Iconesperfil/troveu.png';
+import medalha5 from '../../../Assets/Iconesperfil/experiencia.png';
+import medalha6 from '../../../Assets/Iconesperfil/api.png';
+import medalha7 from '../../../Assets/Iconesperfil/devops.png';
+import medalha8 from '../../../Assets/Iconesperfil/database.png';
+import Estatistica1 from '../../../Assets/Iconesperfil/fire.png';
+import Estatistica2 from '../../../Assets/Iconesperfil/experiencia.png';
+import Estatistica3 from '../../../Assets/Iconesperfil/quest.png';
+import Estatistica4 from '../../../Assets/Iconesperfil/lissão.png';
+//imports temporarios
 
 const Perfil = ({ changeSection }: { changeSection: (section: string) => void }) => {
   const navigate = useNavigate();
@@ -57,7 +75,7 @@ const Perfil = ({ changeSection }: { changeSection: (section: string) => void })
         <h2 style={{ fontSize: '30px', fontWeight: '500', fontFamily: 'Montserrat Alternates', textAlign: 'center', color: 'purple' }}>Seu perfil</h2>
         <BotaoLoja onClick={() => changeSection('Loja')}>
           <BolhaImagem>
-            <img src="/src/svgs/Home-svgs/Perfil/Loja.svg" alt="Icône de loja" />
+            <img src={Loja} alt="Icône de loja" />
           </BolhaImagem>
           Acesse nossa loja!
         </BotaoLoja>
@@ -78,7 +96,7 @@ const Perfil = ({ changeSection }: { changeSection: (section: string) => void })
             </div>
             <div className="achievement-container">
               <div className="achievement-item">
-                <img className="achievement-icon" src="/src/Assets/Iconesperfil/potion.svg" alt="Ícone de conquista" />
+                <img className="achievement-icon" src={podium} alt="Ícone de conquista" />
               </div>
               <div className="achievement-item">
                 <span className="achievement-text">#30</span>
@@ -90,7 +108,7 @@ const Perfil = ({ changeSection }: { changeSection: (section: string) => void })
             </div>
           </InformacoesPerfil>
           <IconeEditar onClick={() => navigate('/Home', { state: { section: 'EditarPerfil' } })}>
-            <img src="/src/svgs/Home-svgs/Perfil/Pencil.svg" alt="Icône de editar" />
+            <img src={lapis} alt="Icône de editar" />
           </IconeEditar>
         </ColunaPerfil>
 
@@ -135,35 +153,35 @@ const Perfil = ({ changeSection }: { changeSection: (section: string) => void })
             <TituloEmblemas>Coleção de emblemas:</TituloEmblemas>
             <GradeEmblemas>
               <ItemEmblema>
-                <ImagemEmblema src="/src/Assets/Iconesperfil/medalha1.png" alt="Introdução à Programação" />
+                <ImagemEmblema src={medalha1} alt="Introdução à Programação" />
                 <TextoEmblema>Introdução à Programação</TextoEmblema>
               </ItemEmblema>
               <ItemEmblema>
-                <ImagemEmblema src="/src/Assets/Iconesperfil/medalha2.png" alt="Fundamentos de Algoritmos" />
+                <ImagemEmblema src={medalha2} alt="Fundamentos de Algoritmos" />
                 <TextoEmblema>Fundamentos de Algoritmos</TextoEmblema>
               </ItemEmblema>
               <ItemEmblema>
-                <ImagemEmblema src="/src/Assets/Iconesperfil/medalha3.png" alt="Programação Estruturada" />
+                <ImagemEmblema src={medalha3} alt="Programação Estruturada" />
                 <TextoEmblema>Programação Estruturada</TextoEmblema>
               </ItemEmblema>
               <ItemEmblema>
-                <ImagemEmblema src="/src/Assets/Iconesperfil/troveu.png" alt="Estruturas de Dados" />
+                <ImagemEmblema src={medalha4} alt="Estruturas de Dados" />
                 <TextoEmblema>Estruturas de Dados</TextoEmblema>
               </ItemEmblema>
               <ItemEmblema>
-                <ImagemEmblema src="/src/Assets/Iconesperfil/experiencia.png" alt="Desenvolvimento Web" />
+                <ImagemEmblema src={medalha5} alt="Desenvolvimento Web" />
                 <TextoEmblema>Desenvolvimento Web</TextoEmblema>
               </ItemEmblema>
               <ItemEmblema>
-                <ImagemEmblema src="/src/Assets/Iconesperfil/api.png" alt="Desenvolvimento de APIs" />
+                <ImagemEmblema src={medalha6} alt="Desenvolvimento de APIs" />
                 <TextoEmblema>Desenvolvimento de APIs</TextoEmblema>
               </ItemEmblema>
               <ItemEmblema>
-                <ImagemEmblema src="/src/Assets/Iconesperfil/devops.png" alt="DevOps" />
+                <ImagemEmblema src={medalha7} alt="DevOps" />
                 <TextoEmblema>DevOps</TextoEmblema>
               </ItemEmblema>
               <ItemEmblema>
-                <ImagemEmblema src="/src/Assets/Iconesperfil/database.png" alt="Banco de Dados" />
+                <ImagemEmblema src={medalha8} alt="Banco de Dados" />
                 <TextoEmblema>Banco de Dados</TextoEmblema>
               </ItemEmblema>
             </GradeEmblemas>
@@ -175,14 +193,14 @@ const Perfil = ({ changeSection }: { changeSection: (section: string) => void })
             <TituloEstatisticas>Estatísticas:</TituloEstatisticas>
             <GradeEstatisticas>
               <ItemEstatistica>
-                <IconeEstatistica src="/src/Assets/Iconesperfil/fire.png" alt="Dias de investida" />
+                <IconeEstatistica src={Estatistica1} alt="Dias de investida" />
                 <div>
                   <RotuloEstatistica>Dias de investida</RotuloEstatistica>
                   <ValorEstatistica>24</ValorEstatistica>
                 </div>
               </ItemEstatistica>
               <ItemEstatistica>
-                <IconeEstatistica src="/src/Assets/Iconesperfil/experiencia.png" alt="Nível" />
+                <IconeEstatistica src={Estatistica2} alt="Nível" />
                 <div>
                   <RotuloEstatistica>Nível</RotuloEstatistica>
                   <BarraProgresso>
@@ -191,14 +209,14 @@ const Perfil = ({ changeSection }: { changeSection: (section: string) => void })
                 </div>
               </ItemEstatistica>
               <ItemEstatistica>
-                <IconeEstatistica src="/src/Assets/Iconesperfil/quest.png" alt="Desafios concluídos" />
+                <IconeEstatistica src={Estatistica3} alt="Desafios concluídos" />
                 <div>
                   <RotuloEstatistica>Desafios concluídos</RotuloEstatistica>
                   <ValorEstatistica>24</ValorEstatistica>
                 </div>
               </ItemEstatistica>
               <ItemEstatistica>
-                <IconeEstatistica src="/src/Assets/Iconesperfil/lissão.png" alt="Lições completadas" />
+                <IconeEstatistica src={Estatistica4} alt="Lições completadas" />
                 <div>
                   <RotuloEstatistica>Lições completadas</RotuloEstatistica>
                   <ValorEstatistica>42</ValorEstatistica>

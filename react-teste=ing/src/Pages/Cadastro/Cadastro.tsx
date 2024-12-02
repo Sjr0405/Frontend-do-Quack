@@ -6,6 +6,7 @@ import ProfileImageUploader from './ProfileImageUploader.tsx';
 import { Form, GoogleButton, ImageSection, StyledTypography, Inputinho } from './CadastroStyles';
 import { useCadastro } from '../../hooks/auth/useCadastro';
 import { useNavigate } from 'react-router-dom';
+import GoogleIcon from '../../Assets/Icons/google.svg';
 
 export default function Cadastro() {
   const { handleSubmit, control, errors, onSubmit, setCroppedImageUrl } = useCadastro();
@@ -234,7 +235,7 @@ export default function Cadastro() {
                 </Typography>
 
                 <GoogleButton>
-                  <img src="/src/Icons/Google.svg" alt="Google" style={{ height: '20px', fontFamily: 'Montserrat Alternates', marginRight: '10px' }} />
+                  <img src={GoogleIcon} alt="Google" style={{ height: '20px', fontFamily: 'Montserrat Alternates', marginRight: '10px' }} />
                   Iniciar sessão com o Google
                 </GoogleButton>
               </Grid>

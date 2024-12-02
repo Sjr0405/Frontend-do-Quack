@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Box, Typography, InputLabel } from "@mui/material";
-import BackgroundImage from '../../svgs/Cadastro-svgs/1.svg';
+import BackgroundImage from '../../Assets/svgs/Cadastro-svgs/1.svg';
+
 
 export const Form = styled.form`
   width: 100%;
