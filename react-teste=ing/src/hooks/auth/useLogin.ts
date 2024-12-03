@@ -5,7 +5,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
-import axios from 'axios';
 
 // Validação com Yup para o formulário de login
 const schema = yup.object().shape({
@@ -33,14 +32,8 @@ export const useLogin = () => {
 
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
     try {
-      // Realiza o login usando a nova rota
-      const response = await axios.post('https://localhost:5030/api/users/login', {
-        email: data.email,
-        password: data.password,
-      });
-
-      // Armazena o token e email no contexto
-      await login(response.data.token, data.email);
+      // Realiza o login e armazena o token e email no contexto
+      await login(data.email, data.password);
 
       // Exibe mensagem de sucesso e redireciona para a página Home
       Swal.fire('Sucesso!', 'Login realizado com sucesso.', 'success').then(() => {

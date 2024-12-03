@@ -115,7 +115,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 //***************************************************************************
   const login = async (email: string, password: string) => {
     try {
-      const response = await axios.post('/auth/login', { email, password });
+      const response = await axios.post('/api/users/login', { email, password });
       const token = response.data?.token;
 
       if (token) {
@@ -135,7 +135,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (!token) return;
 
     try {
-      const response = await axios.get(`/users/${userId}`, {
+      const response = await axios.get(`/api/users/${userId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUser(response.data);
@@ -215,7 +215,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (!user?.id || !token) return;
 
     try {
-      const response = await axios.put(`/users/${user.id}`, updatedData, {
+      const response = await axios.put(`api/users/${user.id}`, updatedData, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
