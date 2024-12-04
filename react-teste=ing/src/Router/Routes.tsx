@@ -1,14 +1,14 @@
 import { Routes, Route } from 'react-router-dom'; 
-import Login from '../Pages/Login/Login'; 
-import EsqueciSenha from '../Pages/EsqueciSenha/EsqueciSenha'; 
-import Cadastro from '../Pages/Cadastro/Cadastro';
+import Login from '../Pages/Login/Login.tsx'; 
+import EsqueciSenha from '../Pages/EsqueciSenha/EsqueciSenha.tsx'; 
+import Cadastro from '../Pages/Cadastro/Cadastro.tsx';
 import Home from '../Pages/Home/Home.tsx';
 import Aprender from '../Components/Dashboard/Aprender/Aprender.tsx';
 import Desafio from '../Components/Dashboard/Desafio.tsx';
 import Rankings from '../Components/Dashboard/Rankings/Rankings.tsx';
 import FazerAtividade from '../Components/Dashboard/FazerAtividade.tsx';
 import Perfil from '../Components/Dashboard/TeladePefil/Perfil.tsx';
-import PrivateRoute from './PrivateRoute';
+import PrivateRoute from './PrivateRoute.tsx';
 import Quacksensei from '../Components/Dashboard/Quacksensei.tsx';
 import PerfilQuacksensei from '../Components/Dashboard/PerfilQuacksensei.tsx';
 import CodeReview from '../Components/Dashboard/CodeReview.tsx';
@@ -17,10 +17,10 @@ import { AuthProvider } from '../AuthContext.tsx';
 import GlobalStyles from '../Styles/GlobalStyles.tsx';
 import { ThemeProvider } from 'styled-components';
 import { light, dark } from '../Styles/Themes';
-import LandingPage from '../Pages/LandingPage/LandingPage';
-import Trilhas from '../Pages/Trilhas/Trilhas';
-import Errors from '../Pages/Errors'; // Importando o componente Errors
-import CentraldeAjuda from '../Pages/CentraldeAjuda.tsx'; // Importando o componente CentraldeAjuda
+import LandingPage from '../Pages/LandingPage/LandingPage.tsx';
+import Trilhas from '../Pages/Trilhas/Trilhas.tsx';
+import Errors from '../Pages/Errors.tsx'; 
+import CentraldeAjuda from '../Pages/CentraldeAjuda.tsx'; 
 
 export { MainRoutes }
 
@@ -34,6 +34,7 @@ function MainRoutes() {
           <Route path="/Cadastro" element={<Cadastro />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/EsqueciSenha" element={<EsqueciSenha />} />
+
           <Route path="/Home" element={
             <PrivateRoute>
               <Home />

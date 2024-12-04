@@ -18,9 +18,11 @@ export const NavBar = styled.nav<{ isOpen: boolean }>`
   width: 90%;
   max-width: 1200px;
   margin: 0 auto; /* Centralizando o NavBar */
-  background-color: ${({ isOpen }) => (isOpen ? '#fff' : 'transparent')};
-  transition: background-color 0.3s ease-in-out;
+  background-color: #fff; /* Adiciona cor de fundo branca */
+  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Adiciona transição para sombra */
   border-radius: 20px; /* Adiciona arredondamento das bordas */
+  border: 1px solid #d3d3d3; /* Adiciona borda cinza clara */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona sombra */
 `;
 
 export const Logo = styled.div`

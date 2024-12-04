@@ -29,16 +29,12 @@ export const useLogin = () => {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
     try {
-      // Realiza o login e armazena o token e email no contexto
       await login(data.email, data.password);
-
-      // Exibe mensagem de sucesso e redireciona para a página Home
       Swal.fire('Sucesso!', 'Login realizado com sucesso.', 'success').then(() => {
-        console.log('Redirecionando para /home'); // Adicione este log
-        navigate('/home'); // Certifique-se de que a rota '/home' está configurada
+        console.log('Redirecionando para /home');
+        navigate('/home');
       });
     } catch (error) {
       console.error('Erro ao tentar fazer login:', error);

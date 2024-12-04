@@ -9,6 +9,8 @@ interface PrivateRouteProps {
 const PrivateRoute = ({ children }: PrivateRouteProps) => {
   const { isAuthenticated } = useAuth();
 
+  console.log('Verificando autenticação:', isAuthenticated());
+
   return isAuthenticated() ? (
     <>{children}</>
   ) : (

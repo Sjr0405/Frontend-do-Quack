@@ -100,8 +100,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // Busca os dados do usuário se o token estiver presente
   useEffect(() => {
     if (token && !user) {
-      const manualId = 40;
-      fetchUserProfile(manualId);
+      fetchUserProfile();
       fecthUserTasks();
       fecthUserRoadmaps();
       fetchUserAchievements();
@@ -114,11 +113,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const login = async (email: string, password: string) => {
     try {
       const response = await axios.post('/api/users/login', { email, password });
-      const token = response.data?.token;
-
+      const token = response.data?.data?.payload?.token;
+      const userId = response.data?.data?.payload?.id;
+  
       if (token) {
         setToken(token);
         localStorage.setItem('token', token);
+        // Armazene o userId no localStorage
+        localStorage.setItem('userId', userId);
       }
     } catch (error) {
       console.error('Erro ao fazer login:', error);
@@ -128,9 +130,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   //**********************
   // Função para buscar o perfil do usuário
-  const fetchUserProfile = async (userId: number) => {
-    if (!token) return;
-
+  const fetchUserProfile = async () => {
+    const userId = localStorage.getItem('userId');
+    if (!token || !userId) return;
+  
     try {
       const response = await axios.get(`/api/users/${userId}`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -304,11 +307,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   //**********************
-  // Função para verificar se o usuário está autenticado
   const isAuthenticated = () => {
-    return !!token;
+    const storedToken = localStorage.getItem('token');
+    console.log('Token armazenado:', storedToken);
+    return !!storedToken;
   };
-
   return (
     <AuthContext.Provider value={{
       user,
