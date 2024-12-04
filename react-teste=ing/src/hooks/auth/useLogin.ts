@@ -37,6 +37,7 @@ export const useLogin = () => {
 
       // Exibe mensagem de sucesso e redireciona para a página Home
       Swal.fire('Sucesso!', 'Login realizado com sucesso.', 'success').then(() => {
+        console.log('Redirecionando para /home'); // Adicione este log
         navigate('/home'); // Certifique-se de que a rota '/home' está configurada
       });
     } catch (error) {

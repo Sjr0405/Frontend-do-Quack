@@ -13,15 +13,12 @@ import {
   ImageSection,
   Form,
   StyledButton,
-  GoogleButton,
   LoginLink,
   DuckImage,
   BackButton
 } from './LoginStyles';
 import { ArrowBack } from '@mui/icons-material';
-import GoogleIcon from '../../Assets/Icons/google.svg';
 import LogoReverse from '../../Assets/LogoReverse.svg';
-
 
 const Login = () => {
   const navigate = useNavigate();
@@ -110,13 +107,7 @@ const Login = () => {
               </LoginLink>
             </Grid>
             <Grid item xs={12}>
-              <StyledButton type="submit">Iniciar sessão</StyledButton>
-            </Grid>
-            <Grid item xs={12}>
-              <GoogleButton>
-                <img src={GoogleIcon} alt="Google" style={{height: '20px',fontFamily: 'Montserrat Alternates', marginRight: '10px' }} />
-                Iniciar sessão com o Google
-              </GoogleButton>
+              <StyledButton type="submit" onClick={() => console.log('Tentando fazer login')}>Iniciar sessão</StyledButton>
             </Grid>
           </Grid>
 
