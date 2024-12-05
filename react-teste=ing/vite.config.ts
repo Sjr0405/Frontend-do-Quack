@@ -84,5 +84,5 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api\/achievements/, '/api/achievements')
       }
     }
-  }
+  } 
 });
