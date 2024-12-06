@@ -1,6 +1,6 @@
 import { Controller } from "react-hook-form";
 import { TextField, Grid, Typography, IconButton, InputAdornment } from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Visibility, VisibilityOff, ArrowBack } from "@mui/icons-material";
 import { useNavigate } from 'react-router-dom';
 import { useLogin } from '../../hooks/auth/useLogin';
 import {
@@ -17,7 +17,6 @@ import {
   DuckImage,
   BackButton
 } from './LoginStyles';
-import { ArrowBack } from '@mui/icons-material';
 import LogoReverse from '../../Assets/LogoReverse.svg';
 
 const Login = () => {
@@ -32,10 +31,16 @@ const Login = () => {
     clearErrors,
   } = useLogin();
 
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLFormElement>) => {
+    if (event.key === 'Enter') {
+      handleSubmit(onSubmit)();
+    }
+  };
+
   return (
     <LoginContainer>
       <FormSection>
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(onSubmit)} onKeyPress={handleKeyPress}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <BackButton onClick={() => navigate('/')}> 
               <ArrowBack />

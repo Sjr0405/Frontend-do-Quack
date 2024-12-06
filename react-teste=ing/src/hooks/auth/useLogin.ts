@@ -26,9 +26,12 @@ export const useLogin = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
+// Função para alternar a visibilidade da senha
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
+// Função para lidar com o envio do formulário
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
     try {
       await login(data.email, data.password);
