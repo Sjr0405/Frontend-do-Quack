@@ -5,7 +5,7 @@ export const Section = styled(LandingSection)`
   position: relative;
   background-color: #dbd5e0;
   z-index: 2;
-  padding: 30px 0; /* Ajuste no padding vertical */
+  padding: 0 0; /* Ajuste no padding vertical */
   font-family: 'Arial', sans-serif;
 
   @media (max-width: 991px) {
@@ -25,7 +25,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 30px; /* Ajuste no padding */
+  padding: 0 30px; /* Ajuste no padding */
   z-index: 2;
 
   @media (max-width: 991px) {

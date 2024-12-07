@@ -12,7 +12,7 @@ export const Section = styled.section`
 export const Container = styled.div`
   width: 75%;
   max-width: 1200px;
-  margin: 2rem auto;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;

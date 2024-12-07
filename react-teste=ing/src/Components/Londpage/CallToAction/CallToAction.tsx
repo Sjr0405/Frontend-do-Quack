@@ -1,6 +1,5 @@
 import { Section, Container, Title, Description, Button, ImageRight, Content } from './CallToActionStyles';
-import fulbodyLogo from '../../../Assets/Fulbody-logo.svg';
-
+import fulbodyLogo from '../../../Assets/Svg_thigas/VETOR PATO.svg';
 const CallToAction = () => {
   return (
     <Section id="call-to-action">

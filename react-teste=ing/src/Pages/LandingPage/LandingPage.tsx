@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { PageContainer } from './LandingPageStyles';
+import { PageContainer, HeroContainer } from './LandingPageStyles';
 import ScrollToTop from '../../Components/Londpage/Utils/ScrollToTop';
 import Loading from '../../Components/Londpage/Utils/Loading';
 import Wave from '../../Components/Londpage/Utils/Wave';
@@ -18,7 +18,9 @@ const LandingPage: React.FC = () => {
     <PageContainer>
       <ScrollToTop />
       <Suspense fallback={<Loading />}>
-        <Hero />
+        <HeroContainer>
+          <Hero />
+        </HeroContainer>
         <Wave topColor="#dbd5e0" bottomColor="#FFf" />
         <About />
         <Wave topColor="#1D1534" bottomColor="#dbd5e0" />

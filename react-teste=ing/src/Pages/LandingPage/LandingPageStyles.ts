@@ -26,3 +26,8 @@ export const Link = styled.a`
 export const Button = styled.button`
   cursor: pointer;
 `;
+
+export const HeroContainer = styled.div`
+  position: relative;
+  z-index: 1; /* Garante que o Hero fique acima da Wave */
+`;

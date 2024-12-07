@@ -15,7 +15,7 @@ export const Title = styled.h1`
   font-size:60px ;
   text-transform: uppercase;
   color: #ffffff; /* Cor do texto alterada para branco */
-  margin: 1rem auto;
+  margin: 0 auto;
   border-bottom: 2px solid #ffffff; /* Cor da linha alterada para branco */
   width: fit-content;
 
@@ -59,6 +59,7 @@ export const BoxContainer = styled.div`
 
   @media (max-width: 48em) {
     flex-direction: column;
+    align-items: center; /* Centraliza os itens no eixo horizontal */
   }
 `;
 
@@ -69,6 +70,11 @@ export const Box = styled.div`
   @media (max-width: 64em) {
     width: 90%;
     align-self: center;
+  }
+
+  @media (max-width: 48em) {
+    width: 100%; /* Ajusta a largura para 100% na versão para celulares */
+    margin-bottom: 2rem; /* Adiciona espaço entre as perguntas */
   }
 
   .icon {

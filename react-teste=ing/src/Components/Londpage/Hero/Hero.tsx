@@ -6,7 +6,6 @@ import Navigation from '../Navigation/Navigation'; // Importando o componente Na
 import Vector123 from '../../../Assets/svgs/Landpage-svgs/123.svg';
 import Vector2 from '../../../Assets/svgs/Landpage-svgs/5.svg';
 
-
 const Hero = () => {
   return (
     <Section id="Hero">
