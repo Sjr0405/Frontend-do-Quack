@@ -4,8 +4,7 @@ export const PageContainer = styled.div`
   width: 100%;
   margin: 0 auto; /* Centraliza o contêiner horizontalmente */
   overflow-x: hidden; /* Evita a barra de rolagem horizontal */
-  padding: 0; /* Adiciona padding 0 */
-`;
+ `;
 
 export const Section = styled.section`
   width: 100%;
