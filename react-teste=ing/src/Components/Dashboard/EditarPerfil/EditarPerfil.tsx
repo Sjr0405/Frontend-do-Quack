@@ -51,7 +51,6 @@ const EditarPerfil = () => {
   const [imagemPerfil, setImagemPerfil] = useState(user?.imagePath || '');
 
   useEffect(() => {
-    // Atualiza os estados com as informações do usuário quando o componente é montado ou o usuário é alterado
     if (user) {
       setNome(user.name);
       setEmail(user.email);
@@ -65,7 +64,6 @@ const EditarPerfil = () => {
   }, [user]);
 
   useEffect(() => {
-    // Verifica se alguma informação foi modificada para habilitar/desabilitar o botão de salvar
     setModificado(
       nome !== user?.name ||
       email !== user?.email ||
@@ -80,7 +78,6 @@ const EditarPerfil = () => {
   }, [nome, email, nomeUsuario, telefone, novaSenha, cpf, dataNascimento, status, imagemPerfil, user]);
 
   const handleSalvarAlteracoes = async () => {
-    // Confirmação de alteração do perfil do usuário
     const result = await Swal.fire({
       title: 'Você tem certeza?',
       text: 'Deseja realmente alterar o perfil do usuário?',
@@ -92,7 +89,6 @@ const EditarPerfil = () => {
 
     if (result.isConfirmed) {
       try {
-        // Atualiza o perfil do usuário com as novas informações
         const dadosAtualizados = {
           ...user,
           name: nome,
@@ -108,19 +104,15 @@ const EditarPerfil = () => {
 
         await updateUserProfile(dadosAtualizados);
 
-        // Armazena as novas informações no localStorage
         localStorage.setItem('user', JSON.stringify({ ...user, ...dadosAtualizados }));
 
-        // Reseta os campos de senha
         setSenhaAtual('');
         setNovaSenha('');
 
-        // Exibe mensagem de sucesso e navega para a página inicial
         Swal.fire('Sucesso', 'Perfil atualizado com sucesso!', 'success').then(() => {
           navigate('/Home', { state: { section: 'Perfil' } });
         });
       } catch (error) {
-        // Exibe mensagem de erro em caso de falha
         Swal.fire('Erro', 'Não foi possível atualizar o perfil.', 'error');
         console.error('Erro ao atualizar o perfil:', error);
       }
@@ -128,22 +120,18 @@ const EditarPerfil = () => {
   };
 
   const handleAbrirDialogo = () => {
-    // Abre o diálogo para editar a imagem do perfil
     setDialogoAberto(true);
   };
 
   const handleFecharDialogo = () => {
-    // Fecha o diálogo para editar a imagem do perfil
     setDialogoAberto(false);
   };
 
   const handleRemoverImagem = () => {
-    // Remove a imagem do perfil
     setDialogoAberto(false);
   };
 
   const handleEscolherImagem = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // Lê a nova imagem escolhida e atualiza o estado
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
@@ -157,7 +145,6 @@ const EditarPerfil = () => {
   };
 
   const handleSalvarImagem = async () => {
-    // Salva a nova imagem do perfil
     try {
       const dadosAtualizados = {
         ...user,
@@ -166,12 +153,10 @@ const EditarPerfil = () => {
 
       await updateUserProfile(dadosAtualizados);
 
-      // Armazena a nova imagem no localStorage
       localStorage.setItem('user', JSON.stringify({ ...user, ...dadosAtualizados }));
 
       Swal.fire('Sucesso', 'Imagem do perfil atualizada com sucesso!', 'success');
     } catch (error) {
-      // Exibe mensagem de erro em caso de falha
       Swal.fire('Erro', 'Não foi possível atualizar a imagem do perfil.', 'error');
       console.error('Erro ao atualizar a imagem do perfil:', error);
     }
@@ -252,6 +237,21 @@ const EditarPerfil = () => {
               )
             }}
           />
+       <TextField
+  label="Nome"
+  value={nome}
+  onChange={(e) => setNome(e.target.value)}
+  placeholder="Nome"
+  fullWidth
+  margin="normal"
+  InputProps={{
+    endAdornment: (
+      <IconButton onClick={() => setNome('')} style={{ color: colors.primary }}>
+        <ClearIcon />
+      </IconButton>
+    )
+  }}
+/>
           <TextField
             label="Número de Telefone"
             type="tel"
@@ -367,9 +367,9 @@ const EditarPerfil = () => {
             >
               Escolher Imagem
               <input
-                type="file"
-                hidden
-                onChange={handleEscolherImagem}
+              type="file"
+              hidden
+              onChange={handleEscolherImagem}
               />
             </Button>
             <Button
@@ -388,6 +388,7 @@ const EditarPerfil = () => {
           >
             Salvar Imagem
           </Button>
+         
         </DialogContent>
       </DialogContainer>
     </StyledContainer>

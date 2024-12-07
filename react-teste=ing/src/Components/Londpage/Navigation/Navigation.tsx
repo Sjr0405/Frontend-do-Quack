@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Section, NavBar, Logo, Menu, NavItem, Button, Hamburger, MenuIcon } from './NavigationStyles';
-import LogoImage from '../../../Assets/Svg_thigas/PatoCortado.svg';
+import LogoImage from '../../../Assets/Logo.svg';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
