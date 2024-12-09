@@ -21,7 +21,7 @@ const PageContainer = styled.div`
   justify-content: center; /* Centralizar todos os elementos */
   height: 100%;
   width: 100%;
-  background-color: #ffbb56;
+  background-color: #f8f8f8;
   overflow-x: hidden; /* Adicione esta linha */
   overflow-y: auto; /* Adicione esta linha */
   
