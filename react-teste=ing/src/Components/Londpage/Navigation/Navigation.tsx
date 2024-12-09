@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Section, NavBar, Logo, Menu, NavItem, Button, Hamburger, MenuIcon } from './NavigationStyles';
-import LogoImage from '../../../Assets/Logo.svg';
-
+import { Section, NavBar, Logo, Menu, NavItem, Button, Hamburger, MenuIcon, OrangeButton } from './NavigationStyles';
+import LogoImage from '../../../Assets/Svg_thigas/Pato_de_perfil.svg';
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -29,25 +28,24 @@ const Navigation = () => {
           <MenuIcon />
         </Hamburger>
         <Menu isOpen={isOpen}>
-          <NavItem onClick={() => scrollToSection('landpage')}>
-            O que é Quack()
+          <NavItem onClick={() => scrollToSection('about')}>
+            Funcionalidades
           </NavItem>
           <NavItem onClick={() => scrollToSection('showcase')}>
             Trilhas
           </NavItem>
-          <NavItem onClick={() => scrollToSection('about')}>
-            Sobre
-          </NavItem>
           <NavItem onClick={() => scrollToSection('faq')}>
-            Contato
+            Perguntas
           </NavItem>
-          <NavItem>
-            <Link to="/Cadastro">
-              Criar Conta
-            </Link>
+          <NavItem onClick={() => scrollToSection('team')}>
+            Equipe
           </NavItem>
+          
           <Link to="/Login">
             <Button>Entrar</Button>
+          </Link>
+          <Link to="/Cadastro">
+            <OrangeButton>Criar Conta</OrangeButton>
           </Link>
         </Menu>
       </NavBar>

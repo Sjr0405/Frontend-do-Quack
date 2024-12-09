@@ -39,15 +39,14 @@ const WaveSVG = styled.svg`
     height: 200px; /* Telas médias */
   }
   @media (min-width: 1024px) {
-    height: 250px; /* Telas grandes */
+    height: 200px; /* Telas grandes */
   }
   @media (min-width: 1200px) {
-    height: 300px; /* Telas extra grandes */
+    height: 200px; /* Telas extra grandes */
   }
   @media (min-width: 1600px) {
-    height: 400px; /* Telas Full HD */
+    height: 200px; /* Telas Full HD */
   }
-
   path {
     animation: ${waveAnimation} 10s infinite linear;
   }

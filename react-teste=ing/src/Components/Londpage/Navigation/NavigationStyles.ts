@@ -10,9 +10,11 @@ export const Section = styled.section`
 export const NavBar = styled.nav<{ isOpen: boolean }>`
   display: flex;
   justify-content: space-between;
+    
   align-items: center;
-  height: 80px;
-  padding: 0 20px;
+  
+  height: 70px; /* Ajusta a altura */
+  padding: 0 15px; /* Ajusta o padding */
   position: relative;
   z-index: 2;
   width: 90%;
@@ -20,9 +22,9 @@ export const NavBar = styled.nav<{ isOpen: boolean }>`
   margin: 0 auto; /* Centralizando o NavBar */
   background-color: #fff; /* Adiciona cor de fundo branca */
   transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Adiciona transição para sombra */
-  border-radius: 20px; /* Adiciona arredondamento das bordas */
+  border-radius: 15px; /* Ajusta o arredondamento das bordas */
   border: 1px solid #d3d3d3; /* Adiciona borda cinza clara */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona sombra */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ajusta a sombra */
 `;
 
 export const Logo = styled.div`
@@ -30,12 +32,12 @@ export const Logo = styled.div`
   align-items: center;
 
   img {
-    height: 60px;
-    margin-right: 15px;
+    height: 40px; /* Ajusta a altura da imagem */
+    margin-right: 10px; /* Ajusta o espaçamento */
   }
 
   span {
-    font-size: 32px; /* Aumenta o tamanho da fonte */
+    font-size: 24px; /* Ajusta o tamanho da fonte */
     font-weight: bold;
     color: #FF914D;
     transition: color 0.3s;
@@ -55,28 +57,29 @@ export const Menu = styled.ul<{ isOpen: boolean }>`
   padding: 0;
   justify-content: space-between;
   align-items: center;
-  font-family: 'Montserrat Alternates', sans-serif; /* Muda a fonte para Montserrat Alternates */
+  font-family: 'Poppins', sans-serif; /* Muda a fonte para Poppins */
   font-weight: bold; /* Deixa a fonte em negrito */
-  border-radius: 20px;
+  border-radius: 15px;
+  
   
 
   @media (max-width: 1920px) {
-    font-size: 20px;
-  }
-
-  @media (max-width: 1200px) {
     font-size: 18px;
   }
 
-  @media (max-width: 991px) {
+  @media (max-width: 1200px) {
     font-size: 16px;
+  }
+
+  @media (max-width: 991px) {
+    font-size: 14px;
   }
 
   @media (max-width: 768px) {
     flex-direction: column;
     background-color: ${({ isOpen }) => (isOpen ? 'rgba(255, 255, 255, 0.9)' : 'transparent')};
     position: absolute;
-    top: 80px;
+    top: 70px;
     left: 0;
     width: 100%;
     height: ${({ isOpen }) => (isOpen ? 'auto' : '0')};
@@ -85,14 +88,18 @@ export const Menu = styled.ul<{ isOpen: boolean }>`
   }
 
   @media (max-width: 576px) {
-    font-size: 14px;
+    font-size: 12px;
+  }
+
+  li:last-child {
+    margin-right: 20px; /* Adiciona espaçamento ao último item */
   }
 `;
 
 export const NavItem = styled.li`
   color: #000;
-  margin: 0 1.5rem;
-  font-size: 18px; /* Aumenta o tamanho da fonte */
+  margin: 0 1.5rem; /* Ajusta o espaçamento */
+  font-size: 14px; /* Diminui o tamanho da fonte */
   cursor: pointer;
   transition: color 0.3s;
   text-transform: uppercase;
@@ -100,6 +107,7 @@ export const NavItem = styled.li`
 
   &:hover {
     color: #FF914D; /* Muda a cor ao passar o mouse */
+    text-decoration: underline; /* Adiciona sublinhado ao passar o mouse */
   }
 
   @media (max-width: 1920px) {
@@ -111,7 +119,61 @@ export const NavItem = styled.li`
   }
 
   @media (max-width: 991px) {
-    margin: 0 0.5rem;
+    margin: 0 0.75rem;
+  }
+
+  @media (max-width: 768px) {
+    margin: 0.75rem 0;
+  }
+
+  @media (max-width: 576px) {
+    font-size: 12px;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif; /* Muda a fonte para Poppins */
+    font-weight: bold;
+    transition: color 0.3s; /* Adiciona transição ao link */
+
+    &:hover {
+      color: #FF914D; /* Muda a cor ao passar o mouse */
+      text-decoration: underline; /* Adiciona sublinhado ao passar o mouse */
+    }
+  }
+`;
+
+export const Button = styled.button`
+  color: #fff;
+  background-color: #8A2BE2; /* Ajusta a cor de fundo para roxo mais suave */
+  font-size: 14px; /* Ajusta o tamanho da fonte */
+  border-radius: 15px; /* Ajusta o arredondamento das bordas */
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif; /* Muda a fonte para Poppins */
+  transition: background-color 0.3s;
+  margin-right: 20px; /* Ajusta o espaçamento */
+  margin-left: 100px; /* Ajusta o espaçamento */
+
+  &:hover {
+    background-color: #D3D3D3;
+  }
+
+  @media (max-width: 1920px) {
+    font-size: 16px;
+    padding: 14px 40px;
+  }
+
+  @media (max-width: 1200px) {
+    font-size: 14px;
+    padding: 12px 35px;
+  }
+
+  @media (max-width: 991px) {
+    font-size: 12px;
+    padding: 10px 30px;
   }
 
   @media (max-width: 768px) {
@@ -119,42 +181,31 @@ export const NavItem = styled.li`
   }
 
   @media (max-width: 576px) {
-    font-size: 16px;
-  }
-
-  a {
-    color: inherit;
-    text-decoration: none;
-    font-family: 'Montserrat Alternates', sans-serif;
-    font-weight: bold;
-    transition: color 0.3s; /* Adiciona transição ao link */
-
-    &:hover {
-      color: #FF914D; /* Muda a cor ao passar o mouse */
-    }
+    font-size: 10px;
+    padding: 8px 25px;
   }
 `;
 
-export const Button = styled.button`
+export const OrangeButton = styled.button`
   color: #fff;
-  background-color: #6a0dad; /* Muda a cor de fundo para roxo */
-  font-size: 16px; /* Aumenta o tamanho da fonte */
-  padding: 14px 40px; /* Ajusta o padding */
-  border-radius: 20px;
+  background-color: #FF8C42; /* Ajusta a cor de fundo para laranja mais vibrante */
+  font-size: 14px;
+  padding: 12px 35px;
+  border-radius: 15px; /* Ajusta o arredondamento das bordas */
   border: none;
   cursor: pointer;
   font-weight: bold;
-  font-family: 'Montserrat Alternates', sans-serif; /* Muda a fonte para Montserrat Alternates */
+  font-family: 'Poppins', sans-serif;
   transition: background-color 0.3s;
-  margin-right: 20px;
+  margin-left: 20px; /* Ajusta o espaçamento */
 
   &:hover {
     background-color: #D3D3D3;
   }
 
   @media (max-width: 1920px) {
-    font-size: 18px;
-    padding: 16px 45px;
+    font-size: 16px;
+    padding: 14px 40px;
   }
 
   @media (max-width: 1200px) {

@@ -39,7 +39,9 @@ const Reveal = styled.div<RevealProps>`
   line-height: 1.1rem;
   max-height: ${(props) => (props.clicked ? "none" : "0")}; /* Adiciona espaço para a resposta */
   overflow: hidden;
-  transition: max-height 0.3s ease;
+  transition: max-height 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+  opacity: ${(props) => (props.clicked ? 1 : 0)};
+  transform: ${(props) => (props.clicked ? 'translateY(0)' : 'translateY(-10px)')};
 `;
 
 const Name = styled.div`

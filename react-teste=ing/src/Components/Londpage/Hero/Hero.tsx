@@ -35,6 +35,9 @@ const Hero = () => {
           <CadButton onClick={() => (window.location.href = "/Cadastro")}>
             Criar uma conta gratuitamente
           </CadButton>
+          <p style={{ textAlign: 'center', marginTop: '20px', fontSize: '18px', color: '#4A4A4A' }}>
+            Comece agora! É gratuito e fácil.
+          </p> {/* Slogan curto com estilo atualizado */}
         </Column>
         <Column2>
           <Img

@@ -4,8 +4,8 @@ export const Section = styled.section`
   width: 100%;
   position: relative;
   overflow: hidden;
-  padding: 40px 0;
-  z-index: 2;
+  padding: 40px 0 0 0;
+  z-index: 2; /* Certifique-se de que este valor seja maior que o do WaveContainer */
   background-color: #f9f9f9;
 `;
 
@@ -22,6 +22,17 @@ export const BackgroundLayerRight = styled.img`
   width: 100%;
   max-width: 700px; /* Ajuste o tamanho máximo conforme necessário */
   height: auto;
+  margin-top: -50px;
+
+  @media (max-width: 768px) {
+    
+    display: none;
+
+  }
+  
+  @media (max-width: 576px) {
+    max-width: 500px;
+  }
 `;
 
 export const BackgroundLayerLeft = styled.img`
@@ -29,6 +40,9 @@ export const BackgroundLayerLeft = styled.img`
   width: 100%;
   max-width: 250px; /* Ajuste o tamanho máximo conforme necessário */
   height: auto;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const Container = styled.div`
@@ -77,11 +91,12 @@ export const Column2 = styled.div`
 
 export const Titulo = styled.h1`
   color: #333;
-  font-size: 36px;
+  font-size: 48px; /* Aumentado para destacar */
   font-weight: 500;
   font-family: 'lilita one', sans-serif;
   text-align: left;
-  margin-bottom: 20px;
+  margin-bottom: 30px; /* Aumentado para mais espaçamento */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Adicionada sombra leve */
   @media (max-width: 991px) {
     font-size: 42px;
     text-align: center;
@@ -96,47 +111,49 @@ export const Titulo = styled.h1`
 
 export const Subtitulo = styled.h3`
   color: #555;
-  font-size: 24px;
+  font-size: 20px; /* Reduzido para criar contraste */
   font-weight: 500;
   font-family: 'montserrat', sans-serif;
   text-align: left;
-  margin-bottom: 20px;
+  margin-bottom: 30px; /* Aumentado para mais espaçamento */
   @media (max-width: 991px) {
-    font-size: 20px;
+    font-size: 18px;
     text-align: center;
   }
   @media (max-width: 768px) {
-    font-size: 18px;
+    font-size: 16px;
   }
   @media (max-width: 576px) {
-    font-size: 16px;
+    font-size: 14px;
   }
 `;
 
 export const CadButton = styled.button`
   color: #fff;
-  background-color: #337447;
-  font-size: 20px;
-  padding: 16px 45px;
+  background-color: #FF914D; /* Alterado para tom vibrante de laranja */
+  font-size: 22px; /* Aumentado para destacar */
+  padding: 18px 50px; /* Aumentado para destacar */
   border-radius: 8px;
   border: none;
   font-family: 'Montserrat Alternates', sans-serif;
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
   align-self: center;
-  margin-top: 20px;
+  margin-top: 30px; /* Aumentado para mais espaçamento */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Adicionada sombra sutil */
   @media (max-width: 991px) {
     align-self: center;
   }
   @media (max-width: 768px) {
+    font-size: 20px;
+    padding: 16px 45px;
+  }
+  @media (max-width: 576px) {
     font-size: 18px;
     padding: 14px 40px;
   }
-  @media (max-width: 576px) {
-    font-size: 16px;
-    padding: 12px 35px;
-  }
   &:hover {
-    background-color: #255233;
+    background-color: #FF7A30; /* Escurecido no hover */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15); /* Aumentada a sombra no hover */
   }
 `;
 
@@ -144,6 +161,7 @@ export const Img = styled.img`
   aspect-ratio: 0.84;
   object-fit: contain;
   width: 100%;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Adicionada sombra leve */
   @media (max-width: 991px) {
     max-width: 80%;
     margin-top: 20px;

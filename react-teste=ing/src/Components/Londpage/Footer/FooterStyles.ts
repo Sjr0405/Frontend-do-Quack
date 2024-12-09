@@ -86,16 +86,6 @@ export const SocialIcons = styled.div`
     &:hover {
       transform: scale(1.1);
     }
-
-    img {
-      width: 30px;
-      height: 30px;
-
-      @media (max-width: 768px) {
-        width: 25px;
-        height: 25px;
-      }
-    }
   }
 `;
 

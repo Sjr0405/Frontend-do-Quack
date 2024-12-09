@@ -1,12 +1,20 @@
 import { Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { Section, Container, Left, Logo, SocialIcons, NavMenu, Bottom } from './FooterStyles';
-import LogoImg from '../../../Assets/Logo.svg';
-import TwitterIcon from '../../../Assets/Icons/twitter.svg';
-import FacebookIcon from '../../../Assets/Icons/facebook.svg';
-import LinkedinIcon from '../../../Assets/Icons/linkedin.svg';
+import LogoImg from  '../../../Assets/Svg_thigas/Pato_de_perfil.svg';
+import YouTubeIcon from '@mui/icons-material/Twitter';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import LinkedinIcon from '@mui/icons-material/LinkedIn';
+import InstagramIcon from '@mui/icons-material/Instagram';
 
 const Footer = () => {
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <Section>
       <Suspense fallback={null}>
@@ -21,21 +29,25 @@ const Footer = () => {
           </Logo>
           <SocialIcons>
             <Link to="https://github.com/Sjr0405/Login-do-Quack" target="_blank">
-              <img src={TwitterIcon} alt="Twitter" />
+              <YouTubeIcon />
             </Link>
             <Link to="https://facebook.com" target="_blank">
-              <img src={FacebookIcon} alt="Facebook" />
+              <FacebookIcon />
             </Link>
             <Link to="https://linkedin.com" target="_blank">
-              <img src={LinkedinIcon} alt="Linkedin" />
+              <LinkedinIcon />
             </Link>
+            <Link to="https://instagram.com" target="_blank">
+              <InstagramIcon />
+            </Link>
+          
           </SocialIcons>
         </Left>
         <NavMenu>
-          <Link to={"#"}>Início</Link>
-          <Link to={"#"}>Produto</Link>
-          <Link to={"#"}>Sobre</Link>
-          <Link to={"#"}>Contato</Link>
+          <Link to={"#"} onClick={() => scrollToSection('about')}>Funcionalidades</Link>
+          <Link to={"#"} onClick={() => scrollToSection('showcase')}>Trilhas</Link>
+          <Link to={"#"} onClick={() => scrollToSection('faq')}>Perguntas</Link>
+          <Link to={"#"} onClick={() => scrollToSection('team')}>Equipe</Link>
         </NavMenu>
       </Container>
       <Bottom>

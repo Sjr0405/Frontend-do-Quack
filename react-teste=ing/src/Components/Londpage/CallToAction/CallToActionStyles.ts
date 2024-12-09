@@ -32,6 +32,7 @@ export const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   z-index: 2;
+  padding: 20px; /* Ajuste de espaçamento */
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -45,6 +46,7 @@ export const Content = styled.div`
   align-items: flex-start;
   text-align: left;
   z-index: 2;
+  padding: 20px; /* Ajuste de espaçamento */
 
   @media (max-width: 768px) {
     align-items: center;
@@ -57,7 +59,7 @@ export const Title = styled.h1`
   font-size: 48px;
   line-height: 1.2;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 30px; /* Ajuste de espaçamento */
   z-index: 2;
   @media (max-width: 991px) {
     font-size: 36px;
@@ -71,7 +73,7 @@ export const Title = styled.h1`
 export const Description = styled.p`
   font-size: 18px;
   color: #000;
-  margin-bottom: 20px;
+  margin-bottom: 30px; /* Ajuste de espaçamento */
   z-index: 2;
   @media (max-width: 991px) {
     font-size: 16px;
@@ -91,8 +93,10 @@ export const ImageRight = styled.div`
 
   img {
     width: 100%;
-    max-width: 400px; /* Ajuste conforme necessário */
+    max-width: 300px; /* Ajuste conforme necessário */
     height: auto;
+    margin-right: 100px; /* Ajuste conforme necessário */
+    filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25)); /* Sombra nos pés do pato */
   }
 
   @media (max-width: 991px) {
@@ -102,18 +106,18 @@ export const ImageRight = styled.div`
 
 export const Button = styled.button`
   color: #fff;
-  background-color: #6c5ce7;
+  background-color: #8e44ad; /* Cor do botão ajustada */
   font-size: 18px;
   border-radius: 8px;
   border: none;
   padding: 12px 35px;
   margin-top: 20px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Transições suaves */
   z-index: 2;
 
   &:hover {
-    background-color: #4834d4;
-    color: white;
+    background-color: #5e3370; /* Cor do hover ajustada */
+    transform: translateY(-2px); /* Animação de hover */
   }
 
   @media (max-width: 768px) {

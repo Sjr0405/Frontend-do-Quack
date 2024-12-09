@@ -18,10 +18,9 @@ const LandingPage: React.FC = () => {
     <PageContainer>
       <ScrollToTop />
       <Suspense fallback={<Loading />}>
-        <HeroContainer>
-          <Hero />
-        </HeroContainer>
-        <Wave topColor="#dbd5e0" bottomColor="#FFf" />
+ 
+        <Hero />
+        <Wave topColor="#dbd5e0" bottomColor="#f9f9f9" />
         <About />
         <Wave topColor="#1D1534" bottomColor="#dbd5e0" />
         <Showcase />
