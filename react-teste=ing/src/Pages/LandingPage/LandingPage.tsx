@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { PageContainer, HeroContainer } from './LandingPageStyles';
+import { PageContainer} from './LandingPageStyles';
 import ScrollToTop from '../../Components/Londpage/Utils/ScrollToTop';
 import Loading from '../../Components/Londpage/Utils/Loading';
 import Wave from '../../Components/Londpage/Utils/Wave';
