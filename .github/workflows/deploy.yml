@@ -19,7 +19,7 @@ jobs:
           node-version: '18'
 
       - name: Instalar dependências
-        run: npm ci
+        run: npm ci --legacy-peer-deps
         working-directory: react-teste=ing
 
       - name: Construir o projeto
