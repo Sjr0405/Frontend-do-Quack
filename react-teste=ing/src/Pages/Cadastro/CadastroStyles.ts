@@ -14,6 +14,24 @@ export const PageContainer = styled.div`
   
 `;
 
+export const Coluna1 = styled.div`
+  grid-column: 1;
+  display: flex;
+  justify-content: center; /* Centralizar o conteúdo */
+`;
+
+export const Coluna2 = styled.div`
+  grid-column: 2;
+  display: flex;
+  justify-content: center;
+`;
+
+export const Coluna3 = styled.div`
+  grid-column: 3;
+  display: flex;
+  justify-content: center; /* Centralizar o conteúdo */
+`;
+
 export const Header = styled.div`
 
   position: relative; /* Permite alinhamento interno */
