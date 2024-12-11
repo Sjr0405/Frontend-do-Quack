@@ -16,7 +16,7 @@ const MemberComponent: React.FC<MemberProps> = ({ img, name, position }) => {
   return (
     <Item>
       <ImageContainer>
-        <img width={500} height={400} src={img} alt={name} />
+        <img style={{ borderRadius: '50%' }} width={500} height={500} src={img} alt={name} />
       </ImageContainer>
       <Name>{name}</Name>
       <Position>{position}</Position>
@@ -32,8 +32,8 @@ const Team = () => {
         <MembersContainer>
           <MemberComponent img={team1} name="Adriel Nunes" position="Backend" />
           <MemberComponent img={team2} name="Elisson Nadson" position="Frontend" />
-          <MemberComponent img={team3} name="José Henrique" position="Backend" />
-          <MemberComponent img={team4} name="Samuel Jr." position="Frontend" />
+          <MemberComponent img={team3}  name="José Henrique" position="Backend" />
+          <MemberComponent img={team4} name="Samuel Junior" position="Frontend" />
           <MemberComponent img={team5} name="Thiago de Andrade" position="Backend" />
         </MembersContainer>
       </Container>

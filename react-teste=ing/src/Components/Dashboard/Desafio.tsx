@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import lasgana from '../../Assets/svgs/Atividade-svgs/1.svg';
 
 const Container = styled.div`
   display: flex;
@@ -167,7 +168,7 @@ const Desafio = ({ changeSection }: { changeSection: (section: string) => void }
         </Header>
         <ContentContainer>
           <ContentHeader>
-            <ContentImage src="../../Assets/svgs/Atividade-svgs/1.svg" alt="Lasagna" />
+            <ContentImage src={lasgana} alt="Lasagna" />
             <ContentTitle>Faça sua Lasagna</ContentTitle>
           </ContentHeader>
           <Paragraph>
