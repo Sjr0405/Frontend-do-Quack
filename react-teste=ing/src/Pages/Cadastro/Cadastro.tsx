@@ -42,24 +42,42 @@ const Header = styled.div`
   justify-content: center; /* Centralizar o texto */
 `;
 
+const Coluna1 = styled.div`
+  grid-column: 1;
+  display: flex;
+  justify-content: center; /* Centralizar o conteúdo */
+`;
+
+const Coluna2 = styled.div`
+  grid-column: 2;
+  display: flex;
+  justify-content: center;
+`;
+
+const Coluna3 = styled.div`
+  grid-column: 3;
+  display: flex;
+  justify-content: center; /* Centralizar o conteúdo */
+`;
+
 const BackButton = styled(IconButton)`
-  
-  justify-self: start; /* Alinhar à esquerda */
   color: #800080;
   &:hover {
     background: rgba(128, 0, 128, 0.1);
-    
   }
+  border-radius: 50%; /* Ajuste para deixar o botão circular */
+  padding: 10px; /* Ajuste para aumentar a área de clique */
 `;
 
 const EnterButton = styled(Button)`
-  justify-self: end; /* Alinhar à direita */
   color: #800080;
-  
   border-color: #800080;
+  
   &:hover {
     border-color: #660066;
   }
+  border-radius: 20px; /* Ajuste para deixar o botão mais arredondado */
+  padding: 10px 20px; /* Ajuste para aumentar a área de clique */
 `;
 
 const Title = styled.h1`
@@ -268,16 +286,22 @@ const Cadastro = () => {
   return (
     <PageContainer>
       <Header>
-        <BackButton onClick={() => navigate("/login")}>
-          <ArrowBackIcon />
-        </BackButton>
-        <Title>Cadastro</Title>
-        <EnterButton 
-          variant="outlined" 
-          onClick={() => navigate("/login")}
-        >
-          Entrar
-        </EnterButton>
+        <Coluna1>
+          <BackButton onClick={() => navigate("/login")}>
+            <ArrowBackIcon />
+          </BackButton>
+        </Coluna1>
+        <Coluna2>
+          <Title>Cadastro</Title>
+        </Coluna2>
+        <Coluna3>
+          <EnterButton 
+            variant="outlined" 
+            onClick={() => navigate("/login")}
+          >
+            Entrar
+          </EnterButton>
+        </Coluna3>
       </Header>
       <FormContainer>
         <Description>
