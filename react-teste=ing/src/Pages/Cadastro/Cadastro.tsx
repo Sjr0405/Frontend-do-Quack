@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 import { TextField, Button, LinearProgress, Typography, Modal, Box, IconButton, InputAdornment } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -12,129 +11,21 @@ import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 import BadgeIcon from '@mui/icons-material/Badge';
+import {
+  PageContainer,
+  Header,
+  BackButton,
+  EnterButton,
+  Title,
+  FormContainer,
+  Form,
+  Actions,
+  PasswordRequirements,
+  StyledHint,
+  modalStyle,
+  Description
+  } from "./CadastroStyles.ts";
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center; /* Centralizar todos os elementos */
-  height: 100%;
-  width: 100%;
-  background-color: #f8f8f8;
-  overflow-x: hidden; /* Adicione esta linha */
-  overflow-y: auto; /* Adicione esta linha */
-  
-`;
-
-const Header = styled.div`
-
-  position: relative; /* Permite alinhamento interno */
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 20px; /* Ajustar o padding para manter espaçamento igual */
-  background-color: #ffffff;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  display: grid;
-  grid-template-columns: 1fr auto 1fr; /* Dividir em 3 colunas */
-  align-items: center;
-  justify-content: center; /* Centralizar o texto */
-`;
-
-const BackButton = styled(IconButton)`
-  
-  justify-self: start; /* Alinhar à esquerda */
-  color: #800080;
-  &:hover {
-    background: rgba(128, 0, 128, 0.1);
-    
-  }
-`;
-
-const EnterButton = styled(Button)`
-  justify-self: end; /* Alinhar à direita */
-  color: #800080;
-  
-  border-color: #800080;
-  &:hover {
-    border-color: #660066;
-  }
-`;
-
-const Title = styled.h1`
-  font-size: 1.8rem;
-  color: #333;
-  text-align: center;
-  
-  margin: 0; /* Remover margem para centralizar corretamente */
-  
-`;
-
-const FormContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-`;
-
-const Form = styled.form`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  background: #ffffff;
-  padding: 40px;
-  border-radius: 10px;
-  width: 100%;
-  max-width: 600px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-`;
-
-const Actions = styled.div`
-  grid-column: span 2;
-  display: flex;
-  justify-content: center; /* Centralizar o botão */
-  align-items: center;
-`;
-
-const PasswordRequirements = styled.div`
-  grid-column: span 2;
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* Dividir em 2 colunas */
-  gap: 10px;
-  margin-top: 10px;
-  font-size: 0.9rem;
-  color: #666;
-`;
-
-const StyledHint = styled(Typography)<{ valid: boolean }>`
-  color: ${({ valid }) => (valid ? "#4caf50" : "#f44336")};
-`;
-
-const modalStyle = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '90%',
-  maxWidth: 800,
-  bgcolor: 'background.paper',
-  border: 'none',
-  boxShadow: 24,
-  p: 4,
-  borderRadius: '20px',
-  overflowY: 'auto',
-  maxHeight: '80vh',
-};
-
-const Description = styled.p`
-  font-size: 1rem;
-  color: #666;
-  text-align: center;
-  margin-top: 20px;
-  max-width: 600px;
-`;
 
 const Cadastro = () => {
   const navigate = useNavigate();
@@ -151,7 +42,7 @@ const Cadastro = () => {
   });
 
   useEffect(() => {
-    window.scrollTo(0, 0); // Garantir que a tela seja sempre mostrada do topo para baixo
+    window.scrollTo(0, 0);
   }, []);
 
   const [passwordStrength, setPasswordStrength] = useState(0);
@@ -253,7 +144,7 @@ const Cadastro = () => {
       if (result.isConfirmed) {
         onSubmit({
           ...formData,
-          bornAt: formData.bornDate, // Corrigir o nome do campo
+          bornAt: formData.bornDate,
         });
       }
     });
@@ -464,7 +355,7 @@ const Cadastro = () => {
               sx={{ 
                 backgroundColor: "#800080", 
                 "&:hover": { backgroundColor: "#660066" },
-                borderRadius: "20px" /* Deixar o botão mais arredondado */
+                borderRadius: "20px"
               }}
             >
               Criar Conta
