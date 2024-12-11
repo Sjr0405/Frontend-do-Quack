@@ -17,6 +17,7 @@ import {
   DuckImage,
   BackButton
 } from './LoginStyles';
+import BackgroundImage from '../../Assets/svgs/Login-svgs/teste1.svg';
 import LogoReverse from '../../Assets/LogoReverse.svg';
 
 const Login = () => {
@@ -51,7 +52,6 @@ const Login = () => {
           </div>
           <Typography variant="h6" style={{textAlign: 'left', fontFamily: 'Montserrat Alternates', fontSize: '24px',marginBottom: '10px', fontWeight: 'bold' }}>
             Bem Vindo Dev! <br />
-            Jefte o mestre supremo
           </Typography>
           <Typography variant="body2" style={{textAlign: 'left', fontFamily: 'Montserrat Alternates',  marginBottom: '30px', color: '#777' }}>
             Bem vindo de volta dev! Por favor, informe seu Usuário e Senha para entrar na plataforma
@@ -122,7 +122,7 @@ const Login = () => {
         </Form>
       </FormSection>
 
-      <ImageSection>
+      <ImageSection style={{ backgroundImage: `url(${BackgroundImage})` }}>
         <StyledTypography variant="body1" style={{  }}>
           <h3>Seja Bem Vindo a Quack()</h3>
           <p>

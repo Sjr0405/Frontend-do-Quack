@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { Box, Typography } from "@mui/material";
-import BackgroundImage from '../../Assets/svgs/Login-svgs/teste1.svg';
 
 export const A = styled.a`
   color: white;
@@ -95,7 +94,6 @@ export const FormSection = styled(Box)`
 `;
 
 export const ImageSection = styled(Box)`
-  background-image: url(${BackgroundImage});
   background-repeat: no-repeat;
   background-size: cover; /* Ajusta a imagem para cobrir toda a área */
   background-position: left; /* Estica a imagem para a esquerda */

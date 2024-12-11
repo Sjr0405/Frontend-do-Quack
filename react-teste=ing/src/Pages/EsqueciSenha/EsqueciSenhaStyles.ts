@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { Box, Typography } from "@mui/material";
-import BackgroundImage from '../../Assets/svgs/Cadastro-svgs/1.svg';
 
 export const Container = styled.div`
   display: flex;
@@ -8,6 +7,14 @@ export const Container = styled.div`
   align-items: center;
   height: 100vh;
   background-color: #f9f9f9;
+  
+  
+  
+
+  @media (max-width: 1024px) {
+    height: 100vh;
+  }
+
   @media (max-width: 768px) {
     flex-direction: column;
     height: auto;
@@ -17,11 +24,15 @@ export const Container = styled.div`
 
 export const FormSection = styled(Box)`
   width: 50%;
-  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 1024px) {
+    width: 40%;
+  }
+
   @media (max-width: 768px) {
     width: 100%;
     padding: 10px;
@@ -29,7 +40,6 @@ export const FormSection = styled(Box)`
 `;
 
 export const ImageSection = styled(Box)`
-  background-image: url(${BackgroundImage});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: left;
@@ -41,10 +51,28 @@ export const ImageSection = styled(Box)`
   flex-direction: column;
   color: white;
   font-family: "Lilita One", sans-serif;
-  @media (max-width: 768px) {
-    width: 100%;
+
+  .persona {
+    width: 80%;
     height: auto;
-    background-position: top;
+    align-self: center;
+  }
+
+  @media (max-width: 1024px) {
+    width: 30%;
+    height: 100%;
+
+    .persona {
+      width: 60%;
+      height: auto;
+    }
+  }
+
+  @media (max-width: 768px) {
+     width: 100%;
+    height: auto;
+    clip-path: none;
+    padding: 20px 0;
   }
 `;
 
@@ -55,8 +83,15 @@ export const FormWrapper = styled(Box)`
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   max-width: 400px;
   width: 100%;
+
+  @media (max-width: 1024px) {
+    padding: 30px;
+    width: 70%;
+  }
+
   @media (max-width: 768px) {
     padding: 20px;
+    transform: none;
   }
 `;
 
@@ -85,6 +120,15 @@ export const StyledTypography = styled(Typography)`
     text-decoration: none;
     font-family: "Montserrat Alternates", sans-serif;
   }
+
+  @media (max-width: 1024px) {
+    font-size: 24px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
+  
 `;
 
 export const Label = styled.label`
@@ -131,9 +175,15 @@ export const StyledButton = styled.button`
   &:hover {
     background-color: #3700b3;
   }
+
+  @media (max-width: 1024px) {
+    height: 45px;
+    font-size: 14px;
+  }
+
   @media (max-width: 768px) {
     height: 40px;
-    font-size: 14px;
+    font-size: 12px;
   }
 `;
 
@@ -173,9 +223,12 @@ export const LoginLink = styled.a`
 export const DuckImage = styled.img`
   max-width: 500px;
   width: 100%;
-  
-  margin-top: auto; /* Empurra a imagem para a parte de baixo */
-  
+  margin-top: auto;
+
+  @media (max-width: 1024px) {
+    width: 70%;
+  }
+
   @media (max-width: 768px) {
     width: 60%;
   }
