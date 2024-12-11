@@ -23,7 +23,10 @@ import {
   PasswordRequirements,
   StyledHint,
   modalStyle,
-  Description
+  Description,
+  Coluna1,
+  Coluna2,
+  Coluna3,
   } from "./CadastroStyles.ts";
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
@@ -159,16 +162,22 @@ const Cadastro = () => {
   return (
     <PageContainer>
       <Header>
-        <BackButton onClick={() => navigate("/login")}>
-          <ArrowBackIcon />
-        </BackButton>
-        <Title>Cadastro</Title>
-        <EnterButton 
-          variant="outlined" 
-          onClick={() => navigate("/login")}
-        >
-          Entrar
-        </EnterButton>
+        <Coluna1>
+          <BackButton onClick={() => navigate("/login")}>
+            <ArrowBackIcon />
+          </BackButton>
+        </Coluna1>
+        <Coluna2>
+          <Title>Cadastro</Title>
+        </Coluna2>
+        <Coluna3>
+          <EnterButton 
+            variant="outlined" 
+            onClick={() => navigate("/login")}
+          >
+            Entrar
+          </EnterButton>
+        </Coluna3>
       </Header>
       <FormContainer>
         <Description>
