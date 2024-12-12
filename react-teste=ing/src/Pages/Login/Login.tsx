@@ -15,7 +15,9 @@ import {
   StyledButton,
   LoginLink,
   DuckImage,
-  BackButton
+  BackButton,
+  BackgroundWrapper,
+  BackgroundLayerRight
 } from './LoginStyles';
 import BackgroundImage from '../../Assets/svgs/Login-svgs/teste1.svg';
 import LogoReverse from '../../Assets/LogoReverse.svg';
@@ -122,15 +124,18 @@ const Login = () => {
         </Form>
       </FormSection>
 
-      <ImageSection style={{ backgroundImage: `url(${BackgroundImage})` }}>
-        <StyledTypography variant="body1" style={{  }}>
+      <ImageSection >
+      <BackgroundWrapper position="right">
+        <BackgroundLayerRight src={BackgroundImage} alt="Imagem de fundo" />
+      </BackgroundWrapper>
+        <StyledTypography variant="body1" style={{ zIndex: 1, marginLeft: "25%"  }}>
           <h3>Seja Bem Vindo a Quack()</h3>
           <p>
             <A>A plataforma que tem como missão,<br/> ajudar você a aprender e compreender <br/>a</A>
             <A style={{ color: '#7A5FF5', fontWeight: 'bold' }}> programação!</A>
           </p>
         </StyledTypography>
-        <DuckImage src={LogoReverse} alt="Mascote Quack" />
+        <DuckImage style={{ zIndex: 1 }} src={LogoReverse} alt="Mascote Quack" />
       </ImageSection>
     </LoginContainer>
   );

@@ -20,6 +20,33 @@ export const Label = styled.label`
   }
 `;
 
+export const BackgroundWrapper = styled.div<{ position: 'left' | 'right' }>`
+  position: absolute;
+  top: 0;
+  ${({ position }) => position}: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  height: 100vh;
+`;
+
+export const BackgroundLayerRight = styled.img`
+  width: 100%;
+  max-width: 700px; /* Ajuste o tamanho máximo conforme necessário */
+  height: 120%;
+  margin-top: -50px;
+
+  @media (max-width: 768px) {
+    
+    display: none;
+
+  }
+  
+  @media (max-width: 576px) {
+    max-width: 500px;
+  }
+`;
+
 export const Input = styled.input`
   color: #eb832e;
   font-family: "Montserrat Alternates", sans-serif;
