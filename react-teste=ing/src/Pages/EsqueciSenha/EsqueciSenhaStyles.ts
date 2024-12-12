@@ -76,6 +76,31 @@ export const ImageSection = styled(Box)`
   }
 `;
 
+export const BackgroundWrapper = styled.div<{ position: 'left' | 'right' }>`
+  position: absolute;
+  top: 0;
+  ${({ position }) => position}: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  height: 100vh;
+`;
+
+export const BackgroundLayerRight = styled.img`
+  width: 100%;
+  height: 100%;
+
+  @media (max-width: 768px) {
+    
+    display: none;
+
+  }
+  
+  @media (max-width: 576px) {
+    max-width: 500px;
+  }
+`;
+
 export const FormWrapper = styled(Box)`
   background-color: #fff;
   padding: 40px;

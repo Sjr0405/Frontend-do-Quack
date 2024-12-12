@@ -15,6 +15,8 @@ import {
   LoginLink,
   StyledTypography,
   BackButton,
+  BackgroundWrapper,
+  BackgroundLayerRight
 } from "./EsqueciSenhaStyles";
 import { ArrowBack } from "@mui/icons-material";
 import Personagem from "../../Assets/Personagem.svg";
@@ -442,8 +444,11 @@ const EsqueciSenha = () => {
 
   return (
     <Container>
-      <ImageSection sx={{ flex: 2, backgroundImage: `url(${BackgroundImage})` }}>
-        <Box>
+      <ImageSection sx={{ flex: 2 }}>
+        <BackgroundWrapper position="left">
+          <BackgroundLayerRight src={BackgroundImage} alt="Imagem de fundo" />
+        </BackgroundWrapper>
+        <Box sx={{ zIndex : 1 }}>
           <StyledTypography>
             <h4>Faltam poucos passos<br /> para<br /> se tornar um Dev!</h4>
           </StyledTypography>
