@@ -55,9 +55,10 @@ export const MainSection = styled.div`
 
 export const UserCard = styled.div<{ isFirst: boolean; isSecond: boolean; isThird: boolean }>`
   background-color: #fff;
-  padding: 20px;
+  padding: 20px 15px; // Ajuste do padding para melhor espaçamento
+  margin-bottom: 20px; // Adicionado margem inferior para espaçamento entre os cards
   border-radius: 16px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2); // Aumentando a sombra
   text-align: center;
   width: 200px;
   height: 280px;
@@ -68,14 +69,23 @@ export const UserCard = styled.div<{ isFirst: boolean; isSecond: boolean; isThir
   ${({ isFirst }) => isFirst && `
     z-index: 2;
     transform: translateY(-20px) translateX(100%);
+    border: 2px solid green; // Adicionando borda verde para o primeiro lugar
+    box-shadow: 0px 8px 15px rgba(0, 128, 0, 0.5); // Adicionando sombra verde
+    margin-top: -10px; // Ajuste do espaçamento superior para o primeiro lugar
   `}
   
   ${({ isSecond }) => isSecond && `
     transform: translateY(10px) translateX(-125%);
+    border: 2px solid blue; // Adicionando borda azul para o segundo lugar
+    box-shadow: 0px 8px 15px rgba(0, 0, 255, 0.5); // Adicionando sombra azul
+    margin-top: 10px; // Ajuste do espaçamento superior para o segundo lugar
   `}
 
   ${({ isThird }) => isThird && `
     transform: translateY(10px);
+    border: 2px solid red; // Adicionando borda vermelha para o terceiro lugar
+    box-shadow: 0px 8px 15px rgba(255, 0, 0, 0.5); // Adicionando sombra vermelha
+    margin-top: 10px; // Ajuste do espaçamento superior para o terceiro lugar
   `}
 `;
 
@@ -101,7 +111,7 @@ export const UserImage = styled.img`
 `;
 
 export const UserName = styled.h3`
-  font-size: 18px;
+  font-size: 20px;
   margin-bottom: 10px;
   font-weight: 500;
   font-family: 'Montserrat Alternates', sans-serif;
@@ -116,13 +126,23 @@ export const UserList = styled.ul`
 
 export const ListItem = styled.li`
   background-color: #fff;
-  padding: 10px;
+  padding: 20px; // Ajuste do padding para melhor espaçamento
   margin: 2%;
+  margin-bottom: 15px; // Ajuste do espaçamento inferior entre os itens
   border: 4px solid #F6C761;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-radius: 16px;
+  font-size: 18px; // Padronização do tamanho da fonte
+  color: #333; // Padronização da cor da fonte
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2); // Aumentando a sombra
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.3);
+  }
 `;
 
 // Novo componente para exibir ícone de ranking
@@ -130,4 +150,11 @@ export const RankingIcon = styled.img`
   width: 40px;
   height: 40px;
   margin-bottom: 10px;
+`;
+
+export const Points = styled.p`
+  font-size: 16px;
+  color: #666;
+  margin-top: 5px;
+  font-family: 'Montserrat Alternates', sans-serif;
 `;
