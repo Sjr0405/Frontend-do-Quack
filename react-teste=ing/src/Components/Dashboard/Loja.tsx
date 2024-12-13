@@ -11,7 +11,6 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import AllInclusiveIcon from "@mui/icons-material/AllInclusive";
 import ShieldIcon from "@mui/icons-material/Shield";
 import EventIcon from "@mui/icons-material/Event";
-import { useNavigate } from "react-router-dom";
 import PatoSvg from "../../Assets/Svg_thigas/VETOR PATO.svg";
 import { SvgIconComponent } from "@mui/icons-material";
 import Swal from 'sweetalert2';
@@ -40,7 +39,6 @@ const StoreItem = ({
   actionColor?: string;
   iconColor?: string;
 }) => {
-  const navigate = useNavigate();
 
   const handleButtonClick = () => {
     handleNotReadyAlert(); // Chama o alerta para botões sem funcionalidade
