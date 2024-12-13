@@ -175,16 +175,11 @@ const Notifications: React.FC<NotificationsProps> = ({ changeSection }) => {
   const [studyReminder, setStudyReminder] = useState(true);
   const [smsReminder, setSmsReminder] = useState(false);
   const [whatsappReminder, setWhatsappReminder] = useState(false);
-  const [callReminder, setCallReminder] = useState(false);
-  const [meetingReminder, setMeetingReminder] = useState(false);
   const [promotionReminder, setPromotionReminder] = useState(false);
   const [emailNotifications, setEmailNotifications] = useState(true);
   const [productUpdates, setProductUpdates] = useState(true);
   const [newFollowers, setNewFollowers] = useState(true);
   const [friendActivity, setFriendActivity] = useState(true);
-  const [weeklyProgress, setWeeklyProgress] = useState(true);
-  const [specialPromotions, setSpecialPromotions] = useState(true);
-  const [surveyOpportunities, setSurveyOpportunities] = useState(true);
   const [dailyReminder, setDailyReminder] = useState('17:00');
   const [filter, setFilter] = useState('Todas');
   const navigate = useNavigate();
@@ -353,24 +348,6 @@ const Notifications: React.FC<NotificationsProps> = ({ changeSection }) => {
             <FormControlLabel
               control={
                 <Switch
-                  checked={silentMode}
-                  onChange={() => setSilentMode(!silentMode)}
-                  sx={{
-                    '& .MuiSwitch-switchBase.Mui-checked': {
-                      color: '#FF914D',
-                    },
-                    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-                      backgroundColor: '#FF914D',
-                    },
-                  }}
-                />
-              }
-              label="Modo Silencioso"
-              sx={{ marginBottom: 2 }}
-            />
-            <FormControlLabel
-              control={
-                <Switch
                   checked={studyReminder}
                   onChange={() => setStudyReminder(!studyReminder)}
                   sx={{
@@ -420,42 +397,6 @@ const Notifications: React.FC<NotificationsProps> = ({ changeSection }) => {
                 />
               }
               label="Lembrete via WhatsApp de Estudo"
-              sx={{ marginBottom: 2 }}
-            />
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={callReminder}
-                  onChange={() => setCallReminder(!callReminder)}
-                  sx={{
-                    '& .MuiSwitch-switchBase.Mui-checked': {
-                      color: '#FF914D',
-                    },
-                    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-                      backgroundColor: '#FF914D',
-                    },
-                  }}
-                />
-              }
-              label="Lembrete via Chamada"
-              sx={{ marginBottom: 2 }}
-            />
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={meetingReminder}
-                  onChange={() => setMeetingReminder(!meetingReminder)}
-                  sx={{
-                    '& .MuiSwitch-switchBase.Mui-checked': {
-                      color: '#FF914D',
-                    },
-                    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-                      backgroundColor: '#FF914D',
-                    },
-                  }}
-                />
-              }
-              label="Lembrete de Reuniões"
               sx={{ marginBottom: 2 }}
             />
             <FormControlLabel
@@ -546,60 +487,6 @@ const Notifications: React.FC<NotificationsProps> = ({ changeSection }) => {
                 />
               }
               label="Atividade dos Amigos"
-              sx={{ marginBottom: 2 }}
-            />
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={weeklyProgress}
-                  onChange={() => setWeeklyProgress(!weeklyProgress)}
-                  sx={{
-                    '& .MuiSwitch-switchBase.Mui-checked': {
-                      color: '#FF914D',
-                    },
-                    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-                      backgroundColor: '#FF914D',
-                    },
-                  }}
-                />
-              }
-              label="Progresso Semanal"
-              sx={{ marginBottom: 2 }}
-            />
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={specialPromotions}
-                  onChange={() => setSpecialPromotions(!specialPromotions)}
-                  sx={{
-                    '& .MuiSwitch-switchBase.Mui-checked': {
-                      color: '#FF914D',
-                    },
-                    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-                      backgroundColor: '#FF914D',
-                    },
-                  }}
-                />
-              }
-              label="Promoções Especiais"
-              sx={{ marginBottom: 2 }}
-            />
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={surveyOpportunities}
-                  onChange={() => setSurveyOpportunities(!surveyOpportunities)}
-                  sx={{
-                    '& .MuiSwitch-switchBase.Mui-checked': {
-                      color: '#FF914D',
-                    },
-                    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-                      backgroundColor: '#FF914D',
-                    },
-                  }}
-                />
-              }
-              label="Oportunidades de Pesquisa"
               sx={{ marginBottom: 2 }}
             />
             <FormControlLabel
