@@ -58,6 +58,18 @@ export const SecurityInfoContainer = styled.div`
   }
 `;
 
+export const DatePickerContainer = styled.div`
+  margin-top: 24px;
+  padding: 24px;
+  border-radius: 16px;
+  background-color: ${colors.background};
+  box-shadow: 0 4px 8px ${colors.shadow};
+  @media (max-width: 600px) {
+    padding: 16px;
+    margin-top: 16px;
+  }
+`;
+
 export const StyledButton = styled.button`
   padding: 16px;
   font-size: 18px;

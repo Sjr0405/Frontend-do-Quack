@@ -19,6 +19,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { DatePicker } from '@mui/lab';
 import {
   StyledContainer,
   BasicInfoContainer,
@@ -30,13 +31,37 @@ import {
   DialogContainer,
   CloseButton
 } from './EditarPerfilStyles';
+import InputMask from 'react-input-mask';
+
+interface EditMode {
+  nome: boolean;
+  sobrenome: boolean;
+  email: boolean;
+  telefone: boolean;
+}
+
+interface User {
+  name: string;
+  email: string;
+  surname: string;
+  username: string;
+  phone: string;
+  bornDate: string;
+  imagePath: string;
+  password?: string;
+  id?: number;
+  fullName?: string;
+  registerOn?: string;
+  isActive?: boolean;
+}
 
 const EditarPerfil = () => {
-  const { user, updateUserProfile } = useAuth();
+  const { user, updateUserProfile, updateUserPassword } = useAuth() as { user: User; updateUserProfile: (user: User) => Promise<void>; updateUserPassword: (userId: number, newPassword: string) => Promise<void> };
   const navigate = useNavigate();
 
   const [nome, setNome] = useState(user?.name || '');
   const [email, setEmail] = useState(user?.email || '');
+  const [sobrenome, setSobrenome] = useState(user?.surname || '');
   const [nomeUsuario, setNomeUsuario] = useState(user?.username || '');
   const [telefone, setTelefone] = useState(user?.phone || '');
   const [senhaAtual, setSenhaAtual] = useState('');
@@ -45,20 +70,27 @@ const EditarPerfil = () => {
   const [mostrarSenhaAtual, setMostrarSenhaAtual] = useState(false);
   const [mostrarNovaSenha, setMostrarNovaSenha] = useState(false);
   const [dialogoAberto, setDialogoAberto] = useState(false);
-  const [cpf, setCpf] = useState(user?.cpf || '');
-  const [dataNascimento, setDataNascimento] = useState(user?.bornAt || '');
-  const [status, setStatus] = useState(user?.status || 1);
+  const [dataNascimento, setDataNascimento] = useState(user?.bornDate || '');
   const [imagemPerfil, setImagemPerfil] = useState(user?.imagePath || '');
+  const [editMode, setEditMode] = useState<EditMode>({
+    nome: false,
+    sobrenome: false,
+    email: false,
+    telefone: false,
+  });
+
+  const handleEditClick = (field: keyof EditMode) => {
+    setEditMode((prevState) => ({ ...prevState, [field]: !prevState[field] }));
+  };
 
   useEffect(() => {
     if (user) {
       setNome(user.name);
       setEmail(user.email);
+      setSobrenome(user.surname);
       setNomeUsuario(user.username);
       setTelefone(user.phone);
-      setCpf(user.cpf);
-      setDataNascimento(user.bornAt);
-      setStatus(user.status);
+      setDataNascimento(user.bornDate);
       setImagemPerfil(user.imagePath);
     }
   }, [user]);
@@ -67,15 +99,14 @@ const EditarPerfil = () => {
     setModificado(
       nome !== user?.name ||
       email !== user?.email ||
+      sobrenome !== user?.surname ||
       nomeUsuario !== user?.username ||
       telefone !== user?.phone ||
       novaSenha.length > 0 ||
-      cpf !== user?.cpf ||
-      dataNascimento !== user?.bornAt ||
-      status !== user?.status ||
+      dataNascimento !== user?.bornDate ||
       imagemPerfil !== user?.imagePath
     );
-  }, [nome, email, nomeUsuario, telefone, novaSenha, cpf, dataNascimento, status, imagemPerfil, user]);
+  }, [nome, email, sobrenome, nomeUsuario, telefone, novaSenha, dataNascimento, imagemPerfil, user]);
 
   const handleSalvarAlteracoes = async () => {
     const result = await Swal.fire({
@@ -89,18 +120,20 @@ const EditarPerfil = () => {
 
     if (result.isConfirmed) {
       try {
-        const dadosAtualizados = {
+        const dadosAtualizados: User = {
           ...user,
           name: nome,
           email,
+          surname: sobrenome,
           username: nomeUsuario,
           phone: telefone,
-          cpf,
-          bornAt: dataNascimento,
-          status: status.toString(),
+          bornDate: dataNascimento,
           imagePath: imagemPerfil,
-          ...(novaSenha && { password: novaSenha }),
         };
+
+        if (novaSenha) {
+          await updateUserPassword(user.id!, novaSenha);
+        }
 
         await updateUserProfile(dadosAtualizados);
 
@@ -109,9 +142,7 @@ const EditarPerfil = () => {
         setSenhaAtual('');
         setNovaSenha('');
 
-        Swal.fire('Sucesso', 'Perfil atualizado com sucesso!', 'success').then(() => {
-          navigate('/Home', { state: { section: 'Perfil' } });
-        });
+        Swal.fire('Sucesso', 'Perfil atualizado com sucesso!', 'success');
       } catch (error) {
         Swal.fire('Erro', 'Não foi possível atualizar o perfil.', 'error');
         console.error('Erro ao atualizar o perfil:', error);
@@ -213,10 +244,27 @@ const EditarPerfil = () => {
             placeholder="Nome"
             fullWidth
             margin="normal"
+            disabled={!editMode.nome}
             InputProps={{
               endAdornment: (
-                <IconButton onClick={() => setNome('')} style={{ color: colors.primary }}>
-                  <ClearIcon />
+                <IconButton onClick={() => handleEditClick('nome')} style={{ color: colors.primary }}>
+                  <EditIcon />
+                </IconButton>
+              )
+            }}
+          />
+          <TextField
+            label="Sobrenome"
+            value={sobrenome}
+            onChange={(e) => setSobrenome(e.target.value)}
+            placeholder="Sobrenome"
+            fullWidth
+            margin="normal"
+            disabled={!editMode.sobrenome}
+            InputProps={{
+              endAdornment: (
+                <IconButton onClick={() => handleEditClick('sobrenome')} style={{ color: colors.primary }}>
+                  <EditIcon />
                 </IconButton>
               )
             }}
@@ -229,53 +277,60 @@ const EditarPerfil = () => {
             placeholder="Email"
             fullWidth
             margin="normal"
+            disabled={!editMode.email}
             InputProps={{
               endAdornment: (
-                <IconButton onClick={() => setEmail('')} style={{ color: colors.primary }}>
-                  <ClearIcon />
+                <IconButton onClick={() => handleEditClick('email')} style={{ color: colors.primary }}>
+                  <EditIcon />
                 </IconButton>
               )
             }}
           />
-       <TextField
-  label="Nome"
-  value={nome}
-  onChange={(e) => setNome(e.target.value)}
-  placeholder="Nome"
-  fullWidth
-  margin="normal"
-  InputProps={{
-    endAdornment: (
-      <IconButton onClick={() => setNome('')} style={{ color: colors.primary }}>
-        <ClearIcon />
-      </IconButton>
-    )
-  }}
-/>
           <TextField
-            label="Número de Telefone"
-            type="tel"
+            label="Nome de Usuário"
+            value={nomeUsuario}
+            onChange={(e) => setNomeUsuario(e.target.value)}
+            placeholder="Nome de Usuário"
+            fullWidth
+            margin="normal"
+            disabled
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  @
+                </InputAdornment>
+              )
+            }}
+          />
+          <InputMask
+            mask="(99) 99999-9999"
             value={telefone}
             onChange={(e) => setTelefone(e.target.value)}
-            placeholder="Telefone"
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            label="CPF"
-            value={cpf}
-            onChange={(e) => setCpf(e.target.value)}
-            placeholder="CPF"
-            fullWidth
-            margin="normal"
-          />
-          <TextField
+            disabled={!editMode.telefone}
+          >
+            {(inputProps) => (
+              <TextField
+                {...inputProps}
+                label="Número de Telefone"
+                type="tel"
+                placeholder="Telefone"
+                fullWidth
+                margin="normal"
+                InputProps={{
+                  endAdornment: (
+                    <IconButton onClick={() => handleEditClick('telefone')} style={{ color: colors.primary }}>
+                      <EditIcon />
+                    </IconButton>
+                  )
+                }}
+              />
+            )}
+          </InputMask>
+          <DatePicker
             label="Data de Nascimento"
             value={dataNascimento}
-            onChange={(e) => setDataNascimento(e.target.value)}
-            placeholder="Data de Nascimento"
-            fullWidth
-            margin="normal"
+            onChange={(newValue: any) => setDataNascimento(newValue)}
+            renderInput={(params: any) => <TextField {...params} fullWidth margin="normal" disabled />}
           />
         </ContactInfoContainer>
       </div>

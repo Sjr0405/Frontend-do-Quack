@@ -39,7 +39,7 @@ import Falando from '../../../Assets/Svg_thigas/FALANDO.svg';
 import foguinho from '../../../Assets/barra de status/foquinho.svg';
 import fogo from '../../../Assets/Icons/fire.svg';
 import sem_fogo from '../../../Assets/Icons/no-fire.svg';
-import pontos from '../../../Assets/barra de status/pontos.svg';
+import pontos from '../../../Assets/Icons/Moeda.svg';
 
 //import temporarios
 import programacao from '../../../Assets/svgs/Home-svgs/Programacao.svg';
@@ -54,15 +54,15 @@ const Quack = ({ user }: { user: any }) => {
       <ProfileSection>
         <ProfileImage src={user?.imagePath || "https://via.placeholder.com/64"} alt="Foto de Perfil" />
         <ProfileInfo>
-          <ProfileName>{user?.username || "Usuário"}</ProfileName>
-          <ProfileSubtitle>{user?.name || "Nome do Usuário"}</ProfileSubtitle>
+          <ProfileName>{user?.name} {user?.surname || "Sobrenome"}</ProfileName>
+          <ProfileSubtitle>@{user?.username || "username"}</ProfileSubtitle>
         </ProfileInfo>
       </ProfileSection>
       <Divider />
       <WelcomeSection>
         <WelcomeImage src={Falando} alt="Imagem de boas-vindas" />
         <WelcomeTextContainer>
-          <WelcomeTitle>Bem-vindo de volta, {user?.username || "Usuário"}!</WelcomeTitle>
+          <WelcomeTitle>Bem-vindo de volta, {user?.surname || "Sobrenome"}!</WelcomeTitle>
           <WelcomeText>
             Explore caminhos de aprendizado estruturados para impulsionar sua jornada como desenvolvedor.
           </WelcomeText>

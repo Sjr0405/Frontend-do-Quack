@@ -5,15 +5,15 @@ import axios from 'axios';
 interface User {
   id: number;
   name: string;
+  surname: string;
+  fullName: string;
   username: string;
   phone: string;
   email: string;
-  cpf: string;
-  bornAt: string;
-  points: number;
-  registerAt: string;
+  bornDate: string;
+  registerOn: string;
   imagePath: string;
-  status: string;
+  isActive: boolean;
 }
 
 interface Statistics {
@@ -72,6 +72,7 @@ interface AuthContextData {
   fetchUserAchievementsById: (userId: number) => Promise<void>;
   fetchUserStatisticsById: (userId: number) => Promise<void>;
   updateUserProfile: (updatedData: Partial<User>) => Promise<void>;
+  updateUserPassword: (userId: number, newPassword: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextData | undefined>(undefined);
@@ -294,6 +295,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   //**********************
+  // Função para atualizar a senha do usuário
+  const updateUserPassword = async (userId: number, newPassword: string) => {
+    if (!token) return;
+
+    try {
+      await axios.put(`/api/users/${userId}/password`, { password: newPassword }, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+    } catch (error) {
+      console.error('Erro ao atualizar a senha:', error);
+      throw error;
+    }
+  };
+
+  //**********************
   // Função para fazer logout
   const logout = () => {
     setToken(null);
@@ -330,6 +346,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       fetchUserStatisticsById,
       fetchUserAchievementsById, 
       updateUserProfile,
+      updateUserPassword,
     }}>
       {children}
     </AuthContext.Provider>

@@ -338,6 +338,8 @@ export const StatusItem = styled.div`
 
   img {
     margin-right: 8px;
+    width: 24px; /* Ajusta a largura */
+    height: 24px; /* Ajusta a altura */
   }
 
   span {
