@@ -31,7 +31,6 @@ import {
   DialogContainer,
   CloseButton
 } from './EditarPerfilStyles';
-import InputMask from 'react-input-mask';
 
 interface EditMode {
   nome: boolean;
@@ -194,6 +193,19 @@ const EditarPerfil = () => {
     setDialogoAberto(false);
   };
 
+  const handleTelefoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value.replace(/\D/g, '');
+    if (value.length > 11) value = value.slice(0, 11);
+    if (value.length > 6) {
+      value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3');
+    } else if (value.length > 2) {
+      value = value.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
+    } else {
+      value = value.replace(/^(\d*)/, '($1');
+    }
+    setTelefone(value);
+  };
+
   return (
     <StyledContainer>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '24px', position: 'relative' }}>
@@ -302,30 +314,23 @@ const EditarPerfil = () => {
               )
             }}
           />
-          <InputMask
-            mask="(99) 99999-9999"
+          <TextField
+            label="Número de Telefone"
+            type="tel"
             value={telefone}
-            onChange={(e) => setTelefone(e.target.value)}
+            onChange={handleTelefoneChange}
+            placeholder="Telefone"
+            fullWidth
+            margin="normal"
             disabled={!editMode.telefone}
-          >
-            {(inputProps) => (
-              <TextField
-                {...inputProps}
-                label="Número de Telefone"
-                type="tel"
-                placeholder="Telefone"
-                fullWidth
-                margin="normal"
-                InputProps={{
-                  endAdornment: (
-                    <IconButton onClick={() => handleEditClick('telefone')} style={{ color: colors.primary }}>
-                      <EditIcon />
-                    </IconButton>
-                  )
-                }}
-              />
-            )}
-          </InputMask>
+            InputProps={{
+              endAdornment: (
+                <IconButton onClick={() => handleEditClick('telefone')} style={{ color: colors.primary }}>
+                  <EditIcon />
+                </IconButton>
+              )
+            }}
+          />
           <DatePicker
             label="Data de Nascimento"
             value={dataNascimento}
