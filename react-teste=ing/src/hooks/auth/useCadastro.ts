@@ -46,7 +46,7 @@ export const useCadastro = () => {
     console.log("Dados enviados:", payload);
 
     try {
-      const response = await fetch('/api/users/create', {
+      const response = await fetch('/api/users/register', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -64,7 +64,7 @@ export const useCadastro = () => {
         Swal.fire({
           icon: "success",
           title: "Sucesso!",
-          text: "Cadastro realizado com sucesso.",
+          text: responseData.data.message,
         }).then(() => navigate("/Login"));
         reset();
       } else {
@@ -73,8 +73,8 @@ export const useCadastro = () => {
         Swal.fire({
           icon: "error",
           title: "Erro",
-          text: errorData?.message || "Algo deu errado!",
-          footer: "erro: " + (errorData?.message || "Erro desconhecido"),
+          text: errorData?.data?.message || "Algo deu errado!",
+          footer: "erro: " + (errorData?.data?.message || "Erro desconhecido"),
         });
       }
     } catch (error: unknown) {

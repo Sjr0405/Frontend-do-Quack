@@ -11,6 +11,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 import BadgeIcon from '@mui/icons-material/Badge';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import {
   PageContainer,
   Header,
@@ -27,8 +28,7 @@ import {
   Coluna1,
   Coluna2,
   Coluna3,
-  } from "./CadastroStyles.ts";
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+} from "./CadastroStyles.ts";
 
 const Cadastro = () => {
   const navigate = useNavigate();
@@ -95,10 +95,34 @@ const Cadastro = () => {
     setPasswordColor(color);
   };
 
+  const applyPhoneMask = (value: string) => {
+    return value
+      .replace(/\D/g, "")
+      .replace(/^(\d{2})(\d)/g, "($1) $2")
+      .replace(/(\d{4,5})(\d{4})$/, "$1-$2");
+  };
+
+  const applyCpfMask = (value: string) => {
+    return value
+      .replace(/\D/g, "")
+      .replace(/(\d{3})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-    validateField(name, value);
+    let maskedValue = value;
+
+    if (name === "phone") {
+      maskedValue = applyPhoneMask(value);
+    } else if (name === "cpf") {
+      maskedValue = applyCpfMask(value);
+    }
+
+    setFormData({ ...formData, [name]: maskedValue });
+    validateField(name, maskedValue);
+
     if (name === "password") {
       evaluatePassword(value);
     }
@@ -183,7 +207,6 @@ const Cadastro = () => {
         <Description>
           Aqui é a tela de cadastro onde você preenche os campos com suas informações pessoais para criar uma nova conta.
         </Description>
-     
         <Form onSubmit={handleSubmitForm} onReset={handleReset}>
           <TextField
             label="Nome"
@@ -376,8 +399,8 @@ const Cadastro = () => {
         </Typography>
       </FormContainer>
       <Description>
-          Ao se cadastrar no Quack ( ), você concorda com os nossos <span style={{ color: '#ff9800', cursor: 'pointer' }} onClick={handleOpen}>Termos e Política de Privacidade</span>.
-        </Description>
+        Ao se cadastrar no Quack ( ), você concorda com os nossos <span style={{ color: '#ff9800', cursor: 'pointer' }} onClick={handleOpen}>Termos e Política de Privacidade</span>.
+      </Description>
       <Modal
         open={open}
         onClose={handleClose}
@@ -398,30 +421,30 @@ const Cadastro = () => {
             <CloseIcon />
           </IconButton>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Bem-vindo aos nossos Termos de Uso. Estes termos descrevem as regras e
-              regulamentos para o uso do nosso site.
-              <h2>1. Introdução</h2>
-              Ao acessar este site, assumimos que você aceita estes termos e
-              condições. Não continue a usar o site se você não concordar com todos
-              os termos e condições estabelecidos nesta página.
-              <h2>2. Cookies</h2>
-              Utilizamos cookies. Ao acessar o site, você concorda em usar cookies de
-              acordo com a nossa política de privacidade.
-              <h2>3. Licença</h2>
-              Salvo indicação em contrário, nós e/ou nossos licenciadores possuímos os
-              direitos de propriedade intelectual de todo o material no site. Todos
-              os direitos de propriedade intelectual são reservados.
-              <h2>4. Uso Aceitável</h2>
-              Você não deve usar este site de qualquer maneira que cause, ou possa
-              causar, danos ao site ou prejudique a disponibilidade ou acessibilidade
-              do site.
-              <h2>5. Modificações</h2>
-              Reservamo-nos o direito de revisar estes termos a qualquer momento. Ao
-              usar este site, você concorda em ficar vinculado à versão atual destes
-              termos e condições.
-              Se você tiver alguma dúvida sobre nossos Termos de Uso, entre em contato
-              conosco.
-            </Typography>
+            Bem-vindo aos nossos Termos de Uso. Estes termos descrevem as regras e
+            regulamentos para o uso do nosso site.
+            <h2>1. Introdução</h2>
+            Ao acessar este site, assumimos que você aceita estes termos e
+            condições. Não continue a usar o site se você não concordar com todos
+            os termos e condições estabelecidos nesta página.
+            <h2>2. Cookies</h2>
+            Utilizamos cookies. Ao acessar o site, você concorda em usar cookies de
+            acordo com a nossa política de privacidade.
+            <h2>3. Licença</h2>
+            Salvo indicação em contrário, nós e/ou nossos licenciadores possuímos os
+            direitos de propriedade intelectual de todo o material no site. Todos
+            os direitos de propriedade intelectual são reservados.
+            <h2>4. Uso Aceitável</h2>
+            Você não deve usar este site de qualquer maneira que cause, ou possa
+            causar, danos ao site ou prejudique a disponibilidade ou acessibilidade
+            do site.
+            <h2>5. Modificações</h2>
+            Reservamo-nos o direito de revisar estes termos a qualquer momento. Ao
+            usar este site, você concorda em ficar vinculado à versão atual destes
+            termos e condições.
+            Se você tiver alguma dúvida sobre nossos Termos de Uso, entre em contato
+            conosco.
+          </Typography>
         </Box>
       </Modal>
     </PageContainer>
