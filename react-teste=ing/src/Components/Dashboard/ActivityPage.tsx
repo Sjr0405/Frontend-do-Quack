@@ -235,7 +235,7 @@ const ActivityPage: React.FC<{ activityType: string }> = ({ activityType }) => {
     <Container>
       <Title>Atividades de {activityType}</Title>
       <Description>
-        Aqui você pode praticar {activityType} baseadas nas roadmaps que você estudou.
+        Aqui você pode praticar {activityType} baseadas nas trilhas que você estudou.
       </Description>
       {!showResult ? (
         <ActivityCard>

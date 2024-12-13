@@ -73,6 +73,7 @@ interface AuthContextData {
   fetchUserStatisticsById: (userId: number) => Promise<void>;
   updateUserProfile: (updatedData: Partial<User>) => Promise<void>;
   updateUserPassword: (userId: number, newPassword: string) => Promise<void>;
+  updateImage: (userId: number, imageFile: File) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextData | undefined>(undefined);
@@ -128,7 +129,47 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       throw new Error('Falha no login');
     }
   };
+  //***********************
+    // Função para atualizar a imagem do usuário
+    const updateImage = async (userId: number, imageFile: File) => {
+    const MAX_FILE_SIZE_MB = 5; // Tamanho máximo permitido em MB
+    const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
 
+    if (!token) {
+      console.error('Token não disponível. Faça login novamente.');
+      return;
+    }
+
+    if (imageFile.size > MAX_FILE_SIZE_BYTES) {
+      console.error(`O arquivo é muito grande. Tamanho máximo permitido: ${MAX_FILE_SIZE_MB}MB.`);
+      throw new Error(`O arquivo é muito grande. Tamanho máximo permitido: ${MAX_FILE_SIZE_MB}MB.`);
+    }
+
+    try {
+      const formData = new FormData();
+      formData.append('image', imageFile);
+
+      const response = await axios.post(`/api/users/${userId}/update-image`, formData, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      if (user) {
+        const updatedUser = { ...user, id: user?.id, imagePath: response.data.imagePath };
+        setUser(updatedUser);
+        localStorage.setItem('user', JSON.stringify(updatedUser));
+      } else {
+        console.error('User is null or undefined');
+      }
+
+      console.log('Imagem atualizada com sucesso.');
+    } catch (error) {
+      console.error('Erro ao atualizar imagem:', error);
+      throw new Error('Falha ao atualizar imagem');
+    }
+  };
   //**********************
   // Função para buscar o perfil do usuário
   const fetchUserProfile = async () => {
@@ -165,7 +206,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }
   
   //**********************
-  // Função para buscar os roadmaps do usuário
+  // Função para buscar os roadmaps do usuários
   const fecthUserRoadmaps = async () => {
     if (!token || !user) return;
     
@@ -328,6 +369,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     console.log('Token armazenado:', storedToken);
     return !!storedToken;
   };
+
   return (
     <AuthContext.Provider value={{
       user,
@@ -346,13 +388,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       fetchUserStatisticsById,
       fetchUserAchievementsById, 
       updateUserProfile,
+      updateImage,
       updateUserPassword,
     }}>
       {children}
     </AuthContext.Provider>
   );
 };
-
 //**********************
 // Hook para usar o contexto de autenticação
 export const useAuth = (): AuthContextData => {

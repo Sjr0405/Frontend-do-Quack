@@ -85,7 +85,7 @@ const Praticar: React.FC<{ changeSection: (section: string, activityType?: strin
 
   return (
     <Container>
-      <Title>Praticar as Roadmaps que Você Estudou</Title>
+      <Title>Praticar as Trilhas que Você Estudou</Title>
       <Description>
         Para praticar o que você estudou, vamos fazer algumas atividades:
       </Description>

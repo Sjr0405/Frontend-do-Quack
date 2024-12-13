@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   ContainerPerfil,
@@ -37,13 +37,18 @@ import {
   ValorEstatistica,
   BarraProgresso,
   Progresso,
+  Seguindo,
+  Seguidores,
+  VerTodosLink,
+  Detalhes
 } from './PerfilStyles';
+import Modal from './Modal.tsx';
 import { useAuth } from '../../../AuthContext';
 import Loja from '../../../Assets/svgs/Home-svgs/Perfil/Loja.svg';
 import podium from '../../../Assets/Iconesperfil/podium.svg';
 import lapis from '../../../Assets/svgs/Home-svgs/Perfil/Pencil.svg';
 
-//imports temporarios
+// imports temporarios
 import medalha1 from '../../../Assets/Iconesperfil/medalha1.png';
 import medalha2 from '../../../Assets/Iconesperfil/medalha2.png';
 import medalha3 from '../../../Assets/Iconesperfil/medalha3.png';
@@ -56,23 +61,61 @@ import Estatistica1 from '../../../Assets/Iconesperfil/fire.png';
 import Estatistica2 from '../../../Assets/Iconesperfil/experiencia.png';
 import Estatistica3 from '../../../Assets/Iconesperfil/quest.png';
 import Estatistica4 from '../../../Assets/Iconesperfil/lissão.png';
-//imports temporarios
+
+
+type Achievement = {
+  id: number;
+  name: string;
+  description: string;
+  imagePath: string;
+};
 
 const Perfil = ({ changeSection }: { changeSection: (section: string) => void }) => {
   const navigate = useNavigate();
-  const { user, fetchUserProfile } = useAuth();
-  const [activeTab, setActiveTab] = useState('NaAsa');
+  const { user, fetchUserProfile, fetchUserAchievementsById } = useAuth();
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [achievements, setAchievements] = useState<Achievement[]>([]);
+  const [activeTab, setActiveTab] = useState('Seguindo');
+
+  // Dados seguros do usuário
+  const safeUser = useMemo(() => {
+    if (user) {
+      return {
+        id: user.id,
+        name: user.name,
+        username: user.username,
+        imagePath: user.imagePath,
+        registerOn: user.registerOn
+      };
+    }
+    return null;
+  }, [user]);
 
   useEffect(() => {
-    if (user) {
-      fetchUserProfile(user.id);
+    if (safeUser) {
+      fetchUserProfile(safeUser.id);
+      fetchUserAchievementsById(safeUser.id);
+    } else {
+      setAchievements([]);
     }
-  }, [user, fetchUserProfile]);
+  }, [safeUser, fetchUserProfile, fetchUserAchievementsById]);
+
+  const followingData = [
+    { name: 'Raphaela Solia', xp: 38783, avatar: 'https://randomuser.me/api/portraits/women/1.jpg' },
+    { name: 'Samuel dos Santos Silva', xp: 26262, avatar: 'https://randomuser.me/api/portraits/men/2.jpg' },
+    { name: 'João Gabriel', xp: 25195, avatar: 'https://randomuser.me/api/portraits/men/3.jpg' },
+    { name: 'Maria Josefina', xp: 20000, avatar: 'https://randomuser.me/api/portraits/women/2.jpg' },
+    { name: 'Ana Rosa', xp: 15000, avatar: 'https://randomuser.me/api/portraits/women/3.jpg' },
+    { name: 'Pedro Pascal', xp: 10000, avatar: 'https://randomuser.me/api/portraits/men/4.jpg' },
+    { name: 'Jão Silva', xp: 5000, avatar: 'https://randomuser.me/api/portraits/men/5.jpg' },
+  ];
 
   return (
     <ContainerPerfil>
       <ContainerCabecalho>
-        <h2 style={{ fontSize: '30px', fontWeight: '500', fontFamily: 'Montserrat Alternates', textAlign: 'center', color: 'purple' }}>Seu perfil</h2>
+        <h2 style={{ fontSize: '30px', fontWeight: '500', fontFamily: 'Montserrat Alternates', textAlign: 'center', color: 'purple' }}>
+          Seu perfil
+        </h2>
         <BotaoLoja onClick={() => changeSection('Loja')}>
           <BolhaImagem>
             <img src={Loja} alt="Icône de loja" />
@@ -85,65 +128,86 @@ const Perfil = ({ changeSection }: { changeSection: (section: string) => void })
         <ColunaPerfil>
           <ContainerImagemPerfil>
             <BolhaImagemPerfil>
-              <ImagemPerfil src={user?.imagePath || 'https://randomuser.me/api/portraits/men/1.jpg'} alt="Foto do perfil" />
+              <ImagemPerfil
+                src={safeUser?.imagePath || 'https://randomuser.me/api/portraits/men/1.jpg'}
+                alt="Foto do perfil"
+              />
             </BolhaImagemPerfil>
           </ContainerImagemPerfil>
-            <InformacoesPerfil>
-            <div className="name">{user?.name}</div>
-            <div className="handle">@{user?.username}</div>
+          <InformacoesPerfil>
+            <div className="name">{safeUser?.name}</div>
+            <div className="handle">@{safeUser?.username}</div>
             <div className="description">
-              Por aqui desde {user?.registerOn ? new Date(user.registerOn).toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' }) : 'Data desconhecida'}
             </div>
             <div className="achievement-container">
               <div className="achievement-item">
                 <img className="achievement-icon" src={podium} alt="Ícone de conquista" />
-              </div>
               <div className="achievement-item">
                 <span className="achievement-text">#30</span>
+                </div>
               </div>
             </div>
-            <div className="links">
-              <a href="#">Segue: 7</a>
-              <a href="#">Tem 8 seguidores</a>
-            </div>
+            
           </InformacoesPerfil>
           <IconeEditar onClick={() => navigate('/Home', { state: { section: 'EditarPerfil' } })}>
-            <img src={lapis} alt="Icône de editar" />
+            <img src={lapis} alt="Ícone de editar" />
           </IconeEditar>
         </ColunaPerfil>
 
         <ColunaAba>
-          <ContainerAbas>
+        <ContainerAbas>
             <NavegacaoAbas>
-              <BotaoAba active={activeTab === 'NaAsa'} onClick={() => setActiveTab('NaAsa')}>
-                Na Asa
+              <BotaoAba style={{ fontFamily: 'Montserrat Alternates' }} active={activeTab === 'Seguindo'} onClick={() => setActiveTab('Seguindo')}>
+                Seguindo
               </BotaoAba>
-              <BotaoAba active={activeTab === 'NoLago'} onClick={() => setActiveTab('NoLago')}>
-                No Lago
+              <BotaoAba style={{ fontFamily: 'Montserrat Alternates' }} active={activeTab === 'Seguidores'} onClick={() => setActiveTab('Seguidores')}>
+                Seguidores
               </BotaoAba>
             </NavegacaoAbas>
 
             <ConteudoAba>
-              {activeTab === 'NaAsa' && (
+              {activeTab === 'Seguindo' && (
                 <>
-                  <Titulo>Todo grande pato começa sozinho!</Titulo>
-                  <TextoSecundario>
-                    Explore o lago, siga outros patos e deixe seu voo ser acompanhado.
-                    Cada jornada começa com o primeiro quack!
-                  </TextoSecundario>
+                  <Seguindo>
+                    <img src="https://randomuser.me/api/portraits/women/2.jpg" alt="Random user" />
+                    <Titulo>Raphaela Solia</Titulo>
+                    <TextoSecundario>38783 XP</TextoSecundario>
+                  </Seguindo>
+                  <Seguindo>
+                    <img src="https://randomuser.me/api/portraits/men/9.jpg" alt="Random user" />
+                    <Detalhes>
+                      <Titulo>Elisson Nadson </Titulo>
+                      <TextoSecundario>27131 XP</TextoSecundario>
+                    </Detalhes>
+                  </Seguindo>
                 </>
               )}
-              {activeTab === 'NoLago' && (
-                <>
-                  <Titulo>Explore com os outros patos!</Titulo>
-                  <TextoSecundario>
-                    No lago, você pode seguir patos, aprender novas habilidades e
-                    compartilhar suas jornadas com amigos.
-                  </TextoSecundario>
-                </>
+              {activeTab === 'Seguidores' && (
+              <>
+                <Seguidores>
+                  <img src="https://randomuser.me/api/portraits/men/10.jpg" alt="Random user" />
+                  <Titulo>Samuel dos Santos Silva</Titulo>
+                  <TextoSecundario>27131 XP</TextoSecundario>
+                </Seguidores>
+              </>
               )}
             </ConteudoAba>
+            <VerTodosLink >
+              <a onClick={() => setModalOpen(true)}>Ver todos</a>
+              <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)} data={followingData} />
+            </VerTodosLink>
           </ContainerAbas>
+            <div style={{ 
+              fontFamily: 'Montserrat Alternates', 
+              fontSize: '16px', 
+              marginTop: '20px', 
+              textDecoration: 'none', 
+              color: '#007bff', 
+              fontWeight: '700' 
+            }}>
+              <a style={{ marginRight: '10px' }} href="#">Seguindo 10</a>
+              <a style={{ marginLeft: '10px' }} href="#">Seguidores 10</a>
+            </div>
         </ColunaAba>
       </ColunasPerfil>
 
@@ -153,12 +217,15 @@ const Perfil = ({ changeSection }: { changeSection: (section: string) => void })
             <TituloEmblemas>Coleção de emblemas:</TituloEmblemas>
             <GradeEmblemas>
               <ItemEmblema>
+                {achievements.map((achievement) => (
+                  <div key={achievement.id}>{achievement.name}</div>
+                ))}
                 <ImagemEmblema src={medalha1} alt="Introdução à Programação" />
                 <TextoEmblema>Introdução à Programação</TextoEmblema>
               </ItemEmblema>
               <ItemEmblema>
-                <ImagemEmblema src={medalha2} alt="Fundamentos de Algoritmos" />
-                <TextoEmblema>Fundamentos de Algoritmos</TextoEmblema>
+                <ImagemEmblema src={medalha2} alt={fetchUserAchievementsById.name} />
+                <TextoEmblema>{fetchUserAchievementsById.name}</TextoEmblema>
               </ItemEmblema>
               <ItemEmblema>
                 <ImagemEmblema src={medalha3} alt="Programação Estruturada" />

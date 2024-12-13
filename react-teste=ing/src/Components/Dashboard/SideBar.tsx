@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
-import Logoimg from '../../Assets/Logo.svg';
+import LOgo from '../../Assets/Svg_thigas/Pato_de_perfil.svg';
 import SelectedBooks from '../../Assets/svgs//Home-svgs/Selected-Colors/Laranja/Books.svg';
 import Books from '../../Assets/svgs/Home-svgs/Selected-Colors/Preto/Books.svg';
 import SelectedRoadmap from '../../Assets/svgs/Home-svgs/Selected-Colors/Laranja/roadmap.svg';
@@ -168,7 +168,7 @@ const SideBar = ({ changeSection }: { changeSection: (section: string) => void }
   return (
     <Sidebar>
       <Logo onClick={() => handleItemClick('Aprender')}>
-        <img src={Logoimg} alt="Logo Quack()" />
+        <img src={LOgo} alt="Logo Quack()" />
         <span>Quack()</span>
       </Logo>
 
@@ -189,12 +189,12 @@ const SideBar = ({ changeSection }: { changeSection: (section: string) => void }
       {selectedItem === 'Roadmap' ? (
         <SelectedSidebarItem onClick={() => handleItemClick('Roadmap')}>
           <img src={SelectedRoadmap} alt="Roadmap" />
-          Roadmap
+          Trilhas
         </SelectedSidebarItem>
       ) : (
         <SidebarItem onClick={() => handleItemClick('Roadmap')}>
           <img src={Roadmap} alt="Roadmap" />
-          Roadmap
+          Trilhas
         </SidebarItem>
       )}
 
@@ -217,12 +217,12 @@ const SideBar = ({ changeSection }: { changeSection: (section: string) => void }
       {selectedItem === 'Rankings' ? (
         <SelectedSidebarItem onClick={() => handleItemClick('Rankings')}>
           <img src={SelectedRankings} alt="Ranking" />
-          Rankings
+          Classificações
         </SelectedSidebarItem>
       ) : (
         <SidebarItem onClick={() => handleItemClick('Rankings')}>
           <img src={Rankings} alt="Ranking" />
-          Rankings
+          Classificações
         </SidebarItem>
       )}
 

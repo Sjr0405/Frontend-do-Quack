@@ -22,6 +22,7 @@ interface FormData {
   cpf: string;
   password: string;
   bornAt: string;
+  imagePath?: string;
 }
 
 export const useCadastro = () => {
@@ -39,7 +40,7 @@ export const useCadastro = () => {
       password: data.password,
       cpf: data.cpf.replace(/\D/g, ''),
       bornDate: data.bornAt,
-      imagePath: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRu5c_3r5AgGxKeAmOumAg8BC-oqLRMyvns6g&s"
+      imagePath: data.imagePath || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRu5c_3r5AgGxKeAmOumAg8BC-oqLRMyvns6g&s"
     };
 
     console.log("Dados enviados:", payload);

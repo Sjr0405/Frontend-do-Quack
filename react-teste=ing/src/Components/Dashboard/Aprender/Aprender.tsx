@@ -48,13 +48,19 @@ import backend from '../../../Assets/svgs/Home-svgs/Backend.svg';
 import devops from '../../../Assets/svgs/Home-svgs/DevOps.svg';
 //import temporarios
 
-const Quack = ({ user }: { user: any }) => {
+interface User {
+  imagePath?: string;
+  username?: string;
+  name?: string;
+}
+
+const Quack = ({ user }: { user: User }) => {
   return (
     <QuackContainer>
       <ProfileSection>
         <ProfileImage src={user?.imagePath || "https://via.placeholder.com/64"} alt="Foto de Perfil" />
         <ProfileInfo>
-          <ProfileName>{user?.name} {user?.surname || "Sobrenome"}</ProfileName>
+          <ProfileName>{user?.name} {user?.username || "Sobrenome"}</ProfileName>
           <ProfileSubtitle>@{user?.username || "username"}</ProfileSubtitle>
         </ProfileInfo>
       </ProfileSection>
@@ -62,7 +68,7 @@ const Quack = ({ user }: { user: any }) => {
       <WelcomeSection>
         <WelcomeImage src={Falando} alt="Imagem de boas-vindas" />
         <WelcomeTextContainer>
-          <WelcomeTitle>Bem-vindo de volta, {user?.surname || "Sobrenome"}!</WelcomeTitle>
+          <WelcomeTitle>Bem-vindo de volta, {user?.username || "Sobrenome"}!</WelcomeTitle>
           <WelcomeText>
             Explore caminhos de aprendizado estruturados para impulsionar sua jornada como desenvolvedor.
           </WelcomeText>
@@ -147,7 +153,7 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
       <Header>
         <PuzzleButton onClick={() => changeSection('Desafio')}>
           <img src={Puzzle} alt="Estrela icon" />
-          <p> Desafio diário! </p>
+          <p> Missões diário! </p>
         </PuzzleButton>
         <Input
           type="search"
@@ -195,10 +201,10 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
           <NotificationDot />
         </NotificationIconWrapper>
       </Header>
-      <Quack user={user} /> {/* Passa o usuário para o Quack */}
+      <Quack user={user ??{}} /> {/* Passa o usuário para o Quack */}
       <MainContent>
         <TituloContainer>
-          <Titulo>Minhas Roadmaps</Titulo>
+          <Titulo>Minhas Trilhas</Titulo>
           <VerTodosLink onClick={handleVerTodosClick}>Ver todos</VerTodosLink>
         </TituloContainer>
         <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>

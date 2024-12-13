@@ -288,11 +288,11 @@ const Header: React.FC = () => {
   return (
     <PageContainer>
       {/* Título */}
-      <Title>Todas as Roadmaps para você dominar</Title>
+      <Title>Todas as Trilhas para você dominar</Title>
 
       {/* Descrição */}
       <Description>
-        Torne-se fluente nas linguagens de programação escolhidas completando esses roadmaps criados por nossa{" "}
+        Torne-se fluente nas linguagens de programação escolhidas completando esses trilhas criados por nossa{" "}
         <Link href="#">incrível equipe de colaboradores</Link>.
       </Description>
 
@@ -301,7 +301,7 @@ const Header: React.FC = () => {
         <TextField
           fullWidth
           variant="outlined"
-          placeholder="Pesquisar roadmaps"
+          placeholder="Pesquisar trilhas"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           style={{ marginRight: '10px', borderRadius: '16px' }}

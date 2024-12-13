@@ -42,7 +42,7 @@ const Login = () => {
 
   return (
     <LoginContainer>
-      <FormSection>
+      <FormSection style={{ zIndex: 1 }}>
         <Form onSubmit={handleSubmit(onSubmit)} onKeyPress={handleKeyPress}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <BackButton onClick={() => navigate('/')}> 

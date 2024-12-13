@@ -162,9 +162,9 @@ const Notifications: React.FC<NotificationsProps> = ({ changeSection }) => {
     {
       id: 6,
       Icon: NotificationsIcon,
-      title: "Complete sua roadmap",
-      description: "Você está quase lá! Complete sua roadmap para alcançar seus objetivos.",
-      actionLabel: "VER ROADMAP",
+      title: "Complete sua trilhas",
+      description: "Você está quase lá! Complete sua trilhas para alcançar seus objetivos.",
+      actionLabel: "VER TRILHAS",
       actionColor: "#673AB7",
       iconColor: "#3F51B5",
     },
@@ -223,7 +223,7 @@ const Notifications: React.FC<NotificationsProps> = ({ changeSection }) => {
     if (filter === 'Eventos' && notification.title.includes('Evento')) return true;
     if (filter === 'Missões' && notification.title.includes('missão')) return true;
     if (filter === 'Alertas' && notification.title.includes('Alerta')) return true;
-    if (filter === 'Roadmap' && notification.title.includes('roadmap')) return true;
+    if (filter === 'Trilhas' && notification.title.includes('Trilhas')) return true;
     return false;
   });
 
@@ -265,7 +265,7 @@ const Notifications: React.FC<NotificationsProps> = ({ changeSection }) => {
             <MenuItem value="Eventos">Eventos</MenuItem>
             <MenuItem value="Missões">Missões</MenuItem>
             <MenuItem value="Alertas">Alertas</MenuItem>
-            <MenuItem value="Roadmap">Roadmap</MenuItem>
+            <MenuItem value="Trilhas">Trilhas</MenuItem>
           </Select>
         </Box>
         <Grid container spacing={4}>

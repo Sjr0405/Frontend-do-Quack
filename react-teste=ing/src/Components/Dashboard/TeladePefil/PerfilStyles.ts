@@ -353,8 +353,46 @@ export const BotaoLoja = styled.button`
   }
 `;
 
+export const ColunasPerfil = styled.div`
+display: flex;
+width: 100%;
+justify-content: center;
+background-color: #fff;
+border-radius: 15px;
+box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+flex-wrap: wrap;
+@media (max-width: 768px) {
+  flex-direction: column;
+  }
+  `;
+  
+export const ColunaPerfil = styled.div`
+flex: 1;
+display: flex;
+align-items: center;
+padding: 20px;
+justify-content: space-between;
+@media (max-width: 768px) {
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px;
+  }
+`;
+
+  export const ColunaAba = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  @media (max-width: 768px) {
+    margin-top: 20px;
+    padding: 10px;
+  }
+`;
+
 export const ContainerAbas = styled.div`
-  width: 100%;
+  width: 50%;
   border-radius: 15px;
   overflow: hidden;
   border: 2px solid #e9e8e8;
@@ -367,78 +405,101 @@ export const ContainerAbas = styled.div`
 `;
 
 export const NavegacaoAbas = styled.div`
+display: flex;
+justify-content: space-around;
+width: 100%;
+background-color: #f3f3f3;
+  }
+`;
+
+export const VerTodosLink = styled.div`{
   display: flex;
-  border-radius: 15px;
-  justify-content: space-between;
-  background-color: #f5f5f5;
-  padding: 10px;
-`;
-
-export const BotaoAba = styled.div<{ active?: boolean }>`
-  flex: 1;
-  cursor: pointer;
-  text-align: center;
-  font-weight: bold;
-  color: ${({ active }) => (active ? '#6e52fa' : '#bcbcbc')};
-  border-bottom: 3px solid ${({ active }) => (active ? '#6e52fa' : '#e0e0e0')};
-  padding-bottom: 5px;
-  font-size: 20px;
-`;
-
-export const ConteudoAba = styled.div`
-  text-align: center;
-  padding: 20px;
-  background-color: white;
-`;
-
-export const Titulo = styled.h3`
-  color: #6e6e6e;
-  font-size: 20px;
-  margin-bottom: 10px;
-  font-weight: bold;
-`;
-
-export const TextoSecundario = styled.span`
-  color: #bcbcbc;
+justify-content: flex-start;
+width: 100%;
+background-color: transparent;
+border-bottom: 1px solid #f3f3f3;
+a {
   font-size: 16px;
-  line-height: 1.5;
-  margin: 0;
-`;
+  font-weight: 500;
+  font-family: 'Lilita One', sans-serif;
+  text-decoration: none;
+  color: #ff7f00;
+  padding: 20px 40px;
+  cursor: pointer;
+  transition: text-decoration 0.3s ease, color 0.3s ease;
 
-export const ColunasPerfil = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  background-color: #fff;
-  border-radius: 15px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  flex-wrap: wrap;
-  @media (max-width: 768px) {
-    flex-direction: column;
+  &:hover {
+    text-decoration: underline;
+    color:#d36900;
   }
-`;
+}`;
 
-export const ColunaPerfil = styled.div`
-  flex: 1;
-  display: flex;
-  align-items: center;
+export const BotaoAba = styled.button<{ active: boolean }>`
+flex: 1;
+font family: 'Montserrat Alternates', sans-serif;
+padding: 10px 20px;
+background-color: ${({ active }) => (active ? '#ffffff' : '#f3f3f3')};
+color: ${({ active }) => (active ? '#000000' : '#666666')};
+font-weight: 500;
+border: none;
+border-bottom: ${({ active }) => (active ? '3px solid #ff7f00' : 'none')};
+color: ${({ active }) => (active ? '#ff7f00' : '#666666')};
+cursor: pointer;
+transition: background-color 0.3s ease, color 0.3s ease;
+
+&:hover {
+  background-color: #ffffff;
+  color: #ff7f00;
+  
+  }
+  `;
+  
+  export const ConteudoAba = styled.div`
   padding: 20px;
-  justify-content: space-between;
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px;
-  }
+  text-align: center;
+  `;
+  
+  export const Titulo = styled.h3`
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
 `;
 
-export const ColunaAba = styled.div`
-  flex: 1;
+export const TextoSecundario = styled.p`
+font-size: 14px;
+color: #666;
+`;
+
+export const Detalhes = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  @media (max-width: 768px) {
-    margin-top: 20px;
-    padding: 10px;
   }
 `;
+export const Seguindo = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 10px 0px;
+  border-bottom: 1px solid #eee;
+
+img {
+  justify-content: flex-start;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  }
+  `;
+  
+export const Seguidores = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+
+border-radius-top: 15px;
+img {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  }
+  `;
+
