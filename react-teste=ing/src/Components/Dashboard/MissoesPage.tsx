@@ -10,7 +10,7 @@ import iconNew from '../../Assets/iconnew.svg';
 import iconGoal from '../../Assets/icongoal.svg';
 import iconExperience from '../../Assets/iconexperience.svg';
 import iconLock from '../../Assets/iconlock.svg';
-import fullBodyLogo from '../../assets/Fulbody-logo.svg';
+import fullBodyLogo from '../../Assets/Fulbody-logo.svg';
 
 // Estilos
 const PageContainer = styled.div`
