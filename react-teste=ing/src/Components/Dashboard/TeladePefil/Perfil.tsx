@@ -92,7 +92,7 @@ const Perfil = ({ changeSection }: { changeSection: (section: string) => void })
             <div className="name">{user?.name}</div>
             <div className="handle">@{user?.username}</div>
             <div className="description">
-              Por aqui desde {user?.registerAt ? new Date(user.registerAt).toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' }) : 'Data desconhecida'}
+              Por aqui desde {user?.registerOn ? new Date(user.registerOn).toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' }) : 'Data desconhecida'}
             </div>
             <div className="achievement-container">
               <div className="achievement-item">
