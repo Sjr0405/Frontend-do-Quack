@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Grid, Box, Typography, Switch, Select, MenuItem, List, ListItem, ListItemText, Button, Card, CardContent, IconButton, Divider } from '@mui/material';
+import { Grid, Box, Typography, Switch, Select, MenuItem, List, ListItem, ListItemText, Button, Card, CardContent, IconButton, Divider, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip';
@@ -11,6 +11,7 @@ import GoogleIcon from '@mui/icons-material/Google';
 import PublicIcon from '@mui/icons-material/Public';
 import AdsIcon from '@mui/icons-material/AdUnits';
 import ErrorIcon from '@mui/icons-material/ErrorOutline';
+import Swal from 'sweetalert2';
 
 const Configuracoes = () => {
   const [soundEffects, setSoundEffects] = useState(true);
@@ -26,16 +27,9 @@ const Configuracoes = () => {
   const [productUpdates, setProductUpdates] = useState(true);
   const [newFollowers, setNewFollowers] = useState(true);
   const [friendActivity, setFriendActivity] = useState(true);
-  const [weeklyProgress, setWeeklyProgress] = useState(true);
-  const [specialPromotions, setSpecialPromotions] = useState(true);
-  const [dailyReminder, setDailyReminder] = useState('17:00');
-  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
-  const [silentMode, setSilentMode] = useState(false);
-  const [studyReminder, setStudyReminder] = useState(true);
   const [smsStudyReminder, setSmsStudyReminder] = useState(false);
   const [whatsappStudyReminder, setWhatsappStudyReminder] = useState(false);
-  const [callReminder, setCallReminder] = useState(false);
-  const [meetingReminder, setMeetingReminder] = useState(true);
+  const [dailyReminder, setDailyReminder] = useState('17:00');
   const [promoNotifications, setPromoNotifications] = useState(true);
   const navigate = useNavigate();
 
@@ -60,53 +54,58 @@ const Configuracoes = () => {
     navigate('/CentraldeAjuda');
   };
 
+  const handleNotReadyAlert = () => {
+    Swal.fire({
+      icon: 'info',
+      title: 'Funcionalidade não disponível',
+      text: 'Esta funcionalidade ainda não está pronta. Por favor, aguarde novas atualizações.',
+    });
+  };
+
   return (
     <Box sx={{ padding: 4, fontFamily: 'Montserrat Alternates' }}>
-      <Typography
-        variant="h4"
-        gutterBottom
-        align="center"
-        sx={{
-          textAlign: "center",
-          marginBottom: 3,
-          fontWeight: "bold",
-          color: "#7a5ff5",
-          fontFamily: 'Montserrat Alternates', // Aplicando a fonte Lilita One
-
-        }}
-      >
-        Configurações
-      </Typography>
-      <IconButton
-        onClick={handleErrorPageClick}
-        sx={{
-          position: 'absolute',
-          top: 16,
-          right: 32,
-          backgroundColor: '#FF914D',
-          color: '#fff',
-          '&:hover': {
-            backgroundColor: '#FF7A29',
-          },
-        }}
-      >
-        <ErrorIcon />
-      </IconButton>
-      <IconButton
-        onClick={handleNotificationsClick}
-        sx={{
-          position: 'absolute',
-          top: 16,
-          right: 96, // Ajuste para posicionar próximo ao botão de erro
-          backgroundColor: '#4834d4',
-          color: '#fff',
-          '&:hover': {
-            backgroundColor: '#3a2baf',
-          },
-        }}
-      >
-        <NotificationsIcon />
-      </IconButton>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+        <Typography
+          variant="h4"
+          gutterBottom
+          align="center"
+          sx={{
+            textAlign: "center",
+            fontWeight: "bold",
+            color: "#7a5ff5",
+            fontFamily: 'Montserrat Alternates',
+          }}
+        >
+          Configurações
+        </Typography>
+        <Box>
+          <IconButton
+            onClick={handleErrorPageClick}
+            sx={{
+              backgroundColor: '#FF914D',
+              color: '#fff',
+              '&:hover': {
+                backgroundColor: '#FF7A29',
+              },
+              marginRight: 2,
+            }}
+          >
+            <ErrorIcon />
+          </IconButton>
+          <IconButton
+            onClick={handleNotificationsClick}
+            sx={{
+              backgroundColor: '#4834d4',
+              color: '#fff',
+              '&:hover': {
+                backgroundColor: '#3a2baf',
+              },
+            }}
+          >
+            <NotificationsIcon />
+          </IconButton>
+        </Box>
+      </Box>
       <Grid container spacing={4}>
         {/* Coluna esquerda */}
         <Grid item xs={12} md={8}>
@@ -117,40 +116,13 @@ const Configuracoes = () => {
                 <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold', fontSize: '1.25rem' }}>Geral</Typography>
                 <Divider sx={{ my: 2 }} />
                 <Box display="flex" alignItems="center" justifyContent="space-between" mb={3}>
-                  <Typography>Ativar Notificações</Typography>
-                  <Switch
-                    checked={notificationsEnabled}
-                    onChange={() => setNotificationsEnabled(!notificationsEnabled)}
-                    sx={{
-                      '& .MuiSwitch-switchBase.Mui-checked': {
-                        color: '#FB7901',
-                      },
-                      '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-                        backgroundColor: '#FB7901',
-                      },
-                    }}
-                  />
-                </Box>
-                <Box display="flex" alignItems="center" justifyContent="space-between" mb={3}>
-                  <Typography>Modo Silencioso</Typography>
-                  <Switch
-                    checked={silentMode}
-                    onChange={() => setSilentMode(!silentMode)}
-                    sx={{
-                      '& .MuiSwitch-switchBase.Mui-checked': {
-                        color: '#FB7901',
-                      },
-                      '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-                        backgroundColor: '#FB7901',
-                      },
-                    }}
-                  />
-                </Box>
-                <Box display="flex" alignItems="center" justifyContent="space-between" mb={3}>
                   <Typography>E-mail</Typography>
                   <Switch
                     checked={emailNotifications}
-                    onChange={() => setEmailNotifications(!emailNotifications)}
+                    onChange={() => {
+                      setEmailNotifications(!emailNotifications);
+                      handleNotReadyAlert();
+                    }}
                     sx={{
                       '& .MuiSwitch-switchBase.Mui-checked': {
                         color: '#FB7901',
@@ -165,7 +137,10 @@ const Configuracoes = () => {
                   <Typography>Atualizações de produto e dicas de aprendizado</Typography>
                   <Switch
                     checked={productUpdates}
-                    onChange={() => setProductUpdates(!productUpdates)}
+                    onChange={() => {
+                      setProductUpdates(!productUpdates);
+                      handleNotReadyAlert();
+                    }}
                     sx={{
                       '& .MuiSwitch-switchBase.Mui-checked': {
                         color: '#FB7901',
@@ -180,7 +155,10 @@ const Configuracoes = () => {
                   <Typography>Novos seguidores</Typography>
                   <Switch
                     checked={newFollowers}
-                    onChange={() => setNewFollowers(!newFollowers)}
+                    onChange={() => {
+                      setNewFollowers(!newFollowers);
+                      handleNotReadyAlert();
+                    }}
                     sx={{
                       '& .MuiSwitch-switchBase.Mui-checked': {
                         color: '#FB7901',
@@ -195,22 +173,10 @@ const Configuracoes = () => {
                   <Typography>Atividade de amigos</Typography>
                   <Switch
                     checked={friendActivity}
-                    onChange={() => setFriendActivity(!friendActivity)}
-                    sx={{
-                      '& .MuiSwitch-switchBase.Mui-checked': {
-                        color: '#FB7901',
-                      },
-                      '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-                        backgroundColor: '#FB7901',
-                      },
+                    onChange={() => {
+                      setFriendActivity(!friendActivity);
+                      handleNotReadyAlert();
                     }}
-                  />
-                </Box>
-                <Box display="flex" alignItems="center" justifyContent="space-between" mb={3}>
-                  <Typography>Progresso semanal</Typography>
-                  <Switch
-                    checked={weeklyProgress}
-                    onChange={() => setWeeklyProgress(!weeklyProgress)}
                     sx={{
                       '& .MuiSwitch-switchBase.Mui-checked': {
                         color: '#FB7901',
@@ -224,25 +190,13 @@ const Configuracoes = () => {
                 <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold', fontSize: '1.25rem' }}>Promoções</Typography>
                 <Divider sx={{ my: 2 }} />
                 <Box display="flex" alignItems="center" justifyContent="space-between" mb={3}>
-                  <Typography>Promoções especiais</Typography>
-                  <Switch
-                    checked={specialPromotions}
-                    onChange={() => setSpecialPromotions(!specialPromotions)}
-                    sx={{
-                      '& .MuiSwitch-switchBase.Mui-checked': {
-                        color: '#FB7901',
-                      },
-                      '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-                        backgroundColor: '#FB7901',
-                      },
-                    }}
-                  />
-                </Box>
-                <Box display="flex" alignItems="center" justifyContent="space-between" mb={3}>
                   <Typography>Notificações de Promoções</Typography>
                   <Switch
                     checked={promoNotifications}
-                    onChange={() => setPromoNotifications(!promoNotifications)}
+                    onChange={() => {
+                      setPromoNotifications(!promoNotifications);
+                      handleNotReadyAlert();
+                    }}
                     sx={{
                       '& .MuiSwitch-switchBase.Mui-checked': {
                         color: '#FB7901',
@@ -256,24 +210,13 @@ const Configuracoes = () => {
                 <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold', fontSize: '1.25rem' }}>Lembretes</Typography>
                 <Divider sx={{ my: 2 }} />
                 <Box display="flex" alignItems="center" justifyContent="space-between" mb={3}>
-                  <Switch
-                    checked={studyReminder}
-                    onChange={() => setStudyReminder(!studyReminder)}
-                    sx={{
-                      '& .MuiSwitch-switchBase.Mui-checked': {
-                        color: '#FB7901',
-                      },
-                      '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-                        backgroundColor: '#FB7901',
-                      },
-                    }}
-                  />
-                </Box>
-                <Box display="flex" alignItems="center" justifyContent="space-between" mb={3}>
                   <Typography>Lembrete via SMS de Estudo</Typography>
                   <Switch
                     checked={smsStudyReminder}
-                    onChange={() => setSmsStudyReminder(!smsStudyReminder)}
+                    onChange={() => {
+                      setSmsStudyReminder(!smsStudyReminder);
+                      handleNotReadyAlert();
+                    }}
                     sx={{
                       '& .MuiSwitch-switchBase.Mui-checked': {
                         color: '#FB7901',
@@ -288,37 +231,10 @@ const Configuracoes = () => {
                   <Typography>Lembrete via WhatsApp de Estudo</Typography>
                   <Switch
                     checked={whatsappStudyReminder}
-                    onChange={() => setWhatsappStudyReminder(!whatsappStudyReminder)}
-                    sx={{
-                      '& .MuiSwitch-switchBase.Mui-checked': {
-                        color: '#FB7901',
-                      },
-                      '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-                        backgroundColor: '#FB7901',
-                      },
+                    onChange={() => {
+                      setWhatsappStudyReminder(!whatsappStudyReminder);
+                      handleNotReadyAlert();
                     }}
-                  />
-                </Box>
-                <Box display="flex" alignItems="center" justifyContent="space-between" mb={3}>
-                  <Typography>Lembrete via Chamada</Typography>
-                  <Switch
-                    checked={callReminder}
-                    onChange={() => setCallReminder(!callReminder)}
-                    sx={{
-                      '& .MuiSwitch-switchBase.Mui-checked': {
-                        color: '#FB7901',
-                      },
-                      '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-                        backgroundColor: '#FB7901',
-                      },
-                    }}
-                  />
-                </Box>
-                <Box display="flex" alignItems="center" justifyContent="space-between" mb={3}>
-                  <Typography>Lembrete de Reuniões</Typography>
-                  <Switch
-                    checked={meetingReminder}
-                    onChange={() => setMeetingReminder(!meetingReminder)}
                     sx={{
                       '& .MuiSwitch-switchBase.Mui-checked': {
                         color: '#FB7901',
@@ -333,16 +249,18 @@ const Configuracoes = () => {
                 <Typography variant="h6" gutterBottom>Lembretes diários via E-mail</Typography>
                 <Box display="flex" alignItems="center" justifyContent="space-between" mb={3}>
                   <Typography>Lembrete para praticar</Typography>
-                  <Select
+                  <TextField
+                    type="time"
                     value={dailyReminder}
                     onChange={(e) => setDailyReminder(e.target.value)}
                     sx={{ borderRadius: '12px', minWidth: '150px' }}
-                  >
-                    <MenuItem value="08:00">08:00</MenuItem>
-                    <MenuItem value="12:00">12:00</MenuItem>
-                    <MenuItem value="17:00">17:00</MenuItem>
-                    <MenuItem value="20:00">20:00</MenuItem>
-                  </Select>
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    inputProps={{
+                      step: 300, // 5 min
+                    }}
+                  />
                 </Box>
               </CardContent>
             </Card>
@@ -357,7 +275,10 @@ const Configuracoes = () => {
                   </Box>
                   <Switch
                     checked={facebookConnected}
-                    onChange={() => setFacebookConnected(!facebookConnected)}
+                    onChange={() => {
+                      setFacebookConnected(!facebookConnected);
+                      handleNotReadyAlert();
+                    }}
                     sx={{
                       '& .MuiSwitch-switchBase.Mui-checked': {
                         color: '#FB7901',
@@ -375,7 +296,10 @@ const Configuracoes = () => {
                   </Box>
                   <Switch
                     checked={googleConnected}
-                    onChange={() => setGoogleConnected(!googleConnected)}
+                    onChange={() => {
+                      setGoogleConnected(!googleConnected);
+                      handleNotReadyAlert();
+                    }}
                     sx={{
                       '& .MuiSwitch-switchBase.Mui-checked': {
                         color: '#FB7901',
@@ -399,7 +323,10 @@ const Configuracoes = () => {
                   </Box>
                   <Switch
                     checked={profilePublic}
-                    onChange={() => setProfilePublic(!profilePublic)}
+                    onChange={() => {
+                      setProfilePublic(!profilePublic);
+                      handleNotReadyAlert();
+                    }}
                     sx={{
                       '& .MuiSwitch-switchBase.Mui-checked': {
                         color: '#FB7901',
@@ -420,7 +347,10 @@ const Configuracoes = () => {
                   </Box>
                   <Switch
                     checked={personalizedAds}
-                    onChange={() => setPersonalizedAds(!personalizedAds)}
+                    onChange={() => {
+                      setPersonalizedAds(!personalizedAds);
+                      handleNotReadyAlert();
+                    }}
                     sx={{
                       '& .MuiSwitch-switchBase.Mui-checked': {
                         color: '#FB7901',
@@ -469,7 +399,10 @@ const Configuracoes = () => {
                     <Typography>Efeitos sonoros</Typography>
                     <Switch
                       checked={soundEffects}
-                      onChange={() => setSoundEffects(!soundEffects)}
+                      onChange={() => {
+                        setSoundEffects(!soundEffects);
+                        handleNotReadyAlert();
+                      }}
                       sx={{
                         '& .MuiSwitch-switchBase.Mui-checked': {
                           color: '#FB7901',
@@ -484,7 +417,10 @@ const Configuracoes = () => {
                     <Typography>Animações</Typography>
                     <Switch
                       checked={animations}
-                      onChange={() => setAnimations(!animations)}
+                      onChange={() => {
+                        setAnimations(!animations);
+                        handleNotReadyAlert();
+                      }}
                       sx={{
                         '& .MuiSwitch-switchBase.Mui-checked': {
                           color: '#FB7901',
@@ -499,7 +435,10 @@ const Configuracoes = () => {
                     <Typography>Mensagens motivacionais</Typography>
                     <Switch
                       checked={motivationalMessages}
-                      onChange={() => setMotivationalMessages(!motivationalMessages)}
+                      onChange={() => {
+                        setMotivationalMessages(!motivationalMessages);
+                        handleNotReadyAlert();
+                      }}
                       sx={{
                         '& .MuiSwitch-switchBase.Mui-checked': {
                           color: '#FB7901',

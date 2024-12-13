@@ -11,10 +11,9 @@ export default {
         black: '#000',
         gray: '#bfbfbf',   
 
-        sucess: '#5cb85c',
+        success: '#5cb85c',
         info: '#5bc0de',
         warning: '#f0ad4e',
         error: '#d9534f',
-
     },
 }

@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import {
   Grid,
   Box,
@@ -22,6 +22,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
 import tristeIcon from "../../Assets/Svg_thigas/TRISTE.svg";
+import Swal from 'sweetalert2';
 
 // Componente para itens de notificação
 interface NotificationItemProps {
@@ -171,7 +172,6 @@ const Notifications: React.FC<NotificationsProps> = ({ changeSection }) => {
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
-  const [silentMode, setSilentMode] = useState(false);
   const [studyReminder, setStudyReminder] = useState(true);
   const [smsReminder, setSmsReminder] = useState(false);
   const [whatsappReminder, setWhatsappReminder] = useState(false);
@@ -206,6 +206,14 @@ const Notifications: React.FC<NotificationsProps> = ({ changeSection }) => {
 
   const handleFilterChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setFilter(event.target.value as string);
+  };
+
+  const handleNotReadyAlert = () => {
+    Swal.fire({
+      icon: 'info',
+      title: 'Funcionalidade não disponível',
+      text: 'Esta funcionalidade ainda não está pronta. Por favor, aguarde novas atualizações.',
+    });
   };
 
   const filteredNotifications = notifications.filter(notification => {
@@ -331,7 +339,10 @@ const Notifications: React.FC<NotificationsProps> = ({ changeSection }) => {
               control={
                 <Switch
                   checked={notificationsEnabled}
-                  onChange={handleNotificationToggle}
+                  onChange={() => {
+                    handleNotificationToggle();
+                    handleNotReadyAlert();
+                  }}
                   sx={{
                     '& .MuiSwitch-switchBase.Mui-checked': {
                       color: '#FF914D',
@@ -349,7 +360,10 @@ const Notifications: React.FC<NotificationsProps> = ({ changeSection }) => {
               control={
                 <Switch
                   checked={studyReminder}
-                  onChange={() => setStudyReminder(!studyReminder)}
+                  onChange={() => {
+                    setStudyReminder(!studyReminder);
+                    handleNotReadyAlert();
+                  }}
                   sx={{
                     '& .MuiSwitch-switchBase.Mui-checked': {
                       color: '#FF914D',
@@ -367,7 +381,10 @@ const Notifications: React.FC<NotificationsProps> = ({ changeSection }) => {
               control={
                 <Switch
                   checked={smsReminder}
-                  onChange={() => setSmsReminder(!smsReminder)}
+                  onChange={() => {
+                    setSmsReminder(!smsReminder);
+                    handleNotReadyAlert();
+                  }}
                   sx={{
                     '& .MuiSwitch-switchBase.Mui-checked': {
                       color: '#FF914D',
@@ -385,7 +402,10 @@ const Notifications: React.FC<NotificationsProps> = ({ changeSection }) => {
               control={
                 <Switch
                   checked={whatsappReminder}
-                  onChange={() => setWhatsappReminder(!whatsappReminder)}
+                  onChange={() => {
+                    setWhatsappReminder(!whatsappReminder);
+                    handleNotReadyAlert();
+                  }}
                   sx={{
                     '& .MuiSwitch-switchBase.Mui-checked': {
                       color: '#FF914D',
@@ -403,7 +423,10 @@ const Notifications: React.FC<NotificationsProps> = ({ changeSection }) => {
               control={
                 <Switch
                   checked={promotionReminder}
-                  onChange={() => setPromotionReminder(!promotionReminder)}
+                  onChange={() => {
+                    setPromotionReminder(!promotionReminder);
+                    handleNotReadyAlert();
+                  }}
                   sx={{
                     '& .MuiSwitch-switchBase.Mui-checked': {
                       color: '#FF914D',
@@ -421,7 +444,10 @@ const Notifications: React.FC<NotificationsProps> = ({ changeSection }) => {
               control={
                 <Switch
                   checked={emailNotifications}
-                  onChange={() => setEmailNotifications(!emailNotifications)}
+                  onChange={() => {
+                    setEmailNotifications(!emailNotifications);
+                    handleNotReadyAlert();
+                  }}
                   sx={{
                     '& .MuiSwitch-switchBase.Mui-checked': {
                       color: '#FF914D',
@@ -439,7 +465,10 @@ const Notifications: React.FC<NotificationsProps> = ({ changeSection }) => {
               control={
                 <Switch
                   checked={productUpdates}
-                  onChange={() => setProductUpdates(!productUpdates)}
+                  onChange={() => {
+                    setProductUpdates(!productUpdates);
+                    handleNotReadyAlert();
+                  }}
                   sx={{
                     '& .MuiSwitch-switchBase.Mui-checked': {
                       color: '#FF914D',
@@ -457,7 +486,10 @@ const Notifications: React.FC<NotificationsProps> = ({ changeSection }) => {
               control={
                 <Switch
                   checked={newFollowers}
-                  onChange={() => setNewFollowers(!newFollowers)}
+                  onChange={() => {
+                    setNewFollowers(!newFollowers);
+                    handleNotReadyAlert();
+                  }}
                   sx={{
                     '& .MuiSwitch-switchBase.Mui-checked': {
                       color: '#FF914D',
@@ -475,7 +507,10 @@ const Notifications: React.FC<NotificationsProps> = ({ changeSection }) => {
               control={
                 <Switch
                   checked={friendActivity}
-                  onChange={() => setFriendActivity(!friendActivity)}
+                  onChange={() => {
+                    setFriendActivity(!friendActivity);
+                    handleNotReadyAlert();
+                  }}
                   sx={{
                     '& .MuiSwitch-switchBase.Mui-checked': {
                       color: '#FF914D',
@@ -493,7 +528,10 @@ const Notifications: React.FC<NotificationsProps> = ({ changeSection }) => {
               control={
                 <Switch
                   checked={dailyReminder === '17:00'}
-                  onChange={() => setDailyReminder(dailyReminder === '17:00' ? '' : '17:00')}
+                  onChange={() => {
+                    setDailyReminder(dailyReminder === '17:00' ? '' : '17:00');
+                    handleNotReadyAlert();
+                  }}
                   sx={{
                     '& .MuiSwitch-switchBase.Mui-checked': {
                       color: '#FF914D',

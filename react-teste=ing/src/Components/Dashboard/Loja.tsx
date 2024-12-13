@@ -14,6 +14,15 @@ import EventIcon from "@mui/icons-material/Event";
 import { useNavigate } from "react-router-dom";
 import PatoSvg from "../../Assets/Svg_thigas/VETOR PATO.svg";
 import { SvgIconComponent } from "@mui/icons-material";
+import Swal from 'sweetalert2';
+
+const handleNotReadyAlert = () => {
+  Swal.fire({
+    icon: 'info',
+    title: 'Funcionalidade não disponível',
+    text: 'Esta funcionalidade ainda não está pronta. Por favor, aguarde novas atualizações.',
+  });
+};
 
 // Componente para itens da loja
 const StoreItem = ({
@@ -34,7 +43,7 @@ const StoreItem = ({
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    navigate("/home"); // Temporariamente redirecionando para a mesma página
+    handleNotReadyAlert(); // Chama o alerta para botões sem funcionalidade
   };
 
   return (
@@ -166,6 +175,7 @@ const Loja = () => {
                     position: "relative", // Para garantir que o botão fique acima do SVG
                     zIndex: 1, // Garantir que o botão fique acima do SVG
                   }}
+                  onClick={handleNotReadyAlert} // Chama o alerta para botões sem funcionalidade
                 >
                   COMEÇAR 14 DIAS GRÁTIS
                 </Button>
@@ -245,6 +255,7 @@ const Loja = () => {
                   color: "#7a5ff5",
                   fontWeight: "bold",
                 }}
+                onClick={handleNotReadyAlert} // Chama o alerta para botões sem funcionalidade
               >
                 VER DIVISÃO
               </Button>
@@ -275,6 +286,7 @@ const Loja = () => {
                   color: "#7a5ff5",
                   fontWeight: "bold",
                 }}
+                onClick={handleNotReadyAlert} // Chama o alerta para botões sem funcionalidade
               >
                 VER TODAS
               </Button>
@@ -306,6 +318,7 @@ const Loja = () => {
                   borderRadius: "16px",
                   fontWeight: "bold",
                 }}
+                onClick={handleNotReadyAlert} // Chama o alerta para botões sem funcionalidade
               >
                 EXPERIMENTE O TURBO DE GRAÇA
               </Button>
