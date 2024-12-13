@@ -11,6 +11,7 @@ import {
   ListItem,
   RankingIcon
 } from './RankingsStyles';
+import { Box, Typography, Avatar } from '@mui/material';
 import Javascript from '../../../Assets/svgs/Home-svgs/Rankings/js.svg';
 import Python from '../../../Assets/svgs/Home-svgs/Rankings/python.svg';
 import Java from '../../../Assets/svgs/Home-svgs/Rankings/java.svg';
@@ -107,7 +108,7 @@ const Rankings = () => {
     <Container>
       <Header>
         <img src={Trofeu} alt="Trofeu" />
-        <h1>Os Mais Quacktivos</h1>
+        <h1>Classificações</h1>
         <img src={Trofeu} alt="Trofeu" />
       </Header>
 
@@ -120,17 +121,14 @@ const Rankings = () => {
             isThird={index === 2}
           >
             <UserImage src={user.image_url || ''} alt={`${user.name}'s avatar`} />
-            <div style={{ display: 'flex', alignItems: 'center', marginLeft: '40%'}}>
+            <Box display="flex" alignItems="center" justifyContent="center">
               <RankingIcon src={getRankingIcon(user.ranking) || ''} alt={`Ranking ${user.ranking}`} />
               <LanguageImageContainer>
                 <img src={user.favorite_language_url || ''} alt={user.favorite_language || ''} />
               </LanguageImageContainer>
-            </div>
-            
+            </Box>
             <UserName>{user.name}</UserName>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <p>#{user.ranking}</p>
-            </div>
+            <Typography variant="body2">#{user.ranking}</Typography>
           </UserCard>
         ))}
       </MainSection>
@@ -138,19 +136,19 @@ const Rankings = () => {
       <UserList>
         {users.slice(3).map((user) => (
           <ListItem key={user.id}>
-            <span style={{ display: 'flex', alignItems: 'center' }}>
-              #{user.ranking} 
-              <UserImage 
+            <Box display="flex" alignItems="center">
+              <Typography variant="body2">#{user.ranking}</Typography>
+              <Avatar 
                 src={user.image_url || ''} 
                 alt={`${user.name}'s avatar`} 
-                style={{ border: 'none', width: '50px', height: '50px', marginLeft: '10px', marginRight: '10px' }} 
+                sx={{ width: 50, height: 50, marginLeft: 1, marginRight: 1 }} 
               />
-              {user.name}
-            </span>
-            <span>
-              Linguagem Favorita: {user.favorite_language} 
+              <Typography variant="body2">{user.name}</Typography>
+            </Box>
+            <Box display="flex" alignItems="center">
+              <Typography variant="body2">Linguagem Favorita: {user.favorite_language}</Typography>
               <img src={user.favorite_language_url || ''} alt={user.favorite_language || ''} />
-            </span>
+            </Box>
           </ListItem>
         ))}
       </UserList>

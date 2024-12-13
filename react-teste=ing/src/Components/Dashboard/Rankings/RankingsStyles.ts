@@ -2,8 +2,12 @@ import styled from 'styled-components';
 
 // Styled Components
 export const Container = styled.div`
-  font-family: 'Arial', sans-serif;
+  font-family: 'Montserrat Alternates', sans-serif;
   text-align: center;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
 export const Header = styled.header`
@@ -18,9 +22,14 @@ export const Header = styled.header`
     margin: 10px;
   }
 
-  h1:hover {
-    cursor: pointer;
+  h1 {
+    font-size: 36px;
+    margin-right: 10px;
+    font-weight: 300;
+    font-family: 'Lilita One', sans-serif;
     position: relative;
+    cursor: pointer;
+    color: #333;
   }
   
   h1:hover::after {
@@ -32,13 +41,6 @@ export const Header = styled.header`
     position: absolute;
     bottom: -5px;
     left: -20%; 
-  }
-
-  h1 {
-    font-size: 36px;
-    margin-right: 10px;
-    font-weight: 300;
-    font-family: 'Lilita One', sans-serif;
   }
 `;
 
@@ -54,7 +56,7 @@ export const MainSection = styled.div`
 export const UserCard = styled.div<{ isFirst: boolean; isSecond: boolean; isThird: boolean }>`
   background-color: #fff;
   padding: 20px;
-  border-radius: 30%;
+  border-radius: 16px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
   width: 200px;
@@ -80,13 +82,12 @@ export const UserCard = styled.div<{ isFirst: boolean; isSecond: boolean; isThir
 export const LanguageImageContainer = styled.div`
   background-color: #fff;
   display: flex;
-  justify-content: center
+  justify-content: center;
   align-items: center;
   padding: 10px;
   width: fit-content;
-  align-items: center;
   margin-left: 25px;
-  border-radius: 20%;
+  border-radius: 16px;
   border: 1px solid #f7f7f7;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 `;
@@ -121,6 +122,7 @@ export const ListItem = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-radius: 16px;
 `;
 
 // Novo componente para exibir ícone de ranking
