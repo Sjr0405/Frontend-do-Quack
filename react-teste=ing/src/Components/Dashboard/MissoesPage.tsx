@@ -4,13 +4,21 @@ import IconButton from '@mui/material/IconButton';
 import { styled as muiStyled } from '@mui/material/styles';
 import Icon from '@mui/material/Icon';
 
+// Imagens
+import iconProgramming from '/src/Assets/iconprogramming.svg';
+import iconNew from '/src/Assets/iconnew.svg';
+import iconGoal from '/src/Assets/icongoal.svg';
+import iconExperience from '/src/Assets/iconexperience.svg';
+import iconLock from '/src/Assets/iconlock.svg';
+import fullBodyLogo from '/src/assets/Fulbody-logo.svg';
+
 // Estilos
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin bottom
-  
-  /* Adicionar padding para o conteúdo não ficar colado nas bordas */`;
+  margin-bottom: 20px; /* Corrigir a propriedade */
+  /* Adicionar padding para o conteúdo não ficar colado nas bordas */
+`;
 
 const Container = styled.main`
   border-radius: 0;
@@ -386,7 +394,7 @@ const ChallengeCard: React.FC<{ changeSection: (section: string) => void }> = ({
       <StartButtonWrapper>
         <CustomIconButton onClick={handleStartClick}>
           <Icon style={{ width: '80px', height: '80px' }}>
-            <IconImage src="/src/Assets/iconprogramming.svg" alt="Programming Icon" />
+            <IconImage src={iconProgramming} alt="Programming Icon" />
           </Icon>
           <StartText>Iniciar!</StartText>
         </CustomIconButton>
@@ -398,10 +406,10 @@ const ChallengeCard: React.FC<{ changeSection: (section: string) => void }> = ({
 
 const MainContentContainer: React.FC<{ changeSection: (section: string) => void }> = ({ changeSection }) => {
   const missions: MissionItemProps[] = [
-    { icon: "/src/Assets/iconnew.svg", description: "Complete uma nova missão", isCompleted: false },
-    { icon: "/src/Assets/icongoal.svg", description: "Conclua duas etapas de uma trilha", isCompleted: false },
-    { icon: "/src/Assets/iconexperience.svg", description: "Ganhe 30 pontos de experiência", isCompleted: false },
-    { icon: "/src/Assets/iconlock.svg", description: "Volte amanhã para uma nova missão", isCompleted: true, disabled: true },
+    { icon: iconNew, description: "Complete uma nova missão", isCompleted: false },
+    { icon: iconGoal, description: "Conclua duas etapas de uma trilha", isCompleted: false },
+    { icon: iconExperience, description: "Ganhe 30 pontos de experiência", isCompleted: false },
+    { icon: iconLock, description: "Volte amanhã para uma nova missão", isCompleted: true, disabled: true },
   ];
 
   return (
@@ -428,8 +436,7 @@ const PageTitle = styled.h1`
   color: #7a5ff5;
   font-size: 30px;
   font-family: 'Montserrat Alternates';
-            fontWeight: "bold";
-
+  font-weight: bold; /* Corrigir a propriedade */
   text-align: center;
   margin: 20px 0;
 `;
@@ -438,7 +445,7 @@ const MissoesPage: React.FC<{ changeSection: (section: string) => void }> = ({ c
   const userName = "Usuário";
   const quoteText = "Cada linha de código é um passo para o sucesso!";
   const quoteAuthor = "Thigas, o Pato";
-  const imageSrc = "/src/assets/Fulbody-logo.svg";
+  const imageSrc = fullBodyLogo;
 
   return (
     <PageContainer>

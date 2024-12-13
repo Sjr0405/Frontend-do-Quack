@@ -7,7 +7,7 @@ import FazerAtividade from '../../Components/Dashboard/FazerAtividade';
 import Desafio from '../../Components/Dashboard/Desafio';
 import Rankings from '../../Components/Dashboard/Rankings/Rankings';
 import Perfil from '../../Components/Dashboard/TeladePefil/Perfil';
-import Missoes from '../../Components/Missão/MissoesPage';
+import Missoes from '../../Components/Dashboard/MissoesPage';
 import Configuracoes from '../../Components/Dashboard/Configuracoes';
 import Loja from '../../Components/Dashboard/Loja';
 import Notifications from '../../Components/Dashboard/Notifications';
