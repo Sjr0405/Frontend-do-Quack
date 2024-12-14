@@ -20,8 +20,7 @@ import {
   BackgroundLayerRight
 } from './LoginStyles';
 import BackgroundImage from '../../Assets/svgs/Login-svgs/teste1.svg';
-import LogoReverse from '../../Assets/LogoReverse.svg';
-
+import LogoReverse from '../../Assets/Svg_thigas/Pato_de_perfil investido.svg';
 const Login = () => {
   const navigate = useNavigate();
   const {
