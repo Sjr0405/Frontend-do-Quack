@@ -5,19 +5,18 @@ export const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* Centralizar todos os elementos */
+  justify-content: center;
   height: 100%;
   width: 100%;
   background-color: #f8f8f8;
-  overflow-x: hidden; /* Adicione esta linha */
-  overflow-y: auto; /* Adicione esta linha */
-  
+  overflow-x: hidden;
+  overflow-y: auto;
 `;
 
 export const Coluna1 = styled.div`
   grid-column: 1;
   display: flex;
-  justify-content: center; /* Centralizar o conteúdo */
+  justify-content: center;
 `;
 
 export const Coluna2 = styled.div`
@@ -29,38 +28,34 @@ export const Coluna2 = styled.div`
 export const Coluna3 = styled.div`
   grid-column: 3;
   display: flex;
-  justify-content: center; /* Centralizar o conteúdo */
+  justify-content: center;
 `;
 
 export const Header = styled.div`
-
-  position: relative; /* Permite alinhamento interno */
+  position: relative;
   top: 0;
   left: 0;
   width: 100%;
-  padding: 20px; /* Ajustar o padding para manter espaçamento igual */
+  padding: 20px;
   background-color: #ffffff;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   display: grid;
-  grid-template-columns: 1fr auto 1fr; /* Dividir em 3 colunas */
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: center; /* Centralizar o texto */
+  justify-content: center;
 `;
 
 export const BackButton = styled(IconButton)`
-  
-  justify-self: start; /* Alinhar à esquerda */
+  justify-self: start;
   color: #800080;
   &:hover {
     background: rgba(128, 0, 128, 0.1);
-    
   }
 `;
 
 export const EnterButton = styled(Button)`
-  justify-self: end; /* Alinhar à direita */
+  justify-self: end;
   color: #800080;
-  
   border-color: #800080;
   &:hover {
     border-color: #660066;
@@ -71,9 +66,7 @@ export const Title = styled.h1`
   font-size: 1.8rem;
   color: #333;
   text-align: center;
-  
-  margin: 0; /* Remover margem para centralizar corretamente */
-  
+  margin: 0;
 `;
 
 export const FormContainer = styled.div`
@@ -99,14 +92,14 @@ export const Form = styled.form`
 export const Actions = styled.div`
   grid-column: span 2;
   display: flex;
-  justify-content: center; /* Centralizar o botão */
+  justify-content: center;
   align-items: center;
 `;
 
 export const PasswordRequirements = styled.div`
   grid-column: span 2;
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Dividir em 2 colunas */
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
   margin-top: 10px;
   font-size: 0.9rem;
