@@ -22,7 +22,6 @@ interface FormData {
   cpf: string;
   password: string;
   bornAt: string;
-  imagePath?: string;
 }
 
 export const useCadastro = () => {
@@ -32,6 +31,10 @@ export const useCadastro = () => {
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
+    // Tratamento da data de nascimento
+    const [day, month, year] = data.bornAt.split('/');
+    const formattedBornDate = `${year}-${month}-${day}`;
+
     const payload = {
       name: data.name,
       surname: data.surname,
@@ -39,8 +42,7 @@ export const useCadastro = () => {
       email: data.email,
       password: data.password,
       cpf: data.cpf.replace(/\D/g, ''),
-      bornDate: data.bornAt,
-      imagePath: data.imagePath || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRu5c_3r5AgGxKeAmOumAg8BC-oqLRMyvns6g&s"
+      bornDate: formattedBornDate,
     };
 
     console.log("Dados enviados:", payload);

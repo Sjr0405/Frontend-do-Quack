@@ -98,6 +98,7 @@ const Cadastro = () => {
   const applyPhoneMask = (value: string) => {
     return value
       .replace(/\D/g, "")
+      .slice(0, 11) // Limita a quantidade de números a 11
       .replace(/^(\d{2})(\d)/g, "($1) $2")
       .replace(/(\d{4,5})(\d{4})$/, "$1-$2");
   };
@@ -105,9 +106,18 @@ const Cadastro = () => {
   const applyCpfMask = (value: string) => {
     return value
       .replace(/\D/g, "")
+      .slice(0, 11) // Limita a quantidade de números a 11
       .replace(/(\d{3})(\d)/, "$1.$2")
       .replace(/(\d{3})(\d)/, "$1.$2")
       .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+  };
+
+  const applyDateMask = (value: string) => {
+    return value
+      .replace(/\D/g, "")
+      .replace(/(\d{2})(\d)/, "$1/$2")
+      .replace(/(\d{2})(\d)/, "$1/$2")
+      .slice(0, 10); // Limita a quantidade de caracteres a 10 (dd/mm/yyyy)
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -118,6 +128,8 @@ const Cadastro = () => {
       maskedValue = applyPhoneMask(value);
     } else if (name === "cpf") {
       maskedValue = applyCpfMask(value);
+    } else if (name === "bornDate") {
+      maskedValue = applyDateMask(value);
     }
 
     setFormData({ ...formData, [name]: maskedValue });
@@ -300,10 +312,6 @@ const Cadastro = () => {
             name="bornDate"
             value={formData.bornDate}
             onChange={handleChange}
-            type="date"
-            InputLabelProps={{
-              shrink: true,
-            }}
             variant="outlined"
             fullWidth
             required
