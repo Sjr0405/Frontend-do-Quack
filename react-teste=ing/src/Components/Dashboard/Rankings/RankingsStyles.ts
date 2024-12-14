@@ -53,12 +53,12 @@ export const MainSection = styled.div`
   position: relative;
 `;
 
-export const UserCard = styled.div<{ isFirst: boolean; isSecond: boolean; isThird: boolean }>`
-  background-color: #fff;
-  padding: 20px 15px; // Ajuste do padding para melhor espaçamento
-  margin-bottom: 20px; // Adicionado margem inferior para espaçamento entre os cards
+export const UserCard = styled.div<{ isFirst: boolean; isSecond: boolean; isThird: boolean;}>`
+  background: linear-gradient(145deg, #f0f0f0, #ffffff); // Gradiente de fundo
+  padding: 20px 15px;
+  margin-bottom: 20px;
   border-radius: 16px;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2); // Aumentando a sombra
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
   text-align: center;
   width: 200px;
   height: 280px;
@@ -66,28 +66,26 @@ export const UserCard = styled.div<{ isFirst: boolean; isSecond: boolean; isThir
   font-weight: 500;
   font-family: 'Montserrat Alternates', sans-serif;
 
+  // Padrão de cores
   ${({ isFirst }) => isFirst && `
-    z-index: 2;
+    border: 3px solid green;
+    box-shadow: 0px 8px 15px rgba(0, 128, 0, 0.5);
     transform: translateY(-20px) translateX(100%);
-    border: 2px solid green; // Adicionando borda verde para o primeiro lugar
-    box-shadow: 0px 8px 15px rgba(0, 128, 0, 0.5); // Adicionando sombra verde
-    margin-top: -10px; // Ajuste do espaçamento superior para o primeiro lugar
   `}
-  
+
   ${({ isSecond }) => isSecond && `
+    border: 3px solid blue;
+    box-shadow: 0px 8px 15px rgba(0, 0, 255, 0.5);
     transform: translateY(10px) translateX(-125%);
-    border: 2px solid blue; // Adicionando borda azul para o segundo lugar
-    box-shadow: 0px 8px 15px rgba(0, 0, 255, 0.5); // Adicionando sombra azul
-    margin-top: 10px; // Ajuste do espaçamento superior para o segundo lugar
   `}
 
   ${({ isThird }) => isThird && `
+    border: 3px solid red;
+    box-shadow: 0px 8px 15px rgba(255, 0, 0, 0.5);
     transform: translateY(10px);
-    border: 2px solid red; // Adicionando borda vermelha para o terceiro lugar
-    box-shadow: 0px 8px 15px rgba(255, 0, 0, 0.5); // Adicionando sombra vermelha
-    margin-top: 10px; // Ajuste do espaçamento superior para o terceiro lugar
   `}
 `;
+
 
 export const LanguageImageContainer = styled.div`
   background-color: #fff;

@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import felizPato from '../../Assets/Svg_thigas/FELIZ.svg';
 import tristePato from '../../Assets/Svg_thigas/TRISTE.svg';
 import turnDownPato from '../../Assets/Svg_thigas/TURN DOWN FOR WHAT.svg';
+import Editor from '@monaco-editor/react';
 
 const Container = styled.div`
   padding: 20px;
@@ -66,14 +67,15 @@ const ActivityDescription = styled.p`
   margin-top: 10px;
 `;
 
-const CodeInput = styled.textarea`
+const EditorContainer = styled.div`
+  display: flex;
+  height: 300px;
   width: 100%;
-  height: 100px;
-  margin-top: 10px;
+  max-width: 800px;
   padding: 10px;
-  font-size: 14px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+  border-radius: 16px;
+  background-color: #F4F4F9;
+  justify-content: center;
 `;
 
 const PatoImage = styled.img`
@@ -245,11 +247,16 @@ const ActivityPage: React.FC<{ activityType: string }> = ({ activityType }) => {
             {activityType === 'preenchimento-codigo' && (
               <>
                 <pre>{currentActivity.code}</pre>
-                <CodeInput
-                  value={userCode}
-                  onChange={(e) => setUserCode(e.target.value)}
-                  placeholder="Complete o código aqui..."
-                />
+                  <EditorContainer>
+                    <Editor
+                      height="100%"
+                      width="100%"
+                      language="java" 
+                      theme="vs-light"
+                      value={userCode}
+                      onChange={(value) => setUserCode(value || '')}
+                    />
+                  </EditorContainer>
                 <Button onClick={() => handleAnswer(userCode)}>Verificar</Button>
               </>
             )}

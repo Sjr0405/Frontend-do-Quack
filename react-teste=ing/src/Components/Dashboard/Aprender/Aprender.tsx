@@ -68,7 +68,7 @@ const Quack = ({ user }: { user: User }) => {
       <WelcomeSection>
         <WelcomeImage src={Falando} alt="Imagem de boas-vindas" />
         <WelcomeTextContainer>
-          <WelcomeTitle>Bem-vindo de volta, {user?.username || "Sobrenome"}!</WelcomeTitle>
+          <WelcomeTitle>Bem-vindo de volta, {user?.name || "Nome"}!</WelcomeTitle>
           <WelcomeText>
             Explore caminhos de aprendizado estruturados para impulsionar sua jornada como desenvolvedor.
           </WelcomeText>

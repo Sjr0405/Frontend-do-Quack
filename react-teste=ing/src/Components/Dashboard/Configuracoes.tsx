@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Grid, Box, Typography, Switch, Select, MenuItem, List, ListItem, ListItemText, Button, Card, CardContent, IconButton, Divider, TextField } from '@mui/material';
+import { Grid, Box, Typography, Switch, List, ListItem, ListItemText, Button, Card, CardContent, IconButton, Divider, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip';
@@ -17,7 +17,6 @@ const Configuracoes = () => {
   const [soundEffects, setSoundEffects] = useState(true);
   const [animations, setAnimations] = useState(true);
   const [motivationalMessages, setMotivationalMessages] = useState(true);
-  const [darkMode, setDarkMode] = useState('Padrão do sistema');
   const [selectedItem, setSelectedItem] = useState('Preferências');
   const [facebookConnected, setFacebookConnected] = useState(false);
   const [googleConnected, setGoogleConnected] = useState(false);
@@ -451,23 +450,7 @@ const Configuracoes = () => {
                   </Box>
                 </CardContent>
               </Card>
-              <Card sx={{ mt: 4, borderRadius: '16px', boxShadow: 3, padding: 3, fontFamily: 'Montserrat Alternates' }}>
-                <CardContent>
-                  <Typography variant="h5" gutterBottom>Visual</Typography>
-                  <Box display="flex" alignItems="center" justifyContent="space-between" mb={3}>
-                    <Typography>Modo escuro</Typography>
-                    <Select
-                      value={darkMode}
-                      onChange={(e) => setDarkMode(e.target.value)}
-                      sx={{ borderRadius: '12px', minWidth: '150px' }}
-                    >
-                      <MenuItem value="Padrão do sistema">Padrão do sistema</MenuItem>
-                      <MenuItem value="Claro">Claro</MenuItem>
-                      <MenuItem value="Escuro">Escuro</MenuItem>
-                    </Select>
-                  </Box>
-                </CardContent>
-              </Card>
+              
             </>
           )}
         </Grid>

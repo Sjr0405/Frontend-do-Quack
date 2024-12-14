@@ -217,8 +217,8 @@ const FazerAtividade = ({ changeSection }: { changeSection: (section: string, co
         </EditorContainer>
 
         <ActionButtonsContainer>
-          <ActionButton onClick={rodarTeste}>Rodar teste</ActionButton>
-          <ActionButton onClick={handleSubmit}>Enviar</ActionButton>
+          <ActionButton style={{ marginRight: '2%' }} onClick={rodarTeste}>Rodar teste</ActionButton>
+          <ActionButton style={{ marginRight: '8%' }} onClick={handleSubmit}>Enviar</ActionButton>
         </ActionButtonsContainer>
       </MainContent>
     </Container>

@@ -35,74 +35,18 @@ interface User {
 
 const Rankings = () => {
   const [users, setUsers] = useState<User[]>([]);
+  const COLORS = ['green', 'blue', 'red', 'yellow'];
 
   useEffect(() => {
     const mockUsers: User[] = [
-      {
-        id: 1,
-        name: 'Thiago de Andrade',
-        favorite_language: 'JavaScript',
-        favorite_language_url: Javascript,
-        image_url: 'https://randomuser.me/api/portraits/men/1.jpg',
-        ranking: 1,
-        points: 1500, // Adicionado pontos
-      },
-      {
-        id: 2,
-        name: 'Elisson Nadson',
-        favorite_language: 'Python',
-        favorite_language_url: Python,
-        image_url: 'https://randomuser.me/api/portraits/men/2.jpg',
-        ranking: 2,
-        points: 1400, // Adicionado pontos
-      },
-      {
-        id: 3,
-        name: 'Adriel Henrique',
-        favorite_language: 'Swift',
-        favorite_language_url: Swift,
-        image_url: 'https://randomuser.me/api/portraits/men/3.jpg',
-        ranking: 3,
-        points: 1300, // Adicionado pontos
-      },
-      {
-        id: 4,
-        name: 'Erik Marques',
-        favorite_language: 'Java',
-        favorite_language_url: Java,
-        image_url: 'https://randomuser.me/api/portraits/men/4.jpg',
-        ranking: 4,
-        points: 1200, // Adicionado pontos
-      },
-      {
-        id: 5,
-        name: 'Jetfé Goes',
-        favorite_language: '.NET',
-        favorite_language_url: DotNet,
-        image_url: 'https://randomuser.me/api/portraits/men/5.jpg',
-        ranking: 5,
-        points: 1100, // Adicionado pontos
-      },
-      {
-        id: 6,
-        name: 'Ícaro Vasconcelos',
-        favorite_language: 'Java',
-        favorite_language_url: Java,
-        image_url: 'https://randomuser.me/api/portraits/men/6.jpg',
-        ranking: 6,
-        points: 1000, // Adicionado pontos
-      },
-      {
-        id: 7,
-        name: 'Victor Moak',
-        favorite_language: 'JavaScript',
-        favorite_language_url: Javascript,
-        image_url: 'https://randomuser.me/api/portraits/men/7.jpg',
-        ranking: 7,
-        points: 900, // Adicionado pontos
-      },
+      { id: 1, name: 'Thiago de Andrade', favorite_language: 'JavaScript', favorite_language_url: Javascript, image_url: 'https://randomuser.me/api/portraits/men/1.jpg', ranking: 1, points: 1500 },
+      { id: 2, name: 'Elisson Nadson', favorite_language: 'Python', favorite_language_url: Python, image_url: 'https://randomuser.me/api/portraits/men/2.jpg', ranking: 2, points: 1400 },
+      { id: 3, name: 'Adriel Henrique', favorite_language: 'Swift', favorite_language_url: Swift, image_url: 'https://randomuser.me/api/portraits/men/3.jpg', ranking: 3, points: 1300 },
+      { id: 4, name: 'Erik Marques', favorite_language: 'Java', favorite_language_url: Java, image_url: 'https://randomuser.me/api/portraits/men/4.jpg', ranking: 4, points: 1200 },
+      { id: 5, name: 'Jetfé Goes', favorite_language: '.NET', favorite_language_url: DotNet, image_url: 'https://randomuser.me/api/portraits/men/5.jpg', ranking: 5, points: 1100 },
+      { id: 6, name: 'Ícaro Vasconcelos', favorite_language: 'Java', favorite_language_url: Java, image_url: 'https://randomuser.me/api/portraits/men/6.jpg', ranking: 6, points: 1000 },
+      { id: 7, name: 'Victor Moak', favorite_language: 'JavaScript', favorite_language_url: Javascript, image_url: 'https://randomuser.me/api/portraits/men/7.jpg', ranking: 7, points: 900 },
     ];
-
     setUsers(mockUsers.slice(0, 7));
   }, []);
 
@@ -127,18 +71,19 @@ const Rankings = () => {
             key={user.id}
             isFirst={index === 0}
             isSecond={index === 1}
-            isThird={index === 2}
+            isThird={index === 2} 
+            style={{ backgroundColor: COLORS[index] }}
           >
             <UserImage src={user.image_url || ''} alt={`${user.name}'s avatar`} />
-            <Box display="flex" alignItems="center" justifyContent="center" mb={2}>
+              <Box display="flex" alignItems="center" justifyContent="center" mb={2}>
               <RankingIcon src={getRankingIcon(user.ranking) || ''} alt={`Ranking ${user.ranking}`} />
               <LanguageImageContainer>
                 <img src={user.favorite_language_url || ''} alt={user.favorite_language || ''} />
               </LanguageImageContainer>
             </Box>
             <UserName>{user.name}</UserName>
-            <Typography variant={index === 0 ? "h4" : "body1"}>#{user.ranking}</Typography> {/* Aumentado para h4 para o primeiro colocado */}
-            <Points>{user.points} pontos</Points> {/* Adicionado campo de pontos */}
+            <Typography variant="body1">#{user.ranking}</Typography>
+            <Points>{user.points} pontos</Points>
           </UserCard>
         ))}
       </MainSection>
