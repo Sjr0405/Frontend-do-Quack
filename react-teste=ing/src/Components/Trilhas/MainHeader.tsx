@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';
 import LogoSvg from '../../Assets/Svg_thigas/Pato_de_perfil.svg';
 
 // Estilos que estavam no MainHeaderStyles.ts
@@ -102,8 +101,6 @@ const ArrowIcon = styled.div`
   }
 `;
 
-const navigate = useNavigate();
-
 // Componentes Logo e BackButton diretamente no MainHeader.tsx
 const Logo: React.FC = () => {
   return (
@@ -116,7 +113,7 @@ const Logo: React.FC = () => {
 
 const BackButton: React.FC = () => {
   return (
-    <BackButtonStyled onClick={() => navigate('/home', { state: { section: 'Aprender' } })}>
+    <BackButtonStyled onClick={() => window.history.back()}>
       <ArrowIcon>
         <FontAwesomeIcon icon={faArrowLeft} />
       </ArrowIcon>
