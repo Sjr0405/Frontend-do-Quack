@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { useNavigate, useLocation } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { TextField } from '@mui/material';
-import { PageContainer, Title, Description, Link, SearchBarSection, FilterSection, FilterButton, LanguageList, RoadmapCard, RoadmapImage, RoadmapName, RoadmapDescription, NoResults, SadIcon, PopupOverlay, PopupContent, PopupTitle, PopupDescription, PopupButton, CloseButton } from './StyledComponents';
-import { languages, modules } from '../Trilhas/';
-import tristeIcon from "../../Assets/Svg_thigas/TRISTE.svg";
+import { PageContainer, Title, Description, Link, SearchBarSection, FilterSection, FilterButton, LanguageList, NoResults, SadIcon, PopupOverlay, PopupContent, PopupTitle, PopupDescription, PopupButton, CloseButton } from './StyledComponents';
+import { languages, modules } from './data';
+import tristeIcon from "../../../Assets/Svg_thigas/TRISTE.svg";
+import RoadmapCard from './RoadmapCard';
 
 interface Roadmap {
   name: string;
@@ -92,18 +93,10 @@ const Header: React.FC = () => {
       {hasResults ? (
         <LanguageList>
           {(filter === "all" || filter === "languages") && filteredLanguages.map((lang: Roadmap) => (
-            <RoadmapCard key={lang.name} onClick={() => handleCardClick(lang)}>
-              <RoadmapImage src={lang.img} alt={`${lang.name} logo`} />
-              <RoadmapName>{lang.name}</RoadmapName>
-              <RoadmapDescription>{lang.description}</RoadmapDescription>
-            </RoadmapCard>
+            <RoadmapCard key={lang.name} roadmap={lang} onClick={() => handleCardClick(lang)} />
           ))}
           {(filter === "all" || filter === "modules") && filteredModules.map((mod: Roadmap) => (
-            <RoadmapCard key={mod.name} onClick={() => handleCardClick(mod)}>
-              <RoadmapImage src={mod.img} alt={`${mod.name} logo`} />
-              <RoadmapName>{mod.name}</RoadmapName>
-              <RoadmapDescription>{mod.description}</RoadmapDescription>
-            </RoadmapCard>
+            <RoadmapCard key={mod.name} roadmap={mod} onClick={() => handleCardClick(mod)} />
           ))}
         </LanguageList>
       ) : (
@@ -115,7 +108,7 @@ const Header: React.FC = () => {
       {selectedRoadmap && (
         <PopupOverlay>
           <PopupContent>
-            <RoadmapImage src={selectedRoadmap.img} alt={`${selectedRoadmap.name} logo`} />
+            <img src={selectedRoadmap.img} alt={`${selectedRoadmap.name} logo`} />
             <PopupTitle>{selectedRoadmap.name}</PopupTitle>
             <PopupDescription>{selectedRoadmap.description}</PopupDescription>
             <CloseButton onClick={handleClosePopup}>Fechar</CloseButton>

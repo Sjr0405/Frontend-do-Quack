@@ -1,17 +1,17 @@
-import javascriptIcon from "../../Assets/icones/javascript.svg";
-import kotlinIcon from "../../Assets/icones/kotlin.svg";
-import luaIcon from "../../Assets/icones/lua.svg";
-import phpIcon from "../../Assets/icones/php.svg";
-import typescriptIcon from "../../Assets/icones/typescript.svg";
-import backend from '../../Assets/svgs/Home-svgs/Backend.svg';
-import logicProgrammingIcon from "../../Assets/iconprogramming.svg";
-import fullStackIcon from "../../Assets/icones/FullStack.svg";
-import devops from '../../Assets/svgs/Home-svgs/DevOps.svg';
-import frontend from '../../Assets/svgs/Home-svgs/Frontend.svg';
-import dataAnalystIcon from "../../Assets/icones/data analyst.png";
-import cyberSecurityIcon from "../../Assets/icones/Cyber Security.png";
-import aiEngineerIcon from "../../Assets/icones/ai engineer.png";
-import softwareArchitectIcon from "../../Assets/icones/Software Architecture.png";
+import javascriptIcon from "../../../Assets/icones/javascript.svg"; // Caminho corrigido
+import kotlinIcon from "../../../Assets/icones/kotlin.svg"; // Caminho corrigido
+import luaIcon from "../../../Assets/icones/lua.svg"; // Caminho corrigido
+import phpIcon from "../../../Assets/icones/php.svg"; // Caminho corrigido
+import typescriptIcon from "../../../Assets/icones/typescript.svg"; // Caminho corrigido
+import backend from '../../../Assets/svgs/Home-svgs/Backend.svg'; // Caminho corrigido
+import logicProgrammingIcon from "../../../Assets/iconprogramming.svg"; // Caminho corrigido
+import fullStackIcon from "../../../Assets/icones/FullStack.svg"; // Caminho corrigido
+import devops from '../../../Assets/svgs/Home-svgs/DevOps.svg'; // Caminho corrigido
+import frontend from '../../../Assets/svgs/Home-svgs/Frontend.svg'; // Caminho corrigido
+import dataAnalystIcon from "../../../Assets/icones/data analyst.png"; // Caminho corrigido
+import cyberSecurityIcon from "../../../Assets/icones/Cyber Security.png"; // Caminho corrigido
+import aiEngineerIcon from "../../../Assets/icones/ai engineer.png"; // Caminho corrigido
+import softwareArchitectIcon from "../../../Assets/icones/Software Architecture.png"; // Caminho corrigido
 
 export const languages = [
   { name: "JavaScript", img: javascriptIcon, description: "Linguagem popular para web." },

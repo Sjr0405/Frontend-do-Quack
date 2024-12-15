@@ -77,7 +77,7 @@ export const LanguageList = styled.div`
   border-radius: 16px;
 `;
 
-export const RoadmapCard = styled.div`
+export const RoadmapCardContainer = styled.div`
   background-color: #fff;
   border: 2px solid rgba(255, 152, 0, 0.7); /* Laranja com opacidade de 70% */
   border-radius: 16px;
