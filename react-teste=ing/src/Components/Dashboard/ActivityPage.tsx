@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
 import felizPato from '../../Assets/Svg_thigas/FELIZ.svg';
@@ -137,6 +137,14 @@ const RestartButton = styled(Button)`
   }
 `;
 
+const Select = styled.select`
+  padding: 10px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  font-family: 'Montserrat', sans-serif;
+`;
+
 interface Activity {
   name: string;
   description: string;
@@ -167,7 +175,24 @@ const ActivityPage: React.FC<{ activityType: string }> = ({ activityType }) => {
   const [currentActivityIndex, setCurrentActivityIndex] = useState(0);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [showResult, setShowResult] = useState(false);
+  const [theme, setTheme] = useState('vs-light');
   const [userCode, setUserCode] = useState('');
+
+  useEffect(() => {
+    // Carrega o tema salvo no Local Storage ao inicializar o componente
+    const savedTheme = localStorage.getItem('editorTheme');
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
+  }, []);
+
+  const handleThemeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedTheme = event.target.value;
+    setTheme(selectedTheme);
+
+    // Salva o tema no Local Storage
+    localStorage.setItem('editorTheme', selectedTheme);
+  };
 
   console.log('activityType:', activityType); // Adicione este log para verificar o valor de activityType
 
@@ -184,10 +209,11 @@ const ActivityPage: React.FC<{ activityType: string }> = ({ activityType }) => {
     );
   }
 
+
   const handleAnswer = (answer: string) => {
     const currentActivity = activityList[currentActivityIndex];
     const isCorrect = answer.trim() === currentActivity.correctAnswer;
-
+    
     Swal.fire({
       title: isCorrect ? 'Correto!' : 'Incorreto!',
       text: isCorrect ? 'Você acertou a questão.' : 'Você errou a questão.',
@@ -222,7 +248,7 @@ const ActivityPage: React.FC<{ activityType: string }> = ({ activityType }) => {
       setCurrentActivityIndex(currentActivityIndex + 1);
       setUserCode('');
     }
-  };
+  }
 
   const handleRestart = () => {
     setCurrentActivityIndex(0);
@@ -247,12 +273,20 @@ const ActivityPage: React.FC<{ activityType: string }> = ({ activityType }) => {
             {activityType === 'preenchimento-codigo' && (
               <>
                 <pre>{currentActivity.code}</pre>
+                    <p style={{ marginTop: '10px' }}>Selecione o tema:</p>
+                    <Select value={theme} onChange={handleThemeChange}>
+                      <option value="vs-light">Claro</option>
+                      <option value="vs-dark">Escuro</option>
+                      <option value="hc-black">Alto Contrasto</option>
+                      <option value="hc-light">Alto Contrasto Claro</option>
+                    </Select>
+
                   <EditorContainer>
                     <Editor
                       height="100%"
                       width="100%"
                       language="java" 
-                      theme="vs-light"
+                      theme={theme}
                       value={userCode}
                       onChange={(value) => setUserCode(value || '')}
                     />
