@@ -75,6 +75,12 @@ export const LanguageList = styled.div`
   width: 100%;
   max-width: 1200px;
   border-radius: 16px;
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
 `;
 
 export const RoadmapCardContainer = styled.div`

@@ -1,34 +1,42 @@
-import React, { useState } from "react";
-import { useNavigate, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import { TextField } from '@mui/material';
 import { PageContainer, Title, Description, Link, SearchBarSection, FilterSection, FilterButton, LanguageList, NoResults, SadIcon, PopupOverlay, PopupContent, PopupTitle, PopupDescription, PopupButton, CloseButton } from './StyledComponents';
-import { languages, modules } from './data';
+import { fetchRoadmaps } from './data';
 import tristeIcon from "../../../Assets/Svg_thigas/TRISTE.svg";
 import RoadmapCard from './RoadmapCard';
+import { useAuth } from '../../../AuthContext';
+import axios from 'axios';
 
 interface Roadmap {
-  name: string;
-  img: string;
+  id: number;
+  title: string;
   description: string;
+  imagePath: string;
 }
 
 const Header: React.FC = () => {
+  const { token, user } = useAuth();
   const [searchTerm, setSearchTerm] = useState("");
   const [filter, setFilter] = useState<"all" | "languages" | "modules">("all");
   const [selectedRoadmap, setSelectedRoadmap] = useState<Roadmap | null>(null);
-  const location = useLocation();
-  const navigate = useNavigate();
+  const [roadmaps, setRoadmaps] = useState<Roadmap[]>([]);
 
-  const filteredLanguages = languages.filter((lang: Roadmap) =>
-    lang.name.toLowerCase().includes(searchTerm.toLowerCase())
+  useEffect(() => {
+    const getRoadmaps = async () => {
+      if (token) {
+        const fetchedRoadmaps = await fetchRoadmaps(token);
+        setRoadmaps(fetchedRoadmaps);
+      }
+    };
+    getRoadmaps();
+  }, [token]);
+
+  const filteredRoadmaps = roadmaps.filter((roadmap: Roadmap) =>
+    roadmap.title?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const filteredModules = modules.filter((mod: Roadmap) =>
-    mod.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  const hasResults = filteredLanguages.length > 0 || filteredModules.length > 0;
+  const hasResults = filteredRoadmaps.length > 0;
 
   const handleFilterChange = (newFilter: "all" | "languages" | "modules") => {
     setFilter(newFilter);
@@ -42,25 +50,43 @@ const Header: React.FC = () => {
     setSelectedRoadmap(null);
   };
 
-  const handleRegister = () => {
-    const newModule = {
-      nome: selectedRoadmap?.name,
-      aulasCompletas: 0,
-      totalAulas: 0,
-      corBarra: '#FFD700',
-      rota: '/Backend_Roadmap',
-      icon: selectedRoadmap?.img,
-    };
-    const newModules = location.state?.newModules ? [...location.state.newModules, newModule] : [newModule];
-    navigate(location.pathname, { state: { newModules } });
-    Swal.fire({
-      title: 'Sucesso!',
-      text: 'Iniciado com sucesso!',
-      icon: 'success',
-      confirmButtonText: 'OK'
-    });
-    handleClosePopup();
+  const handleRegister = async () => {
+    if (!user || !selectedRoadmap) return;
+
+    try {
+      const response = await axios.post('/api/users/roadmaps/start', {
+        userId: user.id,
+        roadmapId: selectedRoadmap.id
+      }, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.status === 201) {
+        Swal.fire({
+          title: 'Sucesso!',
+          text: 'Iniciado com sucesso!',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
+        handleClosePopup();
+      }
+    } catch (error) {
+      console.error('Erro ao iniciar roadmap:', error);
+      Swal.fire({
+        title: 'Erro!',
+        text: 'Falha ao iniciar roadmap.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
+    }
   };
+
+  if (roadmaps.length === 0) {
+    return <div>No roadmaps available</div>;
+  }
 
   return (
     <PageContainer>
@@ -92,11 +118,8 @@ const Header: React.FC = () => {
       </FilterSection>
       {hasResults ? (
         <LanguageList>
-          {(filter === "all" || filter === "languages") && filteredLanguages.map((lang: Roadmap) => (
-            <RoadmapCard key={lang.name} roadmap={lang} onClick={() => handleCardClick(lang)} />
-          ))}
-          {(filter === "all" || filter === "modules") && filteredModules.map((mod: Roadmap) => (
-            <RoadmapCard key={mod.name} roadmap={mod} onClick={() => handleCardClick(mod)} />
+          {filteredRoadmaps.map((roadmap: Roadmap) => (
+            <RoadmapCard key={roadmap.id} roadmap={roadmap} onClick={() => handleCardClick(roadmap)} />
           ))}
         </LanguageList>
       ) : (
@@ -108,8 +131,8 @@ const Header: React.FC = () => {
       {selectedRoadmap && (
         <PopupOverlay>
           <PopupContent>
-            <img src={selectedRoadmap.img} alt={`${selectedRoadmap.name} logo`} />
-            <PopupTitle>{selectedRoadmap.name}</PopupTitle>
+            <img src={selectedRoadmap.imagePath} alt={`${selectedRoadmap.title} logo`} />
+            <PopupTitle>{selectedRoadmap.title}</PopupTitle>
             <PopupDescription>{selectedRoadmap.description}</PopupDescription>
             <CloseButton onClick={handleClosePopup}>Fechar</CloseButton>
             <PopupButton onClick={handleRegister}>Iniciar !</PopupButton>

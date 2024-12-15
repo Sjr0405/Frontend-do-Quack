@@ -31,7 +31,7 @@ interface Modulo {
 }
 
 const Aprender = ({ changeSection }: { changeSection: (section: string) => void }) => {
-  const { user, roadmaps } = useAuth();
+  const { user, roadmaps, fetchUserRoadmapsById } = useAuth();
   const location = useLocation();
   const [modulos, setModulos] = useState<Modulo[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -50,6 +50,12 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
   };
 
   useEffect(() => {
+    if (user) {
+      fetchUserRoadmapsById(user.id);
+    }
+  }, [user, fetchUserRoadmapsById]);
+
+  useEffect(() => {
     if (roadmaps) {
       const userRoadmaps = roadmaps.map((roadmap: any) => ({
         nome: roadmap.title,
@@ -61,12 +67,19 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
         icon: roadmap.imagePath,
       }));
       setModulos(userRoadmaps);
-
-      if (location.state?.newModules) {
-        setModulos((prevModulos) => [...prevModulos, ...location.state.newModules]);
-      }
     }
-  }, [roadmaps, location.state]);
+  }, [roadmaps]);
+
+  useEffect(() => {
+    if (location.state?.newModules) {
+      setModulos((prevModulos) => {
+        const newModules = location.state.newModules.filter((newModule: Modulo) =>
+          !prevModulos.some((modulo) => modulo.nome === newModule.nome)
+        );
+        return [...prevModulos, ...newModules];
+      });
+    }
+  }, [location.state]);
 
   useEffect(() => {
     const similarfilteredModulos = modulos.filter(modulo =>

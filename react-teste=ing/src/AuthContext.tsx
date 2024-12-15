@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import { fetchRoadmaps } from './Components/Dashboard/Trilhas/data';
 
 // Interfaces para os dados do usuário e outras entidades
 interface User {
@@ -74,6 +75,7 @@ interface AuthContextData {
   updateUserProfile: (updatedData: Partial<User>) => Promise<void>;
   updateUserPassword: (userId: number, newPassword: string) => Promise<void>;
   updateImage: (userId: number, imageFile: File) => Promise<void>;
+  fetchUserRoadmaps: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextData | undefined>(undefined);
@@ -103,8 +105,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     if (token && !user) {
       fetchUserProfile();
-      fecthUserTasks();
-      fecthUserRoadmaps();
+      fetchUserTasks();
+      fetchUserRoadmaps();
       fetchUserAchievements();
       fetchUserStatistics();
     }
@@ -194,7 +196,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   //**********************
   // Função para buscar as tarefas do usuário
-  const fecthUserTasks = async () => {
+  const fetchUserTasks = async () => {
     if (!token || !user) return;
   
     try {
@@ -210,21 +212,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }
   
   //**********************
-  // Função para buscar os roadmaps do usuários
-  const fecthUserRoadmaps = async () => {
-    if (!token || !user) return;
-    
+  // Função para buscar os roadmaps do usuário
+  const fetchUserRoadmaps = async () => {
+    if (!token) return;
     try {
-      const response = await axios.get('/roadmaps', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setTasks(response.data);
-      localStorage.setItem('user', JSON.stringify(response.data));
+      const roadmaps = await fetchRoadmaps(token);
+      setRoadmaps(roadmaps);
     } catch (error) {
-      console.error('Erro ao buscar tarefas:', error);
-      logout();
+      console.error('Erro ao buscar roadmaps:', error);
     }
-  }
+  };
 
   //**********************
   // Função para buscar as conquistas do usuário
@@ -330,12 +327,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (!token) return;
 
     try {    
-      const response = await axios.get(`/roadmaps/${userId}`, {
+      const response = await axios.get(`/api/users/roadmaps/${userId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setRoadmaps(response.data);    
+      setRoadmaps(response.data.payload.roadmaps);
     } catch (error) {
-      console.error('Erro ao buscar tarefas:', error);
+      console.error('Erro ao buscar roadmaps:', error);
     }
   };
 
@@ -394,6 +391,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       updateUserProfile,
       updateImage,
       updateUserPassword,
+      fetchUserRoadmaps,
     }}>
       {children}
     </AuthContext.Provider>
