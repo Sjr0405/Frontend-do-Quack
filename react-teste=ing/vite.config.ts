@@ -7,7 +7,7 @@ export default defineConfig({
     proxy: {
       // Proxy genérico para todas as rotas que começam com /api/
       '/api/': {
-        target: 'https://145.223.27.98:5030',
+        target: 'http://localhost:5173',
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/api/, '/api')
