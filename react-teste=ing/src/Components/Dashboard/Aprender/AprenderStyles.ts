@@ -10,7 +10,9 @@ export const Container = styled.div`
   overflow-y: auto; /* Adiciona scroll vertical */
   overflow-x: hidden; /* Oculta scroll horizontal */
   width: 100%; /* Garante que o Container ocupe toda a largura disponível */
+  max-width: 1200px; /* Define uma largura máxima */
   padding: 20px; /* Adiciona padding interno */
+  margin: 0 auto; /* Centraliza o Container horizontalmente */
 
   @media (max-width: 768px) {
     padding: 20px; /* Adiciona padding interno */
@@ -412,5 +414,58 @@ export const DaysList = styled.ul`
 
   img {
     margin-bottom: 5px;
+  }
+`;
+
+export const SearchBarContainer = styled.div`
+  display: flex;
+  justify-content: center; /* Centraliza o SearchBar */
+  padding: 0 20px;
+`;
+
+export const NoRoadmapMessage = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 100%; /* Mesma largura do contêiner pai */
+  max-width: 1200px; /* Define uma largura máxima */
+
+  p {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+    opacity: 0.7; /* Abaixa a opacidade para 70% */
+  }
+`;
+
+export const AddRoadmapButton = styled.button`
+  padding: 12px 24px;
+  background-color: #ff9800; /* Laranja */
+  color: #fff;
+  border: 2px solid #ff9800; /* Contorno laranja mais escuro */
+  border-radius: 24px; /* Mais arredondado */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+
+  &:hover {
+    background-color: #ff9800; /* Laranja mais escuro */
+    transform: translateY(-3px); /* Efeito de elevação */
+  }
+
+  &:active {
+    transform: translateY(1px); /* Efeito de clique */
   }
 `;

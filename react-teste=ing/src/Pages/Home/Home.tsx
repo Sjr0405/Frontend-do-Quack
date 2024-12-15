@@ -16,7 +16,7 @@ import PerfilQuacksensei from '../../Components/Dashboard/PerfilQuacksensei';
 import Quacksensei from '../../Components/Dashboard/Quacksensei';
 import CodeReview from '../../Components/Dashboard/CodeReview';
 import Praticar from '../../Components/Dashboard/Praticar';
-import Roadmap from '../../Components/Dashboard/Roadmap';
+import Roadmap from '../../Components/Dashboard/Trilhas/Roadmap';
 import ActivityPage from '../../Components/Dashboard/ActivityPage';
 
 const Container = styled.div`
