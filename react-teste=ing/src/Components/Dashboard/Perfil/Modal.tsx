@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import CloseIcon from '@mui/icons-material/Close';
 
 const Overlay = styled.div`
   position: fixed;
@@ -27,22 +28,21 @@ const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 10px 15px;
-  background-color: #f3f3f3;
+  background-color: #ff7f00; // Cor laranja
   border-bottom: 1px solid #ddd;
 `;
 
 const Title = styled.h3`
   margin: 0;
   font-size: 18px;
-  color: #333;
+  color: #fff; // Texto branco para contraste
 `;
 
 const CloseButton = styled.button`
   background: none;
   border: none;
-  font-size: 20px;
   cursor: pointer;
-  color: #666;
+  color: #fff; // Ícone branco para contraste
 `;
 
 const Content = styled.div`
@@ -87,11 +87,13 @@ const Modal = ({ isOpen, onClose, data }: { isOpen: boolean; onClose: () => void
   if (!isOpen) return null;
 
   return (
-    <Overlay>
-      <ModalContainer>
+    <Overlay onClick={onClose}>
+      <ModalContainer onClick={(e) => e.stopPropagation()}>
         <Header>
-          <Title>Seguindo</Title>
-          <CloseButton onClick={onClose}>&times;</CloseButton>
+          <Title>{data.length > 0 && data[0].xp ? 'Seguindo' : 'Seguidores'}</Title>
+          <CloseButton onClick={onClose}>
+            <CloseIcon />
+          </CloseButton>
         </Header>
         <Content>
           {data.map((user, index) => (

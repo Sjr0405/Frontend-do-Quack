@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import lasgana from '../../Assets/svgs/Atividade-svgs/1.svg';
+import lasgana from '../../../Assets/svgs/Atividade-svgs/1.svg';
 
 const Container = styled.div`
   display: flex;

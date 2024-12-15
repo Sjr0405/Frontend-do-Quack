@@ -14,17 +14,13 @@ import {
   Divider
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { DatePicker } from '@mui/lab';
 import {
   StyledContainer,
   BasicInfoContainer,
   ContactInfoContainer,
-  SecurityInfoContainer,
   StyledButton,
   StyledLink,
   colorPalette as colors,
@@ -55,7 +51,7 @@ interface User {
 }
 
 const EditarPerfil = () => {
-  const { user, updateUserProfile, updateUserPassword } = useAuth() as { user: User; updateUserProfile: (user: User) => Promise<void>; updateUserPassword: (userId: number, newPassword: string) => Promise<void> };
+  const { user, updateUserProfile, updateImage } = useAuth() as { user: User; updateUserProfile: (user: User) => Promise<void>; updateImage: (userId: number, imageFile: File) => Promise<void> };
   const navigate = useNavigate();
 
   const [nome, setNome] = useState(user?.name || '');
@@ -63,11 +59,7 @@ const EditarPerfil = () => {
   const [sobrenome, setSobrenome] = useState(user?.surname || '');
   const [nomeUsuario, setNomeUsuario] = useState(user?.username || '');
   const [telefone, setTelefone] = useState(user?.phone || '');
-  const [senhaAtual, setSenhaAtual] = useState('');
-  const [novaSenha, setNovaSenha] = useState('');
   const [modificado, setModificado] = useState(false);
-  const [mostrarSenhaAtual, setMostrarSenhaAtual] = useState(false);
-  const [mostrarNovaSenha, setMostrarNovaSenha] = useState(false);
   const [dialogoAberto, setDialogoAberto] = useState(false);
   const [dataNascimento, setDataNascimento] = useState(user?.bornDate || '');
   const [imagemPerfil, setImagemPerfil] = useState(user?.imagePath || '');
@@ -101,11 +93,10 @@ const EditarPerfil = () => {
       sobrenome !== user?.surname ||
       nomeUsuario !== user?.username ||
       telefone !== user?.phone ||
-      novaSenha.length > 0 ||
       dataNascimento !== user?.bornDate ||
       imagemPerfil !== user?.imagePath
     );
-  }, [nome, email, sobrenome, nomeUsuario, telefone, novaSenha, dataNascimento, imagemPerfil, user]);
+  }, [nome, email, sobrenome, nomeUsuario, telefone, dataNascimento, imagemPerfil, user]);
 
   const handleSalvarAlteracoes = async () => {
     const result = await Swal.fire({
@@ -130,16 +121,9 @@ const EditarPerfil = () => {
           imagePath: imagemPerfil,
         };
 
-        if (novaSenha) {
-          await updateUserPassword(user.id!, novaSenha);
-        }
-
         await updateUserProfile(dadosAtualizados);
 
         localStorage.setItem('user', JSON.stringify({ ...user, ...dadosAtualizados }));
-
-        setSenhaAtual('');
-        setNovaSenha('');
 
         Swal.fire('Sucesso', 'Perfil atualizado com sucesso!', 'success');
       } catch (error) {
@@ -154,10 +138,6 @@ const EditarPerfil = () => {
   };
 
   const handleFecharDialogo = () => {
-    setDialogoAberto(false);
-  };
-
-  const handleRemoverImagem = () => {
     setDialogoAberto(false);
   };
 
@@ -176,15 +156,26 @@ const EditarPerfil = () => {
 
   const handleSalvarImagem = async () => {
     try {
+      const userId = user?.id;
+      if (!userId) {
+        throw new Error('ID do usuário não encontrado.');
+      }
+  
+      const imageFile = await fetch(imagemPerfil)
+        .then(res => res.blob())
+        .then(blob => new File([blob], 'profile-image.png', { type: 'image/png' }));
+  
+      await updateImage(userId, imageFile);
+  
       const dadosAtualizados = {
         ...user,
         imagePath: imagemPerfil,
       };
-
+  
       await updateUserProfile(dadosAtualizados);
-
+  
       localStorage.setItem('user', JSON.stringify({ ...user, ...dadosAtualizados }));
-
+  
       Swal.fire('Sucesso', 'Imagem do perfil atualizada com sucesso!', 'success');
     } catch (error) {
       Swal.fire('Erro', 'Não foi possível atualizar a imagem do perfil.', 'error');
@@ -193,17 +184,17 @@ const EditarPerfil = () => {
     setDialogoAberto(false);
   };
 
+  const applyPhoneMask = (value: string) => {
+    return value
+      .replace(/\D/g, "")
+      .slice(0, 11) // Limita a quantidade de números a 11
+      .replace(/^(\d{2})(\d)/g, "($1) $2")
+      .replace(/(\d{4,5})(\d{4})$/, "$1-$2");
+  };
+
   const handleTelefoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value.replace(/\D/g, '');
-    if (value.length > 11) value = value.slice(0, 11);
-    if (value.length > 6) {
-      value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3');
-    } else if (value.length > 2) {
-      value = value.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
-    } else {
-      value = value.replace(/^(\d*)/, '($1');
-    }
-    setTelefone(value);
+    const maskedValue = applyPhoneMask(e.target.value);
+    setTelefone(maskedValue);
   };
 
   return (
@@ -340,53 +331,6 @@ const EditarPerfil = () => {
         </ContactInfoContainer>
       </div>
       <Divider style={{ margin: '16px 0', backgroundColor: colors.primary }} />
-      <div style={{ marginBottom: '24px' }}>
-        <Typography variant="h6" fontWeight="bold" style={{ color: colors.text }}>Segurança</Typography>
-        <SecurityInfoContainer>
-          <TextField
-            label="Senha Atual"
-            type={mostrarSenhaAtual ? 'text' : 'password'}
-            value={senhaAtual}
-            onChange={(e) => setSenhaAtual(e.target.value)}
-            placeholder="Senha Atual"
-            fullWidth
-            margin="normal"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={() => setMostrarSenhaAtual(!mostrarSenhaAtual)}
-                    style={{ color: colors.primary }}
-                  >
-                    {mostrarSenhaAtual ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              )
-            }}
-          />
-          <TextField
-            label="Nova Senha"
-            type={mostrarNovaSenha ? 'text' : 'password'}
-            value={novaSenha}
-            onChange={(e) => setNovaSenha(e.target.value)}
-            placeholder="Nova Senha"
-            fullWidth
-            margin="normal"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={() => setMostrarNovaSenha(!mostrarNovaSenha)}
-                    style={{ color: colors.primary }}
-                  >
-                    {mostrarNovaSenha ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              )
-            }}
-          />
-        </SecurityInfoContainer>
-      </div>
       <StyledButton
         onClick={handleSalvarAlteracoes}
         disabled={!modificado}
@@ -409,46 +353,32 @@ const EditarPerfil = () => {
             Uma foto ajuda as pessoas a reconhecerem você e permite que você saiba quando a conta está conectada
           </Typography>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '8px' }}>
-            <Avatar
-              src={imagemPerfil || 'https://via.placeholder.com/100'}
-              alt="Perfil"
-              style={{ width: '100px', height: '100px', borderRadius: '50%' }}
+            <input
+              type="file"
+              id="upload-input"
+              style={{ display: 'none' }}
+              onChange={handleEscolherImagem}
             />
+            <label htmlFor="upload-input">
+              <Avatar
+                src={imagemPerfil || 'https://via.placeholder.com/100'}
+                alt="Perfil"
+                style={{ width: '100px', height: '100px', borderRadius: '50%', cursor: 'pointer' }}
+              />
+            </label>
           </div>
           <Typography variant="caption" color="textSecondary">
             Visível para todos.
           </Typography>
-          <div style={{ marginTop: '24px', display: 'flex', justifyContent: 'space-evenly' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }}>
             <Button
               variant="contained"
-              component="label"
-              startIcon={<EditIcon />}
-              style={{ backgroundColor: colors.primary, color: 'white', borderRadius: '16px' }}
+              style={{ backgroundColor: 'purple', color: 'white', borderRadius: '16px' }}
+              onClick={handleSalvarImagem}
             >
-              Escolher Imagem
-              <input
-              type="file"
-              hidden
-              onChange={handleEscolherImagem}
-              />
-            </Button>
-            <Button
-              variant="contained"
-              startIcon={<DeleteIcon />}
-              onClick={handleRemoverImagem}
-              style={{ backgroundColor: 'red', color: 'white', borderRadius: '16px' }}
-            >
-              Remover
+              Salvar Imagem
             </Button>
           </div>
-          <Button
-            variant="contained"
-            style={{ marginTop: '16px', backgroundColor: 'purple', color: 'white', borderRadius: '16px' }}
-            onClick={handleSalvarImagem}
-          >
-            Salvar Imagem
-          </Button>
-         
         </DialogContent>
       </DialogContainer>
     </StyledContainer>

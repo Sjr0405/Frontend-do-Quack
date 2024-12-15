@@ -5,12 +5,12 @@ import { styled as muiStyled } from '@mui/material/styles';
 import Icon from '@mui/material/Icon';
 
 // Imagens
-import iconProgramming from '../../Assets/iconprogramming.svg';
-import iconNew from '../../Assets/iconnew.svg';
-import iconGoal from '../../Assets/icongoal.svg';
-import iconExperience from '../../Assets/iconexperience.svg';
-import iconLock from '../../Assets/iconlock.svg';
-import fullBodyLogo from '../../Assets/Fulbody-logo.svg';
+import iconProgramming from '../../../Assets/iconprogramming.svg';
+import iconNew from '../../../Assets/iconnew.svg';
+import iconGoal from '../../../Assets/icongoal.svg';
+import iconExperience from '../../../Assets/iconexperience.svg';
+import iconLock from '../../../Assets/iconlock.svg';
+import fullBodyLogo from '../../../Assets/Fulbody-logo.svg';
 
 // Estilos
 const PageContainer = styled.div`

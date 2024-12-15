@@ -149,12 +149,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const formData = new FormData();
       formData.append('image', imageFile);
 
+      console.log('Token:', token); // Adicione este log para verificar o token
+
       const response = await axios.post(`/api/users/${userId}/update-image`, formData, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
         },
       });
+
+      console.log('Resposta do servidor:', response); // Adicione este log para verificar a resposta do servidor
 
       if (user) {
         const updatedUser = { ...user, id: user?.id, imagePath: response.data.imagePath };
