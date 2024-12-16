@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { useAuth } from '../../../AuthContext';
 import foguinho from '../../../Assets/barra de status/foquinho.svg';
-import fogo from '../../../Assets/Icons/fire.svg';
 import sem_fogo from '../../../Assets/Icons/no-fire.svg';
-import pontos from '../../../Assets/Icons/Moeda.svg';
+import pontos from '../../../Assets/Cristal.svg';
 import { StatusBar as StatusBarContainer, StatusItem, Tooltip, DaysList } from './AprenderStyles';
 
 const StatusBar = () => {
@@ -30,9 +29,9 @@ const StatusBar = () => {
           <h3>Dias de investida</h3>
           <div>
             <DaysList>
-              <li>Seg <img src={fogo} alt="Foguinho" /></li>
-              <li>Ter <img src={fogo} alt="Foguinho" /></li>
-              <li>Qua <img src={fogo} alt="Foguinho" /></li>
+              <li>Seg <img src={sem_fogo} alt="Foguinho" /></li>
+              <li>Ter <img src={sem_fogo} alt="Foguinho" /></li>
+              <li>Qua <img src={sem_fogo} alt="Foguinho" /></li>
               <li>Qui <img src={sem_fogo} alt="Sem Foguinho" /></li>
               <li>Sex <img src={sem_fogo} alt="Sem Foguinho" /></li>
               <li>Sáb <img src={sem_fogo} alt="Sem Foguinho" /></li>

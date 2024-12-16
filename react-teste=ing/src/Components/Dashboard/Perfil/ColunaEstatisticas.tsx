@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import Estatistica1 from '../../../Assets/Iconesperfil/fire.png';
-import Estatistica2 from '../../../Assets/Iconesperfil/experiencia.png';
 import Estatistica3 from '../../../Assets/Iconesperfil/quest.png';
 import Estatistica4 from '../../../Assets/Iconesperfil/lissão.png';
 
@@ -70,20 +69,7 @@ const ValorEstatistica = styled.p`
   color: #555;
 `;
 
-const BarraProgresso = styled.div`
-  width: 100%;
-  height: 10px;
-  background-color: #e0e0e0;
-  border-radius: 10px;
-  overflow: hidden;
-  margin-top: 5px;
-`;
 
-const Progresso = styled.div`
-  width: 60%;
-  height: 100%;
-  background-color: #ffcc00;
-`;
 
 const ColunaEstatisticas = () => (
   <ColunaEstatisticasStyled>
@@ -94,30 +80,21 @@ const ColunaEstatisticas = () => (
           <IconeEstatistica src={Estatistica1} alt="Dias de investida" />
           <div>
             <RotuloEstatistica>Dias de investida</RotuloEstatistica>
-            <ValorEstatistica>24</ValorEstatistica>
+            <ValorEstatistica>0</ValorEstatistica> {/* Zerar valor */}
           </div>
         </ItemEstatistica>
         <ItemEstatistica>
-          <IconeEstatistica src={Estatistica2} alt="Nível" />
+          <IconeEstatistica src={Estatistica3} alt="Missões diárias" /> {/* Mudar rótulo */}
           <div>
-            <RotuloEstatistica>Nível</RotuloEstatistica>
-            <BarraProgresso>
-              <Progresso />
-            </BarraProgresso>
+            <RotuloEstatistica>Missões diárias</RotuloEstatistica> {/* Mudar rótulo */}
+            <ValorEstatistica>0</ValorEstatistica>
           </div>
         </ItemEstatistica>
         <ItemEstatistica>
-          <IconeEstatistica src={Estatistica3} alt="Desafios concluídos" />
+          <IconeEstatistica src={Estatistica4} alt="Tarefas completadas" /> {/* Mudar rótulo */}
           <div>
-            <RotuloEstatistica>Desafios concluídos</RotuloEstatistica>
-            <ValorEstatistica>24</ValorEstatistica>
-          </div>
-        </ItemEstatistica>
-        <ItemEstatistica>
-          <IconeEstatistica src={Estatistica4} alt="Lições completadas" />
-          <div>
-            <RotuloEstatistica>Lições completadas</RotuloEstatistica>
-            <ValorEstatistica>42</ValorEstatistica>
+            <RotuloEstatistica>Tarefas completadas</RotuloEstatistica> {/* Mudar rótulo */}
+            <ValorEstatistica>0</ValorEstatistica>
           </div>
         </ItemEstatistica>
       </GradeEstatisticas>

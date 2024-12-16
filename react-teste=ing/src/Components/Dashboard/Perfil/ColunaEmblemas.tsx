@@ -7,6 +7,7 @@ import medalha5 from '../../../Assets/Iconesperfil/experiencia.png';
 import medalha6 from '../../../Assets/Iconesperfil/api.png';
 import medalha7 from '../../../Assets/Iconesperfil/devops.png';
 import medalha8 from '../../../Assets/Iconesperfil/database.png';
+import ItemEmblema from './ItemEmblema';
 
 const ColunaEmblemasStyled = styled.div`
   flex: 1;
@@ -56,80 +57,22 @@ const GradeEmblemas = styled.div`
   }
 `;
 
-const ItemEmblema = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 15px;
-  background-color: #f9f9f9;
-  border-radius: 15px;
-  width: 120px;
-  height: 120px;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-  @media (max-width: 768px) {
-    width: 100px;
-    height: 100px;
-    align-items: center;
-    justify-content: center;
-  }
-`;
-
-const ImagemEmblema = styled.img`
-  width: 50px;
-  height: 50px;
-  margin-bottom: 10px;
-`;
-
-const TextoEmblema = styled.p`
-  font-size: 14px;
-  text-align: center;
-  color: #333;
-`;
-
 const ColunaEmblemas = ({ achievements }: { achievements: { id: number; name: string; description: string; imagePath: string }[] }) => (
   <ColunaEmblemasStyled>
     <ContainerColecaoEmblemas>
       <TituloEmblemas>Coleção de emblemas:</TituloEmblemas>
       <GradeEmblemas>
         {achievements.map((achievement) => (
-          <ItemEmblema key={achievement.id}>
-            <ImagemEmblema src={achievement.imagePath} alt={achievement.name} />
-            <TextoEmblema>{achievement.name}</TextoEmblema>
-          </ItemEmblema>
+          <ItemEmblema key={achievement.id} imagePath={achievement.imagePath} name={achievement.name} />
         ))}
-        <ItemEmblema>
-          <ImagemEmblema src={medalha1} alt="Introdução à Programação" />
-          <TextoEmblema>Introdução à Programação</TextoEmblema>
-        </ItemEmblema>
-        <ItemEmblema>
-          <ImagemEmblema src={medalha2} alt="Programação Estruturada" />
-          <TextoEmblema>Programação Estruturada</TextoEmblema>
-        </ItemEmblema>
-        <ItemEmblema>
-          <ImagemEmblema src={medalha3} alt="Estruturas de Dados" />
-          <TextoEmblema>Estruturas de Dados</TextoEmblema>
-        </ItemEmblema>
-        <ItemEmblema>
-          <ImagemEmblema src={medalha4} alt="Desenvolvimento Web" />
-          <TextoEmblema>Desenvolvimento Web</TextoEmblema>
-        </ItemEmblema>
-        <ItemEmblema>
-          <ImagemEmblema src={medalha5} alt="Experiência" />
-          <TextoEmblema>Experiência</TextoEmblema>
-        </ItemEmblema>
-        <ItemEmblema>
-          <ImagemEmblema src={medalha6} alt="API" />
-          <TextoEmblema>API</TextoEmblema>
-        </ItemEmblema>
-        <ItemEmblema>
-          <ImagemEmblema src={medalha7} alt="DevOps" />
-          <TextoEmblema>DevOps</TextoEmblema>
-        </ItemEmblema>
-        <ItemEmblema>
-          <ImagemEmblema src={medalha8} alt="Banco de Dados" />
-          <TextoEmblema>Banco de Dados</TextoEmblema>
-        </ItemEmblema>
+        <ItemEmblema imagePath={medalha1} name="Introdução à Programação" />
+        <ItemEmblema imagePath={medalha2} name="Programação Estruturada" />
+        <ItemEmblema imagePath={medalha3} name="Estruturas de Dados" />
+        <ItemEmblema imagePath={medalha4} name="Desenvolvimento Web" />
+        <ItemEmblema imagePath={medalha5} name="Experiência" />
+        <ItemEmblema imagePath={medalha6} name="API" />
+        <ItemEmblema imagePath={medalha7} name="DevOps" />
+        <ItemEmblema imagePath={medalha8} name="Banco de Dados" />
       </GradeEmblemas>
     </ContainerColecaoEmblemas>
   </ColunaEmblemasStyled>
