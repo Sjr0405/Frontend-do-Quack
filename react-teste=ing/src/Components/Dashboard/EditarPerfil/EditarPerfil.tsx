@@ -11,7 +11,8 @@ import {
   InputAdornment,
   DialogContent,
   DialogTitle,
-  Divider
+  Divider,
+  TextFieldProps
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import EditIcon from '@mui/icons-material/Edit';
@@ -332,8 +333,8 @@ const EditarPerfil = () => {
           <DatePicker
             label="Data de Nascimento"
             value={dataNascimento}
-            onChange={(newValue: any) => setDataNascimento(newValue)}
-            renderInput={(params: any) => <TextField {...params} fullWidth margin="normal" disabled />}
+            onChange={(newValue: unknown) => setDataNascimento(newValue as string)}
+            renderInput={(params: TextFieldProps) => <TextField {...params} fullWidth margin="normal" disabled />}
           />
         </ContactInfoContainer>
       </div>

@@ -86,7 +86,6 @@ export const UserCard = styled.div<{ isFirst: boolean; isSecond: boolean; isThir
   `}
 `;
 
-
 export const LanguageImageContainer = styled.div`
   background-color: #fff;
   display: flex;
@@ -120,6 +119,9 @@ export const UserList = styled.ul`
   padding: 0;
   font-weight: 500;
   font-family: 'Montserrat Alternates', sans-serif;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
 `;
 
 export const ListItem = styled.li`
@@ -155,4 +157,19 @@ export const Points = styled.p`
   color: #666;
   margin-top: 5px;
   font-family: 'Montserrat Alternates', sans-serif;
+`;
+
+export const VerTodosLink = styled.a`
+  color: #007bff;
+  text-decoration: none;
+  font-family: 'Lilita One', sans-serif;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  margin-top: 20px;
+  display: inline-block;
+
+  &:hover {
+    color: #0056b3;
+  }
 `;

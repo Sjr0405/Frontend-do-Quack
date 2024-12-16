@@ -1,13 +1,6 @@
 import styled from 'styled-components';
-import medalha1 from '../../../Assets/Iconesperfil/medalha1.png';
-import medalha2 from '../../../Assets/Iconesperfil/medalha2.png';
-import medalha3 from '../../../Assets/Iconesperfil/medalha3.png';
-import medalha4 from '../../../Assets/Iconesperfil/troveu.png';
-import medalha5 from '../../../Assets/Iconesperfil/experiencia.png';
-import medalha6 from '../../../Assets/Iconesperfil/api.png';
-import medalha7 from '../../../Assets/Iconesperfil/devops.png';
-import medalha8 from '../../../Assets/Iconesperfil/database.png';
-import ItemEmblema from './ItemEmblema';
+// Remover importação não utilizada
+// import ItemEmblema from './ItemEmblema';
 
 const ColunaEmblemasStyled = styled.div`
   flex: 1;
@@ -57,23 +50,23 @@ const GradeEmblemas = styled.div`
   }
 `;
 
-const ColunaEmblemas = ({ achievements }: { achievements: { id: number; name: string; description: string; imagePath: string }[] }) => (
+const MensagemAnimadora = styled.p`
+  font-size: 16px;
+  text-align: center;
+  color: #555;
+  margin-top: 20px;
+`;
+
+const ColunaEmblemas = () => (
   <ColunaEmblemasStyled>
     <ContainerColecaoEmblemas>
       <TituloEmblemas>Coleção de emblemas:</TituloEmblemas>
       <GradeEmblemas>
-        {achievements.map((achievement) => (
-          <ItemEmblema key={achievement.id} imagePath={achievement.imagePath} name={achievement.name} />
-        ))}
-        <ItemEmblema imagePath={medalha1} name="Introdução à Programação" />
-        <ItemEmblema imagePath={medalha2} name="Programação Estruturada" />
-        <ItemEmblema imagePath={medalha3} name="Estruturas de Dados" />
-        <ItemEmblema imagePath={medalha4} name="Desenvolvimento Web" />
-        <ItemEmblema imagePath={medalha5} name="Experiência" />
-        <ItemEmblema imagePath={medalha6} name="API" />
-        <ItemEmblema imagePath={medalha7} name="DevOps" />
-        <ItemEmblema imagePath={medalha8} name="Banco de Dados" />
+        {/* Zerar os componentes de emblemas */}
       </GradeEmblemas>
+      <MensagemAnimadora>
+        Você não tem nenhum emblema ainda, mas não se preocupe! Com o tempo, você vai fazendo as atividades e conseguindo vários emblemas.
+      </MensagemAnimadora>
     </ContainerColecaoEmblemas>
   </ColunaEmblemasStyled>
 );
