@@ -262,15 +262,15 @@ const EditarPerfil = () => {
     const cep = maskedCep.replace(/\D/g, '');
     if (cep.length === 8) {
       try {
-        const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+        const response = await axios.get(`https://brasilapi.com.br/api/cep/v1/${cep}`);
         const data = response.data;
   
-        if (!data.erro) {
+        if (data) {
           setEndereco((prevState) => ({
             ...prevState,
-            street: data.logradouro,
-            city: data.localidade,
-            state: data.uf,
+            street: data.street,
+            city: data.city,
+            state: data.state,
             country: 'Brasil',
           }));
           setIsCepFetched(true);
