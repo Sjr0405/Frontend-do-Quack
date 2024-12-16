@@ -156,16 +156,21 @@ const EditarPerfil = () => {
 
   const handleSalvarImagem = async () => {
     try {
-      const userId = user?.id;
-      if (!userId) {
+      if (!user?.id) {
         throw new Error('ID do usuário não encontrado.');
       }
   
-      const imageFile = await fetch(imagemPerfil)
-        .then(res => res.blob())
-        .then(blob => new File([blob], 'profile-image.png', { type: 'image/png' }));
+      const response = await fetch(imagemPerfil);
+      if (!response.ok) {
+        throw new Error('Falha ao carregar a imagem para conversão.');
+      }
   
-      await updateImage(userId, imageFile);
+      const blob = await response.blob();
+      const imageFile = new File([blob], 'profile-image.png', { type: blob.type });
+  
+      console.log('Upload de imagem iniciado:', imageFile);
+  
+      await updateImage(user.id, imageFile);
   
       const dadosAtualizados = {
         ...user,
@@ -180,9 +185,11 @@ const EditarPerfil = () => {
     } catch (error) {
       Swal.fire('Erro', 'Não foi possível atualizar a imagem do perfil.', 'error');
       console.error('Erro ao atualizar a imagem do perfil:', error);
+    } finally {
+      setDialogoAberto(false);
     }
-    setDialogoAberto(false);
   };
+  
 
   const applyPhoneMask = (value: string) => {
     return value
@@ -312,7 +319,7 @@ const EditarPerfil = () => {
             onChange={handleTelefoneChange}
             placeholder="Telefone"
             fullWidth
-            margin="normal"
+            margin="normal" 
             disabled={!editMode.telefone}
             InputProps={{
               endAdornment: (
