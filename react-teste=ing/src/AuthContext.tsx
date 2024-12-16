@@ -134,48 +134,53 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   //***********************
     // Função para atualizar a imagem do usuário
     const updateImage = async (userId: number, imageFile: File) => {
-    const MAX_FILE_SIZE_MB = 5; // Tamanho máximo permitido em MB
-    const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
-
-    if (!token) {
-      console.error('Token não disponível. Faça login novamente.');
-      return;
-    }
-
-    if (imageFile.size > MAX_FILE_SIZE_BYTES) {
-      console.error(`O arquivo é muito grande. Tamanho máximo permitido: ${MAX_FILE_SIZE_MB}MB.`);
-      throw new Error(`O arquivo é muito grande. Tamanho máximo permitido: ${MAX_FILE_SIZE_MB}MB.`);
-    }
-
-    try {
+      const MAX_FILE_SIZE_MB = 5; // Tamanho máximo permitido em MB
+      const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
+    
+      if (!token) {
+        throw new Error('Token não disponível. Faça login novamente.');
+      }
+    
+      if (imageFile.size > MAX_FILE_SIZE_BYTES) {
+        throw new Error(`O arquivo é muito grande. Tamanho máximo permitido: ${MAX_FILE_SIZE_MB}MB.`);
+      }
+    
       const formData = new FormData();
       formData.append('image', imageFile);
-
-      console.log('Token:', token); // Adicione este log para verificar o token
-
-      const response = await axios.post(`/api/users/${userId}/update-image`, formData, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-
-      console.log('Resposta do servidor:', response); // Adicione este log para verificar a resposta do servidor
-
-      if (user) {
-        const updatedUser = { ...user, id: user?.id, imagePath: response.data.imagePath };
-        setUser(updatedUser);
-        localStorage.setItem('user', JSON.stringify(updatedUser));
-      } else {
-        console.error('User is null or undefined');
+    
+      console.log('Token:', token); // Verificar o token
+      console.log('FormData conteúdo:', formData.get('image'));
+    
+      try {
+        const response = await axios.post(`/api/users/${userId}/update-image`, formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+    
+        console.log('Resposta do servidor:', response.data);
+    
+        if (user) {
+          const updatedUser = { ...user, id: user.id, imagePath: response.data.imagePath };
+          setUser(updatedUser);
+          localStorage.setItem('user', JSON.stringify(updatedUser));
+        } else {
+          console.error('User is null or undefined');
+        }
+    
+        console.log('Imagem atualizada com sucesso.');
+      } catch (error: any) {
+        if (axios.isAxiosError(error) && error.response) {
+          console.error('Erro do servidor:', error.response.data);
+          console.error('Status:', error.response.status);
+        } else {
+          console.error('Erro inesperado:', error);
+        }
+        throw new Error('Falha ao atualizar imagem');
       }
-
-      console.log('Imagem atualizada com sucesso.');
-    } catch (error) {
-      console.error('Erro ao atualizar imagem:', error);
-      throw new Error('Falha ao atualizar imagem');
-    }
-  };
+    };
+    
   //**********************
   // Função para buscar o perfil do usuário
   const fetchUserProfile = async () => {
