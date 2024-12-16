@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { fetchRoadmaps } from './Components/Dashboard/Trilhas/data';
 
@@ -88,7 +88,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [achievements, setAchievements] = useState<Achievement[] | null>(null);
   const [statistics, setStatistics] = useState<Statistics | null>(null);
 
-  //**********************
   // Carrega o token e o usuário do localStorage ao montar o componente
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
@@ -100,93 +99,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, []);
 
-  //**********************
-  // Busca os dados do usuário se o token estiver presente
-  useEffect(() => {
-    if (token && !user) {
-      fetchUserProfile();
-      fetchUserTasks();
-      fetchUserRoadmaps();
-      fetchUserAchievements();
-      fetchUserStatistics();
-    }
-  }, [token, user]);
-
-  //**********************
-  // Função para fazer login
-  const login = async (email: string, password: string) => {
-    try {
-      const response = await axios.post('/api/users/login', { email, password });
-      const token = response.data?.data?.payload?.token;
-      const userId = response.data?.data?.payload?.id;
-  
-      if (token) {
-        setToken(token);
-        localStorage.setItem('token', token);
-        // Armazene o userId no localStorage
-        localStorage.setItem('userId', userId);
-      }
-    } catch (error) {
-      console.error('Erro ao fazer login:', error);
-      throw new Error('Falha no login');
-    }
-  };
-  //***********************
-    // Função para atualizar a imagem do usuário
-    const updateImage = async (userId: number, imageFile: File) => {
-      const MAX_FILE_SIZE_MB = 5; // Tamanho máximo permitido em MB
-      const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
-    
-      if (!token) {
-        throw new Error('Token não disponível. Faça login novamente.');
-      }
-    
-      if (imageFile.size > MAX_FILE_SIZE_BYTES) {
-        throw new Error(`O arquivo é muito grande. Tamanho máximo permitido: ${MAX_FILE_SIZE_MB}MB.`);
-      }
-    
-      const formData = new FormData();
-      formData.append('image', imageFile);
-    
-      console.log('Token:', token); // Verificar o token
-      console.log('FormData conteúdo:', formData.get('image'));
-    
-      try {
-        const response = await axios.post(`/api/users/${userId}/update-image`, formData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'multipart/form-data',
-          },
-        });
-    
-        console.log('Resposta do servidor:', response.data);
-    
-        if (user) {
-          const updatedUser = { ...user, id: user.id, imagePath: response.data.imagePath };
-          setUser(updatedUser);
-          localStorage.setItem('user', JSON.stringify(updatedUser));
-        } else {
-          console.error('User is null or undefined');
-        }
-    
-        console.log('Imagem atualizada com sucesso.');
-      } catch (error: any) {
-        if (axios.isAxiosError(error) && error.response) {
-          console.error('Erro do servidor:', error.response.data);
-          console.error('Status:', error.response.status);
-        } else {
-          console.error('Erro inesperado:', error);
-        }
-        throw new Error('Falha ao atualizar imagem');
-      }
-    };
-    
-  //**********************
   // Função para buscar o perfil do usuário
-  const fetchUserProfile = async () => {
+  const fetchUserProfile = useCallback(async () => {
     const userId = localStorage.getItem('userId');
     if (!token || !userId) return;
-  
+
     try {
       const response = await axios.get(`/api/users/${userId}`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -197,13 +114,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       console.error('Erro ao buscar perfil:', error);
       logout();
     }
-  };
+  }, [token]);
 
-  //**********************
   // Função para buscar as tarefas do usuário
-  const fetchUserTasks = async () => {
+  const fetchUserTasks = useCallback(async () => {
     if (!token || !user) return;
-  
+
     try {
       const response = await axios.get('/tasks', {
         headers: { Authorization: `Bearer ${token}` },
@@ -214,11 +130,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       console.error('Erro ao buscar tarefas:', error);
       logout();
     }
-  }
-  
-  //**********************
+  }, [token, user]);
+
   // Função para buscar os roadmaps do usuário
-  const fetchUserRoadmaps = async () => {
+  const fetchUserRoadmaps = useCallback(async () => {
     if (!token) return;
     try {
       const roadmaps = await fetchRoadmaps(token);
@@ -226,11 +141,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     } catch (error) {
       console.error('Erro ao buscar roadmaps:', error);
     }
-  };
+  }, [token]);
 
-  //**********************
   // Função para buscar as conquistas do usuário
-  const fetchUserAchievements = async () => {
+  const fetchUserAchievements = useCallback(async () => {
     if (!token || !user) return;
 
     try {
@@ -243,11 +157,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       console.error('Erro ao buscar achievements:', error);
       logout();
     }
-  };
+  }, [token, user]);
 
-  //**********************
   // Função para buscar as estatísticas do usuário
-  const fetchUserStatistics = async () => {
+  const fetchUserStatistics = useCallback(async () => {
     if (!token || !user) return;
 
     try {
@@ -260,9 +173,79 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       console.error('Erro ao buscar estatísticas:', error);
       logout();
     }
+  }, [token, user]);
+
+  // Busca os dados do usuário se o token estiver presente
+  useEffect(() => {
+    if (token && !user) {
+      fetchUserProfile();
+      fetchUserTasks();
+      fetchUserRoadmaps();
+      fetchUserAchievements();
+      fetchUserStatistics();
+    }
+  }, [token, user, fetchUserProfile, fetchUserTasks, fetchUserRoadmaps, fetchUserAchievements, fetchUserStatistics]);
+
+  // Função para fazer login
+  const login = async (email: string, password: string) => {
+    try {
+      const response = await axios.post('/api/users/login', { email, password });
+      const token = response.data?.data?.payload?.token;
+      const userId = response.data?.data?.payload?.id;
+
+      if (token) {
+        setToken(token);
+        localStorage.setItem('token', token);
+        localStorage.setItem('userId', userId);
+      }
+    } catch (error) {
+      console.error('Erro ao fazer login:', error);
+      throw new Error('Falha no login');
+    }
   };
 
-  //**********************
+  // Função para atualizar a imagem do usuário
+  const updateImage = async (userId: number, imageFile: File) => {
+    const MAX_FILE_SIZE_MB = 5;
+    const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
+
+    if (!token) {
+      throw new Error('Token não disponível. Faça login novamente.');
+    }
+
+    if (imageFile.size > MAX_FILE_SIZE_BYTES) {
+      throw new Error(`O arquivo é muito grande. Tamanho máximo permitido: ${MAX_FILE_SIZE_MB}MB.`);
+    }
+
+    const formData = new FormData();
+    formData.append('image', imageFile);
+
+    try {
+      const response = await axios.post(`/api/users/${userId}/update-image`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      if (user) {
+        const updatedUser = { ...user, id: user.id, imagePath: response.data.imagePath };
+        setUser(updatedUser);
+        localStorage.setItem('user', JSON.stringify(updatedUser));
+      } else {
+        console.error('User is null or undefined');
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        console.error('Erro do servidor:', error.response.data);
+        console.error('Status:', error.response.status);
+      } else {
+        console.error('Erro inesperado:', error);
+      }
+      throw new Error('Falha ao atualizar imagem');
+    }
+  };
+
   // Função para atualizar o perfil do usuário
   const updateUserProfile = async (updatedData: Partial<User>) => {
     if (!user?.id || !token) return;
@@ -281,7 +264,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  //**********************
   // Função para buscar conquistas do usuário por ID
   const fetchUserAchievementsById = async (userId: number) => {
     if (!token) return;
@@ -296,7 +278,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  //**********************
   // Função para buscar estatísticas do usuário por ID
   const fetchUserStatisticsById = async (userId: number) => {
     if (!token) return;
@@ -311,12 +292,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  //**********************
   // Função para buscar tarefas do usuário por ID
   const fetchUserTasksById = async (userId: number) => {
     if (!token) return;
 
-    try {    
+    try {
       const response = await axios.get(`/tasks/${userId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -326,12 +306,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  //**********************
   // Função para buscar roadmaps do usuário por ID
   const fetchUserRoadmapsById = async (userId: number) => {
     if (!token) return;
 
-    try {    
+    try {
       const response = await axios.get(`/api/users/roadmaps/${userId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -341,7 +320,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  //**********************
   // Função para atualizar a senha do usuário
   const updateUserPassword = async (userId: number, newPassword: string) => {
     if (!token) return;
@@ -356,7 +334,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  //**********************
   // Função para fazer logout
   const logout = () => {
     setToken(null);
@@ -369,10 +346,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.removeItem('user');
   };
 
-  //**********************
   const isAuthenticated = () => {
     const storedToken = localStorage.getItem('token');
-    console.log('Token armazenado:', storedToken);
     return !!storedToken;
   };
 
@@ -402,7 +377,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     </AuthContext.Provider>
   );
 };
-//**********************
+
 // Hook para usar o contexto de autenticação
 export const useAuth = (): AuthContextData => {
   const context = useContext(AuthContext);
