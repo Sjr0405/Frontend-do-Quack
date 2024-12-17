@@ -131,7 +131,7 @@ const Header: React.FC = () => {
       {selectedRoadmap && (
         <PopupOverlay>
           <PopupContent>
-            <img src={selectedRoadmap.imagePath} alt={`${selectedRoadmap.title} logo`} />
+            <img style={{ width: '100px', height: '100px' }} src={selectedRoadmap.imagePath} alt={`${selectedRoadmap.title} logo`} />
             <PopupTitle>{selectedRoadmap.title}</PopupTitle>
             <PopupDescription>{selectedRoadmap.description}</PopupDescription>
             <CloseButton onClick={handleClosePopup}>Fechar</CloseButton>

@@ -46,6 +46,35 @@ interface Roadmaps {
   title: string;
   description: string;
   imagePath: string;
+  stepsId: Array<number>;
+  category: string;
+}
+
+interface Step {
+  id: number;
+  roadmapsId: Array<number>;
+  lessonsId: Array<number>;
+  tasksId: Array<number>;
+  description: string;
+  imagePath: string;
+  status: Status;
+}
+
+enum Status {
+  IN_PROGRESS = 'IN_PROGRESS',
+  COMPLETED = 'COMPLETED',
+  NOT_STARTED = 'NOT_STARTED',
+}
+
+interface lesson {
+  id: number;
+  title: string;
+  description: string;
+  language: string;
+  imagePath: string;
+  completed: boolean;
+  link: string;
+  stepsId: Array<number>;
 }
 
 interface Achievement {
@@ -61,6 +90,8 @@ interface AuthContextData {
   token: string | null;
   tasks: Task[] | null;
   roadmaps: Roadmaps[] | null;
+  step: Step[] | null;
+  lessons: lesson[] | null;
   achievements: Achievement[] | null;
   statistics: Statistics | null;
   login: (email: string, password: string) => Promise<void>;
@@ -85,6 +116,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [token, setToken] = useState<string | null>(null);
   const [tasks, setTasks] = useState<Task[] | null>(null);
   const [roadmaps, setRoadmaps] = useState<Roadmaps[] | null>(null);
+  const [step, setStep] = useState<Step[] | null>(null);
+  const [lessons, setLessons] = useState<lesson[] | null>(null);
   const [achievements, setAchievements] = useState<Achievement[] | null>(null);
   const [statistics, setStatistics] = useState<Statistics | null>(null);
 
@@ -175,16 +208,50 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, [token, user]);
 
+  // Função para buscar as aulas do usuário
+  const fethUserSteps = useCallback(async () => {
+    if (!token || !user) return;
+
+    try {
+      const response = await axios.get('/steps', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setStep(response.data);
+      localStorage.setItem('user', JSON.stringify(response.data));
+    } catch (error) {
+      console.error('Erro ao buscar steps:', error);
+      logout();
+    }
+  }, [token, user]);
+
+  // Função para buscar as lissões do usuário
+  const fecthUserLessons = useCallback(async () => {
+    if (!token || !user) return;
+
+    try {
+      const response = await axios.get('/lessons', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setLessons(response.data);      
+      localStorage.setItem('user', JSON.stringify(response.data));
+    } catch (error) {
+      console.error('Erro ao buscar lessons:', error);
+      logout();    
+    }
+  }, [token, user]);
+
   // Busca os dados do usuário se o token estiver presente
   useEffect(() => {
     if (token && !user) {
       fetchUserProfile();
       fetchUserTasks();
       fetchUserRoadmaps();
+      fethUserSteps();
+      fecthUserLessons();
       fetchUserAchievements();
       fetchUserStatistics();
     }
-  }, [token, user, fetchUserProfile, fetchUserTasks, fetchUserRoadmaps, fetchUserAchievements, fetchUserStatistics]);
+  }, [token, user, fetchUserProfile, fetchUserTasks, fetchUserRoadmaps, fethUserSteps, fecthUserLessons, fetchUserAchievements, fetchUserStatistics]);
 
   // Função para fazer login
   const login = async (email: string, password: string) => {
@@ -357,6 +424,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       token,
       tasks,
       roadmaps,
+      step,
+      lessons,
       achievements,
       statistics,
       login,
