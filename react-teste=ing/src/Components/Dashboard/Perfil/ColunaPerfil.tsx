@@ -23,7 +23,7 @@ const BolhaImagemPerfil = styled.div`
   width: 150px;
   height: 150px;
   border-radius: 50%;
-  position: relative; // Removido o contorno laranja
+  position: relative; 
 `;
 
 const ImagemPerfil = styled.img`
@@ -228,7 +228,19 @@ const ColunaNivel = styled.div`
   width: 100%;
 `;
 
-const ColunaPerfil = ({ safeUser, navigate }: { safeUser: any, navigate: any }) => {
+interface SafeUser {
+  imagePath: string;
+  name: string;
+  username: string;
+  registerOn: string;
+}
+
+interface ColunaPerfilProps {
+  safeUser: SafeUser;
+  navigate: (path: string, options?: { state?: { section: string } }) => void;
+}
+
+const ColunaPerfil = ({ safeUser, navigate }: ColunaPerfilProps) => {
   const nivelAtual = 5; // Exemplo de nível atual
   const pontosAtuais = 1200; // Exemplo de pontos atuais
   const pontosParaProximoNivel = 2000; // Exemplo de pontos necessários para o próximo nível

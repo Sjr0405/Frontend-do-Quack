@@ -81,6 +81,9 @@ export const StyledButton = styled.button`
   border-radius: 16px;
   cursor: pointer;
   box-shadow: 0 4px 8px ${colors.shadow};
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   &:disabled {
     background-color: #ccc;
     cursor: not-allowed;

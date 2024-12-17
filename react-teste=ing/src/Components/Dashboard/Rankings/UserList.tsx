@@ -1,5 +1,6 @@
 import { Box, Typography, Avatar } from '@mui/material';
 import { UserList as StyledUserList, ListItem, Points } from './RankingsStyles';
+import profileIcon from '../../../Assets/Icons/profile.svg';
 
 interface User {
   id: number;
@@ -21,7 +22,7 @@ const UserList = ({ users }: UserListProps) => (
         <Box display="flex" alignItems="center" mb={1}>
           <Typography variant="body1">#{user.ranking}</Typography>
           <Avatar 
-            src={user.imagePath || ''} 
+            src={user.imagePath || profileIcon} 
             alt={`${user.name}'s avatar`} 
             sx={{ width: 50, height: 50, marginLeft: 1, marginRight: 1 }} 
           />

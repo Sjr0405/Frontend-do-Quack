@@ -3,6 +3,7 @@ import { UserCard as StyledUserCard, UserImage, UserName, RankingIcon, Points } 
 import PrimeiroLugar from '../../../Assets/svgs/Home-svgs/Rankings/PrimeiroLugar.svg';
 import SegundoLugar from '../../../Assets/svgs/Home-svgs/Rankings/SegundoLugar.svg';
 import TerceiroLugar from '../../../Assets/svgs/Home-svgs/Rankings/TerceiroLugar.svg';
+import profileIcon from '../../../Assets/Icons/profile.svg';
 
 interface User {
   id: number;
@@ -30,7 +31,7 @@ const getRankingIcon = (ranking: number) => {
 
 const UserCard = ({ user, isFirst, isSecond, isThird, style }: UserCardProps) => (
   <StyledUserCard isFirst={isFirst} isSecond={isSecond} isThird={isThird} style={style}>
-    <UserImage src={user.imagePath || ''} alt={`${user.name}'s avatar`} />
+    <UserImage src={user.imagePath || profileIcon} alt={`${user.name}'s avatar`} />
     <Box display="flex" alignItems="center" justifyContent="center" mb={2}>
       <RankingIcon src={getRankingIcon(user.ranking) || ''} alt={`Ranking ${user.ranking}`} />
     </Box>

@@ -5,17 +5,13 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 import {
   Typography,
-  Button,
   TextField,
   IconButton,
   Avatar,
   InputAdornment,
-  DialogContent,
-  DialogTitle,
   Divider,
   TextFieldProps
 } from '@mui/material';
-import ClearIcon from '@mui/icons-material/Clear';
 import EditIcon from '@mui/icons-material/Edit';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { DatePicker } from '@mui/lab';
@@ -25,9 +21,7 @@ import {
   ContactInfoContainer,
   StyledButton,
   StyledLink,
-  colorPalette as colors,
-  DialogContainer,
-  CloseButton
+  colorPalette as colors
 } from './EditarPerfilStyles';
 
 interface EditMode {
@@ -74,7 +68,6 @@ const EditarPerfil = () => {
   const [nomeUsuario, setNomeUsuario] = useState(user?.username || '');
   const [telefone, setTelefone] = useState(user?.phone || '');
   const [modificado, setModificado] = useState(false);
-  const [dialogoAberto, setDialogoAberto] = useState(false);
   const [dataNascimento, setDataNascimento] = useState(user?.bornDate || '');
   const [imagemPerfil, setImagemPerfil] = useState(user?.imagePath || '');
   const [editMode, setEditMode] = useState<EditMode>({
@@ -110,7 +103,7 @@ const EditarPerfil = () => {
       setNomeUsuario(user.username);
       setTelefone(user.phone);
       setDataNascimento(user.bornDate);
-      setImagemPerfil(user.imagePath);
+      setImagemPerfil(user.imagePath || '../../../Assets/Icons/profile.svg');
       setEndereco({
         id: 0,
         userId: user.id || 0,
@@ -149,6 +142,14 @@ const EditarPerfil = () => {
 
     if (result.isConfirmed) {
       try {
+        if (imagemPerfil !== user?.imagePath) {
+          const fileInput = document.getElementById('upload-input') as HTMLInputElement;
+          const file = fileInput?.files?.[0];
+          if (file && user?.id) {
+            await updateImage(user.id, file);
+          }
+        }
+
         const dadosAtualizados: User = {
           ...user,
           name: nome,
@@ -172,63 +173,24 @@ const EditarPerfil = () => {
     }
   };
 
-  const handleAbrirDialogo = () => {
-    setDialogoAberto(true);
-  };
-
-  const handleFecharDialogo = () => {
-    setDialogoAberto(false);
-  };
-
-  const handleEscolherImagem = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleEscolherImagem = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        if (reader.result) {
-          setImagemPerfil(reader.result as string);
-        }
-      };
-      reader.readAsDataURL(file);
+    if (file && user?.id) {
+      try {
+        await updateImage(user.id, file);
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          if (reader.result) {
+            setImagemPerfil(reader.result as string);
+          }
+        };
+        reader.readAsDataURL(file);
+      } catch (error) {
+        Swal.fire('Erro', 'Não foi possível atualizar a imagem.', 'error');
+        console.error('Erro ao atualizar a imagem:', error);
+      }
     }
   };
-
-  const handleSalvarImagem = async () => {
-    try {
-      if (!user?.id) {
-        throw new Error('ID do usuário não encontrado.');
-      }
-  
-      const response = await fetch(imagemPerfil);
-      if (!response.ok) {
-        throw new Error('Falha ao carregar a imagem para conversão.');
-      }
-  
-      const blob = await response.blob();
-      const imageFile = new File([blob], 'profile-image.png', { type: blob.type });
-  
-      console.log('Upload de imagem iniciado:', imageFile);
-  
-      await updateImage(user.id, imageFile);
-  
-      const dadosAtualizados = {
-        ...user,
-        imagePath: imagemPerfil,
-      };
-  
-      await updateUserProfile(dadosAtualizados);
-  
-      localStorage.setItem('user', JSON.stringify({ ...user, ...dadosAtualizados }));
-  
-      Swal.fire('Sucesso', 'Imagem do perfil atualizada com sucesso!', 'success');
-    } catch (error) {
-      Swal.fire('Erro', 'Não foi possível atualizar a imagem do perfil.', 'error');
-      console.error('Erro ao atualizar a imagem do perfil:', error);
-    } finally {
-      setDialogoAberto(false);
-    }
-  };
-  
 
   const applyPhoneMask = (value: string) => {
     return value
@@ -254,17 +216,17 @@ const EditarPerfil = () => {
       .slice(0, 8) // Limita a quantidade de números a 8
       .replace(/^(\d{5})(\d)/, "$1-$2");
   };
-  
+
   const handleCepChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const maskedCep = applyCepMask(e.target.value);
     setEndereco((prevState) => ({ ...prevState, zipCode: maskedCep }));
-  
+
     const cep = maskedCep.replace(/\D/g, '');
     if (cep.length === 8) {
       try {
         const response = await axios.get(`https://brasilapi.com.br/api/cep/v1/${cep}`);
         const data = response.data;
-  
+
         if (data) {
           setEndereco((prevState) => ({
             ...prevState,
@@ -308,17 +270,24 @@ const EditarPerfil = () => {
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '16px' }}>
             <div style={{ position: 'relative' }}>
               <Avatar
-                src={imagemPerfil || 'https://via.placeholder.com/120'}
+                src={imagemPerfil}
                 alt="Foto do Perfil"
                 style={{ width: '120px', height: '120px', cursor: 'pointer' }}
+                onClick={() => document.getElementById('upload-input')?.click()}
               />
               <IconButton
                 style={{ position: 'absolute', bottom: 0, right: 0, backgroundColor: colors.primary, color: 'white' }}
                 size="small"
-                onClick={handleAbrirDialogo}
+                onClick={() => document.getElementById('upload-input')?.click()}
               >
                 <EditIcon />
               </IconButton>
+              <input
+                type="file"
+                id="upload-input"
+                style={{ display: 'none' }}
+                onChange={handleEscolherImagem}
+              />
             </div>
           </div>
           <Typography variant="body2" color="textSecondary" style={{ textAlign: 'center', marginTop: '8px' }}>
@@ -497,46 +466,6 @@ const EditarPerfil = () => {
         <StyledLink href="#">Exportar os meus dados</StyledLink>
         <StyledLink href="#">Excluir a minha conta</StyledLink>
       </div>
-      <DialogContainer open={dialogoAberto} onClose={handleFecharDialogo} maxWidth="xs" fullWidth>
-        <DialogTitle style={{ textAlign: 'center', paddingBottom: 0 }}>
-          Editar Foto do Perfil
-          <CloseButton onClick={handleFecharDialogo}>
-            <ClearIcon />
-          </CloseButton>
-        </DialogTitle>
-        <DialogContent style={{ textAlign: 'center' }}>
-          <Typography variant="body2" color="textSecondary" style={{ marginBottom: '16px' }}>
-            Uma foto ajuda as pessoas a reconhecerem você e permite que você saiba quando a conta está conectada
-          </Typography>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '8px' }}>
-            <input
-              type="file"
-              id="upload-input"
-              style={{ display: 'none' }}
-              onChange={handleEscolherImagem}
-            />
-            <label htmlFor="upload-input">
-              <Avatar
-                src={imagemPerfil || 'https://via.placeholder.com/100'}
-                alt="Perfil"
-                style={{ width: '100px', height: '100px', borderRadius: '50%', cursor: 'pointer' }}
-              />
-            </label>
-          </div>
-          <Typography variant="caption" color="textSecondary">
-            Visível para todos.
-          </Typography>
-          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }}>
-            <Button
-              variant="contained"
-              style={{ backgroundColor: 'purple', color: 'white', borderRadius: '16px' }}
-              onClick={handleSalvarImagem}
-            >
-              Salvar Imagem
-            </Button>
-          </div>
-        </DialogContent>
-      </DialogContainer>
     </StyledContainer>
   );
 };

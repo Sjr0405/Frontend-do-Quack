@@ -27,7 +27,11 @@ const Rankings = () => {
       try {
         if (token) {
           const usersData = await fetchUsersData(token);
-          setUsers(usersData);
+          const sortedUsers = usersData.sort((a, b) => b.points - a.points).map((user, index) => ({
+            ...user,
+            ranking: index + 1
+          }));
+          setUsers(sortedUsers);
         }
       } catch (error) {
         console.error('Erro ao buscar usuários:', error);
@@ -51,18 +55,20 @@ const Rankings = () => {
   return (
     <Container>
       <Header />
-      <MainSection>
-        {allUsers.slice(0, 3).map((user, index) => (
-          <UserCard 
-            key={user.id}
-            user={user}
-            isFirst={index === 0}
-            isSecond={index === 1}
-            isThird={index === 2} 
-            style={{ backgroundColor: COLORS[index] }}
-          />
-        ))}
-      </MainSection>
+      {users.length > 0 && (
+        <MainSection>
+          {allUsers.slice(0, 3).map((user, index) => (
+            <UserCard 
+              key={user.id}
+              user={user}
+              isFirst={index === 0}
+              isSecond={index === 1}
+              isThird={index === 2} 
+              style={{ backgroundColor: COLORS[index] }}
+            />
+          ))}
+        </MainSection>
+      )}
       <UserList users={allUsers.slice(3, 11)} />
       <VerTodosLink onClick={() => setIsModalOpen(true)}>Ver Todos</VerTodosLink>
       {isModalOpen && <ViewAllModal users={allUsers} onClose={() => setIsModalOpen(false)} />}

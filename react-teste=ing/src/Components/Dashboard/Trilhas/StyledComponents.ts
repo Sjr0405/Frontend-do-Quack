@@ -69,31 +69,33 @@ export const FilterButton = styled.button<{ active: boolean }>`
 `;
 
 export const LanguageList = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 20px;
   width: 100%;
   max-width: 1200px;
-  border-radius: 16px;
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  @media (min-width: 1024px) {
-    grid-template-columns: repeat(4, 1fr);
-  }
 `;
 
-export const RoadmapCardContainer = styled.div`
+export const RoadmapCardContainer = styled.div<{ borderColor: string; shadowColor: string }>`
   background-color: #fff;
-  border: 2px solid rgba(255, 152, 0, 0.7); /* Laranja com opacidade de 70% */
+  border: 2px solid ${({ borderColor }) => borderColor};
   border-radius: 16px;
   padding: 20px;
   text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px ${({ shadowColor }) => shadowColor};
   transition: transform 0.2s, box-shadow 0.2s;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 16px ${({ shadowColor }) => shadowColor};
+  }
+  @media (min-width: 768px) {
+    max-width: 600px;
+  }
+  @media (min-width: 1024px) {
+    max-width: 800px;
   }
 `;
 
