@@ -4,7 +4,7 @@ import { TextField } from '@mui/material';
 import { PageContainer, Title, Description, Link, SearchBarSection, FilterSection, FilterButton, LanguageList, NoResults, SadIcon, PopupOverlay, PopupContent, PopupTitle, PopupDescription, PopupButton, CloseButton } from './StyledComponents';
 import { fetchRoadmaps } from './data';
 import tristeIcon from "../../../Assets/Svg_thigas/TRISTE.svg";
-import RoadmapCard from './RoadmapCard';
+import RoadmapCard from './TrilhasCard';
 import { useAuth } from '../../../AuthContext';
 import axios from 'axios';
 
@@ -131,7 +131,7 @@ const Header: React.FC = () => {
       {selectedRoadmap && (
         <PopupOverlay>
           <PopupContent>
-            <img style={{ width: '100px', height: '100px' }} src={selectedRoadmap.imagePath} alt={`${selectedRoadmap.title} logo`} />
+            <img style={{ width: '100px', height: '100px' }} className="img" src={selectedRoadmap.imagePath} alt={`${selectedRoadmap.title} logo`} />
             <PopupTitle>{selectedRoadmap.title}</PopupTitle>
             <PopupDescription>{selectedRoadmap.description}</PopupDescription>
             <CloseButton onClick={handleClosePopup}>Fechar</CloseButton>

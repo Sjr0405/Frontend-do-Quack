@@ -19,7 +19,7 @@ import GlobalStyles from '../Styles/GlobalStyles.tsx';
 import { ThemeProvider } from 'styled-components';
 import { light, dark } from '../Styles/Themes';
 import LandingPage from '../Pages/LandingPage/LandingPage.tsx';
-import Trilhas from '../Pages/Trilhas/Trilhas.tsx';
+import Trilhas from '../Components/Dashboard/Trilhas/Trilhas.tsx';
 import Errors from '../Pages/Errors.tsx'; 
 import CentraldeAjuda from '../Pages/CentraldeAjuda.tsx'; 
 
@@ -48,7 +48,7 @@ function MainRoutes() {
           } />
           <Route path="/Aprender" element={
             <PrivateRoute>
-              <Aprender changeSection={() => {}} />
+              <Aprender changeSection={() => {}} setSelectedRoadmapId={() => {}} />
             </PrivateRoute>
           } />
           <Route path="/Desafio" element={
@@ -102,7 +102,7 @@ function MainRoutes() {
           } />
           <Route path="/Backend_Roadmap" element={
             <PrivateRoute> 
-              <Trilhas />
+              <Trilhas roadmapId={1} />
             </PrivateRoute>
           } />
           <Route path="/CentraldeAjuda" element={

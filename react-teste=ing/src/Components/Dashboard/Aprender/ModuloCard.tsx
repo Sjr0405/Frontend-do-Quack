@@ -1,9 +1,10 @@
 import { IconButton } from "@mui/material";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { ModuloCard as ModuloCardContainer, ProgressBar } from './AprenderStyles';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom'; // Remover esta linha
 
 interface Modulo {
+  id: number;
   nome: string;
   aulasCompletas: number;
   totalAulas: number;
@@ -13,13 +14,18 @@ interface Modulo {
   icon: string;
 }
 
-const ModuloCard = ({ modulo }: { modulo: Modulo }) => {
-  const navigate = useNavigate();
+const ModuloCard = ({ modulo, setSelectedRoadmapId, changeSection }: { modulo: Modulo, setSelectedRoadmapId: (id: number) => void, changeSection: (section: string) => void }) => {
+  // const navigate = useNavigate(); // Remover esta linha
 
   const calcularProgresso = (aulasCompletas: number, totalAulas: number) => {
     if (totalAulas === 0) return '0%';
     const progresso = (aulasCompletas / totalAulas) * 100;
     return `${progresso}%`;
+  };
+
+  const handleNavigate = () => {
+    setSelectedRoadmapId(modulo.id);
+    changeSection('Trilhas');
   };
 
   return (
@@ -36,7 +42,7 @@ const ModuloCard = ({ modulo }: { modulo: Modulo }) => {
           <div></div>
         </ProgressBar>
       </div>
-      <IconButton onClick={() => navigate(modulo.rota)} aria-label="navegar">
+      <IconButton onClick={handleNavigate} aria-label="navegar">
         <ArrowForwardIcon />
       </IconButton>
     </ModuloCardContainer>

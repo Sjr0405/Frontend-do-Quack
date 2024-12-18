@@ -17,8 +17,9 @@ import Quacksensei from '../../Components/Dashboard/Missoes/Quacksensei';
 import CodeReview from '../../Components/Dashboard/Missoes/CodeReview';
 import Respostas from '../../Components/Dashboard/Missoes/Respostas/Respostas';
 import Praticar from '../../Components/Dashboard/Praticar';
-import Roadmap from '../../Components/Dashboard/Trilhas/Roadmap';
+import Roadmap from '../../Components/Dashboard/SelecaodeTrilhas/SelecaodeTrilhas';
 import ActivityPage from '../../Components/Dashboard/ActivityPage/ActivityPage';
+import Trilhas from '../../Components/Dashboard/Trilhas/Trilhas';
 
 const Container = styled.div`
   display: flex;
@@ -53,6 +54,7 @@ const Home = () => {
   const [messages, setMessages] = useState<{ [key: string]: Message[] }>({});
   const [submittedCode, setSubmittedCode] = useState('');
   const [activityType, setActivityType] = useState<string>('');
+  const [selectedRoadmapId, setSelectedRoadmapId] = useState<number | null>(null);
 
   // Função para definir mensagens para cada professor com base no email
   const handleSetMessages = (professorEmail: string, newMessages: Message[]) => {
@@ -66,12 +68,15 @@ const Home = () => {
     if (location.state?.section) {
       setSection(location.state.section);
     }
+    if (location.state?.roadmapId) {
+      setSelectedRoadmapId(location.state.roadmapId);
+    }
   }, [location]);
 
-  // Mapeamento das seções para seu[s componentes
+  // Mapeamento das seções para seus componentes
   const renderSection = () => {
     const sectionComponents: { [key: string]: JSX.Element | null } = {
-      Aprender: <Aprender changeSection={setSection} />,
+      Aprender: <Aprender changeSection={setSection} setSelectedRoadmapId={setSelectedRoadmapId} />,
       FazerAtividade: <FazerAtividade changeSection={(newSection, code) => {
         if (code) setSubmittedCode(code);
         setSection(newSection);
@@ -103,9 +108,10 @@ const Home = () => {
       }} />,
       Roadmap: <Roadmap  />,
       ActivityPage: <ActivityPage activityType={activityType} />,
+      Trilhas: selectedRoadmapId ? <Trilhas roadmapId={selectedRoadmapId} /> : <Aprender changeSection={setSection} setSelectedRoadmapId={setSelectedRoadmapId} />,
     };
 
-    return sectionComponents[section] || <Aprender changeSection={setSection} />;
+    return sectionComponents[section] || <Aprender changeSection={setSection} setSelectedRoadmapId={setSelectedRoadmapId} />;
   };
 
   return (
@@ -119,6 +125,5 @@ const Home = () => {
     </Container>
   );
 };
-
 
 export default Home;

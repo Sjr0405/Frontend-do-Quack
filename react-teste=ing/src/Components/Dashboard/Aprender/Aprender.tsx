@@ -21,6 +21,7 @@ import SearchBar from './SearchBar';
 import tristeIcon from '../../../Assets/Svg_thigas/TRISTE.svg';
 
 interface Modulo {
+  id: number;
   nome: string;
   aulasCompletas: number;
   totalAulas: number;
@@ -30,7 +31,7 @@ interface Modulo {
   icon: string;
 }
 
-const Aprender = ({ changeSection }: { changeSection: (section: string) => void }) => {
+const Aprender = ({ changeSection, setSelectedRoadmapId }: { changeSection: (section: string) => void, setSelectedRoadmapId: (id: number) => void }) => {
   const { user, roadmaps, fetchUserRoadmapsById } = useAuth();
   const location = useLocation();
   const [modulos, setModulos] = useState<Modulo[]>([]);
@@ -57,7 +58,8 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
 
   useEffect(() => {
     if (roadmaps) {
-      const userRoadmaps = roadmaps.map((roadmap: any) => ({
+      const userRoadmaps = roadmaps.map((roadmap: { id: number; title: string; imagePath: string }) => ({
+        id: roadmap.id,
         nome: roadmap.title,
         aulasCompletas: 0,
         totalAulas: 0,
@@ -109,7 +111,7 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
         {similarModuloMatches.length > 0 ? (
           <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
             {similarModuloMatches.map((modulo, index) => (
-              <ModuloCard key={index} modulo={modulo} />
+              <ModuloCard key={index} modulo={modulo} setSelectedRoadmapId={setSelectedRoadmapId} changeSection={changeSection} />
             ))}
           </div>
         ) : (
