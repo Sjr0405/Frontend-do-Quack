@@ -6,12 +6,13 @@ import Home from '../Pages/Home/Home.tsx';
 import Aprender from '../Components/Dashboard/Aprender/Aprender.tsx';
 import Desafio from '../Components/Dashboard/Missoes/Desafio.tsx';
 import Rankings from '../Components/Dashboard/Rankings/Rankings.tsx';
-import FazerAtividade from '../Components/Dashboard/Missoes/FazerAtividade.tsx';
+import FazerAtividade from '../Components/Dashboard/Missoes/Fazer Atividade/FazerAtividade.tsx';
 import Perfil from '../Components/Dashboard/Perfil/Perfil.tsx';
 import PrivateRoute from './PrivateRoute.tsx';
 import Quacksensei from '../Components/Dashboard/Missoes/Quacksensei.tsx';
 import PerfilQuacksensei from '../Components/Dashboard/Missoes/PerfilQuacksensei.tsx';
 import CodeReview from '../Components/Dashboard/Missoes/CodeReview.tsx';
+import Respostas from '../Components/Dashboard/Missoes/Respostas/Respostas.tsx';
 import EditarPerfil from '../Components/Dashboard/EditarPerfil/EditarPerfil.tsx';
 import { AuthProvider } from '../AuthContext.tsx';
 import GlobalStyles from '../Styles/GlobalStyles.tsx';
@@ -79,6 +80,11 @@ function MainRoutes() {
               />
             </PrivateRoute>
           } />
+          <Route path="/Respostas" element={
+            <PrivateRoute>
+              <Respostas changeSection={() => {}} />
+            </PrivateRoute>
+           } />
           <Route path="/Rankings" element={
             <PrivateRoute>
               <Rankings />
