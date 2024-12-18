@@ -1,185 +1,78 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import Swal from 'sweetalert2';
-import felizPato from '../../Assets/Svg_thigas/FELIZ.svg';
-import tristePato from '../../Assets/Svg_thigas/TRISTE.svg';
-import turnDownPato from '../../Assets/Svg_thigas/TURN DOWN FOR WHAT.svg';
+import felizPato from '../../../Assets/Svg_thigas/FELIZ.svg';
+import tristePato from '../../../Assets/Svg_thigas/TRISTE.svg';
+import turnDownPato from '../../../Assets/Svg_thigas/TURN DOWN FOR WHAT.svg';
+import {
+  Container,
+  Title,
+  Description,
+  ActivityCard,
+  ActivityDetails,
+  ActivityName,
+  ActivityDescription,
+  EditorContainer,
+  PatoImage,
+  Button,
+  NavigationContainer,
+  NavigationButton,
+  QuizOption,
+  RestartButton,
+  Select,
+  GabaritoContainer,
+  GabaritoItem,
+  Activity
+} from './ActivityPageStyles';
 import Editor from '@monaco-editor/react';
-
-const Container = styled.div`
-  padding: 20px;
-  text-align: center;
-  background-color: #f9f9f9;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 16px;
-`;
-
-const Title = styled.h1`
-  font-size: 32px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #333;
-  border-radius: 16px;
-`;
-
-const Description = styled.p`
-  font-size: 18px;
-  margin-bottom: 20px;
-  color: #555;
-  max-width: 800px;
-  border-radius: 16px;
-`;
-
-const ActivityCard = styled.div`
-  background-color: #fff;
-  border-radius: 16px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  }
-`;
-
-const ActivityDetails = styled.div`
-  margin-top: 20px;
-  text-align: left;
-  width: 100%;
-`;
-
-const ActivityName = styled.h3`
-  font-size: 18px;
-  margin-bottom: 10px;
-  color: #333;
-  border-radius: 16px;
-`;
-
-const ActivityDescription = styled.p`
-  font-size: 14px;
-  color: #555;
-  margin-top: 10px;
-`;
-
-const EditorContainer = styled.div`
-  display: flex;
-  height: 300px;
-  width: 100%;
-  max-width: 800px;
-  padding: 10px;
-  border-radius: 16px;
-  background-color: #F4F4F9;
-  justify-content: center;
-`;
-
-const PatoImage = styled.img`
-  width: 100px;
-  height: 100px;
-  margin-top: 20px;
-  border-radius: 16px;
-`;
-
-const Button = styled.button`
-  padding: 10px 20px;
-  border: none;
-  border-radius: 16px;
-  background-color: #6a1b9a;
-  color: #fff;
-  cursor: pointer;
-  margin: 10px;
-  transition: background-color 0.3s;
-  &:hover {
-    background-color: #4a148c;
-  }
-`;
-
-const NavigationContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 400px;
-  margin-top: 20px;
-`;
-
-const NavigationButton = styled(Button)<{ disabled?: boolean }>`
-  background-color: ${({ disabled }) => (disabled ? '#ccc' : '#6a1b9a')};
-  color: ${({ disabled }) => (disabled ? '#999' : '#fff')};
-  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
-  &:hover {
-    background-color: ${({ disabled }) => (disabled ? '#ccc' : '#4a148c')};
-  }
-`;
-
-const QuizOption = styled.button`
-  padding: 10px 20px;
-  border: none;
-  border-radius: 16px;
-  background-color: #6a1b9a;
-  color: #fff;
-  cursor: pointer;
-  margin: 10px;
-  transition: background-color 0.3s;
-  &:hover {
-    background-color: #4a148c;
-  }
-`;
-
-const RestartButton = styled(Button)`
-  background-color: #d32f2f;
-  &:hover {
-    background-color: #b71c1c;
-  }
-`;
-
-const Select = styled.select`
-  padding: 10px;
-  border-radius: 16px;
-  margin-bottom: 20px;
-  font-size: 16px;
-  font-family: 'Montserrat', sans-serif;
-`;
-
-interface Activity {
-  name: string;
-  description: string;
-  code?: string;
-  correctAnswer: string;
-  options?: string[];
-}
 
 const activities: { [key: string]: Activity[] } = {
   'preenchimento-codigo': [
-    { name: 'Questão 1', description: 'Complete o código para somar dois números.', code: 'function soma(a, b) { return a + b; }', correctAnswer: 'a + b' },
+    { name: 'Questão 1', description: 'Faça um programa que calcule a área de um retângulo, esse retângulo possui 5 de comprimento e 3 de largura. Calcule a área e exiba o resultado.', code: 'function areaRetangulo(comprimento, largura) { return comprimento * largura; }', correctAnswer: '5 * 3' },
     { name: 'Questão 2', description: 'Complete o código para encontrar o maior número em uma lista.', code: 'function maiorNumero(lista) { return Math.max(...lista); }', correctAnswer: 'Math.max(...lista)' },
     { name: 'Questão 3', description: 'Complete o código para inverter uma string.', code: 'function inverterString(str) { return str.split("").reverse().join(""); }', correctAnswer: 'str.split("").reverse().join("")' },
+    { name: 'Questão 4', description: 'Faça um programa que calcule o fatorial de um número.', code: 'function fatorial(n) { let resultado = 1; for (let i = 1; i <= n; i++) { resultado *= i; } return resultado; }', correctAnswer: 'resultado *= i' },
+    { name: 'Questão 5', description: 'Complete o código para somar os elementos de um array.', code: 'function somarArray(arr) { return arr.reduce((acc, val) => acc + val, 0); }', correctAnswer: 'arr.reduce((acc, val) => acc + val, 0)' },
+    { name: 'Questão 6', description: 'Complete o código para encontrar o número de palavras em uma string.', code: 'function contarPalavras(str) { return str.split(" ").length; }', correctAnswer: 'str.split(" ").length' },
+    { name: 'Questão 7', description: 'Crie uma função para verificar se um número é primo.', code: 'function verificarPrimo(n) { for (let i = 2; i <= Math.sqrt(n); i++) { if (n % i === 0) return false; } return n > 1; }', correctAnswer: 'return n > 1' },
+    { name: 'Questão 8', description: 'Complete o código para fazer a soma de todos os números ímpares entre 1 e 100.', code: 'function somaImpares() { let soma = 0; for (let i = 1; i <= 100; i++) { if (i % 2 !== 0) soma += i; } return soma; }', correctAnswer: 'soma += i' },
+    { name: 'Questão 9', description: 'Faça um código que verifique se uma string é um palíndromo.', code: 'function verificarPalindromo(str) { return str === str.split("").reverse().join(""); }', correctAnswer: 'str === str.split("").reverse().join("")' },
+    { name: 'Questão 10', description: 'Complete o código para converter um número binário para decimal.', code: 'function binarioParaDecimal(binario) { return parseInt(binario, 2); }', correctAnswer: 'parseInt(binario, 2)' },
   ],
   'quizzes': [
     { name: 'Quiz 1', description: 'Perguntas sobre programação em C.', correctAnswer: 'printf("Hello, World!");' },
     { name: 'Quiz 2', description: 'Perguntas sobre estruturas de dados em C.', correctAnswer: 'struct' },
     { name: 'Quiz 3', description: 'Perguntas sobre algoritmos em C.', correctAnswer: 'for loop' },
+    { name: 'Quiz 4', description: 'Perguntas sobre ponteiros em C.', correctAnswer: '&p' },
+    { name: 'Quiz 5', description: 'Perguntas sobre arrays em C.', correctAnswer: 'int arr[10]' },
+    { name: 'Quiz 6', description: 'Perguntas sobre funções recursivas em C.', correctAnswer: 'factorial(n)' },
+    { name: 'Quiz 7', description: 'Perguntas sobre memória dinâmica em C.', correctAnswer: 'malloc' },
+    { name: 'Quiz 8', description: 'Perguntas sobre strings em C.', correctAnswer: 'char str[]' },
+    { name: 'Quiz 9', description: 'Perguntas sobre a biblioteca padrão em C.', correctAnswer: '#include <stdio.h>' },
+    { name: 'Quiz 10', description: 'Perguntas sobre o uso de variáveis em C.', correctAnswer: 'int x = 10;' },
   ],
   'multipla-escolha': [
     { name: 'Questão 1', description: 'Escolha a resposta correta sobre loops.', correctAnswer: 'for loop', options: ['while loop', 'do-while loop', 'for loop', 'foreach loop'] },
     { name: 'Questão 2', description: 'Escolha a resposta correta sobre funções.', correctAnswer: 'function', options: ['method', 'function', 'procedure', 'routine'] },
     { name: 'Questão 3', description: 'Escolha a resposta correta sobre arrays.', correctAnswer: 'array', options: ['list', 'array', 'set', 'map'] },
+    { name: 'Questão 4', description: 'Escolha a resposta correta sobre herança.', correctAnswer: 'extends', options: ['implements', 'extends', 'inherits', 'super'] },
+    { name: 'Questão 5', description: 'Escolha a resposta correta sobre o escopo de variáveis.', correctAnswer: 'local', options: ['global', 'local', 'static', 'dynamic'] },
+    { name: 'Questão 6', description: 'Escolha a resposta correta sobre a declaração de funções.', correctAnswer: 'function', options: ['def', 'function', 'func', 'declare'] },
+    { name: 'Questão 7', description: 'Escolha a resposta correta sobre operadores lógicos.', correctAnswer: '&&', options: ['&', '&&', '|', '||'] },
+    { name: 'Questão 8', description: 'Escolha a resposta correta sobre variáveis mutáveis em JavaScript.', correctAnswer: 'let', options: ['var', 'let', 'const', 'mutable'] },
+    { name: 'Questão 9', description: 'Escolha a resposta correta sobre as classes em JavaScript.', correctAnswer: 'class', options: ['class', 'interface', 'constructor', 'module'] },
+    { name: 'Questão 10', description: 'Escolha a resposta correta sobre o tipo de dado nulo.', correctAnswer: 'null', options: ['null', 'undefined', 'none', 'NaN'] },
   ],
 };
 
-const ActivityPage: React.FC<{ activityType: string }> = ({ activityType }) => {
+const ActivityPage: React.FC<{ activityType: string }> = ({ activityType = 'nada' }) => {
   const [currentActivityIndex, setCurrentActivityIndex] = useState(0);
   const [correctAnswers, setCorrectAnswers] = useState(0);
+  const [wrongQuestions, setWrongQuestions] = useState<number[]>([]); // Rastreia as questões erradas
   const [showResult, setShowResult] = useState(false);
   const [theme, setTheme] = useState('vs-light');
   const [userCode, setUserCode] = useState('');
 
   useEffect(() => {
-    // Carrega o tema salvo no Local Storage ao inicializar o componente
     const savedTheme = localStorage.getItem('editorTheme');
     if (savedTheme) {
       setTheme(savedTheme);
@@ -190,11 +83,10 @@ const ActivityPage: React.FC<{ activityType: string }> = ({ activityType }) => {
     const selectedTheme = event.target.value;
     setTheme(selectedTheme);
 
-    // Salva o tema no Local Storage
     localStorage.setItem('editorTheme', selectedTheme);
   };
 
-  console.log('activityType:', activityType); // Adicione este log para verificar o valor de activityType
+  console.log('activityType:', activityType);
 
   const activityList = activities[activityType];
 
@@ -208,7 +100,6 @@ const ActivityPage: React.FC<{ activityType: string }> = ({ activityType }) => {
       </Container>
     );
   }
-
 
   const handleAnswer = (answer: string) => {
     const currentActivity = activityList[currentActivityIndex];
@@ -226,15 +117,21 @@ const ActivityPage: React.FC<{ activityType: string }> = ({ activityType }) => {
 
     if (isCorrect) {
       setCorrectAnswers(correctAnswers + 1);
+      setWrongQuestions(wrongQuestions.filter((index) => index !== currentActivityIndex));
+    } else {
+      if (!wrongQuestions.includes(currentActivityIndex)) {
+        setWrongQuestions([...wrongQuestions, currentActivityIndex]);
+      }
     }
 
     if (currentActivityIndex < activityList.length - 1) {
-      setCurrentActivityIndex(currentActivityIndex + 1);
+      setCurrentActivityIndex(currentActivityIndex);
       setUserCode('');
     } else {
       setShowResult(true);
     }
   };
+
 
   const handlePrevious = () => {
     if (currentActivityIndex > 0) {
@@ -251,6 +148,7 @@ const ActivityPage: React.FC<{ activityType: string }> = ({ activityType }) => {
   }
 
   const handleRestart = () => {
+    
     setCurrentActivityIndex(0);
     setCorrectAnswers(0);
     setShowResult(false);
@@ -258,6 +156,7 @@ const ActivityPage: React.FC<{ activityType: string }> = ({ activityType }) => {
   };
 
   const currentActivity = activityList[currentActivityIndex];
+  const totalCompleted = currentActivityIndex;
 
   return (
     <Container>
@@ -266,10 +165,29 @@ const ActivityPage: React.FC<{ activityType: string }> = ({ activityType }) => {
         Aqui você pode praticar {activityType} baseadas nas trilhas que você estudou.
       </Description>
       {!showResult ? (
-        <ActivityCard>
-          <ActivityDetails>
-            <ActivityName>{currentActivity.name}</ActivityName>
-            <ActivityDescription>{currentActivity.description}</ActivityDescription>
+        <div  style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <GabaritoContainer>
+          <GabaritoItem>
+            <p>Feitas</p>
+            <p>{totalCompleted}</p>
+          </GabaritoItem>
+          <GabaritoItem>
+            <p>Pendentes</p>
+            <p>{activityList.length - totalCompleted}</p>
+          </GabaritoItem>
+          <GabaritoItem>
+            <p>Certas</p>
+            <p>{correctAnswers}</p>
+          </GabaritoItem>
+          <GabaritoItem>
+            <p>Erradas</p>
+            <p>{wrongQuestions.length}</p>
+          </GabaritoItem>
+        </GabaritoContainer>
+        <ActivityCard >
+          <ActivityDetails >
+            <ActivityName >{currentActivity.name}</ActivityName>
+            <ActivityDescription >{currentActivity.description}</ActivityDescription>
             {activityType === 'preenchimento-codigo' && (
               <>
                 <pre>{currentActivity.code}</pre>
@@ -289,8 +207,12 @@ const ActivityPage: React.FC<{ activityType: string }> = ({ activityType }) => {
                       theme={theme}
                       value={userCode}
                       onChange={(value) => setUserCode(value || '')}
-                    />
+                    /> 
                   </EditorContainer>
+                  <div id='contador'>
+                    <p style={{ marginTop: '10px' }}>{ currentActivityIndex + 1} de {activityList.length}</p>
+                  </div>
+
                 <Button onClick={() => handleAnswer(userCode)}>Verificar</Button>
               </>
             )}
@@ -310,11 +232,12 @@ const ActivityPage: React.FC<{ activityType: string }> = ({ activityType }) => {
             </NavigationContainer>
           </ActivityDetails>
         </ActivityCard>
+        </div>
       ) : (
         <>
           {correctAnswers === activityList.length ? (
             <PatoImage src={turnDownPato} alt="Pato turn down for what" />
-          ) : correctAnswers > 0 ? (
+          ) : correctAnswers > 0 && wrongQuestions.every((index) => index < activityList.length / 2) ? (
             <PatoImage src={felizPato} alt="Pato feliz" />
           ) : (
             <PatoImage src={tristePato} alt="Pato triste" />

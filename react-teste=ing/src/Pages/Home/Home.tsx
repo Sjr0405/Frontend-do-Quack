@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import SideBar from '../../Components/Dashboard/SideBar';
 import Aprender from '../../Components/Dashboard/Aprender/Aprender';
-import FazerAtividade from '../../Components/Dashboard/Missoes/FazerAtividade';
+import FazerAtividade from '../../Components/Dashboard/Missoes/Fazer Atividade/FazerAtividade';
 import Desafio from '../../Components/Dashboard/Missoes/Desafio';
 import Rankings from '../../Components/Dashboard/Rankings/Rankings';
 import Perfil from '../../Components/Dashboard/Perfil/Perfil';
@@ -15,9 +15,10 @@ import EditarPerfil from '../../Components/Dashboard/EditarPerfil/EditarPerfil';
 import PerfilQuacksensei from '../../Components/Dashboard/Missoes/PerfilQuacksensei';
 import Quacksensei from '../../Components/Dashboard/Missoes/Quacksensei';
 import CodeReview from '../../Components/Dashboard/Missoes/CodeReview';
+import Respostas from '../../Components/Dashboard/Missoes/Respostas/Respostas';
 import Praticar from '../../Components/Dashboard/Praticar';
 import Roadmap from '../../Components/Dashboard/Trilhas/Roadmap';
-import ActivityPage from '../../Components/Dashboard/ActivityPage';
+import ActivityPage from '../../Components/Dashboard/ActivityPage/ActivityPage';
 
 const Container = styled.div`
   display: flex;
@@ -93,6 +94,7 @@ const Home = () => {
         />
       ) : null,
       CodeReview: <CodeReview changeSection={setSection} submittedCode={submittedCode} />,
+      Respostas: <Respostas changeSection={setSection} submittedCode={submittedCode} />,
       Praticar: <Praticar changeSection={(newSection, activityType) => {
         setSection(newSection);
         if (activityType) {

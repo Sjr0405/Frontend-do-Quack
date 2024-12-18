@@ -170,7 +170,7 @@ const Quacksensei = ({
             <TopBarItem onClick={() => changeSection('CodeReview')}>
               <a>Code Review</a>
             </TopBarItem>
-            <TopBarItem onClick={() => changeSection('PerfilQuacksensei')} style={{ border: 'none' }}>
+            <TopBarItem onClick={() => changeSection('Respostas')} style={{ border: 'none' }}>
               <a>Respostas</a>
             </TopBarItem>
           </TopBar>
