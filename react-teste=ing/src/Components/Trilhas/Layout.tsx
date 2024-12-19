@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
@@ -7,6 +7,7 @@ import LogoSvg from '../../Assets/Svg_thigas/Pato_de_perfil.svg';
 import MainContent from "./MainContent";
 import MainFooter from "./Footer";
 import Roadmap from "./RoadMap";
+import MainHeader from '../../Components/Trilhas/MainHeader';
 
 const Grid = styled.div`
   display: grid;
@@ -155,7 +156,7 @@ const BackButton: React.FC<{ changeSection: (section: string) => void }> = ({ ch
   );
 };
 
-const MainHeader: React.FC<{ changeSection: (section: string) => void }> = ({ changeSection }) => {
+const MainHeaderComponent: React.FC<{ changeSection: (section: string) => void }> = ({ changeSection }) => {
   return (
     <Container>
       <Logo />
@@ -177,10 +178,17 @@ const StyledMainFooter = styled(MainFooter)`
 `;
 
 const Home: React.FC = () => {
+  const [section, setSection] = useState('Aprender');
+
   return (
     <Grid>
-      <MainHeader changeSection={() => {}} />
-      <StyledMainContent />
+      <MainHeader changeSection={setSection} />
+      <StyledMainContent>
+        {section !== 'Layout' && <SideBar changeSection={setSection} />}
+        <ContentArea>
+          {renderSection()} {/* Renderiza a seção com base no estado */}
+        </ContentArea>
+      </StyledMainContent>
       <StyledRoadmap />
       <StyledMainFooter />
     </Grid>
