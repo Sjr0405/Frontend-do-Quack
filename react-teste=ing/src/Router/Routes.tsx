@@ -58,7 +58,7 @@ function MainRoutes() {
           } />
           <Route path="/Quacksensei" element={
             <PrivateRoute>
-              <Quacksensei changeSection={() => {}} 
+              <Quacksensei changeSection={() => {}}
                 setSelectedProfessor={() => console.log('setSelectedProfessor called')} />
             </PrivateRoute>
           } />

@@ -75,7 +75,7 @@ const Home = () => {
     }
   }, [location]);
 
-  // Mapeamento das seções para seu[s componentes
+  // Mapeamento das seções para seus componentes
   const renderSection = () => {
     const sectionComponents: { [key: string]: JSX.Element | null } = {
       Aprender: <Aprender changeSection={setSection} />,
@@ -88,9 +88,9 @@ const Home = () => {
       EditarPerfil: <EditarPerfil />,
       Perfil: <Perfil changeSection={setSection} />,
       Configuracoes: <Configuracoes />,
-      Loja: <Loja/>,
+      Loja: <Loja />,
       Notifications: <Notifications changeSection={setSection} />,
-      Missoes: <Missoes changeSection={setSection}/>,
+      Missoes: <Missoes changeSection={setSection} />,
       Quacksensei: <Quacksensei changeSection={setSection} setSelectedProfessor={setSelectedProfessor} />,
       PerfilQuacksensei: selectedProfessor ? (
         <PerfilQuacksensei
@@ -108,7 +108,7 @@ const Home = () => {
           setActivityType(activityType);
         }
       }} />,
-      Roadmap: <Roadmap  />,
+      Roadmap: <Roadmap />,
       ActivityPage: <ActivityPage activityType={activityType} />,
       Layout: <Layout />,
     };

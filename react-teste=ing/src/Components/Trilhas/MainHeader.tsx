@@ -111,9 +111,9 @@ const Logo: React.FC = () => {
   );
 };
 
-const BackButton: React.FC = () => {
+const BackButton: React.FC<{ changeSection: (section: string) => void }> = ({ changeSection }) => {
   return (
-    <BackButtonStyled onClick={() => window.history.back()}>
+    <BackButtonStyled onClick={() => changeSection('Aprender')}>
       <ArrowIcon>
         <FontAwesomeIcon icon={faArrowLeft} />
       </ArrowIcon>
@@ -122,11 +122,11 @@ const BackButton: React.FC = () => {
   );
 };
 
-const MainHeader: React.FC = () => {
+const MainHeader: React.FC<{ changeSection: (section: string) => void }> = ({ changeSection }) => {
   return (
     <Container>
       <Logo />
-      <BackButton />
+      <BackButton changeSection={changeSection} />
     </Container> 
   );
 }
