@@ -8,24 +8,6 @@ import MainContent from "./MainContent";
 import MainFooter from "./Footer";
 import Roadmap from "./RoadMap";
 import MainHeader from '../../Components/Trilhas/MainHeader';
-import SideBar from '../../Components/Dashboard/SideBar';
-import Aprender from '../../Components/Dashboard/Aprender/Aprender';
-import FazerAtividade from '../../Components/Dashboard/Missoes/Fazer Atividade/FazerAtividade';
-import Desafio from '../../Components/Dashboard/Missoes/Desafio';
-import Rankings from '../../Components/Dashboard/Rankings/Rankings';
-import Perfil from '../../Components/Dashboard/Perfil/Perfil';
-import Missoes from '../../Components/Dashboard/Missoes/MissoesPage';
-import Configuracoes from '../../Components/Dashboard/Configuracoes';
-import Loja from '../../Components/Dashboard/Loja';
-import Notifications from '../../Components/Dashboard/Notifications';
-import EditarPerfil from '../../Components/Dashboard/EditarPerfil/EditarPerfil';
-import PerfilQuacksensei from '../../Components/Dashboard/Missoes/PerfilQuacksensei';
-import Quacksensei from '../../Components/Dashboard/Missoes/Quacksensei';
-import CodeReview from '../../Components/Dashboard/Missoes/CodeReview';
-import Respostas from '../../Components/Dashboard/Missoes/Respostas/Respostas';
-import Praticar from '../../Components/Dashboard/Praticar';
-import RoadmapSelection from '../../Components/Dashboard/SeleçãodeTrilhas/SeleçãodeTrilhas';
-import ActivityPage from '../../Components/Dashboard/ActivityPage/ActivityPage';
 
 const Grid = styled.div`
   display: grid;
@@ -195,46 +177,17 @@ const StyledMainFooter = styled(MainFooter)`
   grid-area: MF;
 `;
 
-const Layout: React.FC = () => {
+const Home: React.FC = () => {
   const [section, setSection] = useState('Aprender');
-
-  const renderSection = () => {
-    const sectionComponents: { [key: string]: JSX.Element | null } = {
-      Aprender: <Aprender changeSection={setSection} />,
-      FazerAtividade: <FazerAtividade changeSection={(newSection, code) => {
-        if (code) setSection(newSection);
-      }} />,
-      Desafio: <Desafio changeSection={setSection} />,
-      Rankings: <Rankings />,
-      EditarPerfil: <EditarPerfil />,
-      Perfil: <Perfil changeSection={setSection} />,
-      Configuracoes: <Configuracoes />,
-      Loja: <Loja />,
-      Notifications: <Notifications changeSection={setSection} />,
-      Missoes: <Missoes changeSection={setSection} />,
-      Quacksensei: <Quacksensei changeSection={setSection} setSelectedProfessor={() => {}} />,
-      PerfilQuacksensei: <PerfilQuacksensei changeSection={setSection} selectedProfessor={{ name: "", email: "", ensina: "", linguagem: "", photo: "" }} messages={{}} setMessages={() => {}} />,
-      CodeReview: <CodeReview changeSection={setSection} submittedCode="" />,
-      Respostas: <Respostas changeSection={setSection} submittedCode="" />,
-      Praticar: <Praticar changeSection={(newSection, activityType) => {
-        setSection(newSection);
-      }} />,
-      Roadmap: <RoadmapSelection />,
-      ActivityPage: <ActivityPage activityType="" />,
-      Layout: <Layout />,
-    };
-
-    return sectionComponents[section] || <Aprender changeSection={setSection} />;
-  };
 
   return (
     <Grid>
       <MainHeader changeSection={setSection} />
       <StyledMainContent>
         {section !== 'Layout' && <SideBar changeSection={setSection} />}
-        <div>
+        <ContentArea>
           {renderSection()} {/* Renderiza a seção com base no estado */}
-        </div>
+        </ContentArea>
       </StyledMainContent>
       <StyledRoadmap />
       <StyledMainFooter />
@@ -242,4 +195,4 @@ const Layout: React.FC = () => {
   );
 }
 
-export default Layout;
+export default Home;
