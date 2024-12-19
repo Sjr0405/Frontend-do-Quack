@@ -1,0 +1,70 @@
+{
+  "title": "Backend Roadmap",
+  "subtitle": "Se torne um desenvolvedor backend!",
+  "description": "Olá Aluno! Bem-vindo ao roadmap de backend do nosso aplicativo. Neste roadmap, você vai iniciar sua jornada para se tornar um desenvolvedor backend, aprendendo desde os conceitos fundamentais, como estrutura de dados e lógica de programação, até o uso de frameworks e ferramentas essenciais.",
+  "nodes": [
+    { "id": "1", "data": { "label": "Começo" }, "position": { "x": 250, "y": 0 } },
+    { "id": "2", "data": { "label": "Internet" }, "position": { "x": 0, "y": 100 } },
+    { "id": "3", "data": { "label": "Sistemas de controle de versão" }, "position": { "x": 250, "y": 200 } },
+    { "id": "4", "data": { "label": "Bancos de Dados Relacionais" }, "position": { "x": 500, "y": 300 } },
+    { "id": "5", "data": { "label": "APIs" }, "position": { "x": 0, "y": 400 } },
+    { "id": "6", "data": { "label": "Design e Arquitetura de Software" }, "position": { "x": 250, "y": 500 } }
+  ],
+  "edges": [
+    { "id": "e1-2", "source": "1", "target": "2", "type": "smoothstep" },
+    { "id": "e2-3", "source": "2", "target": "3", "type": "smoothstep" },
+    { "id": "e3-4", "source": "3", "target": "4", "type": "smoothstep" },
+    { "id": "e4-5", "source": "4", "target": "5", "type": "smoothstep" },
+    { "id": "e5-6", "source": "5", "target": "6", "type": "smoothstep" }
+  ],
+  "modals": {
+    "Começo": {
+      "description": "Introdução ao desenvolvimento backend. Aqui você encontrará uma orientação sobre como se orientar no roadmap.",
+      "links": [
+        { "label": "O que é Backend?", "url": "http://example.com/backend-intro", "type": "artigo" },
+        { "label": "Vídeo: Introdução ao Backend", "url": "http://example.com/backend-video", "type": "vídeo" },
+        { "label": "Guia de Backend para Iniciantes", "url": "http://example.com/backend-guide", "type": "guia" }
+      ]
+    },
+    "Internet": {
+      "description": "A internet é uma rede global de computadores interconectados que se comunicam usando protocolos padronizados, principalmente TCP/IP. Quando você solicita uma página da web, seu dispositivo envia um pacote de dados por meio do seu provedor de serviços de internet (ISP) para um servidor DNS, que traduz o nome de domínio do site em um endereço IP. O pacote é então roteado por várias redes (usando roteadores e switches) para o servidor de destino, que processa a solicitação e envia de volta a resposta. Essa troca de ida e volta permite a transferência de dados como páginas da web, e-mails e arquivos, tornando a internet um sistema dinâmico e descentralizado para comunicação global.\n\nVisite os seguintes recursos para saber mais:",
+      "links": [
+        { "label": "Como funciona a Internet?", "url": "https://example.com/internet", "type": "artigo" },
+        { "label": "Vídeo: Introdução à Internet", "url": "https://example.com/internet-video", "type": "vídeo" },
+        { "label": "A História da Internet", "url": "https://example.com/internet-history", "type": "artigo" }
+      ]
+    },
+    "Sistemas de controle de versão": {
+      "description": "Sistemas de controle de versão permitem que desenvolvedores rastreiem mudanças no código ao longo do tempo, facilitando a colaboração e a reversão de mudanças quando necessário. Comumente usados em projetos de software, eles registram modificações feitas no código-fonte e armazenam essas versões em um repositório centralizado ou distribuído. O Git é um dos sistemas de controle de versão mais populares, amplamente utilizado em equipes de desenvolvimento ao redor do mundo.\n\nVisite os seguintes recursos para saber mais:",
+      "links": [
+        { "label": "Artigo sobre Controle de Versão", "url": "https://example.com/version-control", "type": "artigo" },
+        { "label": "Vídeo sobre Git", "url": "https://example.com/git-video", "type": "vídeo" },
+        { "label": "Tutorial de Git", "url": "https://example.com/git-tutorial", "type": "guia" }
+      ]
+    },
+    "Bancos de Dados Relacionais": {
+      "description": "Bancos de dados relacionais organizam dados em tabelas com linhas e colunas, onde cada linha representa um registro único e cada coluna representa um campo de dados. Eles utilizam a linguagem SQL para gerenciar e consultar dados. Bancos de dados como MySQL, PostgreSQL e SQL Server são exemplos amplamente utilizados para armazenar grandes volumes de dados estruturados.\n\nVisite os seguintes recursos para saber mais:",
+      "links": [
+        { "label": "Artigo sobre Bancos de Dados Relacionais", "url": "https://example.com/relational-db", "type": "artigo" },
+        { "label": "Vídeo sobre SQL", "url": "https://example.com/sql-video", "type": "vídeo" },
+        { "label": "Guia de SQL para Iniciantes", "url": "https://example.com/sql-guide", "type": "guia" }
+      ]
+    },
+    "APIs": {
+      "description": "APIs (Application Programming Interfaces) permitem que diferentes sistemas se comuniquem uns com os outros, oferecendo uma interface definida para solicitar e enviar dados. Elas são amplamente usadas para integrar serviços externos e criar funcionalidades que dependem de dados ou operações de terceiros. REST e GraphQL são exemplos comuns de arquiteturas de APIs modernas.\n\nVisite os seguintes recursos para saber mais:",
+      "links": [
+        { "label": "Artigo sobre APIs", "url": "https://example.com/api-intro", "type": "artigo" },
+        { "label": "Vídeo sobre APIs REST", "url": "https://example.com/rest-api-video", "type": "vídeo" },
+        { "label": "Guia sobre GraphQL", "url": "https://example.com/graphql-guide", "type": "guia" }
+      ]
+    },
+    "Design e Arquitetura de Software": {
+      "description": "O design e a arquitetura de software envolvem a criação de estruturas organizacionais para sistemas de software, determinando como diferentes componentes interagem entre si. Arquiteturas comuns incluem Monolitos, Microservices e Serverless. Um bom design arquitetônico garante que o software seja escalável, fácil de manter e robusto.\n\nVisite os seguintes recursos para saber mais:",
+      "links": [
+        { "label": "Artigo sobre Design de Software", "url": "https://example.com/software-design", "type": "artigo" },
+        { "label": "Vídeo sobre Arquitetura de Software", "url": "https://example.com/software-architecture-video", "type": "vídeo" },
+        { "label": "Guia de Arquitetura Microservices", "url": "https://example.com/microservices-guide", "type": "guia" }
+      ]
+    }
+  }
+}

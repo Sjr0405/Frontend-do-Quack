@@ -1,9 +1,6 @@
-import React from 'react';
 import styled from "styled-components";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
-const BackButtonStyled = styled.button`
+export const BackButtonStyled = styled.button`
   background-color: #FF3E41;
   color: #FFFFFF;
   border: none;
@@ -27,22 +24,9 @@ const BackButtonStyled = styled.button`
   }
 `;
 
-const ArrowIcon = styled.div`
+export const ArrowIcon = styled.div`
   margin-right: 12px;
   color: #FFFFFF;
   width: 24px;
   height: 24px;
 `;
-
-const BackButton: React.FC = () => {
-  return (
-    <BackButtonStyled onClick={() => window.history.back()}>
-      <ArrowIcon>
-        <FontAwesomeIcon icon={faArrowLeft} />
-      </ArrowIcon>
-      Voltar
-    </BackButtonStyled>
-  );
-};
-
-export default BackButton;

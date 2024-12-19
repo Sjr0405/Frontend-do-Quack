@@ -1,7 +1,6 @@
-import React from "react";
 import styled from "styled-components";
 
-const Container = styled.div`
+export const Container = styled.div`
   grid-area: MF; 
   color: ${(props) => props.theme.colors.white};
   display: flex;
@@ -28,13 +27,3 @@ const Container = styled.div`
     padding: 10px;
   }
 `;
-
-const Footer: React.FC = () => {
-  return (
-    <Container>
-      <p>Copyright © 2024 Quack. Todos os direitos reservados.</p>
-    </Container>
-  );
-};
-
-export default Footer;
