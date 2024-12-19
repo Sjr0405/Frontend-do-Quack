@@ -64,12 +64,12 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
     if (roadmaps) {
       const userRoadmaps = roadmaps.map((roadmap: any) => ({
         nome: roadmap.title,
-        aulasCompletas: 0,
-        totalAulas: 0,
-        corBarra: '#FFD700',
-        bgColor: '#FFEB99',
+        aulasCompletas: roadmap.totalSteps || 0, // Definir 0 se undefined
+        totalAulas: roadmap.stepsId?.length || 0, // Puxar a quantidade de stepsId, definir 0 se undefined
+        corBarra: roadmap.color || '#FFD700', // Usar a cor da roadmap, definir cor padrão se undefined
+        bgColor: roadmap.color || '#FFEB99', // Usar a cor da roadmap, definir cor padrão se undefined
         rota: `/roadmap/${roadmap.id}`,
-        icon: roadmap.imagePath,
+        icon: roadmap.imagePath || '', // Definir string vazia se undefined
       }));
       setModulos(userRoadmaps);
     }
