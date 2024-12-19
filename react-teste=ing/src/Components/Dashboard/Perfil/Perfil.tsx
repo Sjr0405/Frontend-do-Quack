@@ -39,7 +39,9 @@ const Perfil = ({ changeSection }: { changeSection: (section: string) => void })
   useEffect(() => {
     if (safeUser) {
       fetchUserProfile(safeUser.id);
-      fetchUserAchievementsById(safeUser.id);
+      fetchUserAchievementsById(safeUser.id).then((data) => {
+        setAchievements(data);
+      });
     } else {
       setAchievements([]);
     }
@@ -74,7 +76,7 @@ const Perfil = ({ changeSection }: { changeSection: (section: string) => void })
       </ContainerCabecalho>
 
       <ColunasPerfil>
-        <ColunaPerfil safeUser={safeUser} navigate={navigate} />
+        {safeUser && <ColunaPerfil safeUser={safeUser} navigate={navigate} />}
         <ColunaAba activeTab={activeTab} setActiveTab={setActiveTab} isModalOpen={isModalOpen} setModalOpen={setModalOpen} followingData={followingData} followersData={followersData} />
       </ColunasPerfil>
 

@@ -101,7 +101,7 @@ interface AuthContextData {
   fetchUserAchievements: () => Promise<void>;
   fetchUserTasksById: (userId: number) => Promise<void>;
   fetchUserRoadmapsById: (userId: number) => Promise<void>;
-  fetchUserAchievementsById: (userId: number) => Promise<void>;
+  fetchUserAchievementsById: (userId: number) => Promise<Achievement[]>;
   fetchUserStatisticsById: (userId: number) => Promise<void>;
   updateUserProfile: (updatedData: Partial<User>) => Promise<void>;
   updateUserPassword: (userId: number, newPassword: string) => Promise<void>;
@@ -338,15 +338,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Função para buscar conquistas do usuário por ID
   const fetchUserAchievementsById = async (userId: number) => {
-    if (!token) return;
+    if (!token) return [];
 
     try {
-      const response = await axios.get(`/achievements/${userId}`, {
+      const response = await axios.get(`/api/users/achievement/getAllAchievements/${userId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setAchievements(response.data);
+      return response.data;
     } catch (error) {
       console.error('Erro ao buscar conquistas:', error);
+      return [];
     }
   };
 
