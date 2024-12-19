@@ -96,7 +96,7 @@ interface AuthContextData {
   statistics: Statistics | null;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
-  isAuthenticated: () => boolean;
+  isAuthenticated: boolean;
   fetchUserProfile: (userId: number) => Promise<void>;
   fetchUserAchievements: () => Promise<void>;
   fetchUserTasksById: (userId: number) => Promise<void>;
@@ -120,6 +120,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [lessons, setLessons] = useState<lesson[] | null>(null);
   const [achievements, setAchievements] = useState<Achievement[] | null>(null);
   const [statistics, setStatistics] = useState<Statistics | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => !!localStorage.getItem('token'));
 
   // Carrega o token e o usuário do localStorage ao montar o componente
   useEffect(() => {
@@ -131,6 +132,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setUser(JSON.parse(storedUser));
     }
   }, []);
+
+  useEffect(() => {
+    setIsAuthenticated(!!localStorage.getItem('token'));
+  }, [token]);
 
   // Função para buscar o perfil do usuário
   const fetchUserProfile = useCallback(async () => {
@@ -411,11 +416,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setStatistics(null);
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-  };
-
-  const isAuthenticated = () => {
-    const storedToken = localStorage.getItem('token');
-    return !!storedToken;
   };
 
   return (
