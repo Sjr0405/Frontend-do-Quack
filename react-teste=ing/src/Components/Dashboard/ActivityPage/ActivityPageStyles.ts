@@ -3,26 +3,28 @@ import styled from 'styled-components';
 export const Container = styled.div`
   padding: 20px;
   text-align: center;
-  background-color: #f9f9f9;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 16px;
+  width: 100%;
+  max-width: 1200px; /* Ajuste a largura máxima do container */
+  margin: 0 auto; /* Centraliza o container horizontalmente */
 `;
 
 export const Title = styled.h1`
   font-size: 32px;
   font-weight: bold;
   margin-bottom: 10px;
-  color: #333;
+  color: #000; /* Roxo escuro */
   border-radius: 16px;
 `;
 
 export const Description = styled.p`
   font-size: 18px;
   margin-bottom: 20px;
-  color: #555;
+  color: #000; /* Roxo médio */
   max-width: 800px;
   border-radius: 16px;
 `;
@@ -48,13 +50,13 @@ export const ActivityDetails = styled.div`
 export const ActivityName = styled.h3`
   font-size: 18px;
   margin-bottom: 10px;
-  color: #333;
+  color: #000; /* Roxo escuro */
   border-radius: 16px;
 `;
 
 export const ActivityDescription = styled.p`
   font-size: 14px;
-  color: #555;
+  color: #000; /* Roxo médio */
   margin-top: 10px;
 `;
 
@@ -65,7 +67,7 @@ export const EditorContainer = styled.div`
   max-width: 1000px;
   padding: 10px;
   border-radius: 16px;
-  background-color: #F4F4F9;
+  background-color: #f4f4f9;
   justify-content: center;
 `;
 
@@ -80,13 +82,13 @@ export const Button = styled.button`
   padding: 10px 20px;
   border: none;
   border-radius: 16px;
-  background-color: #6a1b9a;
+  background-color: #ff9800; /* Laranja */
   color: #fff;
   cursor: pointer;
   margin: 10px;
   transition: background-color 0.3s;
   &:hover {
-    background-color: #4a148c;
+    background-color: #e65100; /* Laranja escuro */
   }
 `;
 
@@ -99,11 +101,11 @@ export const NavigationContainer = styled.div`
 `;
 
 export const NavigationButton = styled(Button)<{ disabled?: boolean }>`
-  background-color: ${({ disabled }) => (disabled ? '#ccc' : '#6a1b9a')};
+  background-color: ${({ disabled }) => (disabled ? '#ccc' : '#ff9800')}; /* Laranja */
   color: ${({ disabled }) => (disabled ? '#999' : '#fff')};
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   &:hover {
-    background-color: ${({ disabled }) => (disabled ? '#ccc' : '#4a148c')};
+    background-color: ${({ disabled }) => (disabled ? '#ccc' : '#e65100')}; /* Laranja escuro */
   }
 `;
 
@@ -111,13 +113,16 @@ export const QuizOption = styled.button`
   padding: 10px 20px;
   border: none;
   border-radius: 16px;
-  background-color: #6a1b9a;
+  background-color: #ff9800; /* Laranja */
   color: #fff;
   cursor: pointer;
   margin: 10px;
   transition: background-color 0.3s;
+  text-align: left;
+  width: 100%;
+  max-width: 600px;
   &:hover {
-    background-color: #4a148c;
+    background-color: #e65100; /* Laranja escuro */
   }
 `;
 

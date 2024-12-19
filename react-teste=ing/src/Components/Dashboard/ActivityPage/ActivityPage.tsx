@@ -21,48 +21,9 @@ import {
   Select,
   GabaritoContainer,
   GabaritoItem,
-  Activity
 } from './ActivityPageStyles';
 import Editor from '@monaco-editor/react';
-
-const activities: { [key: string]: Activity[] } = {
-  'preenchimento-codigo': [
-    { name: 'Questão 1', description: 'Faça um programa que calcule a área de um retângulo, esse retângulo possui 5 de comprimento e 3 de largura. Calcule a área e exiba o resultado.', code: 'function areaRetangulo(comprimento, largura) { return comprimento * largura; }', correctAnswer: '5 * 3' },
-    { name: 'Questão 2', description: 'Complete o código para encontrar o maior número em uma lista.', code: 'function maiorNumero(lista) { return Math.max(...lista); }', correctAnswer: 'Math.max(...lista)' },
-    { name: 'Questão 3', description: 'Complete o código para inverter uma string.', code: 'function inverterString(str) { return str.split("").reverse().join(""); }', correctAnswer: 'str.split("").reverse().join("")' },
-    { name: 'Questão 4', description: 'Faça um programa que calcule o fatorial de um número.', code: 'function fatorial(n) { let resultado = 1; for (let i = 1; i <= n; i++) { resultado *= i; } return resultado; }', correctAnswer: 'resultado *= i' },
-    { name: 'Questão 5', description: 'Complete o código para somar os elementos de um array.', code: 'function somarArray(arr) { return arr.reduce((acc, val) => acc + val, 0); }', correctAnswer: 'arr.reduce((acc, val) => acc + val, 0)' },
-    { name: 'Questão 6', description: 'Complete o código para encontrar o número de palavras em uma string.', code: 'function contarPalavras(str) { return str.split(" ").length; }', correctAnswer: 'str.split(" ").length' },
-    { name: 'Questão 7', description: 'Crie uma função para verificar se um número é primo.', code: 'function verificarPrimo(n) { for (let i = 2; i <= Math.sqrt(n); i++) { if (n % i === 0) return false; } return n > 1; }', correctAnswer: 'return n > 1' },
-    { name: 'Questão 8', description: 'Complete o código para fazer a soma de todos os números ímpares entre 1 e 100.', code: 'function somaImpares() { let soma = 0; for (let i = 1; i <= 100; i++) { if (i % 2 !== 0) soma += i; } return soma; }', correctAnswer: 'soma += i' },
-    { name: 'Questão 9', description: 'Faça um código que verifique se uma string é um palíndromo.', code: 'function verificarPalindromo(str) { return str === str.split("").reverse().join(""); }', correctAnswer: 'str === str.split("").reverse().join("")' },
-    { name: 'Questão 10', description: 'Complete o código para converter um número binário para decimal.', code: 'function binarioParaDecimal(binario) { return parseInt(binario, 2); }', correctAnswer: 'parseInt(binario, 2)' },
-  ],
-  'quizzes': [
-    { name: 'Quiz 1', description: 'Perguntas sobre programação em C.', correctAnswer: 'printf("Hello, World!");' },
-    { name: 'Quiz 2', description: 'Perguntas sobre estruturas de dados em C.', correctAnswer: 'struct' },
-    { name: 'Quiz 3', description: 'Perguntas sobre algoritmos em C.', correctAnswer: 'for loop' },
-    { name: 'Quiz 4', description: 'Perguntas sobre ponteiros em C.', correctAnswer: '&p' },
-    { name: 'Quiz 5', description: 'Perguntas sobre arrays em C.', correctAnswer: 'int arr[10]' },
-    { name: 'Quiz 6', description: 'Perguntas sobre funções recursivas em C.', correctAnswer: 'factorial(n)' },
-    { name: 'Quiz 7', description: 'Perguntas sobre memória dinâmica em C.', correctAnswer: 'malloc' },
-    { name: 'Quiz 8', description: 'Perguntas sobre strings em C.', correctAnswer: 'char str[]' },
-    { name: 'Quiz 9', description: 'Perguntas sobre a biblioteca padrão em C.', correctAnswer: '#include <stdio.h>' },
-    { name: 'Quiz 10', description: 'Perguntas sobre o uso de variáveis em C.', correctAnswer: 'int x = 10;' },
-  ],
-  'multipla-escolha': [
-    { name: 'Questão 1', description: 'Escolha a resposta correta sobre loops.', correctAnswer: 'for loop', options: ['while loop', 'do-while loop', 'for loop', 'foreach loop'] },
-    { name: 'Questão 2', description: 'Escolha a resposta correta sobre funções.', correctAnswer: 'function', options: ['method', 'function', 'procedure', 'routine'] },
-    { name: 'Questão 3', description: 'Escolha a resposta correta sobre arrays.', correctAnswer: 'array', options: ['list', 'array', 'set', 'map'] },
-    { name: 'Questão 4', description: 'Escolha a resposta correta sobre herança.', correctAnswer: 'extends', options: ['implements', 'extends', 'inherits', 'super'] },
-    { name: 'Questão 5', description: 'Escolha a resposta correta sobre o escopo de variáveis.', correctAnswer: 'local', options: ['global', 'local', 'static', 'dynamic'] },
-    { name: 'Questão 6', description: 'Escolha a resposta correta sobre a declaração de funções.', correctAnswer: 'function', options: ['def', 'function', 'func', 'declare'] },
-    { name: 'Questão 7', description: 'Escolha a resposta correta sobre operadores lógicos.', correctAnswer: '&&', options: ['&', '&&', '|', '||'] },
-    { name: 'Questão 8', description: 'Escolha a resposta correta sobre variáveis mutáveis em JavaScript.', correctAnswer: 'let', options: ['var', 'let', 'const', 'mutable'] },
-    { name: 'Questão 9', description: 'Escolha a resposta correta sobre as classes em JavaScript.', correctAnswer: 'class', options: ['class', 'interface', 'constructor', 'module'] },
-    { name: 'Questão 10', description: 'Escolha a resposta correta sobre o tipo de dado nulo.', correctAnswer: 'null', options: ['null', 'undefined', 'none', 'NaN'] },
-  ],
-};
+import { activities } from './activitiesData';
 
 const ActivityPage: React.FC<{ activityType: string }> = ({ activityType = 'nada' }) => {
   const [currentActivityIndex, setCurrentActivityIndex] = useState(0);
@@ -156,7 +117,7 @@ const ActivityPage: React.FC<{ activityType: string }> = ({ activityType = 'nada
       <Title>Atividades de {activityType}</Title>
       <Description>Aqui você pode praticar {activityType} baseadas nas trilhas que você estudou.</Description>
       {!showResult ? (
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
           <GabaritoContainer>
             <GabaritoItem>
               <p>Feitas</p>
@@ -175,7 +136,7 @@ const ActivityPage: React.FC<{ activityType: string }> = ({ activityType = 'nada
               <p>{wrongQuestions.length}</p>
             </GabaritoItem>
           </GabaritoContainer>
-          <ActivityCard>
+          <ActivityCard style={{ width: '100%' }}>
             <ActivityDetails>
               <ActivityName>{currentActivity.name}</ActivityName>
               <ActivityDescription>{currentActivity.description}</ActivityDescription>
@@ -213,11 +174,28 @@ const ActivityPage: React.FC<{ activityType: string }> = ({ activityType = 'nada
                 </div>
               )}
               {activityType === 'multipla-escolha' && currentActivity.options && (
-                currentActivity.options.map((option, index) => (
-                  <QuizOption key={index} onClick={() => handleAnswer(option)}>
-                    {option}
-                  </QuizOption>
-                ))
+                <>
+                  {currentActivity.options.map((option, index) => (
+                    <QuizOption key={index} onClick={() => handleAnswer(option)}>
+                      {String.fromCharCode(97 + index)}) {option}
+                    </QuizOption>
+                  ))}
+                  <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <Button onClick={() => handleAnswer(currentActivity.correctAnswer)}>Verificar</Button>
+                  </div>
+                </>
+              )}
+              {activityType === 'verdadeiro-falso' && currentActivity.options && (
+                <>
+                  {currentActivity.options.map((option, index) => (
+                    <QuizOption key={index} onClick={() => handleAnswer(option)}>
+                      {option}
+                    </QuizOption>
+                  ))}
+                  <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <Button onClick={() => handleAnswer(currentActivity.correctAnswer)}>Verificar</Button>
+                  </div>
+                </>
               )}
               <NavigationContainer>
                 <NavigationButton onClick={handlePrevious} disabled={currentActivityIndex === 0}>Anterior</NavigationButton>
