@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { fetchRoadmaps } from './Components/Dashboard/Trilhas/data';
+import { fetchRoadmaps } from './Components/Dashboard/SeleçãodeTrilhas/data';
 
 // Interfaces para os dados do usuário e outras entidades
 interface User {

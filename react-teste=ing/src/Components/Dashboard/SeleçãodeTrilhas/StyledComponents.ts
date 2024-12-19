@@ -69,12 +69,20 @@ export const FilterButton = styled.button<{ active: boolean }>`
 `;
 
 export const LanguageList = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
   width: 100%;
   max-width: 1200px;
+  border-radius: 16px;
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
 `;
+
 
 export const RoadmapCardContainer = styled.div<{ borderColor: string; shadowColor: string }>`
   background-color: #fff;
@@ -84,18 +92,9 @@ export const RoadmapCardContainer = styled.div<{ borderColor: string; shadowColo
   text-align: center;
   box-shadow: 0 4px 8px ${({ shadowColor }) => shadowColor};
   transition: transform 0.2s, box-shadow 0.2s;
-  width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 16px ${({ shadowColor }) => shadowColor};
-  }
-  @media (min-width: 768px) {
-    max-width: 600px;
-  }
-  @media (min-width: 1024px) {
-    max-width: 800px;
   }
 `;
 
@@ -104,6 +103,7 @@ export const RoadmapImage = styled.img`
   height: 80px;
   margin-bottom: 10px;
   border-radius: 16px;
+  object-fit: contain;
 `;
 
 export const RoadmapName = styled.h3`
@@ -158,6 +158,11 @@ export const PopupContent = styled.div`
   max-width: 500px;
   width: 100%;
   text-align: center;
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 16px;
+  }
 `;
 
 export const PopupTitle = styled.h2`

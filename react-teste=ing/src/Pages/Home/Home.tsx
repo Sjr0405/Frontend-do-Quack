@@ -17,7 +17,7 @@ import Quacksensei from '../../Components/Dashboard/Missoes/Quacksensei';
 import CodeReview from '../../Components/Dashboard/Missoes/CodeReview';
 import Respostas from '../../Components/Dashboard/Missoes/Respostas/Respostas';
 import Praticar from '../../Components/Dashboard/Praticar';
-import Roadmap from '../../Components/Dashboard/Trilhas/Roadmap';
+import Roadmap from '../../Components/Dashboard/SeleçãodeTrilhas/SeleçãodeTrilhas';
 import ActivityPage from '../../Components/Dashboard/ActivityPage/ActivityPage';
 
 const Container = styled.div`

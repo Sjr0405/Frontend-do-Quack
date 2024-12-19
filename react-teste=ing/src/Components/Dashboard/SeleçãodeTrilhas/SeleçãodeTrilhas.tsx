@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import { TextField } from '@mui/material';
 import { PageContainer, Title, Description, Link, SearchBarSection, FilterSection, FilterButton, LanguageList, NoResults, SadIcon, PopupOverlay, PopupContent, PopupTitle, PopupDescription, PopupButton, CloseButton } from './StyledComponents';
-import { fetchRoadmaps } from './data';
+import { fetchRoadmapsByFilter } from './data';
 import tristeIcon from "../../../Assets/Svg_thigas/TRISTE.svg";
 import RoadmapCard from './RoadmapCard';
 import { useAuth } from '../../../AuthContext';
@@ -13,24 +13,26 @@ interface Roadmap {
   title: string;
   description: string;
   imagePath: string;
+  subtitle: string;
+  color: string;
 }
 
 const Header: React.FC = () => {
   const { token, user } = useAuth();
   const [searchTerm, setSearchTerm] = useState("");
-  const [filter, setFilter] = useState<"all" | "languages" | "modules">("all");
+  const [filter, setFilter] = useState<"Todos" | "Linguagens" | "Módulos">("Todos");
   const [selectedRoadmap, setSelectedRoadmap] = useState<Roadmap | null>(null);
   const [roadmaps, setRoadmaps] = useState<Roadmap[]>([]);
 
   useEffect(() => {
     const getRoadmaps = async () => {
       if (token) {
-        const fetchedRoadmaps = await fetchRoadmaps(token);
+        const fetchedRoadmaps = await fetchRoadmapsByFilter(token, filter);
         setRoadmaps(fetchedRoadmaps);
       }
     };
     getRoadmaps();
-  }, [token]);
+  }, [token, filter]);
 
   const filteredRoadmaps = roadmaps.filter((roadmap: Roadmap) =>
     roadmap.title?.toLowerCase().includes(searchTerm.toLowerCase())
@@ -38,7 +40,7 @@ const Header: React.FC = () => {
 
   const hasResults = filteredRoadmaps.length > 0;
 
-  const handleFilterChange = (newFilter: "all" | "languages" | "modules") => {
+  const handleFilterChange = (newFilter: "Todos" | "Linguagens" | "Módulos") => {
     setFilter(newFilter);
   };
 
@@ -106,13 +108,13 @@ const Header: React.FC = () => {
         />
       </SearchBarSection>
       <FilterSection>
-        <FilterButton active={filter === "all"} onClick={() => handleFilterChange("all")}>
+        <FilterButton active={filter === "Todos"} onClick={() => handleFilterChange("Todos")}>
           Todos
         </FilterButton>
-        <FilterButton active={filter === "languages"} onClick={() => handleFilterChange("languages")}>
+        <FilterButton active={filter === "Linguagens"} onClick={() => handleFilterChange("Linguagens")}>
           Linguagens
         </FilterButton>
-        <FilterButton active={filter === "modules"} onClick={() => handleFilterChange("modules")}>
+        <FilterButton active={filter === "Módulos"} onClick={() => handleFilterChange("Módulos")}>
           Módulos
         </FilterButton>
       </FilterSection>
