@@ -23,18 +23,19 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const StyledNode = styled.div<{ completed: boolean }>`
-  background-color: ${({ completed }) => (completed ? '#A3E4A7' : '#F6C761')};
-  padding: 10px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border: none;
-  font-family: 'Montserrat Alternates', sans-serif;
-  color: black;
-`;
+// Remover StyledNode não utilizado
+// const StyledNode = styled.div<{ completed: boolean }>`
+//   background-color: ${({ completed }) => (completed ? '#A3E4A7' : '#F6C761')};
+//   padding: 10px;
+//   border-radius: 10px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+//   border: none;
+//   font-family: 'Montserrat Alternates', sans-serif;
+//   color: black;
+// `;
 
 const Roadmap: React.FC = () => {
   const [nodes, setNodes] = useState<Node[]>([]);
