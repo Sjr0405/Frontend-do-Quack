@@ -6,10 +6,10 @@ import NodeModal from "./NodeModal";
 const MainContainer = styled.div`
   grid-area: MC;
   padding: 20px;
-  background-color: #fff;
   border-radius: 8px;
   max-width: 800px;
   margin: 0 auto;
+  margin-top: 10px;
 `;
 
 // Estilos do título

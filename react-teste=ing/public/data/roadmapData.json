@@ -1,69 +1,88 @@
 {
-  "title": "Backend Roadmap",
-  "subtitle": "Se torne um desenvolvedor backend!",
-  "description": "Olá Aluno! Bem-vindo ao roadmap de backend do nosso aplicativo. Neste roadmap, você vai iniciar sua jornada para se tornar um desenvolvedor backend, aprendendo desde os conceitos fundamentais, como estrutura de dados e lógica de programação, até o uso de frameworks e ferramentas essenciais.",
+  "title": "Lógica de Programação com Python",
+  "subtitle": "Este roadmap é um guia estruturado para quem deseja aprender lógica de programação usando Python",
+  "description": "Este roadmap é um guia estruturado para quem deseja aprender lógica de programação usando Python, desde os conceitos fundamentais até a criação de um projeto prático. Ele foi projetado para quem está começando na programação e busca entender a lógica por trás da resolução de problemas computacionais.",
   "nodes": [
-    { "id": "1", "data": { "label": "Começo" }, "position": { "x": 250, "y": 0 } },
-    { "id": "2", "data": { "label": "Internet" }, "position": { "x": 0, "y": 100 } },
-    { "id": "3", "data": { "label": "Sistemas de controle de versão" }, "position": { "x": 250, "y": 200 } },
-    { "id": "4", "data": { "label": "Bancos de Dados Relacionais" }, "position": { "x": 500, "y": 300 } },
-    { "id": "5", "data": { "label": "APIs" }, "position": { "x": 0, "y": 400 } },
-    { "id": "6", "data": { "label": "Design e Arquitetura de Software" }, "position": { "x": 250, "y": 500 } }
+    { "id": "1", "data": { "label": "Introdução à Lógica e Algoritmo" }, "position": { "x": 250, "y": 0 } },
+    { "id": "2", "data": { "label": "Primeiros Passos com Python" }, "position": { "x": 0, "y": 100 } },
+    { "id": "3", "data": { "label": "Operadores e Expressões" }, "position": { "x": 250, "y": 200 } },
+    { "id": "4", "data": { "label": "Estruturas de Controle" }, "position": { "x": 500, "y": 300 } },
+    { "id": "5", "data": { "label": "Laços de Repetição" }, "position": { "x": 0, "y": 400 } },
+    { "id": "6", "data": { "label": "Listas e Tuplas em Python" }, "position": { "x": 250, "y": 500 } },
+    { "id": "7", "data": { "label": "Funções em Python" }, "position": { "x": 500, "y": 600 } }
   ],
   "edges": [
     { "id": "e1-2", "source": "1", "target": "2", "type": "smoothstep" },
     { "id": "e2-3", "source": "2", "target": "3", "type": "smoothstep" },
     { "id": "e3-4", "source": "3", "target": "4", "type": "smoothstep" },
     { "id": "e4-5", "source": "4", "target": "5", "type": "smoothstep" },
-    { "id": "e5-6", "source": "5", "target": "6", "type": "smoothstep" }
+    { "id": "e5-6", "source": "5", "target": "6", "type": "smoothstep" },
+    { "id": "e6-7", "source": "6", "target": "7", "type": "smoothstep" }
   ],
   "modals": {
-    "Começo": {
-      "description": "Introdução ao desenvolvimento backend. Aqui você encontrará uma orientação sobre como se orientar no roadmap.",
+    "Introdução à Lógica e Algoritmo": {
+      "description": "A jornada começa com a compreensão básica de lógica de programação e algoritmos. Você aprenderá a pensar de forma sequencial e lógica, o primeiro passo essencial para escrever programas eficientes.",
       "links": [
-        { "label": "O que é Backend?", "url": "http://example.com/backend-intro", "type": "artigo" },
-        { "label": "Vídeo: Introdução ao Backend", "url": "http://example.com/backend-video", "type": "vídeo" },
-        { "label": "Guia de Backend para Iniciantes", "url": "http://example.com/backend-guide", "type": "guia" }
+        { "label": "O que é Lógica de Programação? - Blog da Trybe", "url": "https://blog.betrybe.com/programacao/logica-de-programacao/", "type": "artigo" },
+        { "label": "Lógica de Programação - Curso Completo (YouTube) - Curso em Vídeo", "url": "https://www.youtube.com/watch?v=8mei6uVttho", "type": "vídeo" },
+        { "label": "Descreva um processo do seu dia a dia (como fazer um café ou escovar os dentes) usando uma sequência de passos lógicos, como um algoritmo.", "url": "", "type": "atividade" },
+        { "label": "Tente criar um fluxograma simples para o processo que você descreveu.", "url": "", "type": "atividade" }
       ]
     },
-    "Internet": {
-      "description": "A internet é uma rede global de computadores interconectados que se comunicam usando protocolos padronizados, principalmente TCP/IP. Quando você solicita uma página da web, seu dispositivo envia um pacote de dados por meio do seu provedor de serviços de internet (ISP) para um servidor DNS, que traduz o nome de domínio do site em um endereço IP. O pacote é então roteado por várias redes (usando roteadores e switches) para o servidor de destino, que processa a solicitação e envia de volta a resposta. Essa troca de ida e volta permite a transferência de dados como páginas da web, e-mails e arquivos, tornando a internet um sistema dinâmico e descentralizado para comunicação global.\n\nVisite os seguintes recursos para saber mais:",
+    "Primeiros Passos com Python": {
+      "description": "Neste estágio, você aprenderá como armazenar e manipular dados em Python, começando com variáveis e tipos de dados básicos.",
       "links": [
-        { "label": "Como funciona a Internet?", "url": "https://example.com/internet", "type": "artigo" },
-        { "label": "Vídeo: Introdução à Internet", "url": "https://example.com/internet-video", "type": "vídeo" },
-        { "label": "A História da Internet", "url": "https://example.com/internet-history", "type": "artigo" }
+        { "label": "Variáveis em Python - DevMedia", "url": "https://www.devmedia.com.br/variaveis-em-python/38405", "type": "artigo" },
+        { "label": "Python #02 - Variáveis e Tipos de Dados (YouTube) - Curso em Vídeo", "url": "https://www.youtube.com/watch?v=nJkVHusJp6E", "type": "vídeo" },
+        { "label": "Crie um programa que declare variáveis para armazenar seu nome, idade e altura. Imprima esses valores na tela.", "url": "", "type": "atividade" },
+        { "label": "Experimente diferentes tipos de dados (inteiro, float, string, booleano) e observe como eles se comportam em Python.", "url": "", "type": "atividade" }
       ]
     },
-    "Sistemas de controle de versão": {
-      "description": "Sistemas de controle de versão permitem que desenvolvedores rastreiem mudanças no código ao longo do tempo, facilitando a colaboração e a reversão de mudanças quando necessário. Comumente usados em projetos de software, eles registram modificações feitas no código-fonte e armazenam essas versões em um repositório centralizado ou distribuído. O Git é um dos sistemas de controle de versão mais populares, amplamente utilizado em equipes de desenvolvimento ao redor do mundo.\n\nVisite os seguintes recursos para saber mais:",
+    "Operadores e Expressões": {
+      "description": "Aqui, você aprenderá a usar operadores aritméticos e de comparação para criar expressões que manipulem dados de forma útil.",
       "links": [
-        { "label": "Artigo sobre Controle de Versão", "url": "https://example.com/version-control", "type": "artigo" },
-        { "label": "Vídeo sobre Git", "url": "https://example.com/git-video", "type": "vídeo" },
-        { "label": "Tutorial de Git", "url": "https://example.com/git-tutorial", "type": "guia" }
+        { "label": "Operadores em Python - Escola da Programação", "url": "https://www.escoladaprogramacao.com.br/operadores-em-python/", "type": "artigo" },
+        { "label": "Python #03 - Operadores Aritméticos (YouTube) - Curso em Vídeo", "url": "https://www.youtube.com/watch?v=al4LDhxFiPM", "type": "vídeo" },
+        { "label": "Crie um programa que calcule a média de 3 notas.", "url": "", "type": "atividade" },
+        { "label": "Use operadores de comparação para verificar se uma idade é maior que 18.", "url": "", "type": "atividade" }
       ]
     },
-    "Bancos de Dados Relacionais": {
-      "description": "Bancos de dados relacionais organizam dados em tabelas com linhas e colunas, onde cada linha representa um registro único e cada coluna representa um campo de dados. Eles utilizam a linguagem SQL para gerenciar e consultar dados. Bancos de dados como MySQL, PostgreSQL e SQL Server são exemplos amplamente utilizados para armazenar grandes volumes de dados estruturados.\n\nVisite os seguintes recursos para saber mais:",
+    "Estruturas de Controle": {
+      "description": "Você aprenderá a controlar o fluxo de seu programa com as estruturas condicionais, que permitem decisões baseadas em condições específicas.",
       "links": [
-        { "label": "Artigo sobre Bancos de Dados Relacionais", "url": "https://example.com/relational-db", "type": "artigo" },
-        { "label": "Vídeo sobre SQL", "url": "https://example.com/sql-video", "type": "vídeo" },
-        { "label": "Guia de SQL para Iniciantes", "url": "https://example.com/sql-guide", "type": "guia" }
+        { "label": "Estruturas Condicionais em Python - Digital Innovation One", "url": "https://digitalinnovation.one/artigo/estruturas-condicionais-em-python", "type": "artigo" },
+        { "label": "Python #04 - Estrutura Condicional IF ELSE e ELIF (YouTube) - Curso em Vídeo", "url": "https://www.youtube.com/watch?v=EK8DSBYp_3c", "type": "vídeo" },
+        { "label": "Crie um programa que verifique se um número é par ou ímpar.", "url": "", "type": "atividade" },
+        { "label": "Crie um programa que classifique um aluno com base na sua média (aprovado, recuperação, reprovado).", "url": "", "type": "atividade" }
       ]
     },
-    "APIs": {
-      "description": "APIs (Application Programming Interfaces) permitem que diferentes sistemas se comuniquem uns com os outros, oferecendo uma interface definida para solicitar e enviar dados. Elas são amplamente usadas para integrar serviços externos e criar funcionalidades que dependem de dados ou operações de terceiros. REST e GraphQL são exemplos comuns de arquiteturas de APIs modernas.\n\nVisite os seguintes recursos para saber mais:",
+    "Laços de Repetição": {
+      "description": "Você aprenderá a usar laços de repetição para executar um bloco de código várias vezes, facilitando a automação de tarefas repetitivas.",
       "links": [
-        { "label": "Artigo sobre APIs", "url": "https://example.com/api-intro", "type": "artigo" },
-        { "label": "Vídeo sobre APIs REST", "url": "https://example.com/rest-api-video", "type": "vídeo" },
-        { "label": "Guia sobre GraphQL", "url": "https://example.com/graphql-guide", "type": "guia" }
+        { "label": "Laços de Repetição em Python: for e while - TreinaWeb", "url": "https://www.treinaweb.com.br/blog/lacos-de-repeticao-em-python-for-e-while", "type": "artigo" },
+        { "label": "Python #05 - Estrutura de Repetição FOR (YouTube) - Curso em Vídeo", "url": "https://www.youtube.com/watch?v=nFpFiKr8a7E", "type": "vídeo" },
+        { "label": "Python #06 - Estrutura de Repetição WHILE (YouTube) - Curso em Vídeo", "url": "https://www.youtube.com/watch?v=9OSJS4imWf0", "type": "vídeo" },
+        { "label": "Crie um programa que imprima os números de 1 a 10 usando um loop for.", "url": "", "type": "atividade" },
+        { "label": "Crie um programa que peça números ao usuário até que ele digite 0, e então imprima a soma de todos os números digitados.", "url": "", "type": "atividade" }
       ]
     },
-    "Design e Arquitetura de Software": {
-      "description": "O design e a arquitetura de software envolvem a criação de estruturas organizacionais para sistemas de software, determinando como diferentes componentes interagem entre si. Arquiteturas comuns incluem Monolitos, Microservices e Serverless. Um bom design arquitetônico garante que o software seja escalável, fácil de manter e robusto.\n\nVisite os seguintes recursos para saber mais:",
+    "Listas e Tuplas em Python": {
+      "description": "Aprofunde-se em duas das estruturas de dados mais poderosas de Python: listas e tuplas. Você aprenderá a armazenar múltiplos valores de maneira organizada.",
       "links": [
-        { "label": "Artigo sobre Design de Software", "url": "https://example.com/software-design", "type": "artigo" },
-        { "label": "Vídeo sobre Arquitetura de Software", "url": "https://example.com/software-architecture-video", "type": "vídeo" },
-        { "label": "Guia de Arquitetura Microservices", "url": "https://example.com/microservices-guide", "type": "guia" }
+        { "label": "Listas em Python - Brasil Escola", "url": "https://brasilescola.uol.com.br/informatica/listas-python.htm", "type": "artigo" },
+        { "label": "Python #07 - Listas (parte 1) (YouTube) - Curso em Vídeo", "url": "https://www.youtube.com/watch?v=1coBKixD5i8", "type": "vídeo" },
+        { "label": "Crie uma lista com nomes de frutas. Imprima cada fruta da lista.", "url": "", "type": "atividade" },
+        { "label": "Experimente o conceito de tuplas.", "url": "", "type": "atividade" },
+        { "label": "Crie um programa que adicione 5 números digitados pelo usuário em uma lista e calcule a média deles.", "url": "", "type": "atividade" }
+      ]
+    },
+    "Funções em Python": {
+      "description": "Aqui, você aprenderá a organizar seu código em funções, facilitando a reutilização e a legibilidade do código.",
+      "links": [
+        { "label": "Funções em Python - Python Progressivo", "url": "https://pythonprogressivo.net/funcoes-python", "type": "artigo" },
+        { "label": "Python #08 - Funções (parte 1) (YouTube) - Curso em Vídeo", "url": "https://www.youtube.com/watch?v=rJgIB7WgfN0", "type": "vídeo" },
+        { "label": "Crie uma função que calcule a área de um retângulo. Use a função em um programa.", "url": "", "type": "atividade" },
+        { "label": "Crie uma função que receba uma lista de números e retorne o maior número da lista.", "url": "", "type": "atividade" }
       ]
     }
   }

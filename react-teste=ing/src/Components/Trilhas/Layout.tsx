@@ -43,7 +43,7 @@ const StyledMainFooter = styled(MainFooter)`
   grid-area: MF;
 `;
 
-const Layout: React.FC = () => {
+const Home: React.FC = () => {
   return (
     <Grid>
       <StyledMainHeader />
@@ -54,4 +54,4 @@ const Layout: React.FC = () => {
   );
 }
 
-export default Layout;
+export default Home;

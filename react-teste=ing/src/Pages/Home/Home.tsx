@@ -19,6 +19,7 @@ import Respostas from '../../Components/Dashboard/Missoes/Respostas/Respostas';
 import Praticar from '../../Components/Dashboard/Praticar';
 import Roadmap from '../../Components/Dashboard/SeleçãodeTrilhas/SeleçãodeTrilhas';
 import ActivityPage from '../../Components/Dashboard/ActivityPage/ActivityPage';
+import Layout from '../../Components/Trilhas/Layout';
 
 const Container = styled.div`
   display: flex;
@@ -109,6 +110,7 @@ const Home = () => {
       }} />,
       Roadmap: <Roadmap  />,
       ActivityPage: <ActivityPage activityType={activityType} />,
+      Layout: <Layout />,
     };
 
     return sectionComponents[section] || <Aprender changeSection={setSection} />;
@@ -117,7 +119,7 @@ const Home = () => {
   return (
     <Container>
       <MainContent>
-        <SideBar changeSection={setSection} /> {/* Sidebar para alterar as seções */}
+        {section !== 'Layout' && <SideBar changeSection={setSection} />}
         <ContentArea>
           {renderSection()} {/* Renderiza a seção com base no estado */}
         </ContentArea>
@@ -125,6 +127,5 @@ const Home = () => {
     </Container>
   );
 };
-
 
 export default Home;
