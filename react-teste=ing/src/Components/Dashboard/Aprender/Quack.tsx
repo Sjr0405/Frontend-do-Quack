@@ -9,6 +9,7 @@ interface User {
 }
 
 const Quack = ({ user }: { user: User }) => {
+  // Função para renderizar o componente Quack com informações do usuário
   return (
     <QuackContainer>
       <ProfileSection>

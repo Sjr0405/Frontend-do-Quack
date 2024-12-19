@@ -11,6 +11,8 @@ interface User {
   username: string;
   phone: string;
   email: string;
+  password: string;
+  cpf: string;
   bornDate: string;
   registerOn: string;
   imagePath: string;
@@ -293,7 +295,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     formData.append('image', imageFile);
 
     try {
-      const response = await axios.post(`/api/users/${userId}/update-image`, formData, {
+      const response = await axios.put(`/api/users/${userId}/update-image`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
@@ -323,7 +325,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (!user?.id || !token) return;
 
     try {
-      const response = await axios.put(`api/users/${user.id}`, updatedData, {
+      const response = await axios.put(`/api/users/${user.id}`, updatedData, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -417,6 +419,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setStatistics(null);
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('userId'); // Adicionado para remover o userId do localStorage
   };
 
   return (

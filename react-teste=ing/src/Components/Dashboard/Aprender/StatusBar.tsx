@@ -9,10 +9,12 @@ const StatusBar = () => {
   const { statistics } = useAuth();
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
+  // Função para lidar com o evento de mouse entrar em um item
   const handleMouseEnter = (item: string) => {
     setHoveredItem(item);
   };
 
+  // Função para lidar com o evento de mouse sair de um item
   const handleMouseLeave = () => {
     setHoveredItem(null);
   };

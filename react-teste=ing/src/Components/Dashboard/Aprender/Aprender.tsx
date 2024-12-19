@@ -37,24 +37,29 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
   const [searchTerm, setSearchTerm] = useState('');
   const [similarModuloMatches, setModuloSimilarMatches] = useState<Modulo[]>([]);
 
+  // Função para lidar com o clique no ícone de notificação
   const handleNotificationClick = () => {
     changeSection('Notifications');
   };
 
+  // Função para lidar com o clique no link "Ver todos"
   const handleVerTodosClick = () => {
     changeSection('Roadmap');
   };
 
+  // Função para lidar com o clique no botão "Adicionar Nova Trilha"
   const handleAddRoadmapClick = () => {
     changeSection('Roadmap');
   };
 
+  // Efeito para buscar os roadmaps do usuário ao carregar o componente
   useEffect(() => {
     if (user) {
       fetchUserRoadmapsById(user.id);
     }
   }, [user, fetchUserRoadmapsById]);
 
+  // Efeito para atualizar os módulos quando os roadmaps mudam
   useEffect(() => {
     if (roadmaps) {
       const userRoadmaps = roadmaps.map((roadmap: any) => ({
@@ -70,6 +75,7 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
     }
   }, [roadmaps]);
 
+  // Efeito para adicionar novos módulos ao estado quando a localização muda
   useEffect(() => {
     if (location.state?.newModules) {
       setModulos((prevModulos) => {
@@ -81,6 +87,7 @@ const Aprender = ({ changeSection }: { changeSection: (section: string) => void 
     }
   }, [location.state]);
 
+  // Efeito para filtrar módulos similares com base no termo de pesquisa
   useEffect(() => {
     const similarfilteredModulos = modulos.filter(modulo =>
       modulo.nome.toLowerCase().includes(searchTerm.toLowerCase()) &&

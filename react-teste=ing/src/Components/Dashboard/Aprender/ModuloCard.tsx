@@ -16,12 +16,14 @@ interface Modulo {
 const ModuloCard = ({ modulo }: { modulo: Modulo }) => {
   const navigate = useNavigate();
 
+  // Função para calcular o progresso das aulas
   const calcularProgresso = (aulasCompletas: number, totalAulas: number) => {
     if (totalAulas === 0) return '0%';
     const progresso = (aulasCompletas / totalAulas) * 100;
     return `${progresso}%`;
   };
 
+  // Função para renderizar o card do módulo
   return (
     <ModuloCardContainer bgColor={modulo.bgColor}>
       <img src={modulo.icon} alt={modulo.nome} />

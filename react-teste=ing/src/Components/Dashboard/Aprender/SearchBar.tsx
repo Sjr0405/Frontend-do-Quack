@@ -6,6 +6,7 @@ interface SearchBarProps {
 }
 
 const SearchBar = ({ searchTerm, setSearchTerm }: SearchBarProps) => {
+  // Função para renderizar a barra de pesquisa
   return (
     <Input
       type="search"
