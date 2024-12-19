@@ -3,6 +3,8 @@ import { Box, Typography, TextField, MenuItem, Button, Grid, Paper, Accordion, A
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'; // Importação do ícone de seta
+import emailjs from 'emailjs-com'; // Importação do emailjs
+import Swal from 'sweetalert2'; // Importação do SweetAlert
 
 const CentraldeAjuda = () => {
   const [email, setEmail] = useState('');
@@ -12,8 +14,28 @@ const CentraldeAjuda = () => {
   const navigate = useNavigate();
 
   const handleEnviarClick = () => {
-    // Lógica para enviar o formulário (ex.: integrar com uma API)
-    console.log({ email, assunto, descricao, tipoProblema });
+    const templateParams = {
+      from_name: 'elisson nadson souza marques', // Nome do remetente
+      from_email: email, // Email do remetente
+      mensagem: `Assunto: ${assunto}\nDescrição: ${descricao}\nTipo de Problema: ${tipoProblema}`, // Mensagem
+    };
+
+    emailjs.send('service_ve3n7wj', 'template_3rmssol', templateParams, 'wcbpjHYFBGLZ0mnjz')
+      .then((response) => {
+        console.log('Email enviado com sucesso!', response.status, response.text);
+        Swal.fire({
+          icon: 'success',
+          title: 'Sucesso!',
+          text: 'Seu e-mail foi enviado com sucesso.',
+        });
+      }, (err) => {
+        console.error('Falha ao enviar o email:', err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro!',
+          text: 'Falha ao enviar o e-mail. Tente novamente mais tarde.',
+        });
+      });
   };
 
   const handleVoltarClick = () => {
