@@ -55,7 +55,7 @@ export const saveUserProgress = async (userId: string, progress: any) => {
   }
 };
 
-export const handleNodeCompletion = (nodeLabel: string, userProgress: any, setUserProgress: React.Dispatch<React.SetStateAction<any>>, saveUserProgress: (progress: any) => void) => {
+export const handleNodeCompletion = (nodeLabel: string, userProgress: any, setUserProgress: React.Dispatch<React.SetStateAction<any>>, saveUserProgress: (userId: string, progress: any) => Promise<void>) => {
   const updatedProgress = {
     ...userProgress,
     nodes: {
@@ -67,10 +67,10 @@ export const handleNodeCompletion = (nodeLabel: string, userProgress: any, setUs
     }
   };
   setUserProgress(updatedProgress);
-  saveUserProgress(updatedProgress);
+  saveUserProgress(userProgress.userId, updatedProgress);
 };
 
-export const handleNodePending = (nodeLabel: string, userProgress: any, setUserProgress: React.Dispatch<React.SetStateAction<any>>, saveUserProgress: (progress: any) => void) => {
+export const handleNodePending = (nodeLabel: string, userProgress: any, setUserProgress: React.Dispatch<React.SetStateAction<any>>, saveUserProgress: (userId: string, progress: any) => Promise<void>) => {
   const updatedProgress = {
     ...userProgress,
     nodes: {
@@ -82,5 +82,5 @@ export const handleNodePending = (nodeLabel: string, userProgress: any, setUserP
     }
   };
   setUserProgress(updatedProgress);
-  saveUserProgress(updatedProgress);
+  saveUserProgress(userProgress.userId, updatedProgress);
 };
