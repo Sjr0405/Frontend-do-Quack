@@ -4,7 +4,7 @@ import { ThemeProvider }  from 'styled-components';
 import light from "../../Styles/themes/light";
 
 
-import Layout from "../../Components/Trilhas/Layout/Layout";
+import Layout from "../../Components/Trilhas/Layout";
 
 const Trilhas: React.FC = () => {
     return (

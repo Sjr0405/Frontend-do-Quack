@@ -100,7 +100,7 @@ function MainRoutes() {
               <EditarPerfil />
             </PrivateRoute>
           } />
-          <Route path="/Backend_Roadmap" element={
+          <Route path="/Trilhas" element={
             <PrivateRoute> 
               <Trilhas />
             </PrivateRoute>

@@ -1,10 +1,40 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Container, GlobalStyle } from './RoadMapStyles';
+import styled, { createGlobalStyle } from 'styled-components';
 import ReactFlow, { Background, Edge, Node, ReactFlowProvider, NodeMouseHandler } from 'react-flow-renderer';
-import NodeModal from './NodeModal/NodeModal';
-import { fetchRoadmapData, fetchUserProgress } from './utils/fetchData';
-import { handleNodeCompletion, handleNodePending } from './utils/handleNodeStatus';
-import { saveUserProgress } from './utils/saveUserProgress';
+import NodeModal from './NodeModal';
+import { fetchRoadmapData, fetchUserProgress, handleNodeCompletion, handleNodePending, saveUserProgress } from './Funcoes';
+
+const Container = styled.div`
+  grid-area: RT;
+  min-height: 100vh; /* Garantir altura mínima */
+  min-width: 100vw; /* Garantir largura mínima */
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  position: relative; /* Ajustado para se comportar corretamente dentro do grid */
+  overflow: auto; /* Permitir rolagem se necessário */
+`;
+
+const GlobalStyle = createGlobalStyle`
+  .react-flow__attribution {
+    display: none;
+  }
+`;
+
+const StyledNode = styled.div<{ completed: boolean }>`
+  background-color: ${({ completed }) => (completed ? '#A3E4A7' : '#F6C761')};
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: none;
+  font-family: 'Montserrat Alternates', sans-serif;
+  color: black;
+`;
 
 const Roadmap: React.FC = () => {
   const [nodes, setNodes] = useState<Node[]>([]);

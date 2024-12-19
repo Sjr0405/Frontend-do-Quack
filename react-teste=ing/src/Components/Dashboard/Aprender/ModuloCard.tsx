@@ -38,7 +38,7 @@ const ModuloCard = ({ modulo }: { modulo: Modulo }) => {
           <div></div>
         </ProgressBar>
       </div>
-      <IconButton onClick={() => navigate(modulo.rota)} aria-label="navegar">
+      <IconButton onClick={() => navigate('/Trilhas')} aria-label="navegar">
         <ArrowForwardIcon />
       </IconButton>
     </ModuloCardContainer>
