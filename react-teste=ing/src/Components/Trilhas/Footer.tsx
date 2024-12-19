@@ -54,7 +54,7 @@ const Footer: React.FC = () => {
       <Divider />
       <Bottom>
         <span>&copy; {new Date().getFullYear()} Quack. Todos os direitos reservados.</span>
-        <span>Feito com &#10084; por <a href="#" target="_blank" rel="dofollow noreferrer">EquipeQuack</a></span>
+        <span>Feito com &#10084; porr <a href="#" target="_blank" rel="dofollow noreferrer">EquipeQuack</a></span>
       </Bottom>
     </Container>
   );
