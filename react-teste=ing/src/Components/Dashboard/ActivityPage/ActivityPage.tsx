@@ -67,7 +67,7 @@ const activities: { [key: string]: Activity[] } = {
 const ActivityPage: React.FC<{ activityType: string }> = ({ activityType = 'nada' }) => {
   const [currentActivityIndex, setCurrentActivityIndex] = useState(0);
   const [correctAnswers, setCorrectAnswers] = useState(0);
-  const [wrongQuestions, setWrongQuestions] = useState<number[]>([]); // Rastreia as questões erradas
+  const [wrongQuestions, setWrongQuestions] = useState<number[]>([]);
   const [showResult, setShowResult] = useState(false);
   const [theme, setTheme] = useState('vs-light');
   const [userCode, setUserCode] = useState('');
@@ -82,11 +82,8 @@ const ActivityPage: React.FC<{ activityType: string }> = ({ activityType = 'nada
   const handleThemeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedTheme = event.target.value;
     setTheme(selectedTheme);
-
     localStorage.setItem('editorTheme', selectedTheme);
   };
-
-  console.log('activityType:', activityType);
 
   const activityList = activities[activityType];
 
@@ -94,9 +91,7 @@ const ActivityPage: React.FC<{ activityType: string }> = ({ activityType = 'nada
     return (
       <Container>
         <Title>Atividades de {activityType}</Title>
-        <Description>
-          Tipo de atividade inválido.
-        </Description>
+        <Description>Tipo de atividade inválido.</Description>
       </Container>
     );
   }
@@ -104,7 +99,7 @@ const ActivityPage: React.FC<{ activityType: string }> = ({ activityType = 'nada
   const handleAnswer = (answer: string) => {
     const currentActivity = activityList[currentActivityIndex];
     const isCorrect = answer.trim() === currentActivity.correctAnswer;
-    
+
     Swal.fire({
       title: isCorrect ? 'Correto!' : 'Incorreto!',
       text: isCorrect ? 'Você acertou a questão.' : 'Você errou a questão.',
@@ -125,13 +120,12 @@ const ActivityPage: React.FC<{ activityType: string }> = ({ activityType = 'nada
     }
 
     if (currentActivityIndex < activityList.length - 1) {
-      setCurrentActivityIndex(currentActivityIndex);
+      setCurrentActivityIndex(currentActivityIndex + 1);
       setUserCode('');
     } else {
       setShowResult(true);
     }
   };
-
 
   const handlePrevious = () => {
     if (currentActivityIndex > 0) {
@@ -145,10 +139,9 @@ const ActivityPage: React.FC<{ activityType: string }> = ({ activityType = 'nada
       setCurrentActivityIndex(currentActivityIndex + 1);
       setUserCode('');
     }
-  }
+  };
 
   const handleRestart = () => {
-    
     setCurrentActivityIndex(0);
     setCorrectAnswers(0);
     setShowResult(false);
@@ -161,77 +154,77 @@ const ActivityPage: React.FC<{ activityType: string }> = ({ activityType = 'nada
   return (
     <Container>
       <Title>Atividades de {activityType}</Title>
-      <Description>
-        Aqui você pode praticar {activityType} baseadas nas trilhas que você estudou.
-      </Description>
+      <Description>Aqui você pode praticar {activityType} baseadas nas trilhas que você estudou.</Description>
       {!showResult ? (
-        <div  style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <GabaritoContainer>
-          <GabaritoItem>
-            <p>Feitas</p>
-            <p>{totalCompleted}</p>
-          </GabaritoItem>
-          <GabaritoItem>
-            <p>Pendentes</p>
-            <p>{activityList.length - totalCompleted}</p>
-          </GabaritoItem>
-          <GabaritoItem>
-            <p>Certas</p>
-            <p>{correctAnswers}</p>
-          </GabaritoItem>
-          <GabaritoItem>
-            <p>Erradas</p>
-            <p>{wrongQuestions.length}</p>
-          </GabaritoItem>
-        </GabaritoContainer>
-        <ActivityCard >
-          <ActivityDetails >
-            <ActivityName >{currentActivity.name}</ActivityName>
-            <ActivityDescription >{currentActivity.description}</ActivityDescription>
-            {activityType === 'preenchimento-codigo' && (
-              <>
-                <pre>{currentActivity.code}</pre>
-                    <p style={{ marginTop: '10px' }}>Selecione o tema:</p>
-                    <Select value={theme} onChange={handleThemeChange}>
-                      <option value="vs-light">Claro</option>
-                      <option value="vs-dark">Escuro</option>
-                      <option value="hc-black">Alto Contrasto</option>
-                      <option value="hc-light">Alto Contrasto Claro</option>
-                    </Select>
-
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <GabaritoContainer>
+            <GabaritoItem>
+              <p>Feitas</p>
+              <p>{totalCompleted}</p>
+            </GabaritoItem>
+            <GabaritoItem>
+              <p>Pendentes</p>
+              <p>{activityList.length - totalCompleted}</p>
+            </GabaritoItem>
+            <GabaritoItem>
+              <p>Certas</p>
+              <p>{correctAnswers}</p>
+            </GabaritoItem>
+            <GabaritoItem>
+              <p>Erradas</p>
+              <p>{wrongQuestions.length}</p>
+            </GabaritoItem>
+          </GabaritoContainer>
+          <ActivityCard>
+            <ActivityDetails>
+              <ActivityName>{currentActivity.name}</ActivityName>
+              <ActivityDescription>{currentActivity.description}</ActivityDescription>
+              {activityType === 'preenchimento-codigo' && (
+                <>
+                  <pre>{currentActivity.code}</pre>
+                  <p style={{ marginTop: '10px' }}>Selecione o tema:</p>
+                  <Select value={theme} onChange={handleThemeChange}>
+                    <option value="vs-light">Claro</option>
+                    <option value="vs-dark">Escuro</option>
+                    <option value="hc-black">Alto Contrasto</option>
+                    <option value="hc-light">Alto Contrasto Claro</option>
+                  </Select>
                   <EditorContainer>
                     <Editor
                       height="100%"
                       width="100%"
-                      language="java" 
+                      language="java"
                       theme={theme}
                       value={userCode}
                       onChange={(value) => setUserCode(value || '')}
-                    /> 
+                    />
                   </EditorContainer>
                   <div id='contador'>
-                    <p style={{ marginTop: '10px' }}>{ currentActivityIndex + 1} de {activityList.length}</p>
+                    <p style={{ marginTop: '10px' }}>{currentActivityIndex + 1} de {activityList.length}</p>
                   </div>
-
-                <Button onClick={() => handleAnswer(userCode)}>Verificar</Button>
-              </>
-            )}
-            {activityType === 'quizzes' && (
-              <Button onClick={() => handleAnswer(currentActivity.correctAnswer)}>Verificar</Button>
-            )}
-            {activityType === 'multipla-escolha' && currentActivity.options && (
-              currentActivity.options.map((option, index) => (
-                <QuizOption key={index} onClick={() => handleAnswer(option)}>
-                  {option}
-                </QuizOption>
-              ))
-            )}
-            <NavigationContainer>
-              <NavigationButton onClick={handlePrevious} disabled={currentActivityIndex === 0}>Anterior</NavigationButton>
-              <NavigationButton onClick={handleNext} disabled={currentActivityIndex === activityList.length - 1}>Próximo</NavigationButton>
-            </NavigationContainer>
-          </ActivityDetails>
-        </ActivityCard>
+                  <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <Button onClick={() => handleAnswer(userCode)}>Verificar</Button>
+                  </div>
+                </>
+              )}
+              {activityType === 'quizzes' && (
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <Button onClick={() => handleAnswer(currentActivity.correctAnswer)}>Verificar</Button>
+                </div>
+              )}
+              {activityType === 'multipla-escolha' && currentActivity.options && (
+                currentActivity.options.map((option, index) => (
+                  <QuizOption key={index} onClick={() => handleAnswer(option)}>
+                    {option}
+                  </QuizOption>
+                ))
+              )}
+              <NavigationContainer>
+                <NavigationButton onClick={handlePrevious} disabled={currentActivityIndex === 0}>Anterior</NavigationButton>
+                <NavigationButton onClick={handleNext} disabled={currentActivityIndex === activityList.length - 1}>Próximo</NavigationButton>
+              </NavigationContainer>
+            </ActivityDetails>
+          </ActivityCard>
         </div>
       ) : (
         <>
@@ -242,9 +235,7 @@ const ActivityPage: React.FC<{ activityType: string }> = ({ activityType = 'nada
           ) : (
             <PatoImage src={tristePato} alt="Pato triste" />
           )}
-          <Description>
-            Você acertou {correctAnswers} de {activityList.length} questões.
-          </Description>
+          <Description>Você acertou {correctAnswers} de {activityList.length} questões.</Description>
           <RestartButton onClick={handleRestart}>Reiniciar</RestartButton>
         </>
       )}

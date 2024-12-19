@@ -39,7 +39,7 @@ const CentraldeAjuda = () => {
   };
 
   const handleVoltarClick = () => {
-    navigate('/home', { state: { section: 'Configuracoes' } });
+    navigate('/Home', { state: { section: 'Configuracoes' } });
   };
 
   return (

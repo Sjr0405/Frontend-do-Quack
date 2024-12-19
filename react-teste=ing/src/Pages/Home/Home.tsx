@@ -68,6 +68,12 @@ const Home = () => {
     }
   }, [location]);
 
+  useEffect(() => {
+    if (location.state?.section) {
+      setSection(location.state.section);
+    }
+  }, [location]);
+
   // Mapeamento das seções para seu[s componentes
   const renderSection = () => {
     const sectionComponents: { [key: string]: JSX.Element | null } = {

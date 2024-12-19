@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
 import LOgo from '../../Assets/Svg_thigas/Pato_de_perfil.svg';
@@ -140,7 +140,8 @@ const Logo = styled.div`
 
 const SideBar = ({ changeSection }: { changeSection: (section: string) => void }) => {
   const navigate = useNavigate();
-  const [selectedItem, setSelectedItem] = useState<string>('Aprender'); // Estado para rastrear o item selecionado
+  const location = useLocation();
+  const [selectedItem, setSelectedItem] = useState<string>(location.state?.section || 'Aprender'); // Estado para rastrear o item selecionado
 
   const handleItemClick = (section: string) => {
     setSelectedItem(section); // Atualiza o item selecionado

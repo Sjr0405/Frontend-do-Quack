@@ -34,12 +34,9 @@ export const ActivityCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s, box-shadow 0.2s;
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  }
+  border: 1px solid #e0e0e0;
 `;
 
 export const ActivityDetails = styled.div`
@@ -146,15 +143,11 @@ export const GabaritoContainer = styled.div`
   margin-right: 20px;
   position: relative;
   width: 200px;
-  background: #f9f9f9;
+  background: #fff;
   padding: 15px;
   border-radius: 8px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  }   
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  border: 1px solid #e0e0e0;
 `;
 
 export const GabaritoItem = styled.div`
