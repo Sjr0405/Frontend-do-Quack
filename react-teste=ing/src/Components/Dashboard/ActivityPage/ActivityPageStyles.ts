@@ -133,6 +133,13 @@ export const RestartButton = styled(Button)`
   }
 `;
 
+export const VoltarButton = styled(Button)`
+  background-color: #d32f2f;
+  &:hover {
+    background-color: #b71c1c;
+  }
+`;
+
 export const Select = styled.select`
   padding: 10px;
   border-radius: 16px;

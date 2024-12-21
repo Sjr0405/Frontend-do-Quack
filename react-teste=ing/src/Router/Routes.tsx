@@ -37,9 +37,9 @@ function MainRoutes() {
           <Route path="/EsqueciSenha" element={<EsqueciSenha />} />
 
           <Route path="/Home" element={
-            <PrivateRoute>
+            
               <Home />
-            </PrivateRoute>
+            
           } />
           <Route path="/FazerAtividade" element={
             <PrivateRoute>

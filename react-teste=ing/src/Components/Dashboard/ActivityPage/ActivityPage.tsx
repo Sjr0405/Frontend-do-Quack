@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import felizPato from '../../../Assets/Svg_thigas/FELIZ.svg';
 import tristePato from '../../../Assets/Svg_thigas/TRISTE.svg';
@@ -18,6 +18,7 @@ import {
   NavigationButton,
   QuizOption,
   RestartButton,
+  VoltarButton,
   Select,
   GabaritoContainer,
   GabaritoItem,
@@ -25,7 +26,7 @@ import {
 import Editor from '@monaco-editor/react';
 import { activities } from './activitiesData';
 
-const ActivityPage: React.FC<{ activityType: string }> = ({ activityType = 'nada' }) => {
+const ActivityPage: React.FC<{ activityType: string, changeSection: (section: string) => void }> = ({ activityType = 'nada', changeSection }) => {
   const [currentActivityIndex, setCurrentActivityIndex] = useState(0);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [wrongQuestions, setWrongQuestions] = useState<number[]>([]);
@@ -107,6 +108,10 @@ const ActivityPage: React.FC<{ activityType: string }> = ({ activityType = 'nada
     setCorrectAnswers(0);
     setShowResult(false);
     setUserCode('');
+  };
+
+  const handleBack = () => {
+    changeSection('Praticar');
   };
 
   const currentActivity = activityList[currentActivityIndex];
@@ -215,6 +220,7 @@ const ActivityPage: React.FC<{ activityType: string }> = ({ activityType = 'nada
           )}
           <Description>Você acertou {correctAnswers} de {activityList.length} questões.</Description>
           <RestartButton onClick={handleRestart}>Reiniciar</RestartButton>
+          <VoltarButton onClick={handleBack}>Voltar</VoltarButton>
         </>
       )}
     </Container>

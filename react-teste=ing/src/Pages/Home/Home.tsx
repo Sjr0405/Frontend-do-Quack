@@ -102,14 +102,14 @@ const Home = () => {
       ) : null,
       CodeReview: <CodeReview changeSection={setSection} submittedCode={submittedCode} />,
       Respostas: <Respostas changeSection={setSection} submittedCode={submittedCode} />,
-      Praticar: <Praticar changeSection={(newSection, activityType) => {
+      Praticar: <Praticar changeSection={(newSection : string , activityType?: string ) => {
         setSection(newSection);
         if (activityType) {
           setActivityType(activityType);
         }
       }} />,
       Roadmap: <Roadmap />,
-      ActivityPage: <ActivityPage activityType={activityType} />,
+      ActivityPage: <ActivityPage changeSection={setSection} activityType={activityType} />,
       Layout: <Layout />,
     };
 
